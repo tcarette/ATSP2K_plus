@@ -1,0 +1,243 @@
+alcsts_IBMSP_C_disk.f:*    This routine allocates arrays associated with states.  For the 
+alcsts_IBMSP_C_disk.f:      call alloc(pkval,idim,4)
+alcsts_IBMSP_C_disk.f:      call alloc(pvalue,idim,8)
+alcsts_IBMSP_C_disk.f:      call alloc(plused,idim,4)
+alcsts_IBMSP_C_disk.f:      qhmx = malloc(%val(nze_max_bl*8))
+alcsts_IBMSP_C_disk.f:      pih = malloc(%val(nze_tot*4))
+alcsts_IBMSP_C_disk.f:        pico = malloc(%val(nze_max_col*4))
+alcsts_IBMSP_C_disk.f:        call alloc(pcoeff,ncodim,8)
+alcsts_IBMSP_C_disk.f:        call alloc(pinptr,ncodim,4)
+alcsts_IBMSP_C_disk.f:        pico = malloc(%val(nze_tot*4))
+alcsts_IBMSP_C_disk.f:          pico = malloc(%val(nze_max_col*4))
+alcsts_IBMSP_C_disk.f:          call alloc(pcoeff,ncodim,8)
+alcsts_IBMSP_C_disk.f:          call alloc(pinptr,ncodim,4)
+alcsts_IBMSP_C_disk.f:        pcoeff = malloc(%val(new_size*8))
+alcsts_IBMSP_C_disk.f:        pinptr = malloc(%val(new_size*4))
+alcsts_IBMSP_C_disk.f:          call alloc(pcoeff,ncodim,8)
+alcsts_IBMSP_C_disk.f:          call alloc(pinptr,ncodim,4)
+alcsts_IBMSP_C_disk.f:        pcoeff = malloc(%val(nnn*8))
+alcsts_IBMSP_C_disk.f:        pinptr = malloc(%val(nnn*4))
+alcsts_IBMSP.f:*    This routine allocates arrays associated with states.  For the 
+alcsts_IBMSP.f:      call alloc(pkval,idim,4)
+alcsts_IBMSP.f:      call alloc(pvalue,idim,8)
+alcsts_IBMSP.f:      call alloc(plused,idim,4)
+alcsts_IBMSP.f:      qhmx = malloc(%val(nze_max_bl*8))
+alcsts_IBMSP.f:      pih = malloc(%val(nze_tot*4))
+alcsts_IBMSP.f:        pico = malloc(%val(nze_max_col*4))
+alcsts_IBMSP.f:        call alloc(pcoeff,ncodim,8)
+alcsts_IBMSP.f:        call alloc(pinptr,ncodim,4)
+alcsts_IBMSP.f:        pico = malloc(%val(nze_tot*4))
+alcsts_IBMSP.f:          pico = malloc(%val(nze_max_col*4))
+alcsts_IBMSP.f:          call alloc(pcoeff,ncodim,8)
+alcsts_IBMSP.f:          call alloc(pinptr,ncodim,4)
+alcsts_IBMSP.f:        pcoeff = malloc(%val(new_size*8))
+alcsts_IBMSP.f:        pinptr = malloc(%val(new_size*4))
+alcsts_IBMSP.f:          call alloc(pcoeff,ncodim,8)
+alcsts_IBMSP.f:          call alloc(pinptr,ncodim,4)
+alcsts_IBMSP.f:        pcoeff = malloc(%val(nnn*8))
+alcsts_IBMSP.f:        pinptr = malloc(%val(nnn*4))
+alcsts_IBMSP_HC_disk.f:*    This routine allocates arrays associated with states.  For the 
+alcsts_IBMSP_HC_disk.f:      call alloc(pkval,idim,4)
+alcsts_IBMSP_HC_disk.f:      call alloc(pvalue,idim,8)
+alcsts_IBMSP_HC_disk.f:      call alloc(plused,idim,4)
+alcsts_IBMSP_HC_disk.f:      qhmx = malloc(%val(nze_max_bl*8))
+alcsts_IBMSP_HC_disk.f:      pih = malloc(%val(nze_tot*4))
+alcsts_IBMSP_HC_disk.f:        pico = malloc(%val(nze_max_col*4))
+alcsts_IBMSP_HC_disk.f:        call alloc(pcoeff,ncodim,8)
+alcsts_IBMSP_HC_disk.f:        call alloc(pinptr,ncodim,4)
+alcsts_IBMSP_HC_disk.f:        pico = malloc(%val(nze_tot*4))
+alcsts_IBMSP_HC_disk.f:          pico = malloc(%val(nze_max_col*4))
+alcsts_IBMSP_HC_disk.f:          call alloc(pcoeff,ncodim,8)
+alcsts_IBMSP_HC_disk.f:          call alloc(pinptr,ncodim,4)
+alcsts_IBMSP_HC_disk.f:        pcoeff = malloc(%val(new_size*8))
+alcsts_IBMSP_HC_disk.f:        pinptr = malloc(%val(new_size*4))
+alcsts_IBMSP_HC_disk.f:          call alloc(pcoeff,ncodim,8)
+alcsts_IBMSP_HC_disk.f:          call alloc(pinptr,ncodim,4)
+alcsts_IBMSP_HC_disk.f:        pcoeff = malloc(%val(nnn*8))
+alcsts_IBMSP_HC_disk.f:        pinptr = malloc(%val(nnn*4))
+alcsts_LINUX_C_disk.f:*    This routine allocates arrays associated with states.  For the 
+alcsts_LINUX_C_disk.f:      call alloc(pkval,idim,4)
+alcsts_LINUX_C_disk.f:      call alloc(pvalue,idim,8)
+alcsts_LINUX_C_disk.f:      call alloc(plused,idim,4)
+alcsts_LINUX_C_disk.f:cgd   qhmx = malloc(nze_max_bl*8)
+alcsts_LINUX_C_disk.f:      call alloc(qhmx,nze_max_bl,8)
+alcsts_LINUX_C_disk.f:cgd   pih = malloc(nze_tot*4)
+alcsts_LINUX_C_disk.f:      call alloc(pih,nze_tot,4)
+alcsts_LINUX_C_disk.f:cgd     pico = malloc(nze_max_col*4)
+alcsts_LINUX_C_disk.f:        call alloc(pico,nze_max_col,4)
+alcsts_LINUX_C_disk.f:        call alloc(pcoeff,ncodim,8)
+alcsts_LINUX_C_disk.f:        call alloc(pinptr,ncodim,4)
+alcsts_LINUX_C_disk.f:cgd     pico = malloc(nze_tot*4)
+alcsts_LINUX_C_disk.f:        call alloc(pico,nze_tot,4)
+alcsts_LINUX_C_disk.f:cgd       pico = malloc(nze_max_col*4)
+alcsts_LINUX_C_disk.f:          call alloc(pico,nze_max_col,4)
+alcsts_LINUX_C_disk.f:          call alloc(pcoeff,ncodim,8)
+alcsts_LINUX_C_disk.f:          call alloc(pinptr,ncodim,4)
+alcsts_LINUX_C_disk.f:cgd     pcoeff = malloc(new_size*8)
+alcsts_LINUX_C_disk.f:        call alloc(pcoeff,new_size,8)
+alcsts_LINUX_C_disk.f:cgd     pinptr = malloc(new_size*4)
+alcsts_LINUX_C_disk.f:        call alloc(pinptr,new_size,4)
+alcsts_LINUX_C_disk.f:          call alloc(pcoeff,ncodim,8)
+alcsts_LINUX_C_disk.f:          call alloc(pinptr,ncodim,4)
+alcsts_LINUX_C_disk.f:cgd     pcoeff = malloc(nnn*8)
+alcsts_LINUX_C_disk.f:        call alloc(pcoeff,nnn,8)
+alcsts_LINUX_C_disk.f:cgd     pinptr = malloc(nnn*4)
+alcsts_LINUX_C_disk.f:        call alloc(pinptr,nnn,4)
+alcsts_LINUX.f:*    This routine allocates arrays associated with states.  For the 
+alcsts_LINUX.f:      call alloc(pkval,idim,4)
+alcsts_LINUX.f:      call alloc(pvalue,idim,8)
+alcsts_LINUX.f:      call alloc(plused,idim,4)
+alcsts_LINUX.f:cgd   qhmx = malloc(nze_max_bl*8)
+alcsts_LINUX.f:      call alloc(qhmx,nze_max_bl,8)
+alcsts_LINUX.f:cgd   pih = malloc(nze_tot*4)
+alcsts_LINUX.f:      call alloc(pih,nze_tot,4)
+alcsts_LINUX.f:cgd     pico = malloc(nze_max_col*4)
+alcsts_LINUX.f:        call alloc(pico,nze_max_col,4)
+alcsts_LINUX.f:        call alloc(pcoeff,ncodim,8)
+alcsts_LINUX.f:        call alloc(pinptr,ncodim,4)
+alcsts_LINUX.f:cgd     pico = malloc(nze_tot*4)
+alcsts_LINUX.f:        call alloc(pico,nze_tot,4)
+alcsts_LINUX.f:cgd       pico = malloc(nze_max_col*4)
+alcsts_LINUX.f:          call alloc(pico,nze_max_col,4)
+alcsts_LINUX.f:          call alloc(pcoeff,ncodim,8)
+alcsts_LINUX.f:          call alloc(pinptr,ncodim,4)
+alcsts_LINUX.f:cgd     pcoeff = malloc(new_size*8)
+alcsts_LINUX.f:        call alloc(pcoeff,new_size,8)
+alcsts_LINUX.f:cgd     pinptr = malloc(new_size*4)
+alcsts_LINUX.f:        call alloc(pinptr,new_size,4)
+alcsts_LINUX.f:          call alloc(pcoeff,ncodim,8)
+alcsts_LINUX.f:          call alloc(pinptr,ncodim,4)
+alcsts_LINUX.f:cgd     pcoeff = malloc(nnn*8)
+alcsts_LINUX.f:        call alloc(pcoeff,nnn,8)
+alcsts_LINUX.f:cgd     pinptr = malloc(nnn*4)
+alcsts_LINUX.f:        call alloc(pinptr,nnn,4)
+alcsts_LINUX_HC_disk.f:*    This routine allocates arrays associated with states.  For the 
+alcsts_LINUX_HC_disk.f:      call alloc(pkval,idim,4)
+alcsts_LINUX_HC_disk.f:      call alloc(pvalue,idim,8)
+alcsts_LINUX_HC_disk.f:      call alloc(plused,idim,4)
+alcsts_LINUX_HC_disk.f:cgd   qhmx = malloc(nze_max_bl*8)
+alcsts_LINUX_HC_disk.f:      call alloc(qhmx,nze_max_bl,8)
+alcsts_LINUX_HC_disk.f:cgd   pih = malloc(nze_tot*4)
+alcsts_LINUX_HC_disk.f:      call alloc(pih,nze_tot,4)
+alcsts_LINUX_HC_disk.f:cgd     pico = malloc(nze_max_col*4)
+alcsts_LINUX_HC_disk.f:        call alloc(pico,nze_max_col,4)
+alcsts_LINUX_HC_disk.f:        call alloc(pcoeff,ncodim,8)
+alcsts_LINUX_HC_disk.f:        call alloc(pinptr,ncodim,4)
+alcsts_LINUX_HC_disk.f:cgd     pico = malloc(nze_tot*4)
+alcsts_LINUX_HC_disk.f:        call alloc(pico,nze_tot,4)
+alcsts_LINUX_HC_disk.f:cgd       pico = malloc(nze_max_col*4)
+alcsts_LINUX_HC_disk.f:          call alloc(pico,nze_max_col,4)
+alcsts_LINUX_HC_disk.f:          call alloc(pcoeff,ncodim,8)
+alcsts_LINUX_HC_disk.f:          call alloc(pinptr,ncodim,4)
+alcsts_LINUX_HC_disk.f:cgd     pcoeff = malloc(new_size*8)
+alcsts_LINUX_HC_disk.f:        call alloc(pcoeff,new_size,8)
+alcsts_LINUX_HC_disk.f:cgd     pinptr = malloc(new_size*4)
+alcsts_LINUX_HC_disk.f:        call alloc(pinptr,new_size,4)
+alcsts_LINUX_HC_disk.f:          call alloc(pcoeff,ncodim,8)
+alcsts_LINUX_HC_disk.f:          call alloc(pinptr,ncodim,4)
+alcsts_LINUX_HC_disk.f:cgd     pcoeff = malloc(nnn*8)
+alcsts_LINUX_HC_disk.f:        call alloc(pcoeff,nnn,8)
+alcsts_LINUX_HC_disk.f:cgd     pinptr = malloc(nnn*4)
+alcsts_LINUX_HC_disk.f:        call alloc(pinptr,nnn,4)
+alloc_mem.f:*    3-3       allocate memory for the largest block!
+alloc_mem.f:      SUBROUTINE alloc_mem(nwf)
+alloc_mem.f:      call alloc(qeigvec,i,8)
+alloc_mem.f:      call alloc(qjptr,j,4)
+alloc_mem.f:      call alloc(pen,(nblock*mterm),4) 
+alloc_mem.f:      call alloc(iqp,nod*nwf,8)
+alloc_mem.f:      call alloc(iqn,nwf,4)
+alloc_mem.f:      call alloc(iql,nwf,4)
+alloc_mem.f:      call alloc(iqaz,nwf,8)
+alloc_mem.f:      call alloc(iqmax,nwf,4)
+alloc_mem.f:      call alloc(qvard,nwf,4)
+alloc_mem.f:      call alloc(qsum,nwf,8)
+alloc_mem.f:      call alloc(qs,nwf,8)
+alloc_mem.f:      call alloc(qdpm,nwf,8)
+alloc_mem.f:      call alloc(qacc,nwf,8)
+alloc_mem.f:      call alloc(qmeth,nwf,4)
+alloc_mem.f:      call alloc(qieptr,nwf,4)
+alloc_mem.f:      call alloc(qtm,ncfg,8)
+alloc_mem.f:      call alloc(qtp,ncfg,8)
+alloc_mem.f:      call alloc(qdiag,ncfg,8)
+alloc_mem.f:      call alloc(qiwork,iiwsz,4)
+alloc_mem.f:      call alloc(qwt,iworksz,8)
+data.f:      call alloc_mem(nwf)
+diag_allocate_dec.f:      subroutine diag_allocate(pointer,size_block,size_column,
+diag_allocate_dec.f:      pointer=malloc(size_block*size);
+diag_allocate_dec.f:        pointer = malloc(size_column*size);
+diag_allocate_dec.f:            write(0,*) 'Insufficient Memory: Stop in diag_alloc_memory'
+diag_allocate_dec.f:      end subroutine diag_allocate
+diag_allocate_DEC.f:      subroutine diag_allocate(pointer,size_block,size_column,
+diag_allocate_DEC.f:      pointer=malloc(size_block*size);
+diag_allocate_DEC.f:        pointer = malloc(size_column*size);
+diag_allocate_DEC.f:            write(0,*) 'Insufficient Memory: Stop in diag_alloc_memory'
+diag_allocate_DEC.f:      end subroutine diag_allocate
+diag_allocate_IBMSP.f:      subroutine diag_allocate(pointer,size_block,size_column,
+diag_allocate_IBMSP.f:      pointer=malloc(%val(size_block*size));
+diag_allocate_IBMSP.f:        pointer = malloc(%val(size_column*size));
+diag_allocate_IBMSP.f:            write(0,*) 'Insufficient Memory: Stop in diag_alloc_memory'
+diag_allocate_IBMSP.f:      end subroutine diag_allocate
+diag_allocate_LINUX.f:      subroutine diag_allocate(pointer,size_block,size_column,
+diag_allocate_LINUX.f:cgd   pointer=malloc(size_block*size);
+diag_allocate_LINUX.f:      call alloc(pointer,size_block,size);
+diag_allocate_LINUX.f:cgd     pointer = malloc(size_column*size);
+diag_allocate_LINUX.f:        call alloc(pointer,size_column,size);
+diag_allocate_LINUX.f:            write(0,*) 'Insufficient Memory: Stop in diag_alloc_memory'
+diag_allocate_LINUX.f:      end subroutine diag_allocate
+diag_deallocate_IBMSP.f:      subroutine diag_deallocate(pointer)
+diag_deallocate_IBMSP.f:      end subroutine diag_deallocate
+diag_deallocate_LINUX.f:      subroutine diag_deallocate(pointer)
+diag_deallocate_LINUX.f:      end subroutine diag_deallocate
+diag.f:      double precision, allocatable, dimension(:,:) :: isom_shift
+diag.f:*  if hmx_mem = .false. allocate memory for current block
+diag.f:          call diag_allocate(pih,nze_bl(iblock),nze_max(iblock),
+diag.f:          call diag_allocate(qhmx,nze,nze_max(iblock),
+diag.f:           call diag_deallocate(qhmx);
+diag.f:           call diag_deallocate(pih);
+diag.f:        if (hmx_memory) call dalloc(qhmx,nze)
+diag.f:        call dalloc(qtm,ncfg)
+diag.f:        call dalloc(qtp,ncfg)
+diag.f:        call dalloc(qdiag,ncfg)
+diag.f:        call dalloc(qiwork,iiwsz)
+diag.f:      allocate(isom_shift(MEIG,nblock)); 
+diag.f:          call diag_allocate(pih,nze_bl(iblock),nze_max(iblock),
+diag.f:            call diag_deallocate(pih);
+diag.f:      deallocate(isom_shift);
+eig_out.f:      character (len = 66), allocatable, dimension(:) :: config0
+eig_out.f:*     allocate enough space to read the cfg
+eig_out.f:      allocate(config0(max_read+1));
+eig_out.f:      deallocate(config0);
+spintgrl.f:*  Allocate memory for c.lst and pointer data
+summry.f:        if (qwt.ne.0) call dalloc(qwt,ncfg)
+summry.f:        if (pih.ne.0) call dalloc(pih,nze)
+summry.f:        if (iqp.ne.0) call dalloc(iqp,nod*nwf)
+summry.f:        if (iqn.ne.0) call dalloc(iqn,nwf)
+summry.f:        if (iql.ne.0) call dalloc(iql,nwf)
+summry.f:        if (iqaz.ne.0) call dalloc(iqaz,nwf)
+summry.f:        if (iqmax.ne.0) call dalloc(iqmax,nwf)
+summry.f:        if (qvard.ne.0) call dalloc(qvard,nwf)
+summry.f:        if (qsum.ne.0) call dalloc(qsum,nwf)
+summry.f:        if (qs.ne.0) call dalloc(qs,nwf)
+summry.f:        if (qdpm.ne.0) call dalloc(qdpm,nwf)
+summry.f:        if (qmeth.ne.0) call dalloc(qmeth,nwf)
+summry.f:        if (qieptr.ne.0) call dalloc(qieptr,nwf)
+summry.f:        if (pkval.ne.0) call dalloc(pkval,idim)
+summry.f:        if (pcoef.ne.0) call dalloc(pcoef,idim)
+summry.f:        if (pcoeff.ne.0) call dalloc(pcoeff,ncodim)
+summry.f:        if (pinptr.ne.0) call dalloc(pinptr,ncodim)
+supdatc.f:      double precision, allocatable, dimension(:) :: tmp_coef
+supdatc.f:*  allocate temp_coef for computing isotope shift 
+supdatc.f:        allocate(tmp_coef(itmpu*idim));      
+supdatc.f:         deallocate(tmp_coef); 
+supdatc.f:      double precision, allocatable, dimension(:) :: tmp_coef
+supdatc.f:*  allocate temp_coef for computing isotope shift
+supdatc.f:        allocate(tmp_coef(itmpu*idim));
+supdatc.f:         deallocate(tmp_coef);
+supdatc.f:      double precision, allocatable, dimension(:) :: tmp_coef
+supdatc.f:*  allocate temp_coef for computing isotope shift
+supdatc.f:        allocate(tmp_coef(itmpu*idim));
+supdatc.f:         deallocate(tmp_coef);
+supdatc.f:      double precision, allocatable, dimension(:) :: tmp_coef
+supdatc.f:*  allocate temp_coef for computing isotope shift
+supdatc.f:        allocate(tmp_coef(itmpu*idim));
+supdatc.f:         deallocate(tmp_coef);

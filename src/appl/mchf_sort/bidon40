@@ -1,0 +1,50 @@
+alcsts_IBMSP_C_disk.f:      write(0,'(A40,A10,A10)') 'Requesting memory for the matrix',
+alcsts_IBMSP_C_disk.f:      write(0,'(A40,i10,i10)') 'Largest Matrix block',
+alcsts_IBMSP_C_disk.f:      write(0,'(A40,i10,i10)') 'Total ih pointers',
+alcsts_IBMSP_C_disk.f:        write(0,'(A40)') 'Insufficient memory, I.Matrix on Disk '
+alcsts_IBMSP_C_disk.f:        write(0,'(A40,i10,i10)') 'Alocating memory for pcoeff',
+alcsts_IBMSP_C_disk.f:        write(0,'(A40,i10,i10)') 'Requesting memory for inptr',
+alcsts_IBMSP_C_disk.f:      write(0,'(A40,A10,A10)') 'Requesting memory for ico indices ',
+alcsts_IBMSP_C_disk.f:      write(0,'(A40,i10,i10)') 'Total pointers to nonzero elements',
+alcsts_IBMSP_C_disk.f:          write(0,'(A40)') 'Insufficient memory, ico.lst on disk '
+alcsts_IBMSP_C_disk.f:        write(0,'(A40,A10,A10)') 'Requesting memory for coef ',
+alcsts_IBMSP_C_disk.f:      write(0,'(A40,i10,i10)') 'Total coef from c.lst',
+alcsts_IBMSP_C_disk.f:      write(0,'(A40,i10,i10)') 'Total inptr to coef from c.lst',
+alcsts_IBMSP_C_disk.f:          write(0,'(A40)') ' Coefficients on Disk ';
+alcsts_IBMSP.f:      write(0,'(A40,A10,A10)') 'Requesting memory for the matrix',
+alcsts_IBMSP.f:      write(0,'(A40,i10,i10)') 'Largest Matrix block',
+alcsts_IBMSP.f:      write(0,'(A40,i10,i10)') 'Total ih pointers',
+alcsts_IBMSP.f:        write(0,'(A40)') 'Insufficient memory, I.Matrix on Disk '
+alcsts_IBMSP.f:        write(0,'(A40,i10,i10)') 'Alocating memory for pcoeff',
+alcsts_IBMSP.f:        write(0,'(A40,i10,i10)') 'Requesting memory for inptr',
+alcsts_IBMSP.f:      write(0,'(A40,A10,A10)') 'Requesting memory for ico indices ',
+alcsts_IBMSP.f:      write(0,'(A40,i10,i10)') 'Total pointers to nonzero elements',
+alcsts_IBMSP.f:          write(0,'(A40)') 'Insufficient memory, ico.lst on disk '
+alcsts_IBMSP.f:        write(0,'(A40,A10,A10)') 'Requesting memory for coef ',
+alcsts_IBMSP.f:      write(0,'(A40,i10,i10)') 'Total coef from c.lst',
+alcsts_IBMSP.f:      write(0,'(A40,i10,i10)') 'Total inptr to coef from c.lst',
+alcsts_IBMSP.f:          write(0,'(A40)') ' Coefficients on Disk ';
+alcsts_IBMSP_HC_disk.f:      write(0,'(A40,A10,A10)') 'Requesting memory for the matrix',
+alcsts_IBMSP_HC_disk.f:      write(0,'(A40,i10,i10)') 'Largest Matrix block',
+alcsts_IBMSP_HC_disk.f:      write(0,'(A40,i10,i10)') 'Total ih pointers',
+alcsts_IBMSP_HC_disk.f:        write(0,'(A40)') 'Insufficient memory, I.Matrix on Disk '
+alcsts_IBMSP_HC_disk.f:        write(0,'(A40,i10,i10)') 'Alocating memory for pcoeff',
+alcsts_IBMSP_HC_disk.f:        write(0,'(A40,i10,i10)') 'Requesting memory for inptr',
+alcsts_IBMSP_HC_disk.f:      write(0,'(A40,A10,A10)') 'Requesting memory for ico indices ',
+alcsts_IBMSP_HC_disk.f:      write(0,'(A40,i10,i10)') 'Total pointers to nonzero elements',
+alcsts_IBMSP_HC_disk.f:          write(0,'(A40)') 'Insufficient memory, ico.lst on disk '
+alcsts_IBMSP_HC_disk.f:        write(0,'(A40,A10,A10)') 'Requesting memory for coef ',
+alcsts_IBMSP_HC_disk.f:      write(0,'(A40,i10,i10)') 'Total coef from c.lst',
+alcsts_IBMSP_HC_disk.f:      write(0,'(A40,i10,i10)') 'Total inptr to coef from c.lst',
+alcsts_IBMSP_HC_disk.f:          write(0,'(A40)') ' Coefficients on Disk ';
+alloc_mem.f:         lim = min0(2*nume(nb)+40,ncfg_bl(nb))
+eig_out.f:      unit_n = 40 + iblock
+eijset.f:        DO 40 JJ = (noffd)-1,IP,-1
+eijset.f: 40     CONTINUE
+mchf.f:        unit_n = 40 + i;
+nodec.f:*   j = 40,...,M-10.   The node counting procedure counts the local max
+nodec.f:      DO 1 J = 40,MM
+nodec.f:      DIFF1 = PDE(40) - PDE(39)
+nodec.f:      DO 2 J = 40, MM
+xch.f:              GO TO (10, 20, 30, 40) IK
+xch.f:40            CC = D4*CC
