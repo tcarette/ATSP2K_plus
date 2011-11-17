@@ -1,0 +1,65 @@
+*
+*     ------------------------------------------------------------------
+*	M U M D A D
+*     ------------------------------------------------------------------
+*
+      SUBROUTINE MUMDAD(II,IJ,IK,M,X)
+      IMPLICIT DOUBLE PRECISION(A-H,O-Z)
+      COMMON/MEDEFN/IHSH,NJ(10),LJ(10),NOSH(10,2),J1QN(19,3,2),IJFUL(10)
+      COMMON/INTERM/J1B(10,3,2),J1T(3,2)
+      COMMON/INFORM/IREAD,IWRITE,IOUT,ISC0,ISC1,ISC2,ISC3,JSC0,JSC1,
+     :JSC2,JSC3
+      COMMON/DEBUG/IBUG1,IBUG2,IBUG3,NBUG6,NBUG7,IFULL
+*
+*     NOTICE THE NAMES IN THE COMMON BLOCKS. SEE SETUP FOR DESCRIPTION
+*
+* --- CALLS AND EVALUATES FRACTIONAL PARENTAGE COEFFICIENTS
+*
+   10 FORMAT(8H COEFP =,F15.9)
+      X=1.0D0
+      LIJ=LJ(IJ)
+      IF(LIJ) 12,12,11
+   12 IF(M)4,5,4
+   11 N=NOSH(IJ,II)
+      IVI=J1QN(IJ,1,II)
+      ILI=(J1QN(IJ,2,II)-1)/2
+      ISI=J1QN(IJ,3,II)
+*
+*     IF M=0 THERE ARE QUANTUM NUMBERS WITH TILDES TO CONSIDER
+*
+      IF(M) 1,2,1
+    1 IVJ=J1B(IJ,1,II)
+      ILJ=(J1B(IJ,2,II)-1)/2
+      ISJ= J1B(IJ,3,II)
+      GO TO 3
+    2 IVJ=J1T(1,II)
+      ILJ=(J1T(2,II)-1)/2
+      ISJ=J1T(3,II)
+    3 CALL CFP(LIJ,N,IVI,ILI,ISI,IVJ,ILJ,ISJ,COEFP)
+      IF(IBUG2.GT.0) WRITE(IWRITE,10) COEFP
+      X=X*COEFP
+      IF(DABS(X).LT.1.D-14) GO TO 5
+    4 LIJ=LJ(IK)
+      IF(LIJ) 5,5,14
+   14 IF(M) 6,7,6
+    6 N=NOSH(IK,II)
+      IVI=J1QN(IK,1,II)
+      ILI=(J1QN(IK,2,II)-1)/2
+      ISI=J1QN(IK,3,II)
+      IVJ = J1B(IK,1,II)
+      ILJ =(J1B(IK,2,II)-1)/2
+      ISJ = J1B(IK,3,II)
+      GO TO 8
+    7 N=NOSH(IJ,II)-1
+      IVI=IVJ
+      ILI=ILJ
+      ISI=ISJ
+      IVJ=J1B(IJ,1,II)
+      ILJ=(J1B(IJ,2,II)-1)/2
+      ISJ = J1B(IJ,3,II)
+    8 CALL CFP(LIJ,N,IVI,ILI,ISI,IVJ,ILJ,ISJ,COEFP)
+      IF(IBUG2.GT.0) WRITE(IWRITE,10) COEFP
+      X=X*COEFP
+    5 CONTINUE
+      RETURN
+      END
