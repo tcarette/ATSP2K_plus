@@ -1,0 +1,54 @@
+export ATSP=$(pwd)
+
+export FC_MALLOC="LINUX"                     
+
+#export LD_LIBRARY_PATH="/usr/local/lib64;/usr/local/products/pgi/linux86-64/6.1/lib"
+#export PATH=/usr/pgi/linux86-64/6.1/bin:$PATH
+
+#export LD_LIBRARY_PATH="/usr/local/lib;/usr/local/products/pgi/linux86/6.1/lib"
+#export PATH=/usr/pgi/linux86/6.1/bin:$PATH
+
+#########################################################################
+
+export FC="pgf90"                          # Fortran compiler
+#export FC="pgf90 -C"                          # Fortran compiler + debug op.
+#export FC_FLAGS="-O2 -byteswapio"          # Serial code compiler flags
+#export FC_FLAGS="-Msave -byteswapio -Minform=inform -tp k8-64 -v -s -fast"
+export FC_FLAGS="-mcmodel=medium -Msave -O3 -fastsse"
+export FC_LD="-Bstatic"                    # Serial linker flags
+
+#########################################################################
+
+#export FC_MPI="mpif90"                     # MPI compiler
+#export FC_MPIFLAGS="-O2 -byteswapio"       # Parallel code compiler flags
+export FC_MPI="/opt/hpmpi/bin/mpif90"
+export FC_MPIFLAGS="-mcmodel=medium -Msave -O3 -fastsse"       # Parallel code compiler flags
+#export FC_MPIFLAGS="-Msave -byteswapio -Minform=inform -tp k8-64 -v -s -fast"
+#export FC_MPILD="-Bstatic"                # Parallel linker flags
+export FC_MPILD=""                         # Parallel linker flags
+export MPICH_F90="pgf90"                   # mpi compiler
+export MPICH_F90LINKER="pgf90"             # mpi linker
+export MPI_TMP="/work/$( whoami )"
+
+#########################################################################
+
+export CPP="g++"                           # C++ compiler
+export CPP_FLAGS="-O3"                     # C++ compiler flags
+export CPP_LD="-static"                    # C++ linker
+
+#########################################################################
+
+export LAPACK_DIR=/bfucc/PRD_PGI/linux86-64/7.0-7/lib
+#export LAPACK_DIR=/opt/hpmpi/lib/linux_amd64/
+#export LAPACK_DIR=/usr/local/products/pgi/linux86-64/6.1/lib
+#export LAPACK_DIR=/usr/local/products/pgi/linux86/6.1/lib
+#export LAPACK_LIB="-llapack -lblas -lmtmpi -lpthread -lacml"
+#gd export LAPACK_LIB="-lmtmpi -lpthread -lacml"
+export LAPACK_LIB="-lpthread -lacml"
+#export  LAPACK_LIB="-llapack -lblas"
+
+#########################################################################
+
+cd ${ATSP}/src
+make $* 2>&1 | tee ${ATSP}/make.err 
+grep "severe" ../make.err
