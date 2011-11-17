@@ -1,0 +1,308 @@
+alcsts_IBMSP_C_disk.f:      PARAMETER(MAXCLST=250000000);!keep clst on disk, memory swapping, 2GB
+alcsts_IBMSP_C_disk.f:     :        nze_max(mterm)
+alcsts_IBMSP_C_disk.f:     :          term_bl, qeigvec, pen, lguess,nze_max
+alcsts_IBMSP_C_disk.f:*     nze_max_bl is maximum nze of a block 
+alcsts_IBMSP_C_disk.f:      nze_max_bl = maxval(nze_bl(1:nblock))
+alcsts_IBMSP_C_disk.f:*     nze_max_col is maximum nze of a cloumn of the matrix 
+alcsts_IBMSP_C_disk.f:      nze_max_col = maxval(nze_max(1:nblock))
+alcsts_IBMSP_C_disk.f:     :   nze_max_bl, (nze_max_bl*8)/MB
+alcsts_IBMSP_C_disk.f:      qhmx = malloc(%val(nze_max_bl*8))
+alcsts_IBMSP_C_disk.f:      if((qhmx == 0).or.(pih == 0).or.(nze_tot>MAXCLST)) then
+alcsts_IBMSP_C_disk.f:        pico = malloc(%val(nze_max_col*4))
+alcsts_IBMSP_C_disk.f:          pico = malloc(%val(nze_max_col*4))
+alcsts_IBMSP.f:      PARAMETER(MAXCLST=250000000);!keep clst on disk, memory swapping, 2GB
+alcsts_IBMSP.f:     :        nze_max(mterm)
+alcsts_IBMSP.f:     :          term_bl, qeigvec, pen, lguess,nze_max
+alcsts_IBMSP.f:*     nze_max_bl is maximum nze of a block 
+alcsts_IBMSP.f:      nze_max_bl = maxval(nze_bl(1:nblock))
+alcsts_IBMSP.f:*     nze_max_col is maximum nze of a cloumn of the matrix 
+alcsts_IBMSP.f:      nze_max_col = maxval(nze_max(1:nblock))
+alcsts_IBMSP.f:     :   nze_max_bl, (nze_max_bl*8)/MB
+alcsts_IBMSP.f:      qhmx = malloc(%val(nze_max_bl*8))
+alcsts_IBMSP.f:      if((qhmx == 0).or.(pih == 0).or.(nze_tot>MAXCLST)) then
+alcsts_IBMSP.f:        pico = malloc(%val(nze_max_col*4))
+alcsts_IBMSP.f:          pico = malloc(%val(nze_max_col*4))
+alcsts_IBMSP_HC_disk.f:      PARAMETER(MAXCLST=250000000);!keep clst on disk, memory swapping, 2GB
+alcsts_IBMSP_HC_disk.f:     :        nze_max(mterm)
+alcsts_IBMSP_HC_disk.f:     :          term_bl, qeigvec, pen, lguess,nze_max
+alcsts_IBMSP_HC_disk.f:*     nze_max_bl is maximum nze of a block 
+alcsts_IBMSP_HC_disk.f:      nze_max_bl = maxval(nze_bl(1:nblock))
+alcsts_IBMSP_HC_disk.f:*     nze_max_col is maximum nze of a cloumn of the matrix 
+alcsts_IBMSP_HC_disk.f:      nze_max_col = maxval(nze_max(1:nblock))
+alcsts_IBMSP_HC_disk.f:     :   nze_max_bl, (nze_max_bl*8)/MB
+alcsts_IBMSP_HC_disk.f:      qhmx = malloc(%val(nze_max_bl*8))
+alcsts_IBMSP_HC_disk.f:      if((qhmx == 0).or.(pih == 0).or.(nze_tot>MAXCLST)) then
+alcsts_IBMSP_HC_disk.f:        pico = malloc(%val(nze_max_col*4))
+alcsts_IBMSP_HC_disk.f:          pico = malloc(%val(nze_max_col*4))
+alcsts_LINUX_C_disk.f:      PARAMETER(MAXCLST=250000000);!keep clst on disk, memory swapping, 2GB
+alcsts_LINUX_C_disk.f:     :        nze_max(mterm)
+alcsts_LINUX_C_disk.f:     :          term_bl, qeigvec, pen, lguess,nze_max
+alcsts_LINUX_C_disk.f:*     nze_max_bl is maximum nze of a block 
+alcsts_LINUX_C_disk.f:      nze_max_bl = maxval(nze_bl(1:nblock))
+alcsts_LINUX_C_disk.f:*     nze_max_col is maximum nze of a cloumn of the matrix 
+alcsts_LINUX_C_disk.f:      nze_max_col = maxval(nze_max(1:nblock))
+alcsts_LINUX_C_disk.f:cgd   qhmx = malloc(nze_max_bl*8)
+alcsts_LINUX_C_disk.f:      call alloc(qhmx,nze_max_bl,8)
+alcsts_LINUX_C_disk.f:      if((qhmx == 0).or.(pih == 0).or.(nze_tot>MAXCLST)) then
+alcsts_LINUX_C_disk.f:cgd     pico = malloc(nze_max_col*4)
+alcsts_LINUX_C_disk.f:        call alloc(pico,nze_max_col,4)
+alcsts_LINUX_C_disk.f:cgd       pico = malloc(nze_max_col*4)
+alcsts_LINUX_C_disk.f:          call alloc(pico,nze_max_col,4)
+alcsts_LINUX.f:      PARAMETER(MAXCLST=250000000);!keep clst on disk, memory swapping, 2GB
+alcsts_LINUX.f:     :        nze_max(mterm)
+alcsts_LINUX.f:     :          term_bl, qeigvec, pen, lguess,nze_max
+alcsts_LINUX.f:*     nze_max_bl is maximum nze of a block 
+alcsts_LINUX.f:      nze_max_bl = maxval(nze_bl(1:nblock))
+alcsts_LINUX.f:*     nze_max_col is maximum nze of a cloumn of the matrix 
+alcsts_LINUX.f:      nze_max_col = maxval(nze_max(1:nblock))
+alcsts_LINUX.f:cgd   qhmx = malloc(nze_max_bl*8)
+alcsts_LINUX.f:      call alloc(qhmx,nze_max_bl,8)
+alcsts_LINUX.f:      if((qhmx == 0).or.(pih == 0).or.(nze_tot>MAXCLST)) then
+alcsts_LINUX.f:cgd     pico = malloc(nze_max_col*4)
+alcsts_LINUX.f:        call alloc(pico,nze_max_col,4)
+alcsts_LINUX.f:cgd       pico = malloc(nze_max_col*4)
+alcsts_LINUX.f:          call alloc(pico,nze_max_col,4)
+alcsts_LINUX_HC_disk.f:      PARAMETER(MAXCLST=250000000);!keep clst on disk, memory swapping, 2GB
+alcsts_LINUX_HC_disk.f:     :        nze_max(mterm)
+alcsts_LINUX_HC_disk.f:     :          term_bl, qeigvec, pen, lguess,nze_max
+alcsts_LINUX_HC_disk.f:*     nze_max_bl is maximum nze of a block 
+alcsts_LINUX_HC_disk.f:      nze_max_bl = maxval(nze_bl(1:nblock))
+alcsts_LINUX_HC_disk.f:*     nze_max_col is maximum nze of a cloumn of the matrix 
+alcsts_LINUX_HC_disk.f:      nze_max_col = maxval(nze_max(1:nblock))
+alcsts_LINUX_HC_disk.f:cgd   qhmx = malloc(nze_max_bl*8)
+alcsts_LINUX_HC_disk.f:      call alloc(qhmx,nze_max_bl,8)
+alcsts_LINUX_HC_disk.f:      if((qhmx == 0).or.(pih == 0).or.(nze_tot>MAXCLST)) then
+alcsts_LINUX_HC_disk.f:cgd     pico = malloc(nze_max_col*4)
+alcsts_LINUX_HC_disk.f:        call alloc(pico,nze_max_col,4)
+alcsts_LINUX_HC_disk.f:cgd       pico = malloc(nze_max_col*4)
+alcsts_LINUX_HC_disk.f:          call alloc(pico,nze_max_col,4)
+alloc_mem.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+alloc_mem.f:      COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+alloc_mem.f:     :        nze_max(mterm)
+alloc_mem.f:     :          term_bl, qeigvec, pen, lguess, nze_max
+alloc_mem.f:      call alloc(iqmax,nwf,4)
+alloc_mem.f:      nze = maxval(nze_bl(1:nblock))
+alloc_mem.f:      lim = maxval(iiws(1:nblock))
+alloc_mem.f:      iiwsz = 6*lim + maxval(nume(1:nblock))
+alloc_mem.f:      iworksz = maxval(iws(1:nblock))
+alloc_mem.f:      ncfg = maxval(ncfg_bl(1:nblock))
+data.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+data.f:      COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+data.f:     :        nze_max(mterm)
+data.f:     :          term_bl, qeigvec, pen, lguess,nze_max
+data.f:         write(ISCW,'(A,I4)') 'NWF too large for this code: MAX = ',NWD
+data.f:     :      term_bl(nb),ncfg_bl(nb),NZE_bl(nb),cf_tot(nb),nze_max(nb)
+data.f:     :                   'Maximum for current dimensions is',meig
+de.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+de.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+de.f:      KK= MAX0(1,METH(I))
+de.f:     1    DMAX1(DABS(D1 - PN), DABS(D1/PN - D1)) .LT. 0.10D0 )
+de.f:      MAX(I) = M
+de.f:      DP     = DMAX1(DP    ,DABS(DIFF)*R2(J))
+de.f:      MAX(i) = m
+de.f:         MM = MAX0(MAX(JI),MAX(I))
+de.f:         MAX(JI) = MM
+de.f:         M = MAX(I)
+de.f:            M = MAX0(M,MAX(JV(JJ)))
+de.f:68    MAX(I) = M
+de.f:      IF (AZZ .GT. D0) AZ(I) = DMAX1(AZZ,D5*AZ(I))
+diag.f:     :   (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+diag.f:      COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+diag.f:     :        nze_max(mterm)
+diag.f:     :          term_bl, qeigvec, pen, lguess,nze_max
+diag.f:      nze = maxval(nze_bl(1:nblock))
+diag.f:      lim = maxval(iiws(1:nblock))
+diag.f:      iiwsz = 6*lim + maxval(nume(1:nblock))
+diag.f:      iworksz = maxval(iws(1:nblock))
+diag.f:        max_col = 1; 
+diag.f:          call diag_allocate(pih,nze_bl(iblock),nze_max(iblock),
+diag.f:          if (.not.diag_ih_memory) ih_total = nze_max(iblock)
+diag.f:          call diag_allocate(qhmx,nze,nze_max(iblock),
+diag.f:     :         nze_max(iblock))
+diag.f:     :        jptr(nj+1),jjh,nijcurr,ncodim,ncfg,nze_max(iblock),
+diag.f:     :       nze_max(iblock))
+diag.f:        nze = nze_max(iblock);
+diag.f:      maxiter = max0(30*nume(iblock),100)
+diag.f:     :        crite,critc,critr,ortho,maxiter,
+diag.f:           j = idamax(ncfg,wt(ioffw+1),1)
+diag.f:          call diag_allocate(pih,nze_bl(iblock),nze_max(iblock),
+diag.f:     :          max_col,nijcurr,last,isom_shift)
+diag.f:     :          max_col,nijcurr,last,isom_shift)
+diag.f:     :          max_col,nijcurr,cf_tot,last,isom_shift)
+diag.f:     :          max_col,nijcurr,last,isom_shift)
+diag.f:     :          max_col,nijcurr,last,isom_shift)
+diag_hmx.f:      max_col = 1; 
+diag_hmx.f:            max_col = max_col+1
+diag_hmx.f:     :           jptr,jjh,nijcurr,ncodim,ncfg,nze_max,nze,hii,
+diag_hmx.f:      dimension ico(nze_max), hmx(nze_max), coeff(*), value(*), inptr(*)
+diag_hmx.f:      hmx(1:nze_max) = 0.0
+diag_hmx.f:      ico(1:nze_max) = 0
+diag_hmx.f:              hmx(1:nze_max) = 0.0;
+diag_hmx.f:              ico(1:nze_max) = 0.0;
+diff.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+diff.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+diff.f:      MM = MAX(I) - 3
+dssbmv.f:*		iupper. (max elements that may contain= n^2/(2*nodes))
+e.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+e.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+eig_out.f:      integer, dimension(2)	:: max_comp(MEIG)
+eig_out.f:      integer		 	:: max_read, lstring, unit_n
+eig_out.f:      max_comp = 0
+eig_out.f:*<<< find the configurations with max comp of the eigen vector
+eig_out.f:	mx = MaxLoc(abs(wt(ics:ice)))
+eig_out.f:        max_comp(ic1) = mx(1)
+eig_out.f:*     ... find the maximum of max_comp to read max_read lines  
+eig_out.f:      max_read = MaxVal(max_comp)
+eig_out.f:      allocate(config0(max_read+1));
+eig_out.f:       !print*, max_read , '::::::::'
+eig_out.f:*     ... read all lines.le.max_read of file 'cfg.inp'
+eig_out.f:      do i = 1, max_read 
+eig_out.f:*     ... order each configurations to correspond to max comp of the eig vector
+eig_out.f:        config(i) = config0(max_comp(i))
+eig_out.f:     :                 max_comp(i), e(i), config_tmp(1:lstring) 
+eijset.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+eijset.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+grange.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+grange.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+mchf.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+mchf.f:      COMMON/NEL/   IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+mchf.f:     :        nze_max(mterm)
+mchf.f:     :          term_bl, qeigvec, pen, lguess,nze_max
+mchf.f:     :            ' TOO MANY POINTS FOR EACH FUNCTION: MAX=(220)'
+methd1.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+methd1.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+nmrvs.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+nmrvs.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+nodec.f:*   j = 40,...,M-10.   The node counting procedure counts the local max
+nodec.f:*   and min values.   Only nodes between sufficiently large max and
+nodec.f:*   ***** FIND MAX|PDE(J)|
+nodec.f:1     DM = DMAX1(DM, DABS(PDE(J)))
+nodec.f:*   *****  COUNT THE NUMBER OF LOCAL MAX OR MIN'S
+nodec.f:*   *****  A MAX OR MIN HAS BEEN FOUND.   TEST IF IT IS
+nodec.f:*   ***** CHECK IF THIS IS THE FIRST SIGNIFICANT MAXIMUM
+nodec.f:*         OCCURRED SINCE THE LAST SIGNIFICANT MAX OR MIN
+orthog.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+orthog.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+orthog.f:              M = MAX0(MAX(I),MAX(II))
+orthog.f:	      Max(i) = m
+orthog.f:	m = max(i)
+orthog.f:	max(i) = m
+output.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+output.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+output.f:1     MX = MAX0(MX,MAX(J))
+output.f:16    FORMAT(4X,10HMAX. DIFF. ,F15.7,7F13.7)
+output.f:      ML = MAX0(2,LM)
+output.f:      MMX = MAX(I)
+potl.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+potl.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+prprty.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+prprty.f:      COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+prprty.f:     :        nze_max(mterm)
+prprty.f:     :          term_bl, qeigvec, pen, lguess,nze_max
+quad.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+quad.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+scale.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+scale.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+scale.f:      MAX(I) = NO
+scf.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+scf.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+scf.f:     :        nze_max(mterm)
+scf.f:     :          term_bl, qeigvec, pen, lguess,nze_max
+scf.f:     :      /10X,44HNUMBER OF POINTS IN THE MAXIMUM RANGE      =,I4/
+scf.f:     1           27H :WEIGHTED MAXIMUM CHANGE =,1PD10.2)
+scf.f:     1         10X,'MAXIMUM WEIGHTED CHANGE IN FUNCTIONS  =',D10.2/
+search.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+search.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+search.f:      NJ = MAX0(70,MAX(I)-100)
+solve.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+solve.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+solve.f:      ZINF = DMAX1(0.05D0, Z-YR(ND))
+solve.f:      M = MIN0(MAX(I),NO-1)
+solve.f:      M = MAX0(M1,MH)
+solve.f:      M = MAX0(M,M2)
+sortcsf.f:        epsmax = 0.0
+sortcsf.f:        jmax = 0
+sortcsf.f:            epsmax = MaxVal(epsmax,epsapl)
+sortcsf.f:            IF (epsapl .eq. epsmax) THEN
+sortcsf.f:              jmax = japl
+sortcsf.f:        IF ( jmax .eq. 0 ) THEN
+sortcsf.f:          print *, ' jmax = 0 (IF B tjs false?) at iteration ', nref
+sortcsf.f:          noref(jmax) = 0.0
+sortcsf.f:          iref(nrefp1) = jmax
+sortcsf.f:          print *, ' Slcted config. at iteration ', nref, ': ', jmax
+sortcsf.f:PGF90-S-0074-Illegal number or type of arguments to maxval - keyword argument array (sortcsf.f: 49)
+spintgrl.f:     :        nze_max(mterm)
+spintgrl.f:     :          term_bl, qeigvec, pen, lguess, nze_max
+spintgrl.f:       maxorb = nwf-nclosd
+spintgrl.f:       if (ncl.ne.nclosd.or.mwf.ne.maxorb.or.nbb.ne.nblock) then
+spintgrl.f:      maxorb = maxorb - 24
+spintgrl.f:      if (maxorb .gt. 0) go to 101
+summry.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+summry.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+summry.f:        if (iqmax.ne.0) call dalloc(iqmax,nwf)
+supdatc.f:      SUBROUTINE UPDATC_memory_all(iblock,wt,ncfg,maxev,jptr,ihh,ico,
+supdatc.f:     :           eigst_weight,max_col,nijcurr,cf_tot,last,isom_shift)
+supdatc.f:     :  (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+supdatc.f:      COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+supdatc.f:      dimension wt(ncfg*maxev), jptr(*), ico(*), ihh(*)
+supdatc.f:     :   nze_bl(mterm), ncfg_bl(mterm), niv_bl(mterm),nze_max(mterm)
+supdatc.f:     :          term_bl, qeigvec, pen, lguess,nze_max
+supdatc.f:        do im1 = 1,maxev
+supdatc.f:      max_col = 1;
+supdatc.f:                if (nijcurr.gt.jptr(max_col)) then
+supdatc.f:                   max_col = max_col+1
+supdatc.f:             do j = 1,maxev
+supdatc.f:         do im1 = 1,maxev
+supdatc.f:      SUBROUTINE UPDATC_disk_ico(iblock,wt,ncfg,maxev,jptr,ihh,
+supdatc.f:     :        eigst_weight,max_col,nijcurr,last,isom_shift)
+supdatc.f:cgd  :        eigst_weight,max_col,nijcurr,cf_tot,last,isom_shift)
+supdatc.f:     :  (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+supdatc.f:      COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+supdatc.f:      dimension wt(ncfg*maxev), jptr(*), ihh(*)
+supdatc.f:     :        nze_max(mterm)
+supdatc.f:     :          term_bl, qeigvec, pen, lguess,nze_max
+supdatc.f:cgd   integer ico(nze_max(iblock))
+supdatc.f:      max_col = 1;
+supdatc.f:        do im1 = 1,maxev
+supdatc.f:                if (nijcurr.gt.jptr(max_col)) then
+supdatc.f:                   max_col = max_col+1
+supdatc.f:             do j = 1,maxev
+supdatc.f:         do im1 = 1,maxev
+supdatc.f:      SUBROUTINE UPDATC_disk_clst(iblock,wt,ncfg,maxev,jptr,ihh,ico,
+supdatc.f:     :          eigst_weight,max_col,nijcurr,cf_tot,last,isom_shift)
+supdatc.f:     :  (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+supdatc.f:      COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+supdatc.f:      dimension wt(ncfg*maxev), jptr(*), ico(*), ihh(*)
+supdatc.f:     :        nze_max(mterm)
+supdatc.f:     :          term_bl, qeigvec, pen, lguess,nze_max
+supdatc.f:      max_col = 1;
+supdatc.f:        do im1 = 1,maxev
+supdatc.f:                if (Nijcurr.gt.jptr(max_col)) then
+supdatc.f:                   max_col = max_col+1
+supdatc.f:             do j = 1,maxev
+supdatc.f:         do im1 = 1,maxev
+supdatc.f:      SUBROUTINE UPDATC_disk_ih(iblock,wt,ncfg,maxev,jptr,ihh,
+supdatc.f:     :          eigst_weight,max_col,nijcurr,last,isom_shift)
+supdatc.f:     :  (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+supdatc.f:      COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+supdatc.f:      dimension wt(ncfg*maxev),jptr(*),ihh(*)
+supdatc.f:     :        nze_max(mterm)
+supdatc.f:     :          term_bl, qeigvec, pen, lguess,nze_max
+supdatc.f:      integer ico(nze_max(iblock))
+supdatc.f:      max_col = 1;
+supdatc.f:        do im1 = 1,maxev
+supdatc.f:                if (nijcurr.gt.jptr(max_col)) then
+supdatc.f:                   max_col = max_col+1
+supdatc.f:             do j = 1,maxev
+supdatc.f:         do im1 = 1,maxev
+update.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+update.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+wavefn.f:     :     (IQMAX,MAX(1)),(QVARD,VARIED(1)),(QSUM,SUM(1)),(QS,S(1)),
+wavefn.f:        COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,
+wavefn.f:     :        nze_max(mterm)
+wavefn.f:     :          term_bl, qeigvec, pen, lguess,nze_max
+wavefn.f:         MAX(I) = M
+wavefn.f:31    MAX(I) = M
+wavefn.f:              M = MAX0(MAX(I),MAX(II))
+xch.f:     :(IQMAX,MAX(20)),(QVARD,VARIED(20)),(QSUM,SUM(20)),(QS,S(20)),
+xch.f:      COMMON/NEL/IQP,IQN,IQL,IQAZ,IQMAX,QVARD,QSUM,QS,QDPM,QACC,

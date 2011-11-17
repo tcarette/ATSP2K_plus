@@ -1,0 +1,60 @@
+#
+# Created by C. Froese Fischer and G. Tachiev
+#  April, 2000
+#
+# Makefile for the system Breit
+#     This system assumes all orbitals are orthogonal
+#     so that there are no overlap integrals.  It also
+#     produces data so that the sparse matrix representation
+#     can be used.  Two files are produced:
+#     c.lst -- sequential file of coefficient data, up to lsdim items
+#              per record, where inptr in a pointer to an integral
+#              Record: new, cn(1:new), inptr(1:new)
+#     yint.lst -- sequential file, variable length
+#         1) nclosed, maxorb, ncfg, lsdim, lcdim
+#         2) closed orbitals
+#         3) other orbitals
+#         5) nij, ncol, jptr(i),i=1,ncol
+#         6)  For each case
+#               - int(case), nint, nc
+#               - intgrl(i),intptr(i), i=1,nint
+#     ih.lst  -- for each column, jan(i) for non-zero elements
+#     ico.lst -- for each column, ico(i), the position in the
+#                coefficient list of the last coefficient of
+#                this matrix element.
+
+
+
+# Directory where the libraries reside
+EXED = ../test
+LIBDIR = ../lib
+MBR = $(EXED)/mpi_breit
+LDFLAGS = -Wl "/u1/georgio/atsp2K/lib/d2s.cld"
+# Libraries to be searched
+LIB_ANG_COM = -ldvdson -lang -lrad -lcom -lrad -lmpiu
+# Choose fortran compiler
+FC = f90
+FFLAGS = -g -dp -e0
+MPI_FFLAGS = -X2
+
+# Source files needed for the system
+SRC  =  acnfig.f mpi_breit.f breitgg.f mpi_brevala.f mpi_genintbr.f  \
+        isearch.f ltriang.f orthog.f savebr.f setupgg.f gdsummpi.F \
+        gdsummpii.F mpi_cfgo1.f
+
+# Object files needed for the system
+OBJECTS = acnfig.o mpi_breit.o breitgg.o mpi_brevala.o mpi_genintbr.o  \
+        input_br.o isearch.o ltriang.o orthog.o savebr.o setupgg.o mpi_cfgo1.o 
+
+install: $(MBR)
+$(MBR): $(OBJECTS) 
+	f90 -o  $(MBR) $(LDFLAGS) $(FFLAGS) $(MPI_FFLAGS) -L$(LIBDIR) \
+                $(OBJECTS) $(LIB_ANG_COM) 
+#	mv $(MBR)  ../test/
+
+.f.o:
+	$(FC) -c $(FFLAGS) $(MPI_FFLAGS) $*.f
+
+BREIT.f : $(SRC) 
+	cat $(SRC) > BREIT.f
+

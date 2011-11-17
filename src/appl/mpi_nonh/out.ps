@@ -1,0 +1,4141 @@
+%!PS-Adobe-3.0
+%%Title: codeall
+%%For: Oliver Scharf
+%%Creator: a2ps version 4.13
+%%CreationDate: Mon Jan 15 15:46:43 2007
+%%BoundingBox: 24 24 588 768
+%%DocumentData: Clean7Bit
+%%Orientation: Landscape
+%%Pages: 21
+%%PageOrder: Ascend
+%%DocumentMedia: Letter 612 792 0 () ()
+%%DocumentNeededResources: font Courier
+%%+ font Courier-Bold
+%%+ font Courier-BoldOblique
+%%+ font Courier-Oblique
+%%+ font Helvetica
+%%+ font Helvetica-Bold
+%%+ font Symbol
+%%+ font Times-Bold
+%%+ font Times-Roman
+%%DocumentProcessColors: Black 
+%%DocumentSuppliedResources: procset a2ps-a2ps-hdr
+%%+ procset a2ps-black+white-Prolog
+%%+ encoding ISO-8859-1Encoding
+%%EndComments
+/a2psdict 200 dict def
+a2psdict begin
+%%BeginProlog
+%%Copyright: (c) 1988, 89, 90, 91, 92, 93 Miguel Santana
+%%Copyright: (c) 1995, 96, 97, 98 Akim Demaille, Miguel Santana
+% Check PostScript language level.
+/languagelevel where {
+  pop /gs_languagelevel languagelevel def
+} {
+  /gs_languagelevel 1 def
+} ifelse
+
+% EPSF import as in the Red Book
+/BeginInclude {
+  /b4_Inc_state save def    		% Save state for cleanup
+  /dict_count countdictstack def	% Count objects on dict stack
+  /op_count count 1 sub def		% Count objects on operand stack 
+  userdict begin
+    0 setgray 0 setlinecap
+    1 setlinewidth 0 setlinejoin
+    10 setmiterlimit [ ] 0 setdash newpath
+    gs_languagelevel 1 ne {
+      false setstrokeadjust false setoverprint 
+    } if
+} bind def
+
+/EndInclude {
+  count op_count sub { pos } repeat	% Clean up stacks
+  countdictstack dict_count sub { end } repeat
+  b4_Inc_state restore
+} bind def
+
+/BeginEPSF {
+  BeginInclude
+  /showpage { } def
+} bind def
+
+/EndEPSF {
+  EndInclude
+} bind def
+
+% Page prefeed
+/page_prefeed {         % bool -> -
+  statusdict /prefeed known {
+    statusdict exch /prefeed exch put
+  } {
+    pop
+  } ifelse
+} bind def
+
+/deffont {
+  findfont exch scalefont def
+} bind def
+
+/reencode_font {
+  findfont reencode 2 copy definefont pop def
+} bind def
+
+% Function c-show (str => -)
+% centers text only according to x axis.
+/c-show { 
+  dup stringwidth pop
+  2 div neg 0 rmoveto
+  show
+} bind def
+
+% Function l-show (str => -)
+% prints texts so that it ends at currentpoint
+/l-show {
+  dup stringwidth pop neg 
+  0 
+  rmoveto show
+} bind def
+
+% center-fit show (str w => -)
+% show centered, and scale currentfont so that the width is less than w
+/cfshow {
+  exch dup stringwidth pop
+  % If the title is too big, try to make it smaller
+  3 2 roll 2 copy
+  gt
+  { % if, i.e. too big
+    exch div
+    currentfont exch scalefont setfont
+  } { % ifelse
+    pop pop 
+  }
+  ifelse
+  c-show			% center title
+} bind def
+
+% Return the y size of the current font
+% - => fontsize
+/currentfontsize {
+  currentfont /FontType get 0 eq {
+    currentfont /FontMatrix get 3 get
+  }{
+    currentfont /FontMatrix get 3 get 1000 mul
+  } ifelse
+} bind def
+
+% reencode the font
+% <encoding-vector> <fontdict> -> <newfontdict>
+/reencode { %def
+  dup length 5 add dict begin
+    { %forall
+      1 index /FID ne 
+      { def }{ pop pop } ifelse
+    } forall
+    /Encoding exch def
+
+    % Use the font's bounding box to determine the ascent, descent,
+    % and overall height; don't forget that these values have to be
+    % transformed using the font's matrix.
+    % We use `load' because sometimes BBox is executable, sometimes not.
+    % Since we need 4 numbers an not an array avoid BBox from being executed
+    /FontBBox load aload pop
+    FontMatrix transform /Ascent exch def pop
+    FontMatrix transform /Descent exch def pop
+    /FontHeight Ascent Descent sub def
+
+    % Define these in case they're not in the FontInfo (also, here
+    % they're easier to get to.
+    /UnderlinePosition 1 def
+    /UnderlineThickness 1 def
+    
+    % Get the underline position and thickness if they're defined.
+    currentdict /FontInfo known {
+      FontInfo
+      
+      dup /UnderlinePosition known {
+	dup /UnderlinePosition get
+	0 exch FontMatrix transform exch pop
+	/UnderlinePosition exch def
+      } if
+      
+      dup /UnderlineThickness known {
+	/UnderlineThickness get
+	0 exch FontMatrix transform exch pop
+	/UnderlineThickness exch def
+      } if
+      
+    } if
+    currentdict 
+  end 
+} bind def
+
+% composite fonts for ASCII-EUC mixed string
+% Version 1.2 1/31/1990
+% Orignal Ken'ichi HANDA (handa@etl.go.jp)
+% Modified Norio Katayama (katayama@rd.nacsis.ac.jp),1998
+% Extend & Fix Koji Nakamaru (maru@on.cs.keio.ac.jp), 1999
+% Anyone can freely copy, modify, distribute this program.
+
+/copyfont {	% font-dic extra-entry-count  copyfont  font-dic
+	1 index maxlength add dict begin
+	{	1 index /FID ne 2 index /UniqueID ne and
+		{def} {pop pop} ifelse
+	} forall
+	currentdict
+	end
+} bind def
+
+/compositefont { % ASCIIFontName EUCFontName RomanScale RomanOffset Rot(T/F) compositefont font
+    /RomanRotation exch def
+    /RomanOffset exch def
+    /RomanScale exch def
+    userdict /fixeucfont_dict known not {
+	userdict begin
+	    /fixeucfont_dict 2 dict begin
+		/UpperByteEncoding [
+		    16#00 1 16#20 { pop 0 } for
+		    16#21 1 16#28 { 16#20 sub } for
+		    16#29 1 16#2F { pop 0 } for
+		    16#30 1 16#74 { 16#27 sub } for
+		    16#75 1 16#FF { pop 0 } for
+		] def
+	        /LowerByteEncoding [
+		    16#00 1 16#A0 { pop /.notdef } for
+		    16#A1 1 16#FE { 16#80 sub 16 2 string cvrs
+				    (cXX) dup 1 4 -1 roll
+				    putinterval cvn } for
+		    /.notdef
+		] def
+		currentdict
+	    end def
+	end
+    } if
+    findfont dup /FontType get 0 eq {
+	14 dict begin
+	    %
+	    % 7+8 bit EUC font
+	    %
+	    12 dict begin
+		/EUCFont exch def
+		/FontInfo (7+8 bit EUC font) readonly def
+		/PaintType 0 def
+		/FontType 0 def
+		/FontMatrix matrix def
+		% /FontName
+		/Encoding fixeucfont_dict /UpperByteEncoding get def
+		/FMapType 2 def
+		EUCFont /WMode known
+		{ EUCFont /WMode get /WMode exch def }
+		{ /WMode 0 def } ifelse
+		/FDepVector [
+		    EUCFont /FDepVector get 0 get
+		    [ 16#21 1 16#28 {} for 16#30 1 16#74 {} for ]
+		    {
+			13 dict begin
+			    /EUCFont EUCFont def
+			    /UpperByte exch 16#80 add def	
+			    % /FontName
+			    /FontInfo (EUC lower byte font) readonly def
+			    /PaintType 0 def
+			    /FontType 3 def
+			    /FontMatrix matrix def
+			    /FontBBox {0 0 0 0} def
+			    /Encoding
+				fixeucfont_dict /LowerByteEncoding get def
+			    % /UniqueID
+			    % /WMode
+			    /BuildChar {
+				gsave
+				exch dup /EUCFont get setfont
+				/UpperByte get
+				2 string
+				dup 0 4 -1 roll put
+				dup 1 4 -1 roll put
+				dup stringwidth setcharwidth
+				0 0 moveto show
+				grestore
+			    } bind def
+			    currentdict
+			end
+			/lowerbytefont exch definefont
+		    } forall
+		] def
+		currentdict
+	    end
+	    /eucfont exch definefont
+	    exch
+	    findfont 1 copyfont dup begin
+		RomanRotation {
+			/FontMatrix FontMatrix
+			[ 0 RomanScale neg RomanScale 0 RomanOffset neg 0 ]
+			matrix concatmatrix def
+		}{
+			/FontMatrix FontMatrix
+			[ RomanScale 0 0 RomanScale 0 RomanOffset ] matrix concatmatrix
+			def
+			/CDevProc
+			    {pop pop pop pop 0 exch -1000 exch 2 div 880} def
+		} ifelse
+	    end
+	    /asciifont exch definefont
+	    exch
+	    /FDepVector [ 4 2 roll ] def
+	    /FontType 0 def
+	    /WMode 0 def
+	    /FMapType 4 def
+	    /FontMatrix matrix def
+	    /Encoding [0 1] def
+	    /FontBBox {0 0 0 0} def
+%	    /FontHeight 1.0 def % XXXX
+	    /FontHeight RomanScale 1.0 ge { RomanScale }{ 1.0 } ifelse def
+	    /Descent -0.3 def   % XXXX
+	    currentdict
+	end
+	/tmpfont exch definefont
+	pop
+	/tmpfont findfont
+    }{
+	pop findfont 0 copyfont
+    } ifelse
+} def	
+
+/slantfont {	% FontName slant-degree  slantfont  font'
+    exch findfont 1 copyfont begin
+    [ 1 0 4 -1 roll 1 0 0 ] FontMatrix exch matrix concatmatrix
+    /FontMatrix exch def
+    currentdict
+    end
+} def
+
+% Function print line number (<string> # -)
+/# {
+  gsave
+    sx cw mul neg 2 div 0 rmoveto
+    f# setfont
+    c-show
+  grestore
+} bind def
+
+% -------- Some routines to enlight plain b/w printings ---------
+
+% Underline
+% width --
+/dounderline {
+  currentpoint
+  gsave
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    0 rlineto
+    stroke
+  grestore
+} bind def
+
+% Underline a string
+% string --
+/dounderlinestring {
+  stringwidth pop
+  dounderline
+} bind def
+
+/UL {
+  /ul exch store
+} bind def
+
+% Draw a box of WIDTH wrt current font
+% width --
+/dobox {
+  currentpoint
+  gsave
+    newpath
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    dup 0 rlineto
+    0 currentfont /FontHeight get currentfontsize mul rlineto
+    neg 0 rlineto
+    closepath
+    stroke
+  grestore
+} bind def
+
+/BX {
+  /bx exch store
+} bind def
+
+% Box a string
+% string --
+/doboxstring {
+  stringwidth pop
+  dobox
+} bind def
+
+%
+% ------------- Color routines ---------------
+%
+/FG /setrgbcolor load def
+
+% Draw the background
+% width --
+/dobackground {
+  currentpoint
+  gsave
+    newpath
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    dup 0 rlineto
+    0 currentfont /FontHeight get currentfontsize mul rlineto
+    neg 0 rlineto
+    closepath
+    bgcolor aload pop setrgbcolor
+    fill
+  grestore
+} bind def
+
+% Draw bg for a string
+% string --
+/dobackgroundstring {
+  stringwidth pop
+  dobackground
+} bind def
+
+
+/BG {
+  dup /bg exch store
+  { mark 4 1 roll ] /bgcolor exch store } if
+} bind def
+
+
+/Show {
+  bg { dup dobackgroundstring } if
+  ul { dup dounderlinestring } if
+  bx { dup doboxstring } if
+  show
+} bind def
+
+% Function T(ab), jumps to the n-th tabulation in the current line
+/T {
+  cw mul x0 add
+  bg { dup currentpoint pop sub dobackground } if
+  ul { dup currentpoint pop sub dounderline } if
+  bx { dup currentpoint pop sub dobox } if
+  y0 moveto
+} bind def
+
+% Function n: move to the next line
+/n {
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+% Function N: show and move to the next line
+/N {
+  Show
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+/S {
+  Show
+} bind def
+
+%%BeginResource: procset a2ps-a2ps-hdr 2.0 2
+%%Copyright: (c) 1988, 89, 90, 91, 92, 93 Miguel Santana
+%%Copyright: (c) 1995, 96, 97, 98 Akim Demaille, Miguel Santana
+% Function title: prints page header.
+% <ct> <rt> <lt> are passed as argument
+/title { 
+  % 1. Draw the background
+  x v get y v get moveto
+  gsave
+    0 th 2 div neg rmoveto 
+    th setlinewidth
+    0.95 setgray
+    pw 0 rlineto stroke
+  grestore
+  % 2. Border it
+  gsave
+    0.7 setlinewidth
+    pw 0 rlineto
+    0 th neg rlineto
+    pw neg 0 rlineto
+    closepath stroke
+  grestore
+  % stk: ct rt lt
+  x v get y v get th sub 1 add moveto
+%%IncludeResource: font Helvetica
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  % 3. The left title
+  gsave
+    dup stringwidth pop fnfs 0.8 mul add exch % leave space took on stack
+    fnfs 0.8 mul hm rmoveto
+    show			% left title
+  grestore
+  exch
+  % stk: ct ltw rt
+  % 4. the right title
+  gsave
+    dup stringwidth pop fnfs 0.8 mul add exch % leave space took on stack
+    dup
+    pw exch stringwidth pop fnfs 0.8 mul add sub
+    hm
+    rmoveto
+    show			% right title
+  grestore
+  % stk: ct ltw rtw
+  % 5. the center title
+  gsave
+    pw 3 1 roll
+    % stk: ct pw ltw rtw
+    3 copy 
+    % Move to the center of the left room
+    sub add 2 div hm rmoveto
+    % What is the available space in here?
+    add sub fnfs 0.8 mul sub fnfs 0.8 mul sub
+    % stk: ct space_left
+%%IncludeResource: font Helvetica-Bold
+  fHelvetica-Bold fnfs scalefont setfont
+    cfshow
+  grestore
+} bind def
+
+% Function border: prints virtual page border
+/border { %def
+  gsave				% print four sides
+    0 setgray
+    x v get y v get moveto
+    0.7 setlinewidth		% of the square
+    pw 0 rlineto
+    0 ph neg rlineto
+    pw neg 0 rlineto
+    closepath stroke
+  grestore
+} bind def
+
+% Function water: prints a water mark in background
+/water { %def
+  gsave
+    scx scy moveto rotate
+%%IncludeResource: font Times-Bold
+  fTimes-Bold 100 scalefont setfont
+    .97 setgray
+    dup stringwidth pop 2 div neg -50 rmoveto
+    show
+  grestore
+} bind def
+
+% Function rhead: prints the right header
+/rhead {  %def
+  lx ly moveto
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  l-show
+} bind def
+
+% Function footer (cf rf lf -> -)
+/footer {
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  dx dy moveto
+  show
+
+  snx sny moveto
+  l-show
+  
+  fnx fny moveto
+  c-show
+} bind def
+%%EndResource
+%%BeginResource: procset a2ps-black+white-Prolog 2.0 1
+
+% Function T(ab), jumps to the n-th tabulation in the current line
+/T { 
+  cw mul x0 add y0 moveto
+} bind def
+
+% Function n: move to the next line
+/n { %def
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+% Function N: show and move to the next line
+/N {
+  Show
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+}  bind def
+
+/S {
+  Show
+} bind def
+
+/p {
+  false UL
+  false BX
+  fCourier bfs scalefont setfont
+  Show
+} bind def
+
+/sy {
+  false UL
+  false BX
+  fSymbol bfs scalefont setfont
+  Show
+} bind def
+
+/k {
+  false UL
+  false BX
+  fCourier-Oblique bfs scalefont setfont
+  Show
+} bind def
+
+/K {
+  false UL
+  false BX
+  fCourier-Bold bfs scalefont setfont
+  Show
+} bind def
+
+/c {
+  false UL
+  false BX
+  fCourier-Oblique bfs scalefont setfont
+  Show
+} bind def
+
+/C {
+  false UL
+  false BX
+  fCourier-BoldOblique bfs scalefont setfont
+  Show 
+} bind def
+
+/l {
+  false UL
+  false BX
+  fHelvetica bfs scalefont setfont
+  Show
+} bind def
+
+/L {
+  false UL
+  false BX
+  fHelvetica-Bold bfs scalefont setfont
+  Show 
+} bind def
+
+/str{
+  false UL
+  false BX
+  fTimes-Roman bfs scalefont setfont
+  Show
+} bind def
+
+/e{
+  false UL
+  true BX
+  fHelvetica-Bold bfs scalefont setfont
+  Show
+} bind def
+
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%IncludeResource: font Courier
+%%IncludeResource: font Courier-Oblique
+%%IncludeResource: font Courier-Bold
+%%IncludeResource: font Times-Roman
+%%IncludeResource: font Symbol
+%%IncludeResource: font Courier-BoldOblique
+%%BeginResource: encoding ISO-8859-1Encoding
+/ISO-8859-1Encoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quoteright 
+/parenleft /parenright /asterisk /plus /comma /minus /period /slash 
+/zero /one /two /three /four /five /six /seven 
+/eight /nine /colon /semicolon /less /equal /greater /question 
+/at /A /B /C /D /E /F /G 
+/H /I /J /K /L /M /N /O 
+/P /Q /R /S /T /U /V /W 
+/X /Y /Z /bracketleft /backslash /bracketright /asciicircum /underscore 
+/quoteleft /a /b /c /d /e /f /g 
+/h /i /j /k /l /m /n /o 
+/p /q /r /s /t /u /v /w 
+/x /y /z /braceleft /bar /braceright /asciitilde /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/space /exclamdown /cent /sterling /currency /yen /brokenbar /section 
+/dieresis /copyright /ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron 
+/degree /plusminus /twosuperior /threesuperior /acute /mu /paragraph /bullet 
+/cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf /threequarters /questiondown 
+/Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla 
+/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis 
+/Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply 
+/Oslash /Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls 
+/agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla 
+/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis 
+/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide 
+/oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis 
+] def
+%%EndResource
+% Initialize page description variables.
+/sh 612 def
+/sw 792 def
+/llx 24 def
+/urx 768 def
+/ury 588 def
+/lly 24 def
+/#copies 1 def
+/th 15.000000 def
+/fnfs 11 def
+/bfs 7.493857 def
+/cw 4.496314 def
+
+% Dictionary for ISO-8859-1 support
+/iso1dict 8 dict begin
+  /fCourier ISO-8859-1Encoding /Courier reencode_font
+  /fCourier-Bold ISO-8859-1Encoding /Courier-Bold reencode_font
+  /fCourier-BoldOblique ISO-8859-1Encoding /Courier-BoldOblique reencode_font
+  /fCourier-Oblique ISO-8859-1Encoding /Courier-Oblique reencode_font
+  /fHelvetica ISO-8859-1Encoding /Helvetica reencode_font
+  /fHelvetica-Bold ISO-8859-1Encoding /Helvetica-Bold reencode_font
+  /fTimes-Bold ISO-8859-1Encoding /Times-Bold reencode_font
+  /fTimes-Roman ISO-8859-1Encoding /Times-Roman reencode_font
+currentdict end def
+/bgcolor [ 0 0 0 ] def
+/bg false def
+/ul false def
+/bx false def
+% The font for line numbering
+/f# /Helvetica findfont bfs .6 mul scalefont def
+/fSymbol /Symbol findfont def
+/hm fnfs 0.25 mul def
+/pw
+   cw 81.400000 mul
+def
+/ph
+   522.321860 th add
+def
+/pmw urx llx sub pw 2 mul sub 1 div def
+/pmh 0 def
+/v 0 def
+/x [
+  0
+  dup pmw add pw add
+] def
+/y [
+  pmh ph add 0 mul ph add
+  dup
+] def
+/scx sw 2 div def
+/scy sh 2 div def
+/snx urx def
+/sny lly 2 add def
+/dx llx def
+/dy sny def
+/fnx scx def
+/fny dy def
+/lx snx def
+/ly ury fnfs 0.8 mul sub def
+/sx 0 def
+/tab 8 def
+/x0 0 def
+/y0 0 def
+%%EndSetup
+
+%%Page: (1-2) 1
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(*) p n
+(*     ------------------------------------------------------------------) N
+(*       A N A L Y S E_B L K) N
+(*     ------------------------------------------------------------------) N
+(*) N
+(      SUBROUTINE ANALY_BLK\(IREAD,IWRITE,NCLOSD,MAXORB,NB,NBsize,list\)) N
+(      IMPLICIT DOUBLE PRECISION\(A-H,O-Z\)) N
+(*) N
+(*        This routine analyzes the format of the configuration input) N
+(*        data for the different blocks, determines the number of blocks,) N
+(*        the size of each block, and a consistent ordering of the electrons) N
+(*) N
+(*        NB             - number of blocks) N
+(*        NBsize\(1:NB\)   - size of each block) N
+(*        Nclosd         - number of closed shells) N
+(*        Maxorb         - number of orther orbitals) N
+(*        List\(1:maxorb\) - list of orbitals ) N
+(*) N
+(      PARAMETER \(NWD=60, NBD=20\)) N
+(      CHARACTER LIST\(NWD\)*3, LINE*72, OF\(NWD\)*3, EL\(8\)*3, LINEP*72) N
+(      INTEGER NBSIZE\(NBD\)) N
+(      POINTER\(QAFTER,AFTER\(\(NWD\),1\)\)) N
+(      INTEGER AFTER,IEL\(8\)) N
+(*) N
+(      call alloc\(qafter,nwd*nwd,4\)) N
+(*) N
+(      DO 2 I = 1,\(NWD\)) N
+(         DO 3 J = 1,\(NWD\)) N
+(            AFTER\(I,J\) = 0) N
+(  3      CONTINUE) N
+(  2   CONTINUE) N
+(*) N
+(* --- Skip header) N
+(*) N
+(      REWIND IREAD) N
+(      READ\(IREAD,*\)) N
+(      READ\(IREAD,'\(A72\)'\) Line) N
+(      LINEP = LINE) N
+(*) N
+(*  ---  Determine the number of common closed subshells) N
+(*) N
+(      NCLOSD = 0) N
+(      J = 2) N
+( 10   IF \(LINE\(J:J+2\) .NE. '   ' \) THEN) N
+(         NCLOSD = NCLOSD + 1) N
+(         J = J+4) N
+(         IF \(J .LT. 72\) GO TO 10) N
+(      END IF) N
+(*) N
+(*  ---  Determine the number of blocks, configurations in each block) N
+(*       and number of electrons) N
+(*) N
+(*) N
+(      NB = 0) N
+(      MAXORB = 0) N
+( 15   NCFG=0) N
+( 20   READ\(IREAD,'\(A72\)',END=55\) LINE) N
+(      IF \(LINE\(1:1\) .NE. '*'  \) THEN) N
+(*) N
+(*  ------  A new configuration has been read; find the electrons) N
+(*) N
+(         NCFG = NCFG + 1) N
+(         J = 2) N
+(         I = 0) N
+( 30      IF \(LINE\(J:J+2\) .NE. '   ' .AND. I.LT.\(8\)\) THEN) N
+(*) N
+(*  --------- An electron has been found; is it a new one?) N
+(*) N
+(            I = I+1) N
+(codeall) (Page 1/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(            EL\(I\) = LINE\(J:J+2\)) p n
+(            K = 1) N
+( 40         IF \(K .LE. MAXORB\) THEN) N
+(               IF \( OF\(K\) .NE. EL\(I\) \) THEN) N
+(                  K = K+1) N
+(                  IF \(K .GT. \(NWD\)\) THEN) N
+(                     WRITE\(IWRITE,*\) 'SET NWD Larger: NWD=',NWD) N
+(                     STOP) N
+(                  END IF) N
+(                  GO TO 40) N
+(                 ELSE) N
+(                  IEL\(I\) = K) N
+(               END IF) N
+(              ELSE) N
+(*) N
+(*  ------------  A new electron has been found; add it to the list) N
+(*) N
+(               MAXORB = K) N
+(               OF\(MAXORB\) = EL\(I\)) N
+(               IEL\(I\) = K) N
+(            END IF) N
+(            J = J+8) N
+(            GO TO 30) N
+(         END IF) N
+(*) N
+(*  ------  Add data to the AFTER matrix) N
+(*) N
+(         DO 50 I1 = 2,I) N
+(            DO 51 I2 = 1,I1-1) N
+(               AFTER\(IEL\(I1\),IEL\(I2\)\) = 1) N
+( 51         CONTINUE) N
+( 50      CONTINUE) N
+(         READ\(IREAD,*\)) N
+(         GO TO 20) N
+(      ELSE) N
+(*       .. we have reached an * indicating the end of the current block) N
+(        NB = NB + 1) N
+(        NBsize\(nb\) = NCFG) N
+(*       .. skip next two lines \(might be end-of-file\)) N
+(        READ\(IREAD,*,END=55\)) N
+(        READ\(IREAD, '\(A72\)',END=55\) LINE) N
+(        IF \(LINE .ne. LINEP\) then) N
+(          WRITE\(IWRITE,'\(A,I8,A\)'\) 'Closed shells for Block',nb+1,) N
+(     :          'not the same as for first block') N
+(          STOP) N
+(        END IF) N
+() S 8 T (GO TO 15) N
+(      END IF) N
+(*) N
+(*  ---  Check if the ordering of the electrons is inconsistent) N
+(*) N
+( 55   DO 60 I = 1,MAXORB) N
+(         DO 61 J = 1,MAXORB) N
+(            IF \(AFTER\(I,J\) .EQ. 1 .AND. AFTER\(J,I\) .EQ. 1\) THEN) N
+(                WRITE\(IWRITE,*\) ' The order of ',OF\(I\),' and ',) N
+(     :                OF\(J\),' is inconsistent') N
+(                STOP) N
+(            END IF) N
+( 61      CONTINUE) N
+( 60   CONTINUE) N
+(*) N
+(*  ---  Reorder the electrons to satisfy the after relations found) N
+(*         in the different configurations) N
+(*) N
+(      IORD = 1) N
+( 70   IF \(IORD .LE. MAXORB \) THEN) N
+(*) N
+(*  ------  Search for a row with no 1's) N
+(*) N
+(codeall) (Page 2/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (1/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (3-4) 2
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(         DO 71 I = 1,MAXORB) p n
+(            DO 72 J = 1,MAXORB) N
+(               IF \(AFTER\(I,J\) .EQ. 1 \) GO TO 71) N
+( 72         CONTINUE) N
+(*) N
+(*  ---------  The current row contains all 0's or 2's) N
+(*) N
+(            IF \(AFTER\(I,I\) .NE. 2 \) THEN) N
+(*) N
+(*  ------------  We have the next electron; delete the corresponding) N
+(*                  rows and columns from the AFTER matrix) N
+(*) N
+(               LIST\(IORD\) = OF\(I\)) N
+(               IORD = IORD+1) N
+(               DO 73 J = 1,MAXORB) N
+(                  AFTER\(I,J\) = 2) N
+(                  AFTER\(J,I\) = 2) N
+( 73            CONTINUE) N
+(               GO TO 70) N
+(            END IF) N
+( 71      CONTINUE) N
+(      END IF) N
+(*) N
+(      call dalloc\(qafter,nwd*nwd\)) N
+(      RETURN) N
+(      END) N
+(*) N
+(*     ------------------------------------------------------------------) N
+(*       A N G M O M G) N
+(*     ------------------------------------------------------------------) N
+(*) N
+(      SUBROUTINE ANGMOMG\(NEW,NZERO,IFIRST\)) N
+(      IMPLICIT DOUBLE PRECISION\(A-H,O-Z\)) N
+(      PARAMETER \(NWD=60, NWCD=20\)) N
+(      PARAMETER \(LSDIM=30000\)) N
+(*) N
+(      POINTER \(qcn,cn\(1\)\),\(qinptr,inptr\(lsdim\)\),\(qpackn,ipackn\(1\)\),) N
+(     :        \(qlused,lused\(1\)\),\(qnijptr,nijptr\(lsdim\)\),) N
+(     :        \(qjan,jan\(lsdim\)\),\(qjbn,jbn\(lsdim\)\),\(qico,ico\(1\)\),) N
+(     :        \(qintptr,idummy\(1\)\) ) N
+(      COMMON /buffer/qcn,qinptr,qpackn,qlused,qintptr,lmax,qnijptr,) N
+(     :               qjan,qjbn,qico) N
+(      COMMON/INFORM/IREAD,IWRITE,IOUT,ISC\(4\),IALL,JSC\(3\),ISCW) N
+(      COMMON/DEBUG/IBUG1,IBUG2,IBUG3,NBUG6,NBUG7,IFULL) N
+(      POINTER  \(qjptr, jptr\(1\)\)) N
+(      COMMON /fout/n,ntot,idum\(6\),nrec\(8\),iflag,lij,nij,qjptr,cf_tot) N
+(      COMMON/DIAGNL/IDIAG,JA,JB) N
+(      CHARACTER*30 FORMAT\(3\)) N
+(      CHARACTER*1 NCHAR\(8\)) N
+(      POINTER\(QNOC,NOCCSH\(1\)\),\(QNELCSH,NELCSH\(8,1\)\),) N
+(     :       \(QNOCORB,NOCORB\(8,1\)\),\(QJ1,J1QNRD\(15,1\)\)) N
+(      POINTER\(QIAJCMP,IAJCMP\(1\)\),\(QLJCOMP,LJCOMP\(1\)\),) N
+(     :       \(QNJCOMP,NJCOMP\(1\)\),\(QIAJCLD,IAJCLD\(1\)\),) N
+(     :       \(QLJCLSD,LJCLSD\(1\)\)) N
+(      COMMON /NDIMS/ QNOC,QNELCSH,QNOCORB,QJ1,NCFG) N
+(      COMMON /NON30/ QIAJCMP,QNJCOMP,QLJCOMP,QIAJCLD,QLJCLSD,MAXORB) N
+(      POINTER\(QIORTH,IORTH\(1\)\)) N
+(      COMMON/OVRLAP/MU,NU,MUP,NUP,NONORT,NOVLPS,IROWMU,IROWNU,ICOLMU,) N
+(     : ICOLNU,NORTH,IORDER,NCALLS,LMU,LNU,LMUP,LNUP,JMU,JNU,JMUP,JNUP,) N
+(     :     QIORTH) N
+() N
+(      LOGICAL lused) N
+(*) N
+(      DATA NCHAR/'1','2','3','4','5','6','7','8'/) N
+(      DATA FORMAT/'\(2H <,I3,5H |H| ,I2,6H > = <, ',) N
+(     :              '  \(A3,1H\(,I2,1H\)\) ,5H |H| ,   ',) N
+(     :                '\(A3,1H\(,I2,1H\)\),2H >,/\)     '/) N
+(*) N
+(* --- THIS PROGRAMME CONSIDERS EITHER SUPERPOSITION OF CONFIGURATIONS OR) N
+(codeall) (Page 3/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(*     MULTI-CONFIGURATIONAL HARTREE-FOCK WAVE FUNCTIONS.  USING THE) p n
+(*     RESULT THAT THE TWO-ELECTRON HAMILTONIAN MATRIX ELEMENT) N
+(*     \(PSI/V/PSIP\)  CAN BE WRITTEN AS A SUM OF SLATER INTEGRALS, THE) N
+(*     PRESENT CODE  -  WEIGHTS  -  CALCULATES THE COEFFICIENTS OF THESE) N
+(*     INTEGRALS.  PSI AND PSIP ARE ALLOWED TO RUN OVER NCFG CONFIGURATNS) N
+(*) N
+(*) N
+(* --- CONSIDER \(PSI/V/PSIP\) AS PSI AND PSIP RUN OVER ALL CONFIGURATIONS) N
+(*) N
+(      if \(mod\(jb,100\) .eq. 0\) write\(ISCW,*\) '   jb =',jb) N
+(      NFIRST = NCFG - NEW + 1) N
+(      irow = max\(jb,nfirst\)) N
+(      if \(jb .gt. nzero\) then) N
+(        last = jb) N
+(      else) N
+(        last = ncfg) N
+(      end if) N
+(      Do 6 JA = irow, last) N
+(*     DO 6 JA=irow,NCFG) N
+(*     IF \(JB .GT. NZERO .AND. IFIRST .EQ. 1 .AND. JA .NE. JB \) GO TO 6) N
+(*     IF \(JB.GT.NZERO .AND. JB.LT.NFIRST .AND. IFIRST.EQ.0\) GO TO 6) N
+(*     write\(ISCW,*\) '     ja =',ja) N
+(      IFLAG=0) N
+(      IDIAG=0) N
+(      IF\(JA.EQ.JB\) IDIAG=1) N
+(      IF \(NORTH .NE. 0\) THEN) N
+(        WRITE\(ISCW,'\(A\)'\) ' this prog. com. with orthogonal orbitals') N
+(        STOP) N
+(      ENDIF) N
+(      N1=NOCCSH\(JA\)) N
+(      N2=NOCCSH\(JB\)) N
+(*      IF \(IFULL .NE. 0\) THEN) N
+(*         FORMAT\(2\)\(2:2\) = NCHAR\(N1\)) N
+(*         FORMAT\(2\)\(30:30\) = NCHAR\(N2\)) N
+(*         WRITE\(IWRITE,'\(///\)'\)) N
+(*         WRITE\(IWRITE,FORMAT\) JA,JB,) N
+(*     :        \(IAJCMP\(NOCORB\(J,JA\)\),NELCSH\(J,JA\),J=1,N1\),) N
+(*     :        \(IAJCMP\(NOCORB\(J,JB\)\),NELCSH\(J,JB\),J=1,N2\)) N
+(*      END IF) N
+(*) N
+(* --- SET UP DEFINING QUANTUM NUMBERS FOR EACH MATRIX ELEMENT) N
+(*) N
+(C      CALL SETUP\(JA,JB\)) N
+(      CALL SHELLS\(JA,JB,LET\)) N
+(      IF\(LET.EQ.0\) GO TO 6) N
+(      IF\(IBUG1.GT.0.OR.IBUG2.GT.0\) CALL VIJOUT\(JA,JB\)) N
+(*) N
+(* --- TEST ON POSSIBLE RECOUPLING ORTHOGONALITY) N
+(*) N
+(      CALL ORTHOGG\(LET\)) N
+(      IF\(LET.EQ.0\) GO TO 6) N
+(*) N
+(* --- IF NO SUCH ORTHOGONALITY IS EXHIBITED, CALCULATE WEIGHTS OF SLATER) N
+(*     INTEGRALS) N
+(*) N
+(       CALL NONRELAT) N
+(      IF \(IFLAG .NE. 0\) then) N
+(        if \(lij/lsdim .eq. 1\) then) N
+(*          .. a record needs to be written to iout) N
+(           write\(iout\) lsdim,\(jan\(i\),i=1,lsdim\), \(ico\(i\),i=1,lsdim\)) N
+(           lij = 0) N
+(        end if) N
+(        NIJ = NIJ + 1) N
+(        LIJ = LIJ + 1) N
+(        jan\(lij\) = ja) N
+(        jbn\(lij\) = jb) N
+(        ico\(lij\) = ntot) N
+(      endif) N
+(    6 CONTINUE) N
+(codeall) (Page 4/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (2/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (5-6) 3
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(*) p n
+(      END) N
+(*     ------------------------------------------------------------------) N
+(*       C F G B L K) N
+(*     ------------------------------------------------------------------) N
+(*) N
+(      SUBROUTINE CFGBLK\(ncfg,maxorb,QIAJCMP,QLJCOMP,QNJCOMP,QNOC,) N
+(     :                  QNELCSH,QNOCORB,QJ1,QIAJCLD,QLJCLSD,term\)) N
+(*) N
+(*       Read configurations for one block ) N
+(*) N
+(      IMPLICIT DOUBLE PRECISION\(A-H,O-Z\)) N
+(*     IMPLICIT INTEGER \(Q\)) N
+(      PARAMETER \(NWD=60,NWCD=20\)) N
+(      POINTER\(QNOC,NOCCSH\(1\)\),\(QNELCSH,NELCSH\(8,1\)\),) N
+(     :       \(QNOCORB,NOCORB\(8,1\)\),\(QJ1,J1QNRD\(15,1\)\)) N
+(      POINTER\(QIAJCMP,IAJCMP\(1\)\),\(QLJCOMP,LJCOMP\(1\)\),) N
+(     :       \(QNJCOMP,NJCOMP\(1\)\),\(QIAJCLD,IAJCLD\(1\)\),) N
+(     :       \(QLJCLSD,LJCLSD\(1\)\)) N
+(      CHARACTER EL\(NWD\)*3, LINE*72, HEAD*30) N
+(      DIMENSION J3QN\(15\),J2QN\(15\),J1QN\(15\)) N
+(      CHARACTER*1 JAJCLD\(3,NWCD\),JAJCMP\(3,NWD\),JCQN\(15\),) N
+(     :            JQNG\(15\),J3QNG\(15\)) N
+(*) N
+(      COMMON/INFORM/IREAD,IWRITE,IOUT,ISC0,ISC1,ISC2,ISC3,JSC0,JSC\(4\)) N
+(      COMMON /CLOSED/B1ELC\(4\),NCLOSD,IBK) N
+(     : IALL,ISCW, state) N
+(      character term*3) N
+(      character*1 RD1, RD2, parity) N
+(*) N
+(    5 FORMAT\(8\(1X,A3,1X,I2,1X\)\)) N
+(    6 FORMAT\(15\(1X,A1,A1,A1\)\)) N
+(    7 FORMAT\(A72\)) N
+(*) N
+(*     .. skip the first two lines) N
+(      read\(iread,7\) ) N
+(      read\(iread,7\) ) N
+(*) N
+(* --- READ IN \(AND PRINT OUT\) CONFIGURATIONS ETC. FOR THE STATE UNDER) N
+(* --- CONSIDERATION) N
+(*) N
+(      DO 63 I=1,NCFG) N
+(      READ\(IREAD,7\) LINE) N
+(      N=0) N
+(      J=2) N
+(   65 IF \(LINE\(J:J+2\) .NE. '   ' .and. N .LT. \(8\)\) THEN) N
+(         N = N + 1) N
+(         J = J +8) N
+(         GO TO 65) N
+(      END IF) N
+(      NOCCSH\(I\) = N) N
+(      READ\(LINE,5\)       \(NOCORB\(J,I\),NELCSH\(J,I\),J=1,N\)) N
+(      DO 61 J=1,N) N
+(      DO 61 JJ=1,MAXORB) N
+(   61 IF\(NOCORB\(J,I\).EQ.IAJCMP\(JJ\)\) NOCORB\(J,I\)=JJ) N
+(      M=2*N-1) N
+(      N1=N+1) N
+(      read\(iread,7\) line) N
+(      READ\(line,6\)    \(J3QNG\(J\),JCQN\(J\),JQNG\(J\),J=1,M\)) N
+() N
+(      If \(i .eq. 1\) then) N
+(*       Determine parity) N
+(        ip = 0) N
+(        Do iip = 1,n) N
+(          iorb = nocorb\(iip,1\)) N
+(          iq   = nelcsh\(iip,1\)) N
+(          ip = ip + ljcomp\(iorb\)*iq) N
+(*         print *, iorb, iq, ip, ljcomp\(iorb\)) N
+(        end do) N
+(codeall) (Page 5/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(        if \(\(ip/2\)*2 .eq. ip\) then) p n
+(          parity ='e') N
+(        else) N
+(          parity ='o') N
+(        end if) N
+(*       In small cases, term might be three characters as in 1D2.) N
+(*       In such cases, parity replaces the third character.) N
+(        len = len_trim\(line\)) N
+(        term = adjustl\(line\(len-2:len\)\)) N
+(        term\(3:3\) = parity) N
+() S 8 T ( print *, 'processing ', term, ' with ',ncfg, 'configurations') N
+(      end if) N
+() N
+() N
+(      DO 62 J=1,M) N
+(      J1QN\(J\) = NUMVAL\(JQNG\(J\)\)) N
+(      J2QN\(J\) = 2*LVAL\(JCQN\(J\)\) + 1) N
+(      J3QN\(J\) = ICHAR\(J3QNG\(J\)\)-ICHAR\('1'\) + 1) N
+(      J1QNRD\(J,I\) = \(J3QN\(J\)*64 + J2QN\(J\)\)*64 + J1QN\(J\)) N
+(   62 CONTINUE) N
+(   63 CONTINUE) N
+(*     .. skip * line) N
+(      read\(iread,7\)) N
+(*) N
+(*     . check the coupling) N
+(      CALL CFGTST\(NCFG,QLJCOMP,QNOC,QNELCSH,QNOCORB,QJ1\)) N
+(*) N
+(      RETURN) N
+(      END) N
+() N
+(*) N
+(*     ------------------------------------------------------------------) N
+(*      cfg_inf) N
+(*     ------------------------------------------------------------------) N
+(*) N
+(*        This routine writes the cfg.inp file with data needed) N
+(*) N
+() N
+(      SUBROUTINE cfg_inf\(i,ncoff,itotal,NCLOSD,NCDIM,IDIM,NIJ,who,) N
+(     :                   term\)) N
+(      IMPLICIT DOUBLE PRECISION\(A-H,O-Z\)) N
+(      POINTER\(QNOC,NOCCSH\(1\)\),\(QNELCSH,NELCSH\(8,1\)\),) N
+(     :       \(QNOCORB,NOCORB\(8,1\)\),\(QJ1,J1QNRD\(15,1\)\)) N
+(      POINTER\(QIAJCMP,IAJCMP\(1\)\),\(QLJCOMP,LJCOMP\(1\)\),) N
+(     :       \(QNJCOMP,NJCOMP\(1\)\),\(QIAJCLD,IAJCLD\(1\)\),) N
+(     :       \(QLJCLSD,LJCLSD\(1\)\)) N
+(      COMMON /NDIMS/ QNOC,QNELCSH,QNOCORB,QJ1,NCFG) N
+(      COMMON /NON30/ QIAJCMP,QNJCOMP,QLJCOMP,QIAJCLD,QLJCLSD,MAXORB) N
+(      COMMON/INFORM/IREAD,IWRITE,IOUT,ISC\(4\),IALL,JSC\(4\)) N
+(      CHARACTER STRING*30, LINE*74, who*5) N
+(      character term*3) N
+(      integer i ) N
+(*) N
+(  1   FORMAT\(A12,i10,I8,i3,I4,I6,I8,I8,I8,2x,a5\)) N
+(  2   FORMAT\(20\(1x,A3\)\)) N
+(      NWF = MAXORB + NCLOSD) N
+(      WRITE\(25,1\) term,ncoff,itotal,NCLOSD,NWF,NCFG,IDIM,NCDIM,NIJ,who) N
+(      RETURN) N
+(      END) N
+() N
+(*) N
+(*     ------------------------------------------------------------------) N
+(*       O R T H O G G) N
+(*     ------------------------------------------------------------------) N
+(*) N
+(      SUBROUTINE ORTHOGG\(LET\)) N
+(      IMPLICIT DOUBLE PRECISION\(A-H,O-Z\)) N
+(      COMMON/INFORM/IREAD,IWRITE,IOUT,ISC\(4\),IALL,JSC\(3\),ISCW) N
+(      COMMON/DEBUG/IBUG1,IBUG2,IBUG3,NBUG6,NBUG7,IFULL) N
+(codeall) (Page 6/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (3/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (7-8) 4
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      COMMON/MEDEFN/IHSH,NJ\(16\),LJ\(16\),NOSH1\(16\),NOSH2\(16\),J1QN1\(31,3\),) p n
+(     :     J1QN2\(31,3\),IJFUL\(16\)) N
+(      COMMON/SIGNF /SIGNFA) N
+(*) N
+(*     THIS SUBROUTINE CHECKS FOR POSSIBLE ORTHOGONALITY DUE TO) N
+(*     COUPLING DIFFERENCES OR UNEVEN PARITY) N
+(*) N
+(  102 FORMAT\(52H ORTHOGONALITY IN COUPLING SCHEMES OF CONFIGURATIONS\)) N
+(  103 FORMAT\(59H THE TWO CONFIGURATIONS HAVE DIFFERING NUMBERS OF ELECTR) N
+(     :ONS\)) N
+(  104 FORMAT\(51H THE TWO CONFIGURATIONS HAVE DIFFERING TOTAL PARITY\)) N
+(*) N
+(* --- DO PSI AND PSIP CONTAIN THE SAME NUMBERS OF ELECTRONS) N
+(*     DO PSI AND PSIP HAVE THE SAME TOTAL PARITY) N
+(*) N
+(      N5=0) N
+(      N6=0) N
+(      N7=0) N
+(      DO 1 I=1,IHSH) N
+(        L1=LJ\(I\)) N
+(        L2=NOSH1\(I\)) N
+(        L3=NOSH2\(I\)) N
+(        N5=N5+L2) N
+(        N6=N6+L3) N
+(        N7=N7+L1*\(L2-L3\)) N
+(    1 CONTINUE) N
+(*) N
+(*     CHECK ON NUMBER OF ELECTRONS) N
+(*) N
+(      IF \(\(N5-N6\).NE.0\) THEN) N
+(        WRITE\(IWRITE,103\)) N
+(        LET=0) N
+(*) N
+(*     CHECK ON PARITY) N
+(*) N
+(      ELSE) N
+(        IF\(\(N7-N7/2*2\).NE.0\) THEN) N
+(          WRITE\(IWRITE,104\)) N
+(          LET=0) N
+(        ELSE) N
+(          N72=N7/2) N
+(          SIGNFA=1.D0) N
+(          IF\( \(N72-\(N72/2\)*2\).NE.0 \) SIGNFA=-SIGNFA) N
+(*) N
+(* --- COUPLING ORTHOGONALITY TEST FOR FIRST TWO SHELLS) N
+(*) N
+(          LET=1) N
+(        ENDIF) N
+(      ENDIF) N
+(      RETURN) N
+(      END) N
+(*) N
+(*     ------------------------------------------------------------------) N
+(*       O R T H O G G B) N
+(*     ------------------------------------------------------------------) N
+(*) N
+(      SUBROUTINE ORTHOGGB\(LET,INCL\)) N
+(*) N
+(      IMPLICIT DOUBLE PRECISION\(A-H,O-Z\)) N
+(*) N
+(      COMMON/INFORM/IREAD,IWRITE,IOUT,ISC\(8\),ISCW) N
+(      COMMON/DEBUG/IBUG1,IBUG2,IBUG3,NBUG6,NBUG7,IFULL) N
+(      COMMON/IMAGNT/CONST,CONSOO,CONSS,ISPORB,ISOORB,ISPSPN,) N
+(     :     IREL,ISTRICT,IZOUT,IELST,ITENPR) N
+(      COMMON/MEDEFN/IHSH,NJ\(16\),LJ\(16\),NOSH1\(16\),NOSH2\(16\),J1QN1\(31,3\),) N
+(     :     J1QN2\(31,3\),IJFUL\(16\)) N
+(      LOGICAL INCL) N
+(*) N
+(*     THIS SUBROUTINE CHECKS FOR POSSIBLE ORTHOGONALITY DUE TO) N
+(codeall) (Page 7/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(*     COUPLING DIFFERENCES OR UNEVEN PARITY) p n
+(*) N
+(  101 FORMAT\(37H DIFFERING RESULTANT ANGULAR MOMENTUM\)) N
+(  102 FORMAT\(52H ORTHOGONALITY IN COUPLING SCHEMES OF CONFIGURATIONS\)) N
+(  103 FORMAT\(59H THE TWO CONFIGURATIONS HAVE DIFFERING NUMBERS OF ELECTR) N
+(     :ONS\)) N
+(  104 FORMAT\(51H THE TWO CONFIGURATIONS HAVE DIFFERING TOTAL PARITY\)) N
+(*) N
+(* --- DO PSI AND PSIP CONTAIN THE SAME NUMBERS OF ELECTRONS) N
+(*     DO PSI AND PSIP HAVE THE SAME TOTAL PARITY) N
+(*) N
+(      N5=0) N
+(      N6=0) N
+(      N7=0) N
+(      IELST=1) N
+(      DO 20 I=1,IHSH) N
+(      L1=LJ\(I\)) N
+(      L2=NOSH1\(I\)) N
+(      L3=NOSH2\(I\)) N
+(      N5=N5+L2) N
+(      N6=N6+L3) N
+(      N7=N7+L1*\(L2-L3\)) N
+(   20 CONTINUE) N
+(*) N
+(*     CHECK ON NUMBER OF ELECTRONS) N
+(*) N
+(      IF \(N5-N6\) 21,22,21) N
+(   21 IF\(IBUG2-1\) 11,28,28) N
+(   28 WRITE\(IWRITE,103\)) N
+(      GO TO 11) N
+(*) N
+(*     CHECK ON PARITY) N
+(*) N
+(   22 IF\(N7-N7/2*2\) 23,24,23) N
+(   23 IF\(IBUG2-1\) 11,25,25) N
+(   25 WRITE\(IWRITE,104\)) N
+(      GO TO 11) N
+(   24 N1=2*IHSH-1) N
+(      N2=IHSH+1) N
+(      N3=IHSH-1) N
+(      N4=IHSH-2) N
+(      GO TO 3) N
+(*) N
+(* --- THE TWO CONFIGURATIONS WILL HAVE ZERO HAMILTONIAN MATRIX ELEMENT) N
+(*) N
+(   11 LET=0) N
+(      RETURN) N
+(    3 CONTINUE) N
+(*) N
+(* --- NO OBVIOUS ANGULAR MOMENTUM ORTHOGONALITY) N
+(*) N
+(   12 LET=1) N
+(      IF \(IELST.EQ.0.AND. .NOT.INCL\) LET = 0) N
+(      RETURN) N
+(      END) N
+(*) N
+(*     ------------------------------------------------------------------) N
+(*       S H E L L S) N
+(*     ------------------------------------------------------------------) N
+(*) N
+(      SUBROUTINE SHELLS\(JA,JB,LET\)) N
+(      IMPLICIT DOUBLE PRECISION\(A-H,O-Z\)) N
+(*) N
+(      POINTER\(QNOC,NOCCSH\(1\)\),\(QNELCSH,NELCSH\(8,1\)\),) N
+(     :       \(QNOCORB,NOCORB\(8,1\)\),\(QJ1,J1QNRD\(15,1\)\)) N
+(      POINTER\(QIAJCMP,IAJCMP\(1\)\),\(QLJCOMP,LJCOMP\(1\)\),) N
+(     :       \(QNJCOMP,NJCOMP\(1\)\),\(QIAJCLD,IAJCLD\(1\)\),) N
+(     :       \(QLJCLSD,LJCLSD\(1\)\)) N
+(      COMMON /NDIMS/ QNOC,QNELCSH,QNOCORB,QJ1,NCFG) N
+(codeall) (Page 8/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (4/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (9-10) 5
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      COMMON /NON30/ QIAJCMP,QNJCOMP,QLJCOMP,QIAJCLD,QLJCLSD,MAXORB) p n
+(      COMMON/MEDEFN/IHSH,NJ\(16\),LJ\(16\),NOSH\(16,2\),J1QN\(31,3,2\),) N
+(     :IJFUL\(16\)) N
+(      COMMON/OCCUPATION/NCG\(16,2\),ICG\(16,2\)) N
+(      COMMON/JB/IHSHJB,NJB\(16\),LJB\(16\),NOSHJB\(16\),IJFULJB\(16\)) N
+(C      WRITE\(6,'\(/A\)'\) '  **************  iena  ******** ') N
+(C      WRITE\(6,'\(/A\)'\) '  JA JB ') N
+(C      WRITE\(6,'\(2I5\)'\) JA,JB) N
+(      LET=1) N
+(      IF\(JA.EQ.JB\) THEN) N
+(      CALL SHELLSAME\(JA\)) N
+(      RETURN) N
+(      ENDIF) N
+(      IA=NOCCSH\(JA\)) N
+(      IB=NOCCSH\(JB\)) N
+(      IF\(IABS\(IA-IB\).GT.4\) THEN) N
+(      LET=0) N
+(      RETURN) N
+(      ENDIF) N
+(      IAM=0) N
+(      IBM=0) N
+(      IGA=0) N
+(      IGGA=0) N
+(      IHSH=0) N
+(      JG1=1) N
+(      JG2=1) N
+(    1 J1=NOCORB\(JG1,JA\)) N
+(      J2=IJFULJB\(JG2\)) N
+(      IHSH=IHSH+1) N
+(C      WRITE\(6,'\(/A\)'\) '  IHSH ') N
+(C      WRITE\(6,'\(I3\)'\)  IHSH ) N
+(C      WRITE\(6,'\(A\)'\) '  JG1, JG2 ') N
+(C      WRITE\(6,'\(2I5\)'\) JG1,JG2) N
+(C      WRITE\(6,'\(A\)'\) '        J1, J2 ') N
+(C      WRITE\(6,'\(5X,2I5\)'\) J1,J2) N
+(      IF\(J1.EQ.J2\) THEN) N
+(        NA=2) N
+(        NB=2) N
+(        JJ=J1) N
+(      ELSEIF\(J1.GT.J2\) THEN) N
+(        IF\(IBM.EQ.0\) THEN) N
+(          NA=1) N
+(          NB=2) N
+(          JJ=J2) N
+() S 8 T (ELSE) N
+(          NA=2) N
+(          NB=1) N
+(          JJ=J1) N
+() S 8 T (ENDIF) N
+(      ELSEIF\(J1.LT.J2\) THEN) N
+(        IF\(IAM.EQ.0\) THEN) N
+(          NA=2) N
+(          NB=1) N
+(          JJ=J1) N
+() S 8 T (ELSE) N
+(          NA=1) N
+(          NB=2) N
+(          JJ=J2) N
+() S 8 T (ENDIF) N
+(      ENDIF) N
+(      NCG\(IHSH,1\)=NA) N
+(      NCG\(IHSH,2\)=NB) N
+(      ICG\(IHSH,1\)=JG1) N
+(      ICG\(IHSH,2\)=JG2) N
+(      IF\(NA.EQ.1\) THEN) N
+(        NOSH\(IHSH,1\)=0) N
+(      ELSE) N
+(        NOSH\(IHSH,1\)=NELCSH\(JG1,JA\)) N
+(      ENDIF) N
+(codeall) (Page 9/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      IF\(NB.EQ.1\) THEN) p n
+(        NOSH\(IHSH,2\)=0) N
+(      ELSE) N
+(        NOSH\(IHSH,2\)=NOSHJB\(JG2\)) N
+(      ENDIF) N
+(C      WRITE\(6,'\(A\)'\) '  nosh\(1\),nosh\(2\) ') N
+(C      WRITE\(6,'\(2I5\)'\) NOSH\(IHSH,1\),NOSH\(IHSH,2\)) N
+(      NJ\(IHSH\)=NJCOMP\(JJ\)) N
+(C      WRITE\(6,'\(A\)'\) '  NJ ') N
+(C      WRITE\(6,'\(I5\)'\) NJ\(IHSH\)) N
+(      LJ\(IHSH\)=LJCOMP\(JJ\)) N
+(C      WRITE\(6,'\(A\)'\) '  LJ ') N
+(C      WRITE\(6,'\(I5\)'\) LJ\(IHSH\)) N
+(      IJFUL\(IHSH\)=JJ) N
+(      IF\(JG1.LT.IA.OR.JG2.LT.IB\) THEN) N
+(        IF\(JG1.LT.IA\) THEN) N
+() S 8 T (  IAM=0) N
+(          IF\(NA.EQ.2\) JG1=JG1+1) N
+(        ELSE) N
+(          IF\(NA.EQ.2\)  THEN) N
+() S 8 T (  IF\(IGGA.EQ.0\) THEN) S 32 T () N
+() S 8 T (  IAM=1) N
+() S 8 T (  IGG1=IGG1+1) N
+(        ENDIF) N
+(        ENDIF) N
+(        ENDIF) N
+(        IF\(JG2.LT.IB\) THEN) N
+() S 8 T (  IBM=0) N
+(          IF\(NB.EQ.2\) JG2=JG2+1) N
+(        ELSE) N
+(          IF\(NB.EQ.2\)  THEN) N
+() S 8 T (  IF\(IGGA.EQ.0\) THEN) S 32 T () N
+() S 8 T (  IBM=1) N
+() S 8 T (  IGG1=IGG1+1) N
+(        ENDIF) N
+(        ENDIF) N
+(        ENDIF) N
+(        GO TO 1) N
+(      ENDIF) N
+(      IF\(NA.EQ.1\) THEN) N
+() S 8 T ( IF\(J1.LT.J2\)RETURN) N
+() S 8 T ( IF\(IAM.EQ.1\) RETURN) N
+(         IAM=1) N
+() S 8 T ( IBM=1) N
+(         IGA=IGA+1) N
+(         IF\(IGA.EQ.1\)GO TO 1) N
+(      ENDIF) N
+(      IF\(NB.EQ.1\) THEN) N
+() S 8 T ( IF\(J2.LT.J1\)RETURN) N
+() S 8 T ( IF\(IBM.EQ.1\) RETURN) N
+(         IAM=1) N
+() S 8 T ( IBM=1) N
+(         IGA=IGA+1) N
+(         IF\(IGA.EQ.1\)GO TO 1) N
+(      ENDIF) N
+(      RETURN) N
+(      END) N
+(*) N
+(*     ------------------------------------------------------------------) N
+(*       S H E L L S J B) N
+(*     ------------------------------------------------------------------) N
+(*) N
+(      SUBROUTINE SHELLSJB\(JB\)) N
+(      IMPLICIT DOUBLE PRECISION\(A-H,O-Z\)) N
+(*) N
+(      POINTER\(QNOC,NOCCSH\(1\)\),\(QNELCSH,NELCSH\(8,1\)\),) N
+(     :       \(QNOCORB,NOCORB\(8,1\)\),\(QJ1,J1QNRD\(15,1\)\)) N
+(      POINTER\(QIAJCMP,IAJCMP\(1\)\),\(QLJCOMP,LJCOMP\(1\)\),) N
+(     :       \(QNJCOMP,NJCOMP\(1\)\),\(QIAJCLD,IAJCLD\(1\)\),) N
+(codeall) (Page 10/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (5/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (11-12) 6
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(     :       \(QLJCLSD,LJCLSD\(1\)\)) p n
+(      COMMON /NDIMS/ QNOC,QNELCSH,QNOCORB,QJ1,NCFG) N
+(      COMMON /NON30/ QIAJCMP,QNJCOMP,QLJCOMP,QIAJCLD,QLJCLSD,MAXORB) N
+(      COMMON/OCCUPATION/NCG\(16,2\),ICG\(16,2\)) N
+(      COMMON/JB/IHSHJB,NJB\(16\),LJB\(16\),NOSHJB\(16\),IJFULJB\(16\)) N
+(      IB=NOCCSH\(JB\)) N
+(      IHSHJB=IB) N
+(      DO 1 J=1,IB) N
+(        I1=NOCORB\(J,JB\)) N
+(        NOSHJB\(J\)=NELCSH\(J,JB\)) N
+(        NJB\(J\)=NJCOMP\(I1\)) N
+(        LJB\(J\)=LJCOMP\(I1\)) N
+(        IJFULJB\(J\)=I1) N
+(    1 CONTINUE) N
+(      RETURN) N
+(      END) N
+(*) N
+(*     ------------------------------------------------------------------) N
+(*       S H E L L S A M E) N
+(*     ------------------------------------------------------------------) N
+(*) N
+(      SUBROUTINE SHELLSAME\(JA\)) N
+(      IMPLICIT DOUBLE PRECISION\(A-H,O-Z\)) N
+(      COMMON/JB/IHSHJB,NJB\(16\),LJB\(16\),NOSHJB\(16\),IJFULJB\(16\)) N
+(      COMMON/MEDEFN/IHSH,NJ\(16\),LJ\(16\),NOSH\(16,2\),J1QN\(31,3,2\),) N
+(     :IJFUL\(16\)) N
+(      COMMON/OCCUPATION/NCG\(16,2\),ICG\(16,2\)) N
+(      DO 2 J=1,IHSHJB) N
+(        NCG\(J,1\)=2) N
+(        NCG\(J,2\)=2) N
+(        ICG\(J,1\)=J) N
+(        ICG\(J,2\)=J) N
+(        NOSH\(J,1\)=NOSHJB\(J\)) N
+(        NOSH\(J,2\)=NOSHJB\(J\)) N
+(        NJ\(J\)=NJB\(J\)) N
+(        LJ\(J\)=LJB\(J\)) N
+(        IJFUL\(J\)=IJFULJB\(J\)) N
+(    2 CONTINUE) N
+(      IHSH=IHSHJB) N
+(      RETURN) N
+(      END) N
+(*) N
+(*     ------------------------------------------------------------------) N
+(*      C O U P L I N G ) N
+(*     ------------------------------------------------------------------) N
+(*) N
+(      SUBROUTINE COUPLING\(JA,JB\)) N
+(      IMPLICIT DOUBLE PRECISION\(A-H,O-Z\)) N
+(*) N
+(      POINTER\(QNOC,NOCCSH\(1\)\),\(QNELCSH,NELCSH\(8,1\)\),) N
+(     :       \(QNOCORB,NOCORB\(8,1\)\),\(QJ1,J1QNRD\(15,1\)\)) N
+(      COMMON /NDIMS/ QNOC,QNELCSH,QNOCORB,QJ1,NCFG) N
+(      COMMON/MEDEFN/IHSH,NJ\(16\),LJ\(16\),NOSH\(16,2\),J1QN\(31,3,2\),) N
+(     :IJFUL\(16\)) N
+(      COMMON/OCCUPATION/NCG\(16,2\),ICG\(16,2\)) N
+(      DO 1 IH=1,IHSH) N
+(        JC=JA) N
+(        DO 2 I=1,2) N
+(          IC=ICG\(IH,I\)) N
+(          NC=NCG\(IH,I\)) N
+(          I2H=IHSH+IH-1) N
+(*) N
+(* --- FIRST CONSIDER THE L.H.S. \(I=1\) OF THE MATRIX ELEMENT. NC=1 MEANS) N
+(*     UNOCCUPIED, REPRESENTED BY A DUMMY SINGLET S SHELL, AND THE) N
+(*    ADDITIONAL SET OF COUPLING QUANTUM NUMBERS WILL BE THE SAME AS THE) N
+(*     LAST SET OF COUPLING QUANTUM NUMBERS ALREADY OBTAINED.) N
+(*     NC=2 MEANS OCCUPIED.  THEN ALL THE NEW QUANTUM NUMBERS \(BOTH FOR) N
+(*     THE SHELL AND FOR THE COUPLING OF THIS SHELL TO THE RESULTANT OF) N
+(*     THE PREVIOUS ONES\) ARE DEFINED IN THE CORRESPONDING J1QNRD ARRAY.) N
+(codeall) (Page 11/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(*     NOSH - THE NUMBER OF ELECTRONS IN THIS SHELL, IS DEFINED BY THE) p n
+(*     APPROPRIATE ENTRY IN NELCSH .  THE R.H.S. IS THEN CONSIDERED) N
+(*     SIMILARLY \(I=2\)) N
+(*) N
+(          IF\(NC.EQ.1\) THEN) N
+(            J1QN\(IH,1,I\)=0) N
+(            J1QN\(IH,2,I\)=1) N
+(            J1QN\(IH,3,I\)=1) N
+(            IF\(IH.EQ.2\) THEN) N
+(              J1QN\(I2H,1,I\)=0) N
+(              J1QN\(I2H,2,I\)=J1QN\(1,2,I\)) N
+(              J1QN\(I2H,3,I\)=J1QN\(1,3,I\)) N
+(            ELSEIF\(IH.GT.2\) THEN) N
+() S 8 T (      I2H1=I2H-1) N
+(              J1QN\(I2H,1,I\)=J1QN\(I2H1,1,I\)) N
+(              J1QN\(I2H,2,I\)=J1QN\(I2H1,2,I\)) N
+(              J1QN\(I2H,3,I\)=J1QN\(I2H1,3,I\)) N
+(            END IF) N
+(          ELSE) N
+(          JD = J1QNRD\(IC,JC\)) N
+(          J1QN\(IH,1,I\)=MOD\(JD,64\)) N
+(          JD = JD/64) N
+(          J1QN\(IH,2,I\) = MOD\(JD,64\)) N
+(          J1QN\(IH,3,I\) = JD/64) N
+(*) N
+(*     IS THIS THE FIRST OCCUPIED SHELL OF EITHER CONFIGURATION. IF SO,) N
+(*    THEN THERE ARE NO INTERMEDIATE COUPLINGS TO CONSIDER AT THIS STAGE) N
+(*) N
+(          IF\(IH .GT. 1\) THEN) N
+(*) N
+(*    IS THIS THE FIRST OCCUPIED SHELL OF THIS CONFIGURATION, THOUGH NOT) N
+(*     THE FIRST OF THE OTHER CONFIGURATION.  IF SO, THE INTERMEDIATE) N
+(*     COUPLING FORMED HAS THE SAME  L,S  VALUES AS THIS OCCUPIED SHELL,) N
+(*     SINCE WE COUPLE THE SHELL TO A DUMMY SINGLET S.) N
+(*) N
+(            IF\(IC .LE.1\) THEN) N
+(              I2 = 1) N
+(            ELSE) N
+(              I2 = NOCCSH\(JC\)+IC-1) N
+(            END IF) N
+(            JD = J1QNRD\(I2,JC\)) N
+(            IF \(IC .LE. 1\) THEN) N
+(              J1QN\(I2H,1,I\) = 0) N
+(            ELSE) N
+(              J1QN\(I2H,1,I\) = MOD\(JD,64\)) N
+(            END IF) N
+(            JD = JD/64) N
+(            J1QN\(I2H,2,I\) = MOD\(JD, 64\)) N
+(            J1QN\(I2H,3,I\) = JD/64) N
+(          END IF) N
+(        END IF) N
+(        JC=JB) N
+(    2   CONTINUE) N
+(    1 CONTINUE) N
+(      END) N
+(*) N
+(*     -------------------------------------------------------------) N
+(*      S A V E N O N) N
+(*     -------------------------------------------------------------) N
+(*                                                                  *) N
+(*     THIS SUBROUTINE FOR         G N O N H                        *) N
+(*                                                                  *) N
+(*     Written by G. Gaigalas,                                      * ) N
+(*     Vanderbilt University,  Nashville            February 1994   * ) N
+(*) N
+(      SUBROUTINE SAVENON\(I,A,KL,LA,LB,LC,LD,JA,JB,IPTR\)) N
+(      IMPLICIT DOUBLEPRECISION \(A-H,O-Z\)) N
+(      COMMON/SIGNF/SIGNFA) N
+(      A=A*SIGNFA) N
+(codeall) (Page 12/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (6/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (13-14) 7
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      CALL SAVELS\(I,A,KL,LA,LB,LC,LD,JA,JB,IPTR\)) p n
+(      RETURN) N
+(      END) N
+(*) N
+(*------------------------------------------------------------------------) N
+(*        G E N I N T) N
+(*------------------------------------------------------------------------) N
+(*) N
+(        SUBROUTINE genint\(maxorb,lmax,ql,qintptr,qpackn,qlused,noint,) N
+(     :                    iscw\)) N
+(        POINTER \(ql,l\(1\)\),\(qintptr,intptr\(0:2*lmax,4\)\),) N
+(     :          \(qpackn,ipackn\(1\)\),\(qlused,lused\(1\)\)) N
+(        INTEGER l,intptr,ipackn) N
+(        INTEGER maxorb,lmax,n) N
+(        LOGICAL omit, ltriang, lused) N
+(        DIMENSION noint\(4\)) N
+() N
+(*       .. sweep through to find dimensions) N
+(*) N
+(*       Generate the list of possible integrals) N
+(*) N
+(*       Make the FK integrals: i2 <= i4) N
+(*) N
+(        n = 0) N
+(        do k = 0,2*lmax) N
+(          do i2 = 1,maxorb) N
+(            l2 = l\(i2\)) N
+(            do i4 = i2,maxorb) N
+(              l4 = l\(i4\)) N
+(              if \(ltriang\(k,l2,l2\) .and. ltriang\(k,l4,l4\)\) then) N
+(                n = n+1) N
+(              end if) N
+(            end do) N
+(          end do) N
+(        end do) N
+(        noint\(1\)=n) N
+(*) N
+(*       Make the GK integrals: i2 < i4) N
+(*) N
+(        do k = 0,2*lmax) N
+(          do i2 = 1,maxorb) N
+(            l2 = l\(i2\)) N
+(            do i4 = i2+1,maxorb) N
+(              l4 = l\(i4\)) N
+(              if \(ltriang\(k,l2,l4\) \) then) N
+(                n = n+1) N
+(              end if) N
+(            end do) N
+(          end do) N
+(        end do) N
+(        noint\(2\)=n) N
+(*) N
+(*       Make the RK integrals: i1<=i2; i1 <= i3; i1<=i4) N
+(*) N
+(        do k = 0,2*lmax) N
+(          do i1 = 1,maxorb) N
+(            l1 = l\(i1\)) N
+(            do i2 = i1,maxorb) N
+(              l2 = l\(i2\)) N
+(              do i3=i1,maxorb) N
+(                l3 = l\(i3\)) N
+(                if \(ltriang\(k,l1,l3\)\) then) N
+(                  do i4 = i1,maxorb) N
+(                    l4 = l\(i4\)) N
+(*                   .. omit if FK) N
+(C                    omit = \(i3-i1\)+\(i4-i2\) .eq. 0) N
+(                    omit = \(i1.eq.i4.and.i2.eq.i3\).or.) N
+(     :                     \(i1.eq.i3.and.i2.eq.i4\)) N
+(                    if \( .not. omit .and. ltriang\(k,l2,l4\) \) then) N
+(codeall) (Page 13/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(                      n = n+1) p n
+(                    end if) N
+(                  end do) N
+(                end if) N
+(              end do) N
+(            end do) N
+(          end do) N
+(        end do) N
+(        noint\(3\)=n) N
+(*) N
+(*       Make the  integrals: i2 < i4) N
+(*) N
+(        do i2 = 1,maxorb) N
+(          l2 = l\(i2\)) N
+(          do i4 = i2,maxorb) N
+(            l4 = l\(i4\)) N
+(            if \(l2 .eq. l4\) then) N
+(              n = n+1) N
+(            end if) N
+(          end do) N
+(        end do) N
+(        noint\(4\)=n) N
+(*) N
+() N
+(*       .. allocate memory for integral book keeping) N
+() N
+(        call alloc\(qintptr,\(\(2*lmax+1\)*4\),4\)      ) N
+(        write\(iscw,*\) 'Allocating space for ',n,' integrals') N
+(        call alloc\(qpackn,n,4\)) N
+(        call alloc\(qlused,n,4\)) N
+() N
+(*       .. now generate the pointer data) N
+(*) N
+(*       Generate the list of possible integrals in packed form) N
+(*       along with pointer values) N
+(*) N
+(*       Make the FK integrals: i2 <= i4) N
+(*) N
+(        n = 0) N
+(        do k = 0,2*lmax) N
+(          do i2 = 1,maxorb) N
+(            l2 = l\(i2\)) N
+(            do i4 = i2,maxorb) N
+(              l4 = l\(i4\)) N
+(              if \(ltriang\(k,l2,l2\) .and. ltriang\(k,l4,l4\)\) then) N
+(                n = n+1) N
+(                ipackn\(n\) = \(k*64 + i2\)*64 + i4) N
+(C                write \(*,*\) 'ipack',ipackn\(n\)) N
+(              end if) N
+(            end do) N
+(          end do) N
+(          intptr\(k,1\) = n) N
+(C          write \(*,*\) k,intptr\(k,1\)) N
+(        end do) N
+(*) N
+(*       Make the GK integrals: i2 < i4) N
+(*) N
+(        do k = 0,2*lmax) N
+(          do i2 = 1,maxorb) N
+(            l2 = l\(i2\)) N
+(            do i4 = i2+1,maxorb) N
+(              l4 = l\(i4\)) N
+(              if \(ltriang\(k,l2,l4\) \) then) N
+(                n = n+1) N
+(                ipackn\(n\) = \(k*64 + i2\)*64 + i4) N
+(C                write \(*,*\) 'ipack',ipackn\(n\)) N
+(              end if) N
+(            end do) N
+(          end do) N
+(codeall) (Page 14/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (7/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (15-16) 8
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(          intptr\(k,2\) = n) p n
+(C          write \(*,*\) k,intptr\(k,2\)) N
+(        end do) N
+(*) N
+(*       Make the RK integrals: i1<=i2; i1 <= i3; i1<=i4) N
+(*) N
+(        do k = 0,2*lmax) N
+(          do i1 = 1,maxorb) N
+(            l1 = l\(i1\)) N
+(            do i2 = i1,maxorb) N
+(              l2 = l\(i2\)) N
+(              do i3=i1,maxorb) N
+(                l3 = l\(i3\)) N
+(                if \(ltriang\(k,l1,l3\)\) then) N
+(                  do i4 = i1,maxorb) N
+(                    l4 = l\(i4\)) N
+(*                   .. omit if FK) N
+(C                    omit = \(i3-i1\)+\(i4-i2\) .eq. 0) N
+(                    omit = \(i1.eq.i4.and.i2.eq.i3\).or.) N
+(     :                     \(i1.eq.i3.and.i2.eq.i4\)) N
+(                    if \( .not. omit .and. ltriang\(k,l2,l4\) \) then) N
+(                      n = n+1) N
+(                      ipackn\(n\) = \(\(\(k*64+i1\)*64+i2\)*64+i3\)*64+i4) N
+(C                       write \(*,*\) 'ipack',ipackn\(n\)) N
+(                    end if) N
+(                  end do) N
+(                end if) N
+(              end do) N
+(            end do) N
+(          end do) N
+(          intptr\(k,3\) = n) N
+(C          write \(*,*\) k,intptr\(k,3\)) N
+(        end do) N
+(*) N
+(*       Make the  integrals: i2 < i4) N
+(*) N
+(        do i2 = 1,maxorb) N
+(          l2 = l\(i2\)) N
+(          do i4 = i2,maxorb) N
+(            l4 = l\(i4\)) N
+(            if \(l2 .eq. l4\) then) N
+(              n = n+1) N
+(              ipackn\(n\) = i2*64 + i4) N
+(C                write \(*,*\) 'ipack',ipackn\(n\)) N
+(            end if) N
+(          end do) N
+(        end do) N
+(        intptr\(0,4\) = n) N
+(C        write \(*,*\) 0,intptr\(0,4\)) N
+(*) N
+() N
+(        end) N
+(      subroutine getwd\(myid,mpi_dir,lmpi_dir,p_name,lpn\)) N
+() N
+(      character*\(60\) en,ev,path,uname,mpi_dir ) N
+(      integer*2  mode,serr) N
+(      integer myid,plstr,lmpi_dir,lstring) N
+(      character*\(10\) p_name) N
+() N
+(      serr = hostnm\(p_name\);) N
+(      p_name = trim\(p_name\);) N
+(      lpn = len_trim\(p_name\);) N
+(     ) N
+(      if \(serr.ne.0\) print*, 'could''nt get hostname, myid = ', ) N
+(     :                       myid, ' exiting..') N
+(      if \(serr.ne.0\)  call exit\(21\);) N
+() N
+(!     ... get user name) N
+(      en = "USER";) N
+(codeall) (Page 15/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      call getenv\(en,ev\);) p n
+(      lstring = len_trim\(ev\);) N
+(      uname = trim\(ev\); ) N
+() N
+(!     ... get the path where mpiruns are supposed to run:) N
+(      en = "MPI_TMP";) N
+(      call getenv\(en,ev\);) N
+(      lmpi_dir = len_trim\(ev\);) N
+(      mpi_dir = trim\(ev\);) N
+( ) N
+(      if \(mpi_dir == ''\) then) N
+(         print*, 'Error! $MPI_TMP not set, exiting... myid: ', ) N
+(     :            p_name,':',myid;) N
+(         call exit\(22\);) N
+(      else ) N
+(      if \(myid == 0\) print*, 'mpifiles will be in directory ', ) N
+(     :            mpi_dir) N
+(         print'\(A8,A5,A1,A6,I2\)', 'myname: ', ) N
+(     :            p_name,':','myid: ',myid;) N
+(      end if;) N
+() N
+(      end subroutine getwd ) N
+() N
+(      ) N
+(       ) N
+() N
+(      ) N
+(*-----------------------------------------------------------------------) N
+(*               I S E A R CH) N
+(*-----------------------------------------------------------------------) N
+(*) N
+(*     Given the type of integral, the packed integral,) N
+(*     find its position in the list ipackn.  An open) N
+(*     addressing scheme will be used.) N
+(*) N
+(      INTEGER FUNCTION isearch\(icase,int,qpackn,qlused,qintptr,lmax\)) N
+(      POINTER \(qpackn,ipackn\(1\)\),\(qintptr,intptr\(0:2*lmax,4\)\),) N
+(     :        \(qlused,lused\(1\)\)) N
+(      ) N
+(      LOGICAL found) N
+(      LOGICAL lused) N
+(*     Find k) N
+(      k = int) N
+(      if \(icase.le.2 .or. icase.eq.4 .or. icase.eq.5\) then) N
+(        k = k/64/64) N
+(      else if \(icase .eq. 3 .or. icase .gt. 5\) then) N
+(        k = k/64/64/64/64) N
+(      end if) N
+(*     Find range of integral to search) N
+(      if \(k .eq. 0\) then) N
+(        if \(icase .eq. 1\) then) N
+(          left = 0) N
+(        else ) N
+(          left = intptr\(2*lmax,icase-1\)) N
+(        end if) N
+(      else) N
+(        left = intptr\(k-1,icase\)) N
+(      end if) N
+(      iright = intptr\(k,icase\)+1) N
+(*) N
+(*     .. begin searching the appropriate range) N
+(      found = .false.) N
+(10    mid = \(left + iright\)/2    ) N
+(      if \(left .lt. mid .and. .not. found\) then) N
+(C        write\(*,*\) ipackn\(mid\)) N
+(        if \(int .eq. ipackn\(mid\)\) then) N
+(          isearch = mid) N
+(          found = .true.) N
+(          lused\(isearch\) = .true.) N
+(codeall) (Page 16/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (8/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (17-18) 9
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(        else if \(int .gt. ipackn\(mid\)\) then) p n
+(          left = mid) N
+(        else) N
+(          iright = mid) N
+(        end if) N
+(        go to 10) N
+(      end if) N
+(      if \(.not. found\) then) N
+(        write\(6,*\) ' The integral', int,' for icase = ',icase,) N
+(     :             ' not found in the list') N
+(        stop) N
+(      end if) N
+(      end) N
+() N
+() N
+() N
+() N
+() N
+() N
+(*) N
+(*------------------------------------------------------------------------) N
+(*        L T R I A N G) N
+(*------------------------------------------------------------------------) N
+(*) N
+() S 8 T (LOGICAL FUNCTION ltriang\(k,li,lj\)) N
+() S 8 T (INTEGER k,li,lj) N
+(*) N
+(*       Return a value of TRUE if k,li,lj form a triangle) N
+(*) N
+() S 8 T (IF \( mod\(k+li+lj,2\) .ne. 0\) then) N
+() S 8 T (   ltriang = .false.) N
+() S 8 T (else) N
+() S 8 T (  IF \(abs\(li-lj\) .gt. k \) then) N
+() S 8 T (    ltriang = .false.) N
+() S 8 T (  else if \(li+lj .lt. k\) then) N
+() S 8 T (    ltriang = .false.) N
+() S 8 T (  else) N
+() S 8 T (    ltriang = .true.) N
+() S 8 T (  end if) N
+() S 8 T (end if) N
+() S 8 T (end) N
+(*) N
+(*     ------------------------------------------------------------------) N
+(*       A N G M O M G) N
+(*     ------------------------------------------------------------------) N
+(*) N
+(      SUBROUTINE ANGMOMG\(NEW,NZERO,IFIRST\)) N
+(      IMPLICIT DOUBLE PRECISION\(A-H,O-Z\)) N
+(      PARAMETER \(NWD=60, NWCD=20\)) N
+(      PARAMETER \(LSDIM=30000\)) N
+(        INCLUDE 'mpif.h') N
+(        parameter \(MAXPROC=100\)) N
+(        common /MPI/ myid, nprocs, ierr, istat\(MPI_STATUS_SIZE\)) N
+() N
+(*) N
+(      POINTER \(qcn,cn\(1\)\),\(qinptr,inptr\(lsdim\)\),\(qpackn,ipackn\(1\)\),) N
+(     :        \(qlused,lused\(1\)\),\(qnijptr,nijptr\(lsdim\)\),) N
+(     :        \(qjan,jan\(lsdim\)\),\(qjbn,jbn\(lsdim\)\),\(qico,ico\(1\)\),) N
+(     :        \(qintptr,idummy\(1\)\) ) N
+(      COMMON /buffer/qcn,qinptr,qpackn,qlused,qintptr,lmax,qnijptr,) N
+(     :               qjan,qjbn,qico) N
+(      COMMON/INFORM/IREAD,IWRITE,IOUT,ISC\(4\),IALL,JSC\(3\),ISCW) N
+(      COMMON/DEBUG/IBUG1,IBUG2,IBUG3,NBUG6,NBUG7,IFULL) N
+(      POINTER  \(qjptr, jptr\(1\)\)) N
+(      COMMON /fout/n,ntot,idum\(6\),nrec\(8\),iflag,lij,nij,qjptr,cf_tot) N
+(      COMMON/DIAGNL/IDIAG,JA,JB) N
+(      CHARACTER*30 FORMAT\(3\)) N
+(      CHARACTER*1 NCHAR\(8\)) N
+(      POINTER\(QNOC,NOCCSH\(1\)\),\(QNELCSH,NELCSH\(8,1\)\),) N
+(codeall) (Page 17/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(     :       \(QNOCORB,NOCORB\(8,1\)\),\(QJ1,J1QNRD\(15,1\)\)) p n
+(      POINTER\(QIAJCMP,IAJCMP\(1\)\),\(QLJCOMP,LJCOMP\(1\)\),) N
+(     :       \(QNJCOMP,NJCOMP\(1\)\),\(QIAJCLD,IAJCLD\(1\)\),) N
+(     :       \(QLJCLSD,LJCLSD\(1\)\)) N
+(      COMMON /NDIMS/ QNOC,QNELCSH,QNOCORB,QJ1,NCFG) N
+(      COMMON /NON30/ QIAJCMP,QNJCOMP,QLJCOMP,QIAJCLD,QLJCLSD,MAXORB) N
+(      POINTER\(QIORTH,IORTH\(1\)\)) N
+(      COMMON/OVRLAP/MU,NU,MUP,NUP,NONORT,NOVLPS,IROWMU,IROWNU,ICOLMU,) N
+(     : ICOLNU,NORTH,IORDER,NCALLS,LMU,LNU,LMUP,LNUP,JMU,JNU,JMUP,JNUP,) N
+(     :     QIORTH) N
+() N
+(      LOGICAL lused) N
+(*) N
+(      DATA NCHAR/'1','2','3','4','5','6','7','8'/) N
+(      DATA FORMAT/'\(2H <,I3,5H |H| ,I2,6H > = <, ',) N
+(     :              '  \(A3,1H\(,I2,1H\)\) ,5H |H| ,   ',) N
+(     :                '\(A3,1H\(,I2,1H\)\),2H >,/\)     '/) N
+(*) N
+(* --- THIS PROGRAMME CONSIDERS EITHER SUPERPOSITION OF CONFIGURATIONS OR) N
+(*     MULTI-CONFIGURATIONAL HARTREE-FOCK WAVE FUNCTIONS.  USING THE) N
+(*     RESULT THAT THE TWO-ELECTRON HAMILTONIAN MATRIX ELEMENT) N
+(*     \(PSI/V/PSIP\)  CAN BE WRITTEN AS A SUM OF SLATER INTEGRALS, THE) N
+(*     PRESENT CODE  -  WEIGHTS  -  CALCULATES THE COEFFICIENTS OF THESE) N
+(*     INTEGRALS.  PSI AND PSIP ARE ALLOWED TO RUN OVER NCFG CONFIGURATNS) N
+(*) N
+(*) N
+(* --- CONSIDER \(PSI/V/PSIP\) AS PSI AND PSIP RUN OVER ALL CONFIGURATIONS) N
+(*) N
+(*      if \(mod\(jb,100\) .eq. 0\) write\(ISCW,*\) '   jb =',jb) N
+(      NFIRST = NCFG - NEW + 1) N
+(      irow = max\(jb,nfirst\)) N
+(      if \(jb .gt. nzero\) then) N
+(        last = jb) N
+(      else) N
+(        last = ncfg) N
+(      end if) N
+(      Do 6 JA = irow, last) N
+(*     DO 6 JA=irow,NCFG) N
+(*     IF \(JB .GT. NZERO .AND. IFIRST .EQ. 1 .AND. JA .NE. JB \) GO TO 6) N
+(*     IF \(JB.GT.NZERO .AND. JB.LT.NFIRST .AND. IFIRST.EQ.0\) GO TO 6) N
+(*     write\(ISCW,*\) '     ja =',ja) N
+(      IFLAG=0) N
+(      IDIAG=0) N
+(      IF\(JA.EQ.JB\) IDIAG=1) N
+(      IF \(NORTH .NE. 0\) THEN) N
+(        WRITE\(ISCW,'\(A\)'\) ' this prog. com. with orthogonal orbitals') N
+(        STOP) N
+(      ENDIF) N
+(      N1=NOCCSH\(JA\)) N
+(      N2=NOCCSH\(JB\)) N
+(*      IF \(IFULL .NE. 0\) THEN) N
+(*         FORMAT\(2\)\(2:2\) = NCHAR\(N1\)) N
+(*         FORMAT\(2\)\(30:30\) = NCHAR\(N2\)) N
+(*         WRITE\(IWRITE,'\(///\)'\)) N
+(*         WRITE\(IWRITE,FORMAT\) JA,JB,) N
+(*     :        \(IAJCMP\(NOCORB\(J,JA\)\),NELCSH\(J,JA\),J=1,N1\),) N
+(*     :        \(IAJCMP\(NOCORB\(J,JB\)\),NELCSH\(J,JB\),J=1,N2\)) N
+(*      END IF) N
+(*) N
+(* --- SET UP DEFINING QUANTUM NUMBERS FOR EACH MATRIX ELEMENT) N
+(*) N
+(C      CALL SETUP\(JA,JB\)) N
+(      CALL SHELLS\(JA,JB,LET\)) N
+(      IF\(LET.EQ.0\) GO TO 6) N
+(      IF\(IBUG1.GT.0.OR.IBUG2.GT.0\) CALL VIJOUT\(JA,JB\)) N
+(*) N
+(* --- TEST ON POSSIBLE RECOUPLING ORTHOGONALITY) N
+(*) N
+(      CALL ORTHOGG\(LET\)) N
+(codeall) (Page 18/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (9/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (19-20) 10
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      IF\(LET.EQ.0\) GO TO 6) p n
+(*) N
+(* --- IF NO SUCH ORTHOGONALITY IS EXHIBITED, CALCULATE WEIGHTS OF SLATER) N
+(*     INTEGRALS) N
+(*) N
+(       CALL NONRELAT) N
+(      IF \(IFLAG .NE. 0\) then) N
+(        if \(lij/lsdim .eq. 1\) then) N
+(**          .. a record needs to be written to iout) N
+(*           write\(iout\) lsdim,\(jan\(i\),i=1,lsdim\), \(ico\(i\),i=1,lsdim\)) N
+(           write\(38\) lsdim,\(jan\(i\),i=1,lsdim\), \(ico\(i\),i=1,lsdim\)) N
+(           lij = 0) N
+(        end if) N
+(        NIJ = NIJ + 1) N
+(        LIJ = LIJ + 1) N
+(        jan\(lij\) = ja) N
+(        jbn\(lij\) = jb) N
+(        ico\(lij\) = ntot) N
+(      endif) N
+(    6 CONTINUE) N
+(*) N
+(      END) N
+(* ======================================================================) N
+(*) N
+(*     GENERAL PROGRAM TO COMPUTE MATRIX ELEMENTS OF THE  NON-) N
+(*     RELATIVISTIC HAMILTONIAN UNDER THE FOLLOWING ASSUMPTIONS -) N
+(*         \(1\) LS-COUPLING) N
+(*         \(2\) ORTHO-NORMAL CONFIGURATION STATE FUNCTIONS) N
+(*         \(3\) ALL ORBITALS ARE ORTHOGONAL) N
+(*) N
+(*     WRITTEN BY -) N
+(*     G. GAIGALAS, INSTITUTE OF THEOERETICAL PHYSICS) N
+(*        AND ASTRONOMY, VILNIUS, LITHUANIA) N
+(*) N
+(*     C. FROESE FISCHER, DEP'T OF COMPUTER SCIENCE) N
+(*        VANDERBILT UNIVERISTY) N
+(*) N
+(*) N
+(*     FEBRUARY, 1994) N
+(*     AUGUST,   1994  \(A Ynnerman for unsorted lists\)) N
+(*     DECEMBER, 1995                                 \( f-sell included \)) N
+(*     DECEMBER, 1998  \(C. Froese Fischer and G. Tachiev - block version\)) N
+(*) N
+(*) N
+(* ======================================================================) N
+(*) N
+(      PROGRAM snonh) N
+(      IMPLICIT DOUBLE PRECISION\(A-H,O-Z\)) N
+(      PARAMETER \(NWCD=20,NBD=20,LSDIM=30000,NWD=60\)) N
+() N
+(*) N
+(*     MPI stuff ***********************************************) N
+(*) N
+(        INCLUDE 'mpif.h') N
+(        parameter \(MAXPROC=100\)) N
+(        common /MPI/ myid, nprocs, ierr, istat\(MPI_STATUS_SIZE\)) N
+(        Character*2 idstring) N
+(        Character*72 program,arch,hostn,odir,output,outc) N
+(        character*128 NAME\(2\),workpath) N
+(        logical :: f_out) N
+(        integer tids, nnn\(6\), working_procs, cf_tot) N
+(        integer group_L) N
+() S 8 T (integer, allocatable, dimension\(:\) :: proc_ncoff) N
+(        integer ncfg_left, new_group, new_id, color,MPI_GROUP_WORLD) N
+(        integer comm_L, comm_last,itot_ng,itot_nr,itot_nf,itot_nl ) N
+(        integer, allocatable, dimension\(:\) :: nij_buff) N
+(        double precision :: message\(200\)) N
+(        integer :: max_buffer) N
+(        real*4 speed\(0:MAXPROC\),timarr\(2\),rstart,rfin,total,etime) N
+(codeall) (Page 19/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(        real :: timing\(4\)) p n
+(        data speed / 101*1000.0 /) N
+(        character*\(128\) mpi_dir,cwd,sh_command,tmpdir) N
+(        character*\(128\) file_cl,file_c,file_y,file_cfg,p_name) N
+() N
+(        integer lmpi_dir,lcwd,size,llc,lly,llcf,llcl,lpn) N
+(        integer*2 serr) N
+(****************************************************************) N
+() N
+(      POINTER \(qcn,cn\(1\)\),\(qinptr,inptr\(1\)\),) N
+(     :        \(qpackn,ipackn\(1\)\),) N
+(     :        \(qnijptr,nijptr\(1\)\),\(qjan,jan\(1\)\),) N
+(     :        \(qjbn,jbn\(1\)\),\(qintptr,idummy\(1\)\),) N
+(     :        \(qlused,lused\(1\)\),) N
+(     :        \(qico,ico\(1\)\) ) N
+(      COMMON /buffer/qcn,qinptr,qpackn,qlused,qintptr,lmax,qnijptr,) N
+(     :               qjan,qjbn,qico) N
+(      COMMON/DEBUG/IBUG1,IBUG2,IBUG3,NBUG6,NBUG7,IFULL) N
+(      COMMON/DIMEN/KFL1,KFL2,KFL3,KFL4,KFL5,KFL6,KFL7,MXIHSH) N
+(      COMMON/INFORM/IREAD,IWRITE,IOUT,ISC0,ISC1,ISC2,ISC3,) N
+(     : IALL,JSC\(3\),ISCW, state) N
+(      COMMON /DIAGNL/IDIAG,JA,JB) N
+(      POINTER  \(qjptr, jptr\(1\)\)) N
+(      pointer \(qcn_g, cn_g\(1\)\) ,\(qinptr_g, inptr_g\(1\)\)) N
+(      COMMON /fout/ncoff,ntot,idum\(6\),nrec\(8\),iflag,lij,nij,qjptr,cf_tot) N
+(      POINTER\(QNOC,NOCCSH\(1\)\),\(QNELCSH,NELCSH\(8,1\)\),) N
+(     :       \(QNOCORB,NOCORB\(8,1\)\),\(QJ1,J1QNRD\(15,1\)\)) N
+(      POINTER\(QIAJCMP,IAJCMP\(1\)\),\(QLJCOMP,LJCOMP\(1\)\),) N
+(     :       \(QNJCOMP,NJCOMP\(1\)\),\(QIAJCLD,IAJCLD\(1\)\),) N
+(     :       \(QLJCLSD,LJCLSD\(1\)\)) N
+(      COMMON /NDIMS/ QNOC,QNELCSH,QNOCORB,QJ1,NCFG, nlines, endc) N
+(      COMMON /NON30/ QIAJCMP,QNJCOMP,QLJCOMP,QIAJCLD,QLJCLSD,MAXORB) N
+(      COMMON /CLOSED/B1ELC\(4\),NCLOSD,IBK) N
+(      COMMON /OPERAT/ ICOLOM,ISOTOP,IORBORB) N
+(      DIMENSION noint\(4\)) N
+(      POINTER \(qltused,ltused\(1\)\)) N
+(      logical ltused) N
+(      INTEGER NBsize\(NBD\), n_sum) N
+(*      REAL TIME\(2\), ETIME, ELAPSE) N
+(      LOGICAL lused, yclist, endc ) N
+(      Character*72 string) N
+(      CHARACTER LINE*72, EL\(NWD\)*3) N
+(      character*3 term) N
+(      character*5 su ) N
+(      integer l_clist) N
+() N
+(      CHARACTER*16 INPUT) N
+(      EXTERNAL INITT) N
+() N
+(    1 FORMAT\(//' IOUT =  FGR.LST \(OUTPUT FILE\)'/) N
+(     :         ' IBUG1  =',I3,' \(DEBUG IN WEIGHTS OF 1-EL PART\)'/) N
+(     :         ' IBUG2  =',I3,' \(DEBUG IN WEIGHTS OF 2-EL PART\)'/) N
+(     :         ' IBUG3  =',I3,' \(DEBUG IN RECOUPLING PACKAGE\)'//\)) N
+(*) N
+(    2 FORMAT\(///20X,'   ==============================='/) N
+(     :            20X,'         S N O N H_M P I   2000',/) N
+(     :            20X,'   ==============================='//\)) N
+(  3   FORMAT\(A30,I3,I4,I6,I8,I8,I8,2x,a5\)) N
+() N
+(* ...  THE FOLLOWING SECTION CONCERNS INPUT/OUTPUT AND MAY BE) N
+(*      SYSTEM DEPENDENT.  CHECK ALLOWED UNIT NUMBERS AND) N
+(*      FILE NAME CONVENTIONS - MODIFY, IF NECESSARY.) N
+() N
+(      call MPI_INIT\(ierr\)) N
+(      call MPI_COMM_RANK\(MPI_COMM_WORLD, myid, ierr\) ) N
+(      call MPI_COMM_SIZE\(MPI_COMM_WORLD, nprocs, ierr\)) N
+(      timing\(1\) = MPI_WTIME\(\)) N
+( ) N
+(      write\(idstring,'\(I2.2\)'\) myid) N
+(codeall) (Page 20/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (10/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (21-22) 11
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      input = 'cfg.inp') p n
+() N
+(      su = 'snonh') N
+(      i = iargc\(\)) N
+(      if \(i .eq. 0\) then) N
+(         INPUT = 'cfg.inp') N
+(         inquire\( FILE=input, exist=yclist\)) N
+(         if \(yclist\) then) N
+(            if\(myid == 0\) write \(iscw,*\) 'input file is cfg.inp ...') N
+(         else) N
+(            write \(iscw,*\) 'cfg.inp not found: nonh is exiting!...') N
+(            call exit\(0\)) N
+(          endif) N
+(       end if) N
+() N
+(      IREAD=4) N
+(      IOUT=8) N
+() N
+(      if \(myid.eq.0\) then) N
+(         ISCW = 0) N
+(         IWRITE = 6) N
+(      else) N
+(         iscw = 40) N
+(         iwrite = 40) N
+(      end if) N
+() N
+(      WRITE\(IWRITE,2\)) N
+(      write\(iscw,'\(A,i4,A\)'\) ) N
+(     :      '                 ...snonh_mpi running on ',) N
+(     :                  nprocs,' processors...') N
+(      write\(iscw,*\)) N
+() N
+() N
+(*>>>>>>>> specify files for input output >>>>>>>>>>>>>>>>>) N
+() N
+(      cwd = " "; mpi_dir = " "; tmpdir = " ";) N
+(      call mpi_work_dir\(cwd, mpi_dir, tmpdir\);) N
+(      lcwd = LEN_TRIM\(cwd\)  - 1) N
+(      lenperm = LEN_TRIM\(mpi_dir\) - 1) N
+(      lentmp = LEN_TRIM\(tmpdir\)  - 1) N
+() N
+(      file_c = tmpdir\(1:lentmp\)//'/c.lst.'//idstring) N
+(      file_y = tmpdir\(1:lentmp\)//'/yint.lst.'//idstring) N
+(      file_cl = cwd\(1:lcwd\)//'/cfg.inp') N
+(      file_cfg = cwd\(1:lcwd\)//'/cfg.h') N
+(      llc = len_trim\(file_c\)) N
+(      lly = len_trim\(file_y\)) N
+(      llcl = len_trim\(file_cl\)) N
+(      llcf = len_trim\(file_cfg\)) N
+() N
+(      !print*, file_c,file_y,file_cl,file_cfg) N
+(      open\(unit=39,file=file_c\(1:llc\),status='unknown',) N
+(     :     form='unformatted'\);) N
+(      !serr = chmod\(file_c\(1:llc\),511\)) N
+(      !if \(serr.ne.0\) print *, 'can''t chmod to 4777 of', file_c) N
+(      open\(unit=38,file=file_y\(1:lly\),status='unknown',) N
+(     :     form='unformatted'\);) N
+(      !serr = chmod\(file_y\(1:lly\),511\)) N
+(      !if \(serr.ne.0\) print *, 'can''t chmod to 4777 of', file_y) N
+(      OPEN\(UNIT=IREAD,FILE=file_cl\(1:llcl\),STATUS='UNKNOWN'\)) N
+(      if \(myid == 0\) then) N
+(         OPEN\(UNIT=25,FILE=file_cfg\(1:llcf\),STATUS='UNKNOWN'\)) N
+(      end if) N
+(       ) N
+(*>>>>>>>>>>>> end files <<<<<<<<<<<<<<<<<<<<<<<<<<) N
+(*) N
+(*     ... END OF MACHINE DEPENDENT SECTION) N
+(*) N
+() N
+(codeall) (Page 21/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      ICOLOM=1) p n
+(      ISOTOP=0) N
+(      IORBORB=0) N
+(      IBUG1 = 0) N
+(      IBUG2 = 0) N
+(      IBUG3 = 0) N
+(      ist=0) N
+(      IFIRST = 0) N
+(      IALL = 1) N
+() N
+(*) N
+(*  ---  Determine input data; non-orthogonal case) N
+(*) N
+(      call inita) N
+(      call analy_blk\(IREAD,IWRITE,NCLOSD,MAXORB,NB,NBsize,EL\)) N
+(      call orbitals\(maxorb,el,qiajcmp,qljcomp,) N
+(     :                    qnjcomp,qiajcld,qljclsd,nb\)) N
+() N
+(*  ..   find maximum l-value) N
+(      lmax = 0) N
+(      do i=1,maxorb) N
+(         lmax = max \(lmax,ljcomp\(i\)\)) N
+(      end do) N
+() N
+(*  .. allocate memory for buffered i/o) N
+() N
+(      call alloc\(qcn,lsdim,8\)) N
+(      call alloc\(qinptr,lsdim,4\)) N
+(      call alloc\(qnijptr,lsdim,4\)) N
+(      call alloc\(qjan,lsdim,4\)) N
+(      call alloc\(qjbn,lsdim,4\)) N
+(      call alloc\(qico,lsdim,4\)) N
+() N
+(*  .. generate list of integrals) N
+() N
+(      call genint\(maxorb,lmax,qljcomp,qintptr,qpackn,qlused,noint,iscw\)) N
+() N
+(*  .. initialize lused) N
+(      lused\(1:noint\(4\)\) = .FALSE.) N
+() N
+(*  .. write global information to cfg.inp) N
+(      nint = noint\(4\)) N
+() N
+(      if \(myid==0\) then) N
+(      write\(25, '\(I3,2I8,3x,A5\)'\) nb, nint, lsdim, su) N
+(      end if) N
+() N
+(      rewind \(iread\)) N
+(*      call MPI_BARRIER\(MPI_COMM_WORLD,ierr\)) N
+(      timing\(2\) = MPI_WTIME\(\) ) N
+(      ncfg_total = sum\(NBsize\)) N
+(      allocate \(proc_ncoff\(NB*nprocs\)\);) N
+(      proc_ncoff = 0;) N
+(      max_buffer = 0) N
+(      cf_tot = 0) N
+(*  .. for all blocks) N
+(      do NLB = 1, NB) N
+(         ncfg = NBsize\(NLB\)) N
+(         NEW = NCFG) N
+(         NZERO = NCFG) N
+(         nrec = 0) N
+(         cf_tot = 0) N
+(*     .. allocate memory for this block) N
+(         call alloc\(qnoc,ncfg,4\)) N
+(         call alloc\(qnelcsh,8*ncfg,4\)) N
+(         call alloc\(qnocorb,8*ncfg,4\)) N
+(         call alloc\(qj1,15*ncfg,4\)) N
+(         call alloc\(qjptr,ncfg,4\)) N
+() N
+(codeall) (Page 22/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (11/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (23-24) 12
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(*        read CFG's for this block) p n
+(         CALL CFGBLK\(ncfg,maxorb,QIAJCMP,QLJCOMP,QNJCOMP,QNOC,) N
+(     :                  QNELCSH,QNOCORB,QJ1,QIAJCLD,QLJCLSD,term\)) N
+(        write\(iscw,'\(A,A,A,i8,A\)'\)'processing ',term,' with ',) N
+(     :                            ncfg,' configurations') N
+(*) N
+(*        Initialize parameters for output) N
+(*) N
+(         lij = 0; nij = 0; mycol = 0; ntot = 0; ncoff = 0;) N
+(         n_start = 1; nj_start = 1; nij_tot = 0; njptr_start = 1;) N
+(         ntot_tot = 0;) N
+(         ) N
+(*        ... create communicator for the last ncfg_last ) N
+(         ncfg_last = modulo\(ncfg,nprocs\)) N
+(!         if \(myid < ncfg_last\) then) N
+(!            new_s = 1) N
+(!         else) N
+(!            new_s = 0 ) N
+(!         end  if) N
+(!         call MPI_COMM_SPLIT\(group_L,new_s,myid,comm_last,ierr\)) N
+(!         call MPI_COMM_SIZE\(comm_last,nsize,ierr \)) N
+(!         call MPI_COMM_RANK\(comm_last,new_id,ierr\)) N
+() N
+(*        ... allocate memeory for buffered output) N
+(         if \(myid==0\) then) N
+(           call alloc\(qcn_g,lsdim,8\)) N
+(           allocate\(nij_buff\(ncfg\)\)) N
+(           nij_buff = 0) N
+(         end if) N
+() N
+(         ncfg_left = ncfg) N
+(         f_out = .false.) N
+() N
+(         do jb = myid+1,ncfg,nprocs) N
+(           if \(mod\(jb,1000\) .eq. 0\) write\(0,*\) '   jb =',jb) N
+(!           if \(mod\(jb,10\) .eq. 0\) write\(0,*\) '   jb =',jb) N
+(           if \(jb.eq.ncfg\) write\(0,*\) '   jb =',jb) N
+(           if \(jb > \(ncfg-nprocs\)\) f_out = .true.) N
+(!           if \(ncfg_left >=  nprocs\) then) N
+(!              working_procs = MPI_COMM_WORLD ) N
+(!              npw = nprocs - 1 ) N
+(!           else ) N
+(!              working_procs = comm_last !new_group !group_L) N
+(!              working_procs = MPI_COMM_WORLD) N
+(!              npw = ncfg_last - 1) N
+(!           end if ) N
+(          ) N
+(           CALL SHELLSJB\(jb\)) N
+(           CALL ANGMOMG\(NEW,NZERO,IFIRST\)) N
+() N
+(           if \(myid < ncfg_left\) then) N
+(!           call MPI_SEND\(lij,1,MPI_INTEGER,0,94,MPI_COMM_WORLD,ierr\)) N
+(!           call MPI_SEND\(nij,1,MPI_INTEGER,0,97,MPI_COMM_WORLD,ierr\)) N
+(           end if) N
+() N
+(           mycol = mycol + 1) N
+(           jptr\(mycol\) = nij) N
+(           ncfg_left = ncfg_left - nprocs) N
+(        end do) N
+(*     call mpi_barrier\(MPI_COMM_WORLD,ierr\)) N
+(*>>>>) N
+(      call MPI_Reduce\(nij,nij_tot,1,MPI_INTEGER,MPI_MAX,0,) N
+(     :                 MPI_COMM_WORLD,ierr\)) N
+() N
+(*>>>>>) N
+(*     .. finish writing the coefficient data, if non empty arrays) N
+(*      ..... write jptr contained in nij_buff) N
+() N
+(       write\(38\) lij,\(jan\(i\),i=1,lij\), \(ico\(i\),i=1,lij\)) N
+(codeall) (Page 23/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(*       if \(myid == 0\) then) p n
+(*          print*, lij,\(jan\(i\),i=1,lij\), \(ico\(i\),i=1,lij\)) N
+(*       endif) N
+(       write\(38\) mycol,\(jptr\(i\),i=1,mycol\)) N
+(*>>>>) N
+(        if \(ncoff.eq.lsdim\) then) N
+(           write\(39\) lsdim,\(cn\(j\),j=1,lsdim\),\(inptr\(j\),j=1,lsdim\)) N
+(           cf_tot = cf_tot + lsdim) N
+(           ncoff=0) N
+(           cn\(ncoff\)=0) N
+(           inptr\(ncoff\)=0) N
+() S 8 T ( else ) N
+(            cf_tot = cf_tot + ncoff) N
+(         end if) N
+(         write\(39\) ncoff, \(cn\(j\),j=1,ncoff\),\(inptr\(j\),j=1,ncoff\)) N
+(*         if \(myid == 0\) then) N
+(*            print*, ncoff, \(cn\(j\),j=1,ncoff\),\(inptr\(j\),j=1,ncoff\) ) N
+(*         end if) N
+(      call MPI_GATHER\(cf_tot,1,MPI_INTEGER,) N
+(     :                 proc_ncoff\(\(\(NLB-1\)*nprocs\)+myid+1\),) N
+(     :                 1,MPI_INTEGER, 0, MPI_COMM_WORLD,ierr\)) N
+() N
+(*>>>>) N
+() N
+(      timing\(3\) = MPI_WTIME\(\)) N
+(*     .. deallocate memory for buffered i/o) N
+() N
+(      nf = nrec\(1\)) N
+(      ng = nrec\(2\)) N
+(      nr = nrec\(3\)) N
+(      nl = nrec\(4\)) N
+() N
+(*      call mpi_barrier\(MPI_COMM_WORLD,ierr\)) N
+(      call MPI_Reduce\(nf,itot_nf,1,MPI_INTEGER,MPI_SUM,0,) N
+(     :                 MPI_COMM_WORLD,ierr\)) N
+(      call MPI_Reduce\(ng,itot_ng,1,MPI_INTEGER,MPI_SUM,0,) N
+(     :                 MPI_COMM_WORLD,ierr\)) N
+(      call MPI_Reduce\(nr,itot_nr,1,MPI_INTEGER,MPI_SUM,0,) N
+(     :                 MPI_COMM_WORLD,ierr\)) N
+(      call MPI_Reduce\(nl,itot_nl,1,MPI_INTEGER,MPI_SUM,0,) N
+(     :                 MPI_COMM_WORLD,ierr\)) N
+() N
+(      ITOTAL = NF+NG+NR+NL) N
+(      itot_tot = itot_nf+itot_ng+itot_nr+itot_nl) N
+(      write\(iscw,220\) nij_tot,itot_nf,itot_ng,itot_nr,itot_nl,itot_tot) N
+(  220 FORMAT\( I8, ' non-zero matrix elements'/) N
+(     :      I8,' NF',I8,' NG',I8,' NR',I8,' NL'/) N
+(     :       I8,' Total number of integrals'\)) N
+() N
+(*    .. write block information to cfg.inp) N
+(      if\(myid == 0\) then) N
+(         write\(25,'\(3x,A3,I8,I8,i20\)'\) term, ncfg, nij_tot) N
+(      end if ) N
+() N
+(         call dalloc\(qnoc,ncfg\)) N
+(         call dalloc\(qnelcsh,8*ncfg\)) N
+(         call dalloc\(qnocorb,8*ncfg\)) N
+(         call dalloc\(qj1,15*ncfg\)) N
+(         if \(myid == 0\) deallocate\(nij_buff\)) N
+(         if \(myid == 0\) call dalloc\(qcn_g,lsdim\);) N
+(      end do) N
+(*    ..end loop on all blocks) N
+(     ) N
+(      if \(myid == 0\) then) N
+(        do ix1 = 1, NB) N
+(          write\(25,'\(A6,i3\)'\) "Block ", ix1) N
+(          do ix2 = 1, nprocs) N
+(            write\(25,'\(i20\)'\) proc_ncoff\(\(\(ix1-1\)*nprocs\)+ix2\)) N
+(          end do ) N
+(codeall) (Page 24/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (12/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (25-26) 13
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(        end do) p n
+(      end if) N
+() N
+(       call alloc\(qltused,noint\(4\),4\)) N
+(       ltused\(1:noint\(4\)\) = .false.) N
+() N
+(      call MPI_ALLREDUCE\(lused,ltused,noint\(4\),MPI_LOGICAL,MPI_LOR,) N
+(     :                MPI_COMM_WORLD,ierr\)) N
+() N
+(*      if \(myid == 0\) then) N
+(        iscase = 1) N
+(        do icase=1,4) N
+(          write\(38\) icase,noint\(icase\)) N
+(          write\(38\) \(ipackn\(i\),i=iscase,noint\(icase\)\),) N
+(     :               \(ltused\(i\),i=iscase,noint\(icase\)\)) N
+(          iscase = noint\(icase\) + 1) N
+(        end do) N
+(*      end if) N
+() N
+(*     .. end the processing) N
+(      call dalloc\(qljclsd,nwcd\)) N
+(      call dalloc\(qpackn,noint\)) N
+(      call dalloc\(qintptr,2*lmax+1\)) N
+(      call dalloc\(qcn,lsdim\)) N
+(      call dalloc\(qinptr,lsdim\)) N
+(      call dalloc\(qnijptr,lsdim\)) N
+(      call dalloc\(qjan,lsdim\)) N
+(      call dalloc\(qjbn,lsdim\)) N
+(      call dalloc\(qico,lsdim\)) N
+(      call dalloc\(qnjcomp,nwfd\)) N
+(      call dalloc\(qljcomp,nwfd\)) N
+(      deallocate \(proc_ncoff\)) N
+() N
+(*      elapse = etime\(time\)) N
+(*      elapse = etime_\(time\)) N
+(*6     write\(iscw,'\(//A/A//A,F8.3,A//\)'\) ' END OF CASE',' ===========',) N
+(*     :      ' Total CPU time was ', TIME\(1\)/60, ' minutes') N
+() N
+(      write \(iscw,*\)  'end-of-file cfg.inp!!!') N
+(      endfile 25) N
+(      if \(myid == 0\) then) N
+(        close\(50\)) N
+(        close\(8\)) N
+(      end if) N
+(      close\(39\)) N
+(      close\(38\)) N
+(      close\(unit=25\)) N
+(      close\(unit=39\)) N
+(*      call MPI_BARRIER\(MPI_COMM_WORLD,ierr\)) N
+(      timing\(4\) = MPI_WTIME\(\)) N
+(*      write\(iscw,*\) 'time 1= ', timing\(2\)-timing\(1\)) N
+(*      write\(iscw,*\) 'time 2= ', timing\(3\)-timing\(2\)) N
+(*      write\(iscw,*\) 'time 3= ', timing\(4\)-timing\(3\) ) N
+(*      write\(iscw,*\) 'the time per 1 cfg =',   ) N
+(*     :                \(timing\(4\)-timing\(1\)\)/ncfg_total) N
+(*      write\(iscw,*\) 'total =', \(timing\(4\)-timing\(1\)\)) N
+(      call MPI_FINALIZE\(ierr\)) N
+() N
+(      END PROGRAM SNONH) N
+(* ======================================================================) N
+(*) N
+(*     GENERAL PROGRAM TO COMPUTE MATRIX ELEMENTS OF THE  NON-) N
+(*     RELATIVISTIC HAMILTONIAN UNDER THE FOLLOWING ASSUMPTIONS -) N
+(*         \(1\) LS-COUPLING) N
+(*         \(2\) ORTHO-NORMAL CONFIGURATION STATE FUNCTIONS) N
+(*         \(3\) ALL ORBITALS ARE ORTHOGONAL) N
+(*) N
+(*     WRITTEN BY -) N
+(*     G. GAIGALAS, INSTITUTE OF THEOERETICAL PHYSICS) N
+(codeall) (Page 25/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(*        AND ASTRONOMY, VILNIUS, LITHUANIA) p n
+(*) N
+(*     C. FROESE FISCHER, DEP'T OF COMPUTER SCIENCE) N
+(*        VANDERBILT UNIVERISTY) N
+(*) N
+(*) N
+(*     FEBRUARY, 1994) N
+(*     AUGUST,   1994  \(A Ynnerman for unsorted lists\)) N
+(*     DECEMBER, 1995                                 \( f-sell included \)) N
+(*     DECEMBER, 1998  \(C. Froese Fischer and G. Tachiev - block version\)) N
+(*) N
+(*) N
+(* ======================================================================) N
+(*) N
+(      PROGRAM snonh) N
+(      IMPLICIT DOUBLE PRECISION\(A-H,O-Z\)) N
+(      PARAMETER \(NWCD=20,NBD=20,LSDIM=30000,NWD=60\)) N
+() N
+(*) N
+(*     MPI stuff ***********************************************) N
+(*) N
+(        INCLUDE 'mpif.h') N
+(        parameter \(MAXPROC=100\)) N
+(        common /MPI/ myid, nprocs, ierr, istat\(MPI_STATUS_SIZE\)) N
+(        Character*2 idstring) N
+(        Character*72 program,arch,hostn,odir,output,outc) N
+(        character*128 NAME\(2\),workpath) N
+(        logical :: f_out) N
+(        integer tids, nnn\(6\), working_procs, cf_tot) N
+(        integer group_L) N
+() S 8 T (integer, allocatable, dimension\(:\) :: proc_ncoff) N
+(        integer ncfg_left, new_group, new_id, color,MPI_GROUP_WORLD) N
+(        integer comm_L, comm_last,itot_ng,itot_nr,itot_nf,itot_nl ) N
+(        integer, allocatable, dimension\(:\) :: nij_buff) N
+(        double precision :: message\(200\)) N
+(        integer :: max_buffer) N
+(        real*4 speed\(0:MAXPROC\),timarr\(2\),rstart,rfin,total,etime) N
+(        real :: timing\(4\)) N
+(        data speed / 101*1000.0 /) N
+(        character*\(128\) mpi_dir,cwd,sh_command,tmpdir) N
+(        character*\(128\) file_cl,file_c,file_y,file_cfg,p_name) N
+() N
+(        integer lmpi_dir,lcwd,size,llc,lly,llcf,llcl,lpn) N
+(        integer*2 serr) N
+(****************************************************************) N
+() N
+(      POINTER \(qcn,cn\(1\)\),\(qinptr,inptr\(1\)\),) N
+(     :        \(qpackn,ipackn\(1\)\),) N
+(     :        \(qnijptr,nijptr\(1\)\),\(qjan,jan\(1\)\),) N
+(     :        \(qjbn,jbn\(1\)\),\(qintptr,idummy\(1\)\),) N
+(     :        \(qlused,lused\(1\)\),) N
+(     :        \(qico,ico\(1\)\) ) N
+(      COMMON /buffer/qcn,qinptr,qpackn,qlused,qintptr,lmax,qnijptr,) N
+(     :               qjan,qjbn,qico) N
+(      COMMON/DEBUG/IBUG1,IBUG2,IBUG3,NBUG6,NBUG7,IFULL) N
+(      COMMON/DIMEN/KFL1,KFL2,KFL3,KFL4,KFL5,KFL6,KFL7,MXIHSH) N
+(      COMMON/INFORM/IREAD,IWRITE,IOUT,ISC0,ISC1,ISC2,ISC3,) N
+(     : IALL,JSC\(3\),ISCW, state) N
+(      COMMON /DIAGNL/IDIAG,JA,JB) N
+(      POINTER  \(qjptr, jptr\(1\)\)) N
+(      pointer \(qcn_g, cn_g\(1\)\) ,\(qinptr_g, inptr_g\(1\)\)) N
+(      COMMON /fout/ncoff,ntot,idum\(6\),nrec\(8\),iflag,lij,nij,qjptr,cf_tot) N
+(      POINTER\(QNOC,NOCCSH\(1\)\),\(QNELCSH,NELCSH\(8,1\)\),) N
+(     :       \(QNOCORB,NOCORB\(8,1\)\),\(QJ1,J1QNRD\(15,1\)\)) N
+(      POINTER\(QIAJCMP,IAJCMP\(1\)\),\(QLJCOMP,LJCOMP\(1\)\),) N
+(     :       \(QNJCOMP,NJCOMP\(1\)\),\(QIAJCLD,IAJCLD\(1\)\),) N
+(     :       \(QLJCLSD,LJCLSD\(1\)\)) N
+(      COMMON /NDIMS/ QNOC,QNELCSH,QNOCORB,QJ1,NCFG, nlines, endc) N
+(      COMMON /NON30/ QIAJCMP,QNJCOMP,QLJCOMP,QIAJCLD,QLJCLSD,MAXORB) N
+(codeall) (Page 26/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (13/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (27-28) 14
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      COMMON /CLOSED/B1ELC\(4\),NCLOSD,IBK) p n
+(      COMMON /OPERAT/ ICOLOM,ISOTOP,IORBORB) N
+(      DIMENSION noint\(4\)) N
+(      POINTER \(qltused,ltused\(1\)\)) N
+(      logical ltused) N
+(      INTEGER NBsize\(NBD\), n_sum) N
+(*      REAL TIME\(2\), ETIME, ELAPSE) N
+(      LOGICAL lused, yclist, endc ) N
+(      Character*72 string) N
+(      CHARACTER LINE*72, EL\(NWD\)*3) N
+(      character*3 term) N
+(      character*5 su ) N
+(      integer l_clist) N
+() N
+(      CHARACTER*16 INPUT) N
+(      EXTERNAL INITT) N
+() N
+(    1 FORMAT\(//' IOUT =  FGR.LST \(OUTPUT FILE\)'/) N
+(     :         ' IBUG1  =',I3,' \(DEBUG IN WEIGHTS OF 1-EL PART\)'/) N
+(     :         ' IBUG2  =',I3,' \(DEBUG IN WEIGHTS OF 2-EL PART\)'/) N
+(     :         ' IBUG3  =',I3,' \(DEBUG IN RECOUPLING PACKAGE\)'//\)) N
+(*) N
+(    2 FORMAT\(///20X,'   ==============================='/) N
+(     :            20X,'         N O N H_M P I   2000',/) N
+(     :            20X,'   ==============================='//\)) N
+(  3   FORMAT\(A30,I3,I4,I6,I8,I8,I8,2x,a5\)) N
+() N
+(* ...  THE FOLLOWING SECTION CONCERNS INPUT/OUTPUT AND MAY BE) N
+(*      SYSTEM DEPENDENT.  CHECK ALLOWED UNIT NUMBERS AND) N
+(*      FILE NAME CONVENTIONS - MODIFY, IF NECESSARY.) N
+() N
+(      call MPI_INIT\(ierr\)) N
+(      call MPI_COMM_RANK\(MPI_COMM_WORLD, myid, ierr\) ) N
+(      call MPI_COMM_SIZE\(MPI_COMM_WORLD, nprocs, ierr\)) N
+(      timing\(1\) = 0 !MPI_WTIME\(\)) N
+( ) N
+(      write\(idstring,'\(I2.2\)'\) myid) N
+(      input = 'cfg.inp') N
+() N
+(      su = 'snonh') N
+(      i = iargc\(\)) N
+(      if \(i .eq. 0\) then) N
+(         INPUT = 'cfg.inp') N
+(         inquire\( FILE=input, exist=yclist\)) N
+(         if \(yclist\) then) N
+(            write \(iscw,*\) 'input file is cfg.inp ...') N
+(         else) N
+(            write \(iscw,*\) 'cfg.inp not found: nonh is exiting!...') N
+(            call exit\(0\)) N
+(          endif) N
+(       end if) N
+() N
+(      IREAD=4) N
+(      IOUT=8) N
+() N
+(      if \(myid.eq.0\) then) N
+(         ISCW = 0) N
+(         IWRITE = 6) N
+(      else) N
+(         iscw = 40) N
+(         iwrite = 40) N
+(      end if) N
+() N
+(      WRITE\(IWRITE,2\)) N
+(      write\(iscw,'\(A,i4,A\)'\) ) N
+(     :      '                 ...snonh_mpi running on ',) N
+(     :                  nprocs,' processors...') N
+(      write\(iscw,*\)) N
+() N
+(codeall) (Page 27/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+() p n
+(*>>>>>>>> specify files for input output >>>>>>>>>>>>>>>>>) N
+(                                                                                ) N
+(                 ) N
+(      cwd = " "; mpi_dir = " "; tmpdir = " ";) N
+(      call mpi_work_dir\(cwd, mpi_dir, tmpdir\);) N
+(                                                                                ) N
+(           ) N
+(      lcwd = LEN_TRIM\(cwd\)  !- 1) N
+(      lenperm = LEN_TRIM\(mpi_dir\) !- 1) N
+(      lentmp = LEN_TRIM\(tmpdir\)  !- 1) N
+(                                                                                ) N
+(           ) N
+(      file_c   = tmpdir\(1:lentmp\)//'/c.lst.'//idstring) N
+(      file_y   = tmpdir\(1:lentmp\)//'/yint.lst.'//idstring) N
+(      file_cl  = cwd\(1:lcwd\)//'/cfg.inp') N
+(      file_cfg = cwd\(1:lcwd\)//'/cfg.h') N
+() N
+(      llc = len_trim\(file_c\)) N
+(      lly = len_trim\(file_y\)) N
+(      llcl = len_trim\(file_cl\)) N
+(      llcf = len_trim\(file_cfg\)) N
+() N
+(      open\(unit=39,file=file_c\(1:llc\),status='unknown',) N
+(     :     form='unformatted'\);) N
+(      serr = chmod\(file_c\(1:llc\),511\)) N
+(      if \(serr.ne.0\) print *, 'can''t chmod to 4777 of', file_c) N
+(      open\(unit=38,file=file_y\(1:lly\),status='unknown',) N
+(     :     form='unformatted'\);) N
+(      serr = chmod\(file_y\(1:lly\),511\)) N
+(      if \(serr.ne.0\) print *, 'can''t chmod to 4777 of', file_y) N
+(      OPEN\(UNIT=IREAD,FILE=file_cl\(1:llcl\),STATUS='UNKNOWN'\)) N
+(      if \(myid == 0\) then) N
+(         OPEN\(UNIT=25,FILE=file_cfg\(1:llcf\),STATUS='UNKNOWN'\)) N
+(      end if) N
+(       ) N
+(*>>>>>>>>>>>> end files <<<<<<<<<<<<<<<<<<<<<<<<<<) N
+(*) N
+(*     ... END OF MACHINE DEPENDENT SECTION) N
+(*) N
+() N
+(      ICOLOM=1) N
+(      ISOTOP=0) N
+(      IORBORB=0) N
+(      IBUG1 = 0) N
+(      IBUG2 = 0) N
+(      IBUG3 = 0) N
+(      ist=0) N
+(      IFIRST = 0) N
+(      IALL = 1) N
+() N
+(*) N
+(*  ---  Determine input data; non-orthogonal case) N
+(*) N
+(      call inita) N
+(      call analy_blk\(IREAD,IWRITE,NCLOSD,MAXORB,NB,NBsize,EL\)) N
+(      call orbitals\(maxorb,el,qiajcmp,qljcomp,) N
+(     :                    qnjcomp,qiajcld,qljclsd,nb\)) N
+() N
+(*  ..   find maximum l-value) N
+(      lmax = 0) N
+(      do i=1,maxorb) N
+(         lmax = max \(lmax,ljcomp\(i\)\)) N
+(      end do) N
+() N
+(*  .. allocate memory for buffered i/o) N
+() N
+(      call alloc\(qcn,lsdim,8\)) N
+(      call alloc\(qinptr,lsdim,4\)) N
+(codeall) (Page 28/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (14/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (29-30) 15
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      call alloc\(qnijptr,lsdim,4\)) p n
+(      call alloc\(qjan,lsdim,4\)) N
+(      call alloc\(qjbn,lsdim,4\)) N
+(      call alloc\(qico,lsdim,4\)) N
+() N
+(*  .. generate list of integrals) N
+() N
+(      call genint\(maxorb,lmax,qljcomp,qintptr,qpackn,qlused,noint,iscw\)) N
+() N
+(*  .. initialize lused) N
+(      lused\(1:noint\(4\)\) = .FALSE.) N
+() N
+(*  .. write global information to cfg.inp) N
+(      nint = noint\(4\)) N
+() N
+(      if \(myid==0\) then) N
+(      write\(25, '\(I3,2I8,3x,A5\)'\) nb, nint, lsdim, su) N
+(      end if) N
+() N
+(      rewind \(iread\)) N
+(      call MPI_BARRIER\(MPI_COMM_WORLD,ierr\)) N
+(      timing\(2\) = 0 !MPI_WTIME\(\) ) N
+(      ncfg_total = sum\(NBsize\)) N
+(      allocate \(proc_ncoff\(NB*nprocs\)\);) N
+(      proc_ncoff = 0;) N
+(      max_buffer = 0) N
+(      cf_tot = 0) N
+(*  .. for all blocks) N
+(      do NLB = 1, NB) N
+(         ncfg = NBsize\(NLB\)) N
+(         NEW = NCFG) N
+(         NZERO = NCFG) N
+(         nrec = 0) N
+(         cf_tot = 0) N
+(*     .. allocate memory for this block) N
+(         call alloc\(qnoc,ncfg,4\)) N
+(         call alloc\(qnelcsh,8*ncfg,4\)) N
+(         call alloc\(qnocorb,8*ncfg,4\)) N
+(         call alloc\(qj1,15*ncfg,4\)) N
+(         call alloc\(qjptr,ncfg,4\)) N
+() N
+(*        read CFG's for this block) N
+(         CALL CFGBLK\(ncfg,maxorb,QIAJCMP,QLJCOMP,QNJCOMP,QNOC,) N
+(     :                  QNELCSH,QNOCORB,QJ1,QIAJCLD,QLJCLSD,term\)) N
+(        write\(iscw,'\(A,A,A,i8,A\)'\)'processing ',term,' with ',) N
+(     :                            ncfg,' configurations') N
+(*) N
+(*        Initialize parameters for output) N
+(*) N
+(         lij = 0; nij = 0; mycol = 0; ntot = 0; ncoff = 0;) N
+(         n_start = 1; nj_start = 1; nij_tot = 0; njptr_start = 1;) N
+(         ntot_tot = 0;) N
+(         ) N
+(*        ... create communicator for the last ncfg_last ) N
+(         ncfg_last = modulo\(ncfg,nprocs\)) N
+(         if \(myid < ncfg_last\) then) N
+(            new_s = 1) N
+(         else) N
+(            new_s = 0 ) N
+(         end  if) N
+(!         call MPI_COMM_SPLIT\(group_L,new_s,myid,comm_last,ierr\)) N
+(!         call MPI_COMM_SIZE\(comm_last,nsize,ierr \)) N
+(!         call MPI_COMM_RANK\(comm_last,new_id,ierr\)) N
+() N
+(*        ... allocate memeory for buffered output) N
+(         if \(myid==0\) then) N
+(           call alloc\(qcn_g,lsdim,8\)) N
+(           allocate\(nij_buff\(ncfg\)\)) N
+(           nij_buff = 0) N
+(codeall) (Page 29/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(         end if) p n
+() N
+(         ncfg_left = ncfg) N
+(         f_out = .false.) N
+(         do jb = myid+1,ncfg,nprocs) N
+(           if \(mod\(jb,100\) .eq. 0\) write\(0,*\) '   jb =',jb) N
+(           if \(jb > \(ncfg-nprocs\)\) f_out = .true.) N
+(           if \(ncfg_left >=  nprocs\) then) N
+(              working_procs = MPI_COMM_WORLD ) N
+(              npw = nprocs - 1 ) N
+(           else ) N
+(!              working_procs = comm_last !new_group !group_L) N
+(              working_procs = MPI_COMM_WORLD) N
+(              npw = ncfg_last - 1) N
+(           end if ) N
+(          ) N
+(           CALL SHELLSJB\(jb\)) N
+(           CALL ANGMOMG\(NEW,NZERO,IFIRST\)) N
+() N
+(           if \(myid < ncfg_left\) then) N
+(cgd          call MPI_SEND\(lij,1,MPI_INTEGER,0,94,working_procs,ierr\)) N
+(cgd          call MPI_SEND\(nij,1,MPI_INTEGER,0,97,working_procs,ierr\)) N
+(           end if) N
+() N
+(           mycol = mycol + 1) N
+(           jptr\(mycol\) = nij) N
+(           ncfg_left = ncfg_left - nprocs) N
+(         end do) N
+(cgd   call mpi_barrier\(MPI_COMM_WORLD,ierr\)) N
+(*>>>>) N
+(      call MPI_Reduce\(nij,nij_tot,1,MPI_INTEGER,MPI_MAX,0,) N
+(     :                 MPI_COMM_WORLD,ierr\)) N
+() N
+(*>>>>>) N
+(*     .. finish writing the coefficient data, if non empty arrays) N
+(*      ..... write jptr contained in nij_buff) N
+() N
+(       write\(38\) lij,\(jan\(i\),i=1,lij\), \(ico\(i\),i=1,lij\)) N
+(*       if \(myid == 0\) then) N
+(*          print*, lij,\(jan\(i\),i=1,lij\), \(ico\(i\),i=1,lij\)) N
+(*       endif) N
+(       write\(38\) mycol,\(jptr\(i\),i=1,mycol\)) N
+(*>>>>) N
+(        if \(ncoff.eq.lsdim\) then) N
+(           write\(39\) lsdim,\(cn\(j\),j=1,lsdim\),\(inptr\(j\),j=1,lsdim\)) N
+(           cf_tot = cf_tot + lsdim) N
+(           ncoff=0) N
+(           cn\(ncoff\)=0) N
+(           inptr\(ncoff\)=0) N
+() S 8 T ( else ) N
+(            cf_tot = cf_tot + ncoff) N
+(         end if) N
+(         write\(39\) ncoff, \(cn\(j\),j=1,ncoff\),\(inptr\(j\),j=1,ncoff\)) N
+(*         if \(myid == 0\) then) N
+(*            print*, ncoff, \(cn\(j\),j=1,ncoff\),\(inptr\(j\),j=1,ncoff\) ) N
+(*         end if) N
+(      call MPI_GATHER\(cf_tot,1,MPI_INTEGER,) N
+(     :                 proc_ncoff\(\(\(NLB-1\)*nprocs\)+myid+1\),) N
+(     :                 1,MPI_INTEGER, 0, MPI_COMM_WORLD,ierr\)) N
+() N
+(*>>>>) N
+() N
+(      timing\(3\) = 0 !MPI_WTIME\(\)) N
+(*     .. deallocate memory for buffered i/o) N
+() N
+(      nf = nrec\(1\)) N
+(      ng = nrec\(2\)) N
+(      nr = nrec\(3\)) N
+(      nl = nrec\(4\)) N
+(codeall) (Page 30/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (15/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (31-32) 16
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+() p n
+(      call mpi_barrier\(MPI_COMM_WORLD,ierr\)) N
+(      call MPI_Reduce\(nf,itot_nf,1,MPI_INTEGER,MPI_SUM,0,) N
+(     :                 MPI_COMM_WORLD,ierr\)) N
+(      call MPI_Reduce\(ng,itot_ng,1,MPI_INTEGER,MPI_SUM,0,) N
+(     :                 MPI_COMM_WORLD,ierr\)) N
+(      call MPI_Reduce\(nr,itot_nr,1,MPI_INTEGER,MPI_SUM,0,) N
+(     :                 MPI_COMM_WORLD,ierr\)) N
+(      call MPI_Reduce\(nl,itot_nl,1,MPI_INTEGER,MPI_SUM,0,) N
+(     :                 MPI_COMM_WORLD,ierr\)) N
+() N
+(      ITOTAL = NF+NG+NR+NL) N
+(      itot_tot = itot_nf+itot_ng+itot_nr+itot_nl) N
+(      write\(iscw,220\) nij_tot,itot_nf,itot_ng,itot_nr,itot_nl,itot_tot) N
+(  220 FORMAT\( I8, ' non-zero matrix elements'/) N
+(     :      I8,' NF',I8,' NG',I8,' NR',I8,' NL'/) N
+(     :       I8,' Total number of integrals'\)) N
+() N
+(*    .. write block information to cfg.inp) N
+(      if\(myid == 0\) then) N
+(         write\(25,'\(3x,A3,I8,I8,i20\)'\) term, ncfg, nij_tot) N
+(      end if ) N
+() N
+(         call dalloc\(qnoc,ncfg\)) N
+(         call dalloc\(qnelcsh,8*ncfg\)) N
+(         call dalloc\(qnocorb,8*ncfg\)) N
+(         call dalloc\(qj1,15*ncfg\)) N
+(         if \(myid == 0\) deallocate\(nij_buff\)) N
+(      end do) N
+(*    ..end loop on all blocks) N
+(     ) N
+(      if \(myid == 0\) then) N
+(        do ix1 = 1, NB) N
+(          write\(25,'\(A6,i3\)'\) "Block ", ix1) N
+(          do ix2 = 1, nprocs) N
+(            write\(25,'\(i20\)'\) proc_ncoff\(\(\(ix1-1\)*nprocs\)+ix2\)) N
+(          end do ) N
+(        end do) N
+(      end if) N
+() N
+(       call alloc\(qltused,noint\(4\),4\)) N
+(       ltused\(1:noint\(4\)\) = .false.) N
+() N
+(      call MPI_ALLREDUCE\(lused,ltused,noint\(4\),MPI_LOGICAL,MPI_LOR,) N
+(     :                MPI_COMM_WORLD,ierr\)) N
+() N
+(*      if \(myid == 0\) then) N
+(        iscase = 1) N
+(        do icase=1,4) N
+(          write\(38\) icase,noint\(icase\)) N
+(          write\(38\) \(ipackn\(i\),i=iscase,noint\(icase\)\),) N
+(     :               \(ltused\(i\),i=iscase,noint\(icase\)\)) N
+(          iscase = noint\(icase\) + 1) N
+(        end do) N
+(*      end if) N
+() N
+(*     .. end the processing) N
+(      call dalloc\(qljclsd,nwcd\)) N
+(      call dalloc\(qpackn,noint\)) N
+(      call dalloc\(qintptr,2*lmax+1\)) N
+(      call dalloc\(qcn,lsdim\)) N
+(      call dalloc\(qinptr,lsdim\)) N
+(      call dalloc\(qnijptr,lsdim\)) N
+(      call dalloc\(qjan,lsdim\)) N
+(      call dalloc\(qjbn,lsdim\)) N
+(      call dalloc\(qico,lsdim\)) N
+(      call dalloc\(qnjcomp,nwfd\)) N
+(      call dalloc\(qljcomp,nwfd\)) N
+(      deallocate \(proc_ncoff\)) N
+(codeall) (Page 31/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+() p n
+(*      elapse = etime\(time\)) N
+(*      elapse = etime_\(time\)) N
+(*6     write\(iscw,'\(//A/A//A,F8.3,A//\)'\) ' END OF CASE',' ===========',) N
+(*     :      ' Total CPU time was ', TIME\(1\)/60, ' minutes') N
+() N
+(      write \(iscw,*\)  'end-of-file cfg.inp!!!') N
+(      endfile 25) N
+(      if \(myid == 0\) then) N
+(        close\(50\)) N
+(        close\(8\)) N
+(      end if) N
+(      close\(39\)) N
+(      close\(38\)) N
+(      close\(unit=25\)) N
+(      close\(unit=39\)) N
+(cgd   call MPI_BARRIER\(MPI_COMM_WORLD,ierr\)) N
+(      timing\(4\) = 0 !MPI_WTIME\(\)) N
+(*      write\(iscw,*\) 'time 1= ', timing\(2\)-timing\(1\)) N
+(*      write\(iscw,*\) 'time 2= ', timing\(3\)-timing\(2\)) N
+(*      write\(iscw,*\) 'time 3= ', timing\(4\)-timing\(3\) ) N
+(*      write\(iscw,*\) 'the time per 1 cfg =',   ) N
+(*     :                \(timing\(4\)-timing\(1\)\)/ncfg_total) N
+(*      write\(iscw,*\) 'total =', \(timing\(4\)-timing\(1\)\)) N
+(      call MPI_FINALIZE\(ierr\)) N
+() N
+(      END PROGRAM SNONH) N
+() N
+(*     ------------------------------------------------------------------) N
+(*       O R B I T A L S) N
+(*     ------------------------------------------------------------------) N
+(*) N
+(      SUBROUTINE ORBITALS\(maxorb,el,qiajcmp,qljcomp,) N
+(     :                    qnjcomp,qiajcld,qljclsd,nb\)) N
+(*) N
+(*       Process the lists of closed shells, orbitals and set parameters) N
+(*) N
+(      IMPLICIT DOUBLE PRECISION\(A-H,O-Z\)) N
+(*     IMPLICIT INTEGER \(Q\)) N
+(      PARAMETER \(NWD=60,NWCD=20,LSDIM=30000\)) N
+(        INCLUDE 'mpif.h') N
+(        parameter \(MAXPROC=100\)) N
+(        common /MPI/ myid, nprocs, ierr, istat\(MPI_STATUS_SIZE\)) N
+() N
+(      POINTER\(QNOC,NOCCSH\(1\)\),\(QNELCSH,NELCSH\(8,1\)\),) N
+(     :       \(QNOCORB,NOCORB\(8,1\)\),\(QJ1,J1QNRD\(15,1\)\)) N
+(      POINTER\(QIAJCMP,IAJCMP\(1\)\),\(QLJCOMP,LJCOMP\(1\)\),) N
+(     :       \(QNJCOMP,NJCOMP\(1\)\),\(QIAJCLD,IAJCLD\(1\)\),) N
+(     :       \(QLJCLSD,LJCLSD\(1\)\)) N
+(      CHARACTER EL\(NWD\)*3, LINE*72, HEAD*30,string*72, buffer*8) N
+(      DIMENSION J3QN\(15\),J2QN\(15\),J1QN\(15\)) N
+(      CHARACTER*1 JAJCLD\(3,NWCD\),JAJCMP\(3,NWD\),JCQN\(15\)) N
+(*) N
+(      COMMON/INFORM/IREAD,IWRITE,IOUT,ISC0,ISC1,ISC2,ISC3,JSC0,JSC\(4\)) N
+(      COMMON /CLOSED/B1ELC\(4\),NCLOSD,IBK) N
+(*) N
+(    3 FORMAT\(18\(1X,A3\)\)) N
+(    4 FORMAT\(3A1\)) N
+(    5 FORMAT\(8\(1X,A3,1H\(,I2,1H\)\)\)) N
+(    6 FORMAT\(15\(1X,I1,A1,I1\)\)) N
+(    7 FORMAT\(A72\)) N
+(    8 FORMAT\(A3\)) N
+(    9 FORMAT\(A15,F14.7\)) N
+(   23 FORMAT\(/10H THERE ARE,I3,21H ORBITALS AS FOLLOWS://) N
+(     : 5X,21\(1X,A3\):/5X,21\(1X,A3\)\)) N
+(   25 FORMAT\(/14H CONFIGURATION,I5,' :') N
+(     : ,8\(1X,A3,1H\(,I2,1H\)\)\)) N
+(   26 FORMAT\(4X,17H COUPLING SCHEME:,8\(1X,4X,I1,A1,I1\)\)) N
+(   27 FORMAT\(32X,7\(1X,4X,I1,A1,I1\)\)) N
+(codeall) (Page 32/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (16/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (33-34) 17
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(   28 FORMAT\(/10H THERE ARE ,I3,31H CLOSED SUBSHELLS COMMON TO ALL ,) p n
+(     :  27H CONFIGURATIONS AS FOLLOWS: //) N
+(     :  5X, 21\(1X,A3\)\)) N
+(*) N
+(* --- ALLOCATE MEMORY: NWFD = MAXORB) N
+(*) N
+(      NWFD = MAXORB) N
+(      call alloc\(qiajcmp,nwfd,4\)) N
+(      call alloc\(qljcomp,nwfd,4\)) N
+(      call alloc\(qnjcomp,nwfd,4\)) N
+(      call alloc\(qiajcld,nwcd,4\)) N
+(      call alloc\(qljclsd,nwcd,4\)) N
+(*) N
+(* ---  We have the EL list from analyz_blk) N
+(*) N
+(      DO 30 I = 1,MAXORB) N
+(         READ\(EL\(I\),8\) IAJCMP\(I\)) N
+(         READ\(EL\(I\),4\) \(JAJCMP\(J,I\),J=1,3\)) N
+(30    CONTINUE) N
+(      WRITE\(IWRITE,23\) MAXORB,\(IAJCMP\(I\),I=1,MAXORB\)) N
+(      DO 60 I=1,MAXORB) N
+(      IF \(JAJCMP\(1,I\) .EQ. ' '\) THEN) N
+(         JAJCMP\(1,I\) = JAJCMP\(2,I\)) N
+(         JAJCMP\(2,I\) = JAJCMP\(3,I\)) N
+(         JAJCMP\(3,I\) = ' ') N
+(      ENDIF) N
+(      LJCOMP\(I\) = LVAL\(JAJCMP\(2,I\)\)) N
+(      NJCOMP\(I\) = ICHAR\(JAJCMP\(1,I\)\) - ICHAR\('1'\) + 1) N
+(   60 CONTINUE) N
+(*) N
+(* --- We know the number of closed shells but not their properties) N
+(*) N
+(      REWIND\(IREAD\)) N
+(      READ\(IREAD,'\(A72\)'\)) N
+(*) N
+(* --- READ IN THE COMMON SET OF CLOSED SUBSHELLS) N
+(*) N
+(      READ\(IREAD,3\) \(EL\(I\),I=1,NCLOSD\)) N
+(      DO 70 I=1,NCLOSD) N
+(         READ\(EL\(I\),8\) IAJCLD\(I\)) N
+(         READ\(EL\(I\),4\) \(JAJCLD\(J,I\),J=1,3\)) N
+(         J = 3) N
+(         IF \(JAJCLD\(1,I\) .NE. ' '\) J = 2) N
+(         LJCLSD\(I\) = LVAL\(JAJCLD\(J,I\)\)) N
+( 70   CONTINUE) N
+(      WRITE\(IWRITE,28\) NCLOSD,\(IAJCLD\(I\),I=1,NCLOSD\)) N
+(*) N
+(*  ---  SEPARATE THE ELECTRON LABEL CHARACTERS AND LEFT JUSTIFY) N
+(*) N
+(       DO 10 I = 1,MAXORB) N
+(          WRITE\(BUFFER,'\(A3\)'\) IAJCMP\(I\)) N
+(          READ\(BUFFER,'\(3A1\)'\) \(JAJCMP\(J,I\),J=1,3\)) N
+(          IF \(JAJCMP\(1,I\) .EQ. ' '\) THEN) N
+(             JAJCMP\(1,I\) = JAJCMP\(2,I\)) N
+(             JAJCMP\(2,I\) = JAJCMP\(3,I\)) N
+(             JAJCMP\(3,I\) = ' ') N
+(          END IF) N
+( 10    CONTINUE) N
+(*     .. write out intial data about the problem) N
+(      write\(iout\) nclosd, maxorb, nb, lsdim) N
+(      write\(38\) nclosd, maxorb, nb, lsdim) N
+(      if \(nclosd .gt. 0\) then) N
+(         write\(string,'\(24A3\)'\) \(iajcld\(i\),i=1,nclosd\)) N
+(      end if) N
+(      write\(iout\) string) N
+(      write\(38\) string) N
+(      do i = 1, maxorb, 24) N
+(         m = min\(maxorb,i+23\)) N
+(         write\(string,'\(24A3\)'\) \(iajcmp\(j\),j=i,m\)) N
+(codeall) (Page 33/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(         write\(iout\) string) p n
+(         write\(38\) string) N
+(       end do) N
+() N
+(*     ..write out intial data about the problem) N
+(2     FORMAT\(20\(1x,A3\)\)) N
+(      NWF = MAXORB + NCLOSD) N
+(        if \(myid == 0\) then) N
+(        write\(25,'\(i4,a15\)'\) nclosd, 'Closed Shells:') N
+(        WRITE\(25,3\) \(iajcld\(j\),j=1,nclosd\)) N
+(        write\(25,'\(i4,a16\)'\) nwf-nclosd, 'Other Orbitals:') N
+(        WRITE\(25,3\) \(iajcmp\(j\),j=1,maxorb\)) N
+(        end if) N
+(*) N
+(      RETURN) N
+(      END) N
+(* ======================================================================) N
+(*) N
+(*     GENERAL PROGRAM TO COMPUTE MATRIX ELEMENTS OF THE  NON-) N
+(*     RELATIVISTIC HAMILTONIAN UNDER THE FOLLOWING ASSUMPTIONS -) N
+(*         \(1\) LS-COUPLING) N
+(*         \(2\) ORTHO-NORMAL CONFIGURATION STATE FUNCTIONS) N
+(*         \(3\) ALL ORBITALS ARE ORTHOGONAL) N
+(*) N
+(*     WRITTEN BY -) N
+(*     G. GAIGALAS, INSTITUTE OF THEOERETICAL PHYSICS) N
+(*        AND ASTRONOMY, VILNIUS, LITHUANIA) N
+(*) N
+(*     C. FROESE FISCHER, DEP'T OF COMPUTER SCIENCE) N
+(*        VANDERBILT UNIVERISTY) N
+(*) N
+(*) N
+(*     FEBRUARY, 1994) N
+(*     AUGUST,   1994  \(A Ynnerman for unsorted lists\)) N
+(*     DECEMBER, 1995                                 \( f-sell included \)) N
+(*     DECEMBER, 1998  \(C. Froese Fischer and G. Tachiev - block version\)) N
+(*) N
+(*) N
+(* ======================================================================) N
+(*) N
+(      PROGRAM snonh) N
+(      IMPLICIT DOUBLE PRECISION\(A-H,O-Z\)) N
+(      PARAMETER \(NWCD=20,NBD=20,LSDIM=30000,NWD=60\)) N
+() N
+(*) N
+(*     MPI stuff ***********************************************) N
+(*) N
+(        INCLUDE 'mpif.h') N
+(        parameter \(MAXPROC=100\)) N
+(        common /MPI/ myid, nprocs, ierr, istat\(MPI_STATUS_SIZE\)) N
+(        Character*2 idstring) N
+(        Character*72 program,arch,hostn,odir,output,outc) N
+(        character*128 NAME\(2\),workpath) N
+(        logical :: f_out) N
+(        integer tids, nnn\(6\), working_procs, cf_tot) N
+(        integer group_L) N
+() S 8 T (integer, allocatable, dimension\(:\) :: proc_ncoff) N
+(        integer ncfg_left, new_group, new_id, color,MPI_GROUP_WORLD) N
+(        integer comm_L, comm_last,itot_ng,itot_nr,itot_nf,itot_nl ) N
+(        integer, allocatable, dimension\(:\) :: nij_buff) N
+(        double precision :: message\(200\)) N
+(        integer :: max_buffer) N
+(        real*4 speed\(0:MAXPROC\),timarr\(2\),rstart,rfin,total,etime) N
+(        real :: timing\(4\)) N
+(        data speed / 101*1000.0 /) N
+(        character*\(60\) mpi_dir,cwd,sh_command) N
+(        character*\(60\) file_cl,file_c,file_y,file_cfg,p_name) N
+() N
+(        integer lmpi_dir,lcwd,size,llc,lly,llcf,llcl,lpn) N
+(codeall) (Page 34/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (17/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (35-36) 18
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(        integer*2 serr) p n
+(****************************************************************) N
+() N
+(      POINTER \(qcn,cn\(1\)\),\(qinptr,inptr\(1\)\),) N
+(     :        \(qpackn,ipackn\(1\)\),) N
+(     :        \(qnijptr,nijptr\(1\)\),\(qjan,jan\(1\)\),) N
+(     :        \(qjbn,jbn\(1\)\),\(qintptr,idummy\(1\)\),) N
+(     :        \(qlused,lused\(1\)\),) N
+(     :        \(qico,ico\(1\)\) ) N
+(      COMMON /buffer/qcn,qinptr,qpackn,qlused,qintptr,lmax,qnijptr,) N
+(     :               qjan,qjbn,qico) N
+(      COMMON/DEBUG/IBUG1,IBUG2,IBUG3,NBUG6,NBUG7,IFULL) N
+(      COMMON/DIMEN/KFL1,KFL2,KFL3,KFL4,KFL5,KFL6,KFL7,MXIHSH) N
+(      COMMON/INFORM/IREAD,IWRITE,IOUT,ISC0,ISC1,ISC2,ISC3,) N
+(     : IALL,JSC\(3\),ISCW, state) N
+(      COMMON /DIAGNL/IDIAG,JA,JB) N
+(      POINTER  \(qjptr, jptr\(1\)\)) N
+(      pointer \(qcn_g, cn_g\(1\)\) ,\(qinptr_g, inptr_g\(1\)\)) N
+(      COMMON /fout/ncoff,ntot,idum\(6\),nrec\(8\),iflag,lij,nij,qjptr,cf_tot) N
+(      POINTER\(QNOC,NOCCSH\(1\)\),\(QNELCSH,NELCSH\(8,1\)\),) N
+(     :       \(QNOCORB,NOCORB\(8,1\)\),\(QJ1,J1QNRD\(15,1\)\)) N
+(      POINTER\(QIAJCMP,IAJCMP\(1\)\),\(QLJCOMP,LJCOMP\(1\)\),) N
+(     :       \(QNJCOMP,NJCOMP\(1\)\),\(QIAJCLD,IAJCLD\(1\)\),) N
+(     :       \(QLJCLSD,LJCLSD\(1\)\)) N
+(      COMMON /NDIMS/ QNOC,QNELCSH,QNOCORB,QJ1,NCFG, nlines, endc) N
+(      COMMON /NON30/ QIAJCMP,QNJCOMP,QLJCOMP,QIAJCLD,QLJCLSD,MAXORB) N
+(      COMMON /CLOSED/B1ELC\(4\),NCLOSD,IBK) N
+(      COMMON /OPERAT/ ICOLOM,ISOTOP,IORBORB) N
+(      DIMENSION noint\(4\)) N
+(      POINTER \(qltused,ltused\(1\)\)) N
+(      logical ltused) N
+(      INTEGER NBsize\(NBD\), n_sum) N
+(*      REAL TIME\(2\), ETIME, ELAPSE) N
+(      LOGICAL lused, yclist, endc ) N
+(      Character*72 string) N
+(      CHARACTER LINE*72, EL\(NWD\)*3) N
+(      character*3 term) N
+(      character*5 su ) N
+(      integer l_clist) N
+() N
+(      CHARACTER*16 INPUT) N
+(      EXTERNAL INITT) N
+() N
+(    1 FORMAT\(//' IOUT =  FGR.LST \(OUTPUT FILE\)'/) N
+(     :         ' IBUG1  =',I3,' \(DEBUG IN WEIGHTS OF 1-EL PART\)'/) N
+(     :         ' IBUG2  =',I3,' \(DEBUG IN WEIGHTS OF 2-EL PART\)'/) N
+(     :         ' IBUG3  =',I3,' \(DEBUG IN RECOUPLING PACKAGE\)'//\)) N
+(*) N
+(    2 FORMAT\(///20X,'   ==============================='/) N
+(     :            20X,'         S N O N H_M P I   2000',/) N
+(     :            20X,'   ==============================='//\)) N
+(  3   FORMAT\(A30,I3,I4,I6,I8,I8,I8,2x,a5\)) N
+() N
+(* ...  THE FOLLOWING SECTION CONCERNS INPUT/OUTPUT AND MAY BE) N
+(*      SYSTEM DEPENDENT.  CHECK ALLOWED UNIT NUMBERS AND) N
+(*      FILE NAME CONVENTIONS - MODIFY, IF NECESSARY.) N
+() N
+(      call MPI_INIT\(ierr\)) N
+(      call MPI_COMM_RANK\(MPI_COMM_WORLD, myid, ierr\) ) N
+(      call MPI_COMM_SIZE\(MPI_COMM_WORLD, nprocs, ierr\)) N
+(      timing\(1\) = MPI_WTIME\(\)) N
+( ) N
+(      write\(idstring,'\(I2.2\)'\) myid) N
+(      input = 'clist') N
+() N
+(      su = 'snonh') N
+(      i = iargc\(\)) N
+(      if \(i .eq. 0\) then) N
+(         INPUT = 'clist') N
+(codeall) (Page 35/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(         inquire\( FILE=input, exist=yclist\)) p n
+(         if \(yclist\) then) N
+(            write \(iscw,*\) 'input file is clist ...') N
+(         else) N
+(            write \(iscw,*\) 'clist not found: nonh is exiting!...') N
+(            call exit\(0\)) N
+(          endif) N
+(       end if) N
+() N
+(      IREAD=4) N
+(      IOUT=8) N
+() N
+(      if \(myid.eq.0\) then) N
+(         ISCW = 0) N
+(         IWRITE = 6) N
+(      else) N
+(         iscw = 40) N
+(         iwrite = 40) N
+(      end if) N
+() N
+(      WRITE\(IWRITE,2\)) N
+(      write\(iscw,'\(A,i4,A\)'\) ) N
+(     :      '                 ...snonh_mpi running on ',) N
+(     :                  nprocs,' processors...') N
+(      write\(iscw,*\)) N
+() N
+() N
+(*>>>>>>>> specify files for input output >>>>>>>>>>>>>>>>>) N
+(      call getwd\(myid,mpi_dir,lmpi_dir,p_name,lpn\)) N
+(      mpi_dir = trim\(mpi_dir\)) N
+(      serr = getcwd\(cwd\)) N
+(      lcwd = len_trim\(cwd\)) N
+() N
+(      if \(serr.ne.0\) then) N
+(         print*, 'couldn''t get the current directory, exiting...') N
+(         call exit\(23\);) N
+(      end if) N
+() N
+(!      file_c = mpi_dir\(1:lmpi_dir\)//'/c.lst.'//p_name\(1:lpn\)) N
+(!      file_y = mpi_dir\(1:lmpi_dir\)//'/yint.lst.'//p_name\(1:lpn\)) N
+(      file_c = mpi_dir\(1:lmpi_dir\)//'/c.lst.'//idstring) N
+(      file_y = mpi_dir\(1:lmpi_dir\)//'/yint.lst.'//idstring) N
+(      file_cl = cwd\(1:lcwd\)//'/clist') N
+(      file_cfg = cwd\(1:lcwd\)//'/cfg.h') N
+(      llc = len_trim\(file_c\)) N
+(      lly = len_trim\(file_y\)) N
+(      llcl = len_trim\(file_cl\)) N
+(      llcf = len_trim\(file_cfg\)) N
+() N
+(      open\(unit=39,file=file_c\(1:llc\),status='unknown',) N
+(     :     form='unformatted'\);) N
+(      serr = chmod\(file_c\(1:llc\),511\)) N
+(      if \(serr.ne.0\) print *, 'can''t chmod to 4777 of', file_c) N
+(      open\(unit=38,file=file_y\(1:lly\),status='unknown',) N
+(     :     form='unformatted'\);) N
+(      serr = chmod\(file_y\(1:lly\),511\)) N
+(      if \(serr.ne.0\) print *, 'can''t chmod to 4777 of', file_y) N
+(      OPEN\(UNIT=IREAD,FILE=file_cl\(1:llcl\),STATUS='UNKNOWN'\)) N
+(      if \(myid == 0\) then) N
+(         OPEN\(UNIT=25,FILE=file_cfg\(1:llcf\),STATUS='UNKNOWN'\)) N
+(      end if) N
+(       ) N
+(*>>>>>>>>>>>> end files <<<<<<<<<<<<<<<<<<<<<<<<<<) N
+(*) N
+(*     ... END OF MACHINE DEPENDENT SECTION) N
+(*) N
+() N
+(      ICOLOM=1) N
+(      ISOTOP=0) N
+(codeall) (Page 36/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (18/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (37-38) 19
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      IORBORB=0) p n
+(      IBUG1 = 0) N
+(      IBUG2 = 0) N
+(      IBUG3 = 0) N
+(      ist=0) N
+(      IFIRST = 0) N
+(      IALL = 1) N
+() N
+(*) N
+(*  ---  Determine input data; non-orthogonal case) N
+(*) N
+(      call inita) N
+(      call analy_blk\(IREAD,IWRITE,NCLOSD,MAXORB,NB,NBsize,EL\)) N
+(      call orbitals\(maxorb,el,qiajcmp,qljcomp,) N
+(     :                    qnjcomp,qiajcld,qljclsd,nb\)) N
+() N
+(*  ..   find maximum l-value) N
+(      lmax = 0) N
+(      do i=1,maxorb) N
+(         lmax = max \(lmax,ljcomp\(i\)\)) N
+(      end do) N
+() N
+(*  .. allocate memory for buffered i/o) N
+() N
+(      call alloc\(qcn,lsdim,8\)) N
+(      call alloc\(qinptr,lsdim,4\)) N
+(      call alloc\(qnijptr,lsdim,4\)) N
+(      call alloc\(qjan,lsdim,4\)) N
+(      call alloc\(qjbn,lsdim,4\)) N
+(      call alloc\(qico,lsdim,4\)) N
+() N
+(*  .. generate list of integrals) N
+() N
+(      call genint\(maxorb,lmax,qljcomp,qintptr,qpackn,qlused,noint,iscw\)) N
+() N
+(*  .. initialize lused) N
+(      lused\(1:noint\(4\)\) = .FALSE.) N
+() N
+(*  .. write global information to cfg.inp) N
+(      nint = noint\(4\)) N
+() N
+(      if \(myid==0\) then) N
+(      write\(25, '\(I3,2I8,3x,A5\)'\) nb, nint, lsdim, su) N
+(      end if) N
+() N
+(      rewind \(iread\)) N
+(      call MPI_BARRIER\(MPI_COMM_WORLD,ierr\)) N
+(      timing\(2\) = MPI_WTIME\(\) ) N
+(      ncfg_total = sum\(NBsize\)) N
+(      allocate \(proc_ncoff\(NB*nprocs\)\);) N
+(      proc_ncoff = 0;) N
+(      max_buffer = 0) N
+(      cf_tot = 0) N
+(*  .. for all blocks) N
+(      do NLB = 1, NB) N
+(         ncfg = NBsize\(NLB\)) N
+(         NEW = NCFG) N
+(         NZERO = NCFG) N
+(         nrec = 0) N
+(         cf_tot = 0) N
+(*     .. allocate memory for this block) N
+(         call alloc\(qnoc,ncfg,4\)) N
+(         call alloc\(qnelcsh,8*ncfg,4\)) N
+(         call alloc\(qnocorb,8*ncfg,4\)) N
+(         call alloc\(qj1,15*ncfg,4\)) N
+(         call alloc\(qjptr,ncfg,4\)) N
+() N
+(*        read CFG's for this block) N
+(         CALL CFGBLK\(ncfg,maxorb,QIAJCMP,QLJCOMP,QNJCOMP,QNOC,) N
+(codeall) (Page 37/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(     :                  QNELCSH,QNOCORB,QJ1,QIAJCLD,QLJCLSD,term\)) p n
+(        write\(iscw,'\(A,A,A,i8,A\)'\)'processing ',term,' with ',) N
+(     :                            ncfg,' configurations') N
+(*) N
+(*        Initialize parameters for output) N
+(*) N
+(         lij = 0; nij = 0; mycol = 0; ntot = 0; ncoff = 0;) N
+(         n_start = 1; nj_start = 1; nij_tot = 0; njptr_start = 1;) N
+(         ntot_tot = 0;) N
+(         ) N
+(*        ... create communicator for the last ncfg_last ) N
+(         ncfg_last = modulo\(ncfg,nprocs\)) N
+(         if \(myid < ncfg_last\) then) N
+(            new_s = 1) N
+(         else) N
+(            new_s = 0 ) N
+(         end  if) N
+(!         call MPI_COMM_SPLIT\(group_L,new_s,myid,comm_last,ierr\)) N
+(!         call MPI_COMM_SIZE\(comm_last,nsize,ierr \)) N
+(!         call MPI_COMM_RANK\(comm_last,new_id,ierr\)) N
+() N
+(*        ... allocate memeory for buffered output) N
+(         if \(myid==0\) then) N
+(           call alloc\(qcn_g,lsdim,8\)) N
+(           allocate\(nij_buff\(ncfg\)\)) N
+(           nij_buff = 0) N
+(         end if) N
+() N
+(         ncfg_left = ncfg) N
+(         f_out = .false.) N
+() N
+(         do jb = myid+1,ncfg,nprocs) N
+(           if \(mod\(jb,100\) .eq. 0\) write\(0,*\) '   jb =',jb) N
+(           if \(jb > \(ncfg-nprocs\)\) f_out = .true.) N
+(           if \(ncfg_left >=  nprocs\) then) N
+(              working_procs = MPI_COMM_WORLD ) N
+(              npw = nprocs - 1 ) N
+(           else ) N
+(!              working_procs = comm_last !new_group !group_L) N
+(              working_procs = MPI_COMM_WORLD) N
+(              npw = ncfg_last - 1) N
+(           end if ) N
+(          ) N
+(           CALL SHELLSJB\(jb\)) N
+(           CALL ANGMOMG\(NEW,NZERO,IFIRST\)) N
+() N
+(           if \(myid < ncfg_left\) then) N
+(             call MPI_SEND\(lij,1,MPI_INTEGER,0,94,working_procs,ierr\)) N
+(             call MPI_SEND\(nij,1,MPI_INTEGER,0,97,working_procs,ierr\)) N
+(           end if) N
+() N
+(           mycol = mycol + 1) N
+(           jptr\(mycol\) = nij) N
+(           ncfg_left = ncfg_left - nprocs) N
+(         end do) N
+(      call mpi_barrier\(MPI_COMM_WORLD,ierr\)) N
+(*>>>>) N
+(      call MPI_Reduce\(nij,nij_tot,1,MPI_INTEGER,MPI_MAX,0,) N
+(     :                 MPI_COMM_WORLD,ierr\)) N
+() N
+(*>>>>>) N
+(*     .. finish writing the coefficient data, if non empty arrays) N
+(*      ..... write jptr contained in nij_buff) N
+() N
+(       write\(38\) lij,\(jan\(i\),i=1,lij\), \(ico\(i\),i=1,lij\)) N
+(*       if \(myid == 0\) then) N
+(*          print*, lij,\(jan\(i\),i=1,lij\), \(ico\(i\),i=1,lij\)) N
+(*       endif) N
+(       write\(38\) mycol,\(jptr\(i\),i=1,mycol\)) N
+(codeall) (Page 38/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (19/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (39-40) 20
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(*>>>>) p n
+(        if \(ncoff.eq.lsdim\) then) N
+(           write\(39\) lsdim,\(cn\(j\),j=1,lsdim\),\(inptr\(j\),j=1,lsdim\)) N
+(           cf_tot = cf_tot + lsdim) N
+(           ncoff=0) N
+(           cn\(ncoff\)=0) N
+(           inptr\(ncoff\)=0) N
+() S 8 T ( else ) N
+(            cf_tot = cf_tot + ncoff) N
+(         end if) N
+(         write\(39\) ncoff, \(cn\(j\),j=1,ncoff\),\(inptr\(j\),j=1,ncoff\)) N
+(*         if \(myid == 0\) then) N
+(*            print*, ncoff, \(cn\(j\),j=1,ncoff\),\(inptr\(j\),j=1,ncoff\) ) N
+(*         end if) N
+(      call MPI_GATHER\(cf_tot,1,MPI_INTEGER,) N
+(     :                 proc_ncoff\(\(\(NLB-1\)*nprocs\)+myid+1\),) N
+(     :                 1,MPI_INTEGER, 0, MPI_COMM_WORLD,ierr\)) N
+() N
+(*>>>>) N
+() N
+(      timing\(3\) = MPI_WTIME\(\)) N
+(*     .. deallocate memory for buffered i/o) N
+() N
+(      nf = nrec\(1\)) N
+(      ng = nrec\(2\)) N
+(      nr = nrec\(3\)) N
+(      nl = nrec\(4\)) N
+() N
+(      call mpi_barrier\(MPI_COMM_WORLD,ierr\)) N
+(      call MPI_Reduce\(nf,itot_nf,1,MPI_INTEGER,MPI_SUM,0,) N
+(     :                 MPI_COMM_WORLD,ierr\)) N
+(      call MPI_Reduce\(ng,itot_ng,1,MPI_INTEGER,MPI_SUM,0,) N
+(     :                 MPI_COMM_WORLD,ierr\)) N
+(      call MPI_Reduce\(nr,itot_nr,1,MPI_INTEGER,MPI_SUM,0,) N
+(     :                 MPI_COMM_WORLD,ierr\)) N
+(      call MPI_Reduce\(nl,itot_nl,1,MPI_INTEGER,MPI_SUM,0,) N
+(     :                 MPI_COMM_WORLD,ierr\)) N
+() N
+(      ITOTAL = NF+NG+NR+NL) N
+(      itot_tot = itot_nf+itot_ng+itot_nr+itot_nl) N
+(      write\(iscw,220\) nij_tot,itot_nf,itot_ng,itot_nr,itot_nl,itot_tot) N
+(  220 FORMAT\( I8, ' non-zero matrix elements'/) N
+(     :      I8,' NF',I8,' NG',I8,' NR',I8,' NL'/) N
+(     :       I8,' Total number of integrals'\)) N
+() N
+(*    .. write block information to cfg.inp) N
+(      if\(myid == 0\) then) N
+(         write\(25,'\(3x,A3,I8,I8,i20\)'\) term, ncfg, nij_tot) N
+(      end if ) N
+() N
+(         call dalloc\(qnoc,ncfg\)) N
+(         call dalloc\(qnelcsh,8*ncfg\)) N
+(         call dalloc\(qnocorb,8*ncfg\)) N
+(         call dalloc\(qj1,15*ncfg\)) N
+(         if \(myid == 0\) deallocate\(nij_buff\)) N
+(      end do) N
+(*    ..end loop on all blocks) N
+(     ) N
+(      if \(myid == 0\) then) N
+(        do ix1 = 1, NB) N
+(          write\(25,'\(A6,i3\)'\) "Block ", ix1) N
+(          do ix2 = 1, nprocs) N
+(            write\(25,'\(i20\)'\) proc_ncoff\(\(\(ix1-1\)*nprocs\)+ix2\)) N
+(          end do ) N
+(        end do) N
+(      end if) N
+() N
+(       call alloc\(qltused,noint\(4\),4\)) N
+(       ltused\(1:noint\(4\)\) = .false.) N
+(codeall) (Page 39/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+() p n
+(      call MPI_ALLREDUCE\(lused,ltused,noint\(4\),MPI_LOGICAL,MPI_LOR,) N
+(     :                MPI_COMM_WORLD,ierr\)) N
+() N
+(*      if \(myid == 0\) then) N
+(        iscase = 1) N
+(        do icase=1,4) N
+(          write\(38\) icase,noint\(icase\)) N
+(          write\(38\) \(ipackn\(i\),i=iscase,noint\(icase\)\),) N
+(     :               \(ltused\(i\),i=iscase,noint\(icase\)\)) N
+(          iscase = noint\(icase\) + 1) N
+(        end do) N
+(*      end if) N
+() N
+(*     .. end the processing) N
+(      call dalloc\(qljclsd,nwcd\)) N
+(      call dalloc\(qpackn,noint\)) N
+(      call dalloc\(qintptr,2*lmax+1\)) N
+(      call dalloc\(qcn,lsdim\)) N
+(      call dalloc\(qinptr,lsdim\)) N
+(      call dalloc\(qnijptr,lsdim\)) N
+(      call dalloc\(qjan,lsdim\)) N
+(      call dalloc\(qjbn,lsdim\)) N
+(      call dalloc\(qico,lsdim\)) N
+(      call dalloc\(qnjcomp,nwfd\)) N
+(      call dalloc\(qljcomp,nwfd\)) N
+(      deallocate \(proc_ncoff\)) N
+() N
+(*      elapse = etime\(time\)) N
+(*      elapse = etime_\(time\)) N
+(*6     write\(iscw,'\(//A/A//A,F8.3,A//\)'\) ' END OF CASE',' ===========',) N
+(*     :      ' Total CPU time was ', TIME\(1\)/60, ' minutes') N
+() N
+(      write \(iscw,*\)  'end-of-file clist!!!') N
+(      endfile 25) N
+(      if \(myid == 0\) then) N
+(        close\(50\)) N
+(        close\(8\)) N
+(      end if) N
+(      close\(39\)) N
+(      close\(38\)) N
+(      close\(unit=25\)) N
+(      close\(unit=39\)) N
+(      call MPI_BARRIER\(MPI_COMM_WORLD,ierr\)) N
+(      timing\(4\) = MPI_WTIME\(\)) N
+(*      write\(iscw,*\) 'time 1= ', timing\(2\)-timing\(1\)) N
+(*      write\(iscw,*\) 'time 2= ', timing\(3\)-timing\(2\)) N
+(*      write\(iscw,*\) 'time 3= ', timing\(4\)-timing\(3\) ) N
+(*      write\(iscw,*\) 'the time per 1 cfg =',   ) N
+(*     :                \(timing\(4\)-timing\(1\)\)/ncfg_total) N
+(*      write\(iscw,*\) 'total =', \(timing\(4\)-timing\(1\)\)) N
+(      call MPI_FINALIZE\(ierr\)) N
+() N
+(      END PROGRAM SNONH) N
+(*) N
+(*------------------------------------------------------------------------) N
+(*        S A V E) N
+(*------------------------------------------------------------------------) N
+(*) N
+(      SUBROUTINE SAVELS\(ICASE,C,K,I1,I2,I3,I4,JA,JB,IPTR\)) N
+(      IMPLICIT DOUBLE PRECISION\(A-H,O-Z\)) N
+(*) N
+(      PARAMETER \(LSDIM=30000\)) N
+(      POINTER \(qcn,cn\(lsdim\)\),\(qinptr,inptr\(lsdim\)\),) N
+(     :        \(qnijptr,nijptr\(lsdim\)\),\(qjan,jan\(lsdim\)\),) N
+(     :        \(qjbn,jbn\(lsdim\)\),\(qintptr,intptr\(0:2*lmax,4\)\),) N
+(     :        \(qpackn,ipackn\(1\)\),\(qlused,lused\(1\)\),\(qico,ico\(1\)\)) N
+(      COMMON /buffer/qcn,qinptr,qpackn,qlused,qintptr,lmax,qnijptr,) N
+(     :               qjan,qjbn,qico) N
+(codeall) (Page 40/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (20/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (41-42) 21
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      POINTER  \(qjptr, jptr\(1\)\)) p n
+(      COMMON /fout/n,ntot,idum\(6\),nrec\(8\),iflag,lij,nij,qjptr,cf_tot) N
+(      COMMON/INFORM/IREAD,IWRITE,IOUT,ISC\(4\),IALL,JSC\(3\),ISCW) N
+(      integer cf_tot) N
+(      LOGICAL lused) N
+(*) N
+(      if \(n .eq. LSDIM\) then) N
+(*        .. write data to disk) N
+(         new = n) N
+(         write\(39\) new, \(cn\(j\),j=1,new\),\(inptr\(j\),j=1,new\)) N
+(         n = 1) N
+() S 8 T ( cf_tot = cf_tot + new;) N
+(      else) N
+(         n = n + 1) N
+(      end if) N
+() N
+(      nrec\(icase\) = nrec\(icase\) + 1) N
+(      ntot = ntot + 1) N
+() N
+(      IF \(icase .LE. 2 .or. icase .eq. 4 \) THEN) N
+(         IF \(I2 .GT. I4\) THEN) N
+(            II2 = I4) N
+(            II4 = I2) N
+(         ELSE) N
+(            II2 = I2) N
+(            II4 = I4) N
+(         END IF) N
+(         IPACK = \(K*64 + II2\)*64 + II4) N
+(         CN\(n\) = C) N
+(         INPTR\(n\) = isearch\(icase,ipack,qpackn,qlused,qintptr,lmax\)) N
+(         nijptr\(n\) = nij + 1) N
+(      ELSE ) N
+(c@) N
+(c@     Rk data) N
+(c@) N
+(         J = 1) N
+(         IMIN = I1) N
+(         IF \(I2 .LT. IMIN\) THEN) N
+(            IMIN=I2) N
+(            J = 2) N
+(         END IF) N
+(         IF \(I3 .LT. IMIN\) THEN) N
+(            IMIN = I3) N
+(            J = 3) N
+(         END IF) N
+(         IF \(I4 .LT. IMIN\) THEN) N
+(            IMIN = I4) N
+(            J = 4) N
+(         END IF) N
+(         GO TO \(10,20,30,40\) J) N
+(10       II1 = I1) N
+(         II2 = I2) N
+(         II3 = I3) N
+(         II4 = I4) N
+(         Go to 50) N
+(        ) N
+(20       II1 = I2) N
+(         II2 = I1) N
+(         II3 = I4) N
+(         II4 = I3) N
+(         GO TO 50) N
+() N
+(30       II1 = I3) N
+(         II2 = I4) N
+(         II3 = I1) N
+(         II4 = I2) N
+(         GO TO 50) N
+() N
+(40       II1 = I4) N
+(codeall) (Page 41/42) (Jan 15, 07 15:46) title
+border
+/v 1 store
+/x0 x v get 3.147420 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(         II2 = I3) p n
+(         II3 = I2) N
+(         II4 = I1) N
+() N
+(50       IPACK = \(\(\(K*64+II1\)*64+II2\)*64+II3\)*64+II4) N
+(         CN\(n\) = C) N
+(         INPTR\(n\) = isearch\(icase,ipack,qpackn,qlused,qintptr,lmax\)) N
+(         NIJPTR\(n\) = nij + 1) N
+(      END IF) N
+() N
+(      IFLAG = 1) N
+(      END) N
+() N
+(codeall) (Page 42/42) (Jan 15, 07 15:46) title
+border
+grestore
+(Printed by Oliver Scharf) rhead
+(codeall) (21/21) (Monday January 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+
+%%Trailer
+end
+%%EOF

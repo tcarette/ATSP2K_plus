@@ -1,0 +1,5 @@
+alloc_mem.f:      character line*72, t(60)*3, str*72, tmp*5, tmpa*5, tmpb*5
+data.f:      character     line*72, t(60)*3, str*72, tmp*20, tmpa*5, tmpb*5
+data.f:            IF (J .LT. 72) GO TO 22
+mchf.f:      CHARACTER EL*3,ATOM*6,TERMs(20)*6, string*72
+spintgrl.f:      CHARACTER*72 string
