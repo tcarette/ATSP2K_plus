@@ -1,0 +1,32 @@
+*
+*     ------------------------------------------------------------------
+*	N T A B 1
+*     ------------------------------------------------------------------
+*
+      FUNCTION NTAB1(NELCTS,K)
+      INTEGER IROW(0:9)
+      DATA IROW/0,2,5,10,12,14,16,18,20,22/
+*
+*     THIS SUBROUTINE CALCULATES THE ROW OF NTAB CORRESPONDING TO THE
+*     PARENTS WHICH MAY GIVE RISE TO THE TERM ASSOCIATED WITH SHELL
+*     LAMBDA .  E.G. IF WE SEEK THE ROW OF NTAB CONTAINING THE PARENTS
+*     OF ONE OF THE P**3 TERMS, THE ROW = VALUE OF NTAB1 IS THAT
+*     CONTAINING THE P**2 TERMS
+*
+*     USE IS MADE OF THE FACT THAT THE LIST OF POSSIBLE PARENTS (SEE
+*     WHITE - ATOMIC SPECTRA - APPENDIX)  IS SYMMETRICAL ABOUT THE
+*     CONFIGURATION L**(2L+1)
+*
+*
+* --- FOR ONE ELECTRON IN A TERM, THE PARENT IS ALWAYS A SINGLET S TERM
+*
+      IF (NELCTS .EQ. 1) THEN
+         NTAB1 = 2
+      ELSE
+         NPAR = NELCTS - 1
+         L = K-1
+         LHALF = 2*L+1
+         IF (NPAR .GT. LHALF) NPAR = 2*LHALF - NPAR
+         NTAB1 = IROW(L) + NPAR
+      END IF
+      END

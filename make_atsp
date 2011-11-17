@@ -1,0 +1,55 @@
+#
+#  Script (command) file for making the MCHF Atomic Structure Package
+#  
+#  Created by C. Froese Fischer
+#             Vanderbilt University, Nashville TN 37235
+#
+#  December, 1988
+#  Modified October, 1996
+#
+#  Change to source directory
+cd lib_src
+#
+#  ...   MAKE the LIBRARIES
+#
+echo ...Making Libraries
+cd ang
+make libang.a
+cd ../com
+make libcom.a
+cd ../rad3
+make librad3.a
+cd ../rad6
+make librad6.a
+cd ../..
+#
+#  ...   MAKE the UTILITIES
+#
+echo ...Making Utilities
+cd atsp_src
+make Comp
+make Condens
+make Levels
+make Lines
+make Plotw
+make Printw
+make Relabel
+make Terms
+#
+#  ...   MAKE the PROGRAMS
+#
+echo ...Making Programs
+make Auto
+make Breit
+make Ci
+make Cmchf
+make Gencl
+make HF
+make Hfs
+make Iso
+make Lsjtr
+make Lstr
+make Mchf
+make Mltpol
+make Nonh
+make Photo

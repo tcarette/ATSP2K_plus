@@ -1,0 +1,107 @@
+
+
+     The ATomic Structure Package  - Version 2K  
+      ==============================================
+
+      Charlotte Froese Fischer and Georgio Tachiev, Vanderbilt University
+      Gediminas Gaigalas, Institute for Theoretical Physics, Vilnius
+      Michel Godefroid, Free University of Brussels
+
+                (COPYRIGHT  2006)
+
+This package is similar to the package described in the
+book, "Computational Atomic Structure: An MCHF approach"
+by C. Froese Fischer, Tomas Brage, and Per J\"onsson, but has
+been modified and extended in a number of ways:
+
+   1) extended to arbitrarily filled f-shells
+   2) modified for fully orthogonal methodology (NO NON-ORTHOGONALITY!)
+   3) modified for more efficient evaluation of matrix elements
+   4) modified for sparse matrix methods using the Davidson algorithm
+   5) extended for optimization on multiple terms or eigenvalues
+   6) modified for efficient calculations of iso-electronic sequences
+   7) modified to use biorthogonal transformations for transitions
+   8) modified for Message passing (MPI) versions of the code
+ 
+Modifications published in this version were performed by the following:
+  Sparse methods:             C. Froese Fischer  and her group
+                                 (email: Charlotte.F.Fischer@Vanderbilt.edu
+  Angular Integration:        Gediminas Gaigalas (email: gaigalas@itpa.lt)
+  Radial and MPI codes:       Georgio Tachiev    (email: georgio@arc.fiu.edu)
+  Nonorthogonal transitions:  Michel Godefroid   (email: mrgodef@ulb.ac.be)
+
+Other  collaborators who have contributed to earlier versions include:
+
+         Tomas Brage
+         Alan Hibbert 
+         Andrei Irimia
+         Per J\"onsson
+         Bin Liu
+         Gregory Miecznik
+         Misha Saparov
+         Andreas Stathopoulos
+	 Lennart Sturesson
+	 Vernea Meisner Umar
+         Nathalie Vaeck
+         Claes Goran Wahlstrom
+
+Their contributions are greatly appreciated.
+
+         September, 2006
+         -----------------
+
+The work of C. Froese Fischer and her group was supported by the 
+Chemical Sciences, Geosciences and Biosciences Division, Office of Basic 
+Energy Sciences, Office of Science, U.S.  Department of Energy since 1978.
+
+
+#                       INSTALLATION
+
+# 1. For installation the package requires several environmental 
+#    variables to be correctly initialized as described below.  
+# 
+# 2. To compile go to src and type "make"
+# 3. the binaries will be compiled in ${ATSP}/bin
+# 4. The libraries will be compiled in ${ATSP}/lib
+# 5.  If code for 64 bit architectures is needed, the library file
+#     src/lib/libcom/alloc_LINUX_64.f should be copied to 
+#     src/lib/libcom/alloc_LINUX.f
+# 
+# To compile biotr_ang and biotr_tr (which split the biotr calculation)
+# go to src90 and type "make"
+
+
+Below is an example of variables being set in a .cshrc file with the use
+of a Portland Group Fortran compiler.  For a more general discussion, 
+consult the CPC publication.
+#########################################################################
+
+#  ... Set the atsp HOME directory and place binaries on search path
+#      upon login after executables have been created.
+
+setenv ATSP  ${HOME}/atsp_cpc
+set path = ( ${ATSP}/bin $path  . )
+
+#  ... Set the location of temporary MPI files
+setenv MPI_TMP "/tmp/$USER"
+
+#  ... Define Fortran  Compiler variables
+setenv FC "pgf90"                          # Fortran compiler
+setenv FC_MPI "mpif90"                     # MPI compiler
+setenv FC_FLAGS "-fast -tp p6 -byteswapio" # Serial code compiler flags
+setenv FC_MPIFLAGS "-O2 "                  # Parallel code compiler flags
+setenv FC_LD                               # Fortran loader flags
+setenv FC_MPILD "-Bstatic"                 # Parallel linker flags
+setenv FC_MALLOC LINUX                     # memory allocation routine
+
+
+#  ... Define C++ compiler variables
+setenv CPP "g++"                           # C++ compiler
+setenv CPP_FLAGS "-O3"                     # C++ compiler flags
+setenv CPP_LD "-static"                    # C++ linker
+
+
+# ... Define Lapack libraries
+setenv LAPACK_DIR /usr/pgi/linux86/6.1/lib # Location of the Lapack libraries
+setenv LAPACK_LIB "-llapack -lblas"        # Libraries to be searched.
+

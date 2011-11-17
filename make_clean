@@ -1,0 +1,13 @@
+#   Remove all .o files
+echo  Removing all .o files
+
+echo ... from the lib_src
+cd lib_src
+rm -f */*.o
+cd ..
+
+echo ... from atsp_src
+cd atsp_src
+
+rm -f *.o
+
