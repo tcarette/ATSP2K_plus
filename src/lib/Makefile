@@ -1,7 +1,7 @@
 # makefile for Applications
 
 TARGETS= install #debug
-SUBDIRS= libang libcom libdvdson librad libnet mpi
+SUBDIRS= libang libcom libdvdson librad libnet # mpi
 #SUBDIRS= libdvdson
 
 $(TARGETS) : $(SUBDIRS)

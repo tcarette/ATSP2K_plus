@@ -21,13 +21,15 @@ SRCALL = $(SRC) $(SRC1)
 LIBDIR = $(ATSP)/lib
 LIBUSE = -lcom -lrad -lang -lcom
 
-install : hf  comp condens  levels lines \
-	  plotw printw relabel w_format   \
-          w_unformat gencl select lsgen  FLS_trends T_dependence \
-          rotate2 lsgenf
-	cp save $(ATSP)/bin
-	cd tbl; make; cd ..
-	cd LS_trends; make; cd ..
+install : lsgen
+#          hf  comp condens  levels lines \
+#          w_unformat gencl select lsgen
+#          rotate2 lsgenf
+#         plotw printw relabel w_format FLS_trends T_dependence \
+#
+#	cp save $(ATSP)/bin
+#	cd tbl; make; cd ..
+#	cd LS_trends; make; cd ..
 
 hf: hf.o
 	$(FC)  -o hf $(FC_FLAGS) hf.o
