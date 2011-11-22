@@ -25,7 +25,6 @@ LIB = ../../bin
 #FFLAGS = -O4 -r4 -non_shared -static -align dcommon  -convert big_endian
 
 #  ....  Compiler for IBM AIX
-FC = g95
 
 #  ....  Make the RADial library for 60 orbitals
 
@@ -42,3 +41,6 @@ librad6.a : $(RADOBJS)
 	 ar r librad6.a $(RADOBJS)
 	 mv librad6.a $(LIB)
 
+
+.f.o:
+	$(FC) -c $(FC_FLAGS) $< -o $@

@@ -25,7 +25,6 @@ LIB = ../../bin
 #FFLAGS = -O4 -r4 -non_shared -static -align dcommon  -convert big_endian
 
 #  ....  Compiler for IBM AIX
-FC = g95
 
 COMSRC  = acurat.f bisect.f bwint.f ca.f cb.f eptr.f factrl.f fk.f gk.f\
 	  gracah.f hnorm.f hwf.f inita.f initr.f intact.f lineqn.f\
@@ -45,3 +44,5 @@ libcom.a : $(COMOBJS)
 	mv libcom.a $(LIB)
 
 
+.f.o:
+	$(FC) -c $(FC_FLAGS) $< -o $@

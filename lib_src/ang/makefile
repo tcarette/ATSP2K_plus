@@ -26,7 +26,6 @@ LIB = ../../bin
 #PFLAGS = -O2 -r4 -non_shared -static -align dcommon  -convert big_endian
 
 #  ....  Compiler for IBM AIX
-FC = g95
 
 #    ... Definitions for the ANGular library
 
@@ -46,3 +45,5 @@ libang.a : $(ANGOBJS) NJGRAF.o
 	ar r libang.a $(ANGOBJS) NJGRAF.o
 	mv libang.a $(LIB)
 
+.f.o:
+	$(FC) -c $(FC_FLAGS) $< -o $@

@@ -36,11 +36,14 @@ LIB = ../bin
 #PFLAGS = -O2 -r4 -non_shared -static -align dcommon -assume noacc -convert big_endian
 
 #  ....  Compiler g95
-FC = g95 -fsloppy-char
 
 UTILITIES = Comp Condens Levels Lines Plotw Printw Relabel Terms
 PROGRAMS = Auto Breit Cmchf Ci Gencl HF Hfs Iso Lsjtr Lstr Mchf Mltpol Nonh Photo
 install:  ${UTILITIES} ${PROGRAMS}
+
+FFLAGS = $(FC_FLAGS)
+PFLAGS = $(FC_FLAGS)
+
 #
 #  ...  Make the UTILITIES
 #

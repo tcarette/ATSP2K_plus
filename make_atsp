@@ -1,3 +1,31 @@
+export ATSP=$(pwd)
+
+export FC_MALLOC="LINUX"                     
+
+
+
+
+export FC="gfortran"
+export FC_FLAGS="-O3 -std=legacy" # for gfortran (-fno-automatic ~ -Msave)
+export FC_LD="-Bstatic"                    # Serial linker flags
+
+
+export FC_MPI="mpif90"                     # MPI compiler
+export FC_MPIFLAGS="-fno-automatic -O3"
+export FC_MPILD=""                         # Parallel linker flags
+MPICH_F90="gfortran"
+MPICH_F90LINKER="gfortran"
+export MPI_TMP="/work/$( whoami )"
+
+
+export CPP="g++"                           # C++ compiler
+export CPP_FLAGS="-O3"                     # C++ compiler flags
+export CPP_LD="-static"                    # C++ linker
+
+
+export LAPACK_LIB="-lpthread -framework vecLib"
+
+
 #
 #  Script (command) file for making the MCHF Atomic Structure Package
 #  
