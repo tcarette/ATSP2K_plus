@@ -91,6 +91,44 @@ c@
          NIJPTR(n) = nij + 1
       END IF
 
+*
+*      ... unpack the electron data
+*
+            iel1=-1
+            iel2=-1
+            iel3=-1
+            iel4=-1
+            kv = ipackn(inptr(n))
+            if (icase.le.2.or.icase.eq.4) then
+                iel2 = mod(kv,64) + nclosd
+                kv = kv/64
+                iel1 = mod(kv,64) + nclosd
+                kv = kv/64
+            else
+                iel4 = mod(kv,64) + nclosd
+                kv = kv/64
+                iel3 = mod(kv,64) + nclosd
+                kv = kv/64
+                iel2 = mod(kv,64) + nclosd
+                kv = kv/64
+                iel1 = mod(kv,64) + nclosd
+                kv = kv/64
+            end if
+  101       FORMAT(f15.10,2X,"F",I1,"(",I1,",",I1,")")
+  102       FORMAT(f15.10,2X,"G",I1,"(",I1,",",I1,")")
+  103       FORMAT(f15.10,2X,"R",I1,"(",I1,",",I1,";",I1,",",I1,")")
+  104       FORMAT(f15.10,2X,"L","(",I1,",",I1,")???")
+            if(icase.eq.1)then
+              write(*,101) c,kv, iel1,iel2
+            else if(icase.eq.2)then
+              write(*,102) c,kv, iel1,iel2
+            else if(icase.eq.3)then
+              write(*,103) c,kv, iel1,iel2,iel3,iel4
+            else
+              write(*,104) c, iel1,iel2
+            endif
+
+
       IFLAG = 1
       END
 

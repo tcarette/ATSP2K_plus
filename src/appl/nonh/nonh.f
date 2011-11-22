@@ -111,7 +111,7 @@
       ISOTOP=0
       IORBORB=0
       IBUG1 = 0
-      IBUG2 = 0
+      IBUG2 = 1
       IBUG3 = 0
       ist=0
       IFIRST = 0
