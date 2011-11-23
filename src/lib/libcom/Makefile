@@ -45,5 +45,5 @@ DYN.f   : $(DYNSRC)
 	@echo "Compiling source file $< into $@"
 	$(FC) -c $(FC_FLAGS) $<  -I . -o $@
 .f.o:
-	$(FC) -c $(FC_FLAGS) $< -o $@ func.o
+	$(FC) -c $(FC_FLAGS) $< -o $@ # func.o
 
