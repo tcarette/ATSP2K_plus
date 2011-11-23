@@ -50,7 +50,7 @@ SRCF =  density.f readwt.f readwfn.f blkdta000.f qquadr.f \
 # making
 install: $(EXEF)
 $(EXEF) : $(OBJF)
-	$(FC) -o $(EXEF) $(FC_LD) $(OBJF) -L$(LAPACK_DIR)  -L$(LIBDIR)  $(RCA) $(LAPACK_LIB)
+	$(FC) -o $(EXEF) $(FC_LD) $(OBJF) $(LAPACK_DIR)  -L$(LIBDIR)  $(RCA) $(LAPACK_LIB)
 backup:
 	tar -cvf $(TAR) *.f Makefile
 	mv $(TAR) ../../backup
