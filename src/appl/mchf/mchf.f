@@ -45,7 +45,7 @@
       CHARACTER*8 ANS*1
       character whp*5, buffer*8
 
-      integer	    iblock, nblock
+      integer       iblock, nblock
       INTEGER       IN,OUT,PRI,OUC,OUF,OUH,OUD,IOU(7)
       COMMON/INOUT/ IN,OUT,PRI,IUC,IUF,IUD,OUC,OUF,OUD,OUH,ISCW
       COMMON/LABEL/ EL(NWD),ATOM,TERMs
@@ -66,11 +66,11 @@
 *
       POINTER (QWT,WT(1)),(QWP,WP(1)),  (IQWPTR,W(1))
       COMMON /CFGS/ETOTAL,QWT,QWP,IQWPTR
-      logical 			:: leigen(meig,mterm), lguess
-      integer			:: unit_n
-      character (len=5)		:: name_dotL
-      double precision 			:: eigst_weight(meig,mterm)   
-      integer 			:: cf_tot(mterm) 
+      logical :: leigen(meig,mterm), lguess
+      integer :: unit_n
+      character (len=5) :: name_dotL
+      double precision    ::   eigst_weight(meig,mterm)   
+      integer    :: cf_tot(mterm) 
       Character*2 idstring
       integer nume(mterm),iws(mterm),iiws(mterm), 
      :        nze_bl(mterm), ncfg_bl(mterm), niv_bl(mterm),
@@ -80,7 +80,7 @@
       common/st/leigen,nblock,nume,iws,iiws,ncfg_bl,nze_bl,
      :          term_bl, qeigvec, pen, lguess,nze_max
 
-      logical	:: hmx_memory, ico_memory, ih_memory, clst_memory
+      logical :: hmx_memory, ico_memory, ih_memory, clst_memory
       common/memory_use/hmx_memory, ico_memory, ih_memory, clst_memory
 
 *
