@@ -1,5 +1,5 @@
 # Flags to be added for compilation
-NOFFLAGS = 
+NOFFLAGS = $(ARCH)
 
 OBJ=hf.o lsgen.o
 SRC=hf.f lsgen.f
@@ -103,9 +103,9 @@ clean:
 	-rm -f *.o
 
 gencl.o : gencl.f
-	${FC} -c gencl.f
+	${FC} -c $(ARCH) gencl.f
 lsgen.o : lsgen.f
-	${FC} -c lsgen.f
+	${FC} -c $(ARCH) lsgen.f
 
 %.o : %.f
 	$(FC) -c $(FC_FLAGS) $< -o $@

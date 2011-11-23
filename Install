@@ -10,14 +10,15 @@ export FC_MALLOC="LINUX"
 
 #########################################################################
 
+export ARCH="-arch i386"                    # Flags giving the architecture
 export FC="gfortran"
 #export FC="pgf90"                          # Fortran compiler
 #export FC="pgf90 -C"                          # Fortran compiler + debug op.
 #export FC_FLAGS="-O2 -byteswapio"          # Serial code compiler flags
 #export FC_FLAGS="-Msave -byteswapio -Minform=inform -tp k8-64 -v -s -fast"
 #export FC_FLAGS="-mcmodel=medium -Msave -O3 -fastsse"
-export FC_FLAGS="-fno-automatic -O3 -fcray-pointer -std=legacy" # for gfortran (-fno-automatic ~ -Msave)
-export FC_LD="-Bstatic"                    # Serial linker flags
+export FC_FLAGS="-fno-automatic -O3 -fcray-pointer -std=legacy ${ARCH}" # for gfortran (-fno-automatic ~ -Msave)
+export FC_LD="-Bstatic ${ARCH}"             # Serial linker flags
 
 #########################################################################
 
@@ -37,16 +38,16 @@ export MPI_TMP="/work/$( whoami )"
 
 #########################################################################
 
-export CPP="g++"                           # C++ compiler
-export CPP_FLAGS="-O3"                     # C++ compiler flags
-export CPP_LD="-static"                    # C++ linker
+export CPP="gcc"                           # C++ compiler
+export CPP_FLAGS="-O3 ${ARCH}"             # C++ compiler flags
+export CPP_LD="-static ${ARCH}"            # C++ linker
 
 #########################################################################
 
-#export LAPACK_DIR=/bfucc/PRD_PGI/linux86-64/7.0-7/lib
-#export LAPACK_DIR=/opt/hpmpi/lib/linux_amd64/
-#export LAPACK_DIR=/usr/local/products/pgi/linux86-64/6.1/lib
-#export LAPACK_DIR=/usr/local/products/pgi/linux86/6.1/lib
+#export LAPACK_DIR= -L/bfucc/PRD_PGI/linux86-64/7.0-7/lib
+#export LAPACK_DIR= -L/opt/hpmpi/lib/linux_amd64/
+#export LAPACK_DIR= -L/usr/local/products/pgi/linux86-64/6.1/lib
+#export LAPACK_DIR= -L/usr/local/products/pgi/linux86/6.1/lib
 #export LAPACK_LIB="-llapack -lblas -lmtmpi -lpthread -lacml"
 #gd export LAPACK_LIB="-lmtmpi -lpthread -lacml"
 #export LAPACK_LIB="-lpthread -lacml"

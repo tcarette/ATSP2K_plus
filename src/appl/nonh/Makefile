@@ -49,7 +49,7 @@ SNZ = $(EXED)/nonhz
 
 #libraries
 LIBDIR = ${ATSP}/lib
-LIBUSE = -lcom -ldvdson -lang  -lrad -lcom 
+LIBUSE = -lang -lcom # -lcom -ldvdson -lang  -lrad -lcom 
 
 #obkjects
 OBJECT_SN  = nonh.o angmomg.o genint.o orbitals.o\
