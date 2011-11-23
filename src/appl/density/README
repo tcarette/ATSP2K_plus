@@ -1,0 +1,154 @@
+DENSITY
+
+A program to calculate electron densities from correlated 
+wavefunctions obtained from the ATSP-2K package
+
+05-10-2009
+
+
+----------------------------------------------------------------------
+
+Authors:
+
+A. Borgoo
+Algemene Chemie, 
+Vrije Universiteit Brussels, 
+B--1050 Brussels, Belgium
+
+O. Scharf, 
+Chimie quantique et Photophysique, 
+Universite Libre de Bruxelles, 
+B--1050 Bruxelles, Belgium
+
+G. Gaigalas
+Vilnius University Research Institute of Theoretical Physics and Astronomy,
+A. Gostauto 12,
+LT-01108 Vilnius, Lithuania
+
+M.R. Godefroid,
+Chimie quantique et Photophysique, 
+Universite Libre de Bruxelles, 
+B--1050 Bruxelles, Belgium
+mrgodef@ulb.ac.be
+
+----------------------------------------------------------------------
+
+Files:
+=======
+
+blkdta000.f
+cfgn1.f
+cfgo1.f
+compilation_ifort.txt
+compilation_pgf90.txt
+density.f
+Makefile
+n3.c
+n3.d
+n3.l
+n3.matrix
+n3.n
+n3.nw
+n3.plt
+n3_stdout.txt
+n3.w
+qquadr.f
+README
+readwfn.f
+readwt.f
+savenon.f
+setup.f
+setupm.f
+spin_angular_density.f
+unitelement.f
+
+----------------------------------------------------------------------
+
+Installation: 
+============== 
+The program should be installed as a new application in the atsp2k program package.
+This can be done as follows: 
+
+First check that you have a working atsp2k program package.
+
+extract the files from the .tar in a temporary directory
+mkdir density
+cd density
+tar -cvf density.tar
+
+The installation procedure can be performed automatically by evaluating the 
+Install_density script from the main atsp2k directory OR for manual 
+installation the following information is needed:
+
+go to the atsp2k main directore and set the ATSP environment variable:
+cd /my_atsp2k/
+export ATSP=$( pwd )
+
+the src files  should be copied to the
+correct location in the atsp2K directory structure:
+a) make a new directory
+mkdir ${ATSP}/src/appl/density
+
+b) copy the source files and the Makefile to ${ATSP}/src/appl/density 
+cp /density/src/*  ${ATSP}/src/appl/density   
+
+once the files in place the environment variables can be exported:
+export FC="pgf90"                          # Fortran compiler
+export FC_FLAGS="-mcmodel=medium -Msave -O3 -fastsse"
+                                           # compiler flags
+export FC_LD="-Bstatic"                    # Serial linker flags
+
+the density program uses a lapack routine, so the compiler needs an extra flag
+export LAPACK_LIB="-lpthread -lacml"
+
+setting the variables in ${ATSP}/src/density/Makefile
+EXED = ${ATSP}/bin           #sets the default binary directory of atsp2k
+LIBDIR = ${ATSP}/lib         #sets the default library directory of atsp2k
+EXEF = $(EXED)/density       #sets the binary to be built
+RCA = -lang -lcom            #sets flags for reference to atsp2k libraries
+ 
+enter density directory
+cd ${ATSP}/src/appl/density
+
+# make the density program
+make $* 2>&1 | tee ${ATSP}/make.err
+grep "severe" ./make.err
+
+Testing:
+=========
+The directory Test contains input and output files for a Be atom n=3 
+CAS-MCHF calculation.
+The directory He_CAS contains input and output files for a second example.
+
+To run the density program, enter
+          density
+on the command line.          
+The program will then ask for the name of the input files 
+and the calculations required, for example:
+
+ Density calculation, Summer 2009 
+ Give <name> of the <name>.c, <name>.l <name>.w files:
+n3
+ Files: n3 
+ 
+ 
+ PRINT THE ORBITALS  (*/n) 
+*
+ Printout orbitals
+ 
+ PRINT THE MATRIX (*/n) 
+*
+ Printout the matrix
+ 
+ CALCULATE NATURAL ORBITALS (*/n) 
+*
+ Calculate natural orbitals
+ 
+ PRINT ALL DATA (y/*)
+y
+ Print all informations
+ .
+ .
+ .
+ 
+
