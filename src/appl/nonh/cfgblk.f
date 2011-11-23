@@ -22,7 +22,7 @@
 *
       COMMON/INFORM/IREAD,IWRITE,IOUT,ISC0,ISC1,ISC2,ISC3,JSC0,JSC(4)
       COMMON /CLOSED/B1ELC(4),NCLOSD,IBK
-     : IALL,ISCW, state
+*     : IALL,ISCW, state
       character term*3
       character*1 RD1, RD2, parity
 *
