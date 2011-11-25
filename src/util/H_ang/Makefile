@@ -24,11 +24,12 @@ LIBUSE = -lang -lcom
 
 SN=show_H_ang
 
-#obkjects
-OBJECT  = show_H_ang.o genint.o orbitals.o analy_blk.o ltriang.o #\
-#        cfgblk.o
-#        isearch.o ltriang.o  savels.o ffgg.o 
-SRCF  = $(foreach a, $(OBJECT), $(patsubst %.o,%.f,$(a)))
+#objects. Priorities according to use statements (TODO: clean that)
+OPRIO1 = safeio.o
+OPRIO2 = mdata.o
+OPRIO3 = show_H_ang.o crash.o
+OBJECT  = $(OPRIO1) $(OPRIO2) $(OPRIO3)
+SRCF  = $(foreach a, $(OBJECT), $(patsubst %.o,%.f90,$(a)))
 
 #making
 install: $(SN)
@@ -40,10 +41,10 @@ $(SN): $(OBJECT)
 clean:
 	-rm -f *.o $(SN)
 
+mdata.o: data.f90 spintgrl.f90
 
-.f90.o:
-	@echo "Compiling source file $< into $@"
-	$(FC) -c $(FC_FLAGS) $<  -I . -o $@
+%.o: %.f90
+	$(FC) -c $(FC_F90) $<  -I . -o $@
 .f.o:
 	$(FC) -c $(FC_FLAGS) $< -o $@
 
