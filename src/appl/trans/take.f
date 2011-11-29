@@ -37,17 +37,17 @@
       JF=0
     1 READ(IANG,END=3) IFL,JJJI,JJJF,LLB,LLD,CL1
       IF(JI.NE.JJJI) THEN
-	IF(MOD(JJJI,10).EQ.0) PRINT*,' JA = ',JJJI
+        IF(MOD(JJJI,10).EQ.0) PRINT*,' JA = ',JJJI
       ENDIF
       IF(JI.EQ.0.AND.JF.EQ.0) THEN
-	IF(IFL.NE.IFL1) THEN
-	  PRINT*,'  WRONG ANGLES FILE  ',GFILE
-	  STOP
+        IF(IFL.NE.IFL1) THEN
+          PRINT*,'  WRONG ANGLES FILE  ',GFILE
+          STOP
         ENDIF
-	JI=JJJI
-	JF=JJJF
-	LB=LLB
-	LD=LLD
+        JI=JJJI
+        JF=JJJF
+        LB=LLB
+        LD=LLD
         JFF = JF+NCF(1)
         CALL SETUP(JI,JFF)
         CL=CL1*RLINT(LB,LD)
@@ -55,8 +55,8 @@
         CL2=CL
         CV2=CV
       ELSEIF(JJJI.EQ.JI.AND.JJJF.EQ.JF) THEN
-	LB=LLB
-	LD=LLD
+        LB=LLB
+        LD=LLD
         CL=CL1*RLINT(LB,LD)
         IF(VOK)CV=CL1*RVINT(LB,LD)
         CL2=CL2+CL
@@ -73,11 +73,11 @@
             print*,'              sl(pair) = ',sl(k)
           end if
     2   continue
-	JI=JJJI
-	JF=JJJF
+        JI=JJJI
+        JF=JJJF
         JFF = JF+NCF(1)
-	LB=LLB
-	LD=LLD
+        LB=LLB
+        LD=LLD
         CALL SETUP(JI,JFF)
         CL=CL1*RLINT(LB,LD)
         IF(VOK)CV=CL1*RVINT(LB,LD)

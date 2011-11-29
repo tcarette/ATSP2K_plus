@@ -43,6 +43,7 @@
       npair = 0
       do 1 i = 1,nvc(1)
         do 2 j = 1,nvc(2)
+          write(*,*) jv1(i),jv2(j),LAM+LAM
           atst = tritst(jv1(i),jv2(j),LAM+LAM)
           if (atst .eq. 0.0) then
             npair = npair + 1

@@ -110,10 +110,10 @@ CDBG :         ' NBUG6  =',I3,' (DEBUG IN TENSOR PACKAGE)'//)
       WRITE(IWRITE,9)
       rel = .false.
       LORTH = .TRUE.
-      IBUG1 = 0
-      IBUG2 = 0
-      IBUG3 = 0
-      NBUG6 = 0
+      IBUG1 = 1
+      IBUG2 = 1
+      IBUG3 = 1
+      NBUG6 = 1
 CDBG  WRITE(ISCW,*)  ' Input IBUG1, IBUG3, NBUG6 (0/1) '
 CDBG  READ (IREAD,*)  IBUG1,IBUG3,NBUG6
 CDBG  WRITE(IWRITE,88) IBUG1,IBUG3,NBUG6
@@ -170,7 +170,7 @@ CSUN  end if
       if (north.gt.0) then
         if(ibug1.ne.0) print*,' qiorth  allocation: north = ',north
         call alloc(qiorth,north,4)
-	CALL ORTH
+      CALL ORTH
       end if
 *
 * --- read the radial wavefunctions on units iuw(1) and iuw(2)
@@ -236,11 +236,11 @@ CSUN  end if
       write(iscw,*) ' Use existing file for Angles ? (y/n) '
       READ(iread,'(A1)') YES
       if (YES.EQ.'Y'.OR.YES.EQ.'y') THEN
-	ANGLES = .true.
+      ANGLES = .true.
         OPEN(UNIT=IANG,FILE=gfile,STATUS='OLD',form='unformatted' )
       ELSE
         ANGLES = .false.
-        OPEN(UNIT=IANG,FILE=gfile,STATUS='NEW',form='unformatted' )
+        OPEN(UNIT=IANG,FILE=gfile,form='unformatted' )
       ENDIF
 *
 * --- allocate the /MULT/
@@ -251,9 +251,12 @@ CSUN  end if
 *     velocity form only for E1/E2 using the non-relativistic option.
       call radint(im)
 *
+      wt1(1:6)=1.d0
+      wt2(1)=1.d0
+      write(*,*) wt1(1:6),wt2(1)
       WRITE(IWRITE,200) IEM(IFL),LAM,IEM(IFL),LAM
       WRITE(IWRITE,4) IEM(IFL),LAM
-      print*,' npair = ',npair
+      write(*,*) ' npair = ',npair
       NTERMS = 0
       IF(IFL .EQ. 2) IFL = 3
       IF(ANGLES) THEN
@@ -262,6 +265,6 @@ CSUN  end if
         CALL CALCUL(NPAIR)
       ENDIF
       CLOSE(IANG)
-      CALL PROBAB(ICI,IULS,IULSJ,NPAIR,CONFIGI,CONFIGF,LESS,IPRINT,IM)
+!      CALL PROBAB(ICI,IULS,IULSJ,NPAIR,CONFIGI,CONFIGF,LESS,IPRINT,IM)
       STOP
       END

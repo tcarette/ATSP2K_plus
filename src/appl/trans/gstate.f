@@ -48,9 +48,9 @@ CGG   27 FORMAT(22X,9(1X,4X,I1,A1,I1))
          N=0
          J=2
    60    IF (LINE(J:J+2) .NE. '   ' .and. N .LT. (8)) THEN
-	 N = N + 1
-	 J = J +8
-	 GO TO 60
+      N = N + 1
+      J = J +8
+      GO TO 60
       END IF
       NOCCSH(I) = N
       READ(LINE,55)       (NOCORB(J,I),NELCSH(J,I),J=1,N)

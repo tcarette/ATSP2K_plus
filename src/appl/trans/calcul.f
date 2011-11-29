@@ -35,10 +35,10 @@
           KB=1
         ENDIF
         DO 2 JII=1,NCF(1)
-	  JI=JII
+          JI=JII
           IF(MOD(JI,10).EQ.0) print*,' JA = ',JI
           DO 3 JFI=1,NCF(2)
-	    JF=JFI
+            JF=JFI
             if(npair.eq.0) then
               print*,' ji = ',ji,' jf = ',jf
               stop
@@ -54,7 +54,7 @@
             ITIK=1
             IF(ITTK(J1QN1(N1,2)-1,J1QN2(N1,2)-1,2*KA).EQ.0)ITIK=0
             IF(ITTK(J1QN1(N1,3)-1,J1QN2(N1,3)-1,2*KB).EQ.0)ITIK=0
-	    IF(ITIK.NE.0) THEN
+            IF(ITIK.NE.0) THEN
               CALL NONTRANS(KA,KB,CL2,CV2)
 *
 * --- calculate the contribution of <JI/ O /JF> to the line
@@ -63,7 +63,7 @@
                 do 4 k = 1,npair
                   kl=(il(k)-1)*ncf(1)+ji
                   kr=(ir(k)-1)*ncf(2)+jf
-                  fww=fline(k)*wt1(kl)*wt2(kr)
+                  fww=fline(k) ! *wt1(kl)*wt2(kr)
                   sl(k) = sl(k) + cl2*fww
                   if(vok) sv(k) = sv(k) + cv2*fww
                   if(ibug1.ne.0) then
