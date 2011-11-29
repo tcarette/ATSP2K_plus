@@ -281,7 +281,8 @@ ctc
      :      wt(ioffw+nume(iblock)+ie),
      :      wt(ioffw+2*nume(iblock)+ie)
             ioffw = ncfg*(ie-1)
-            write(out,'(4(4X,I3,F11.7))') (i,wt(ioffw+i),i=1,min(8,ncfg))
+            write(out,'(4(4X,I3,F11.7))') (i,wt(ioffw+i),
+     : i=1,min(8,ncfg))
            end if
          end do
 ctc
