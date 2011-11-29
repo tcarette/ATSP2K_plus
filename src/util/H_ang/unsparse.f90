@@ -79,8 +79,6 @@ SUBROUTINE unsparse(print,save)
             endif
           enddo
         else
-          jb=jb+1
-
           do j=ja+1,ncfg
             if(save) tot_hang(nb)%h(j,jb)%ni=0
             if(print)then
@@ -88,6 +86,9 @@ SUBROUTINE unsparse(print,save)
               write(*,'('//fmt0//')') jb,j
             endif
           enddo
+
+          jb=jb+1
+
           do j=jb,jan(nijcurr)-1
             if(save) tot_hang(nb)%h(j,jb)%ni=0
             if(print)then
@@ -163,7 +164,7 @@ SUBROUTINE unsparse(print,save)
       if(print)then
 
         str='no'
-        if(mod(mei,1)==0.or.mei==ni) str='yes'
+        if(mod(mei,3)==0.or.mei==ni) str='yes'
 
         if (icase==3) then
           write(str2,'('//intfmt(3)//')') &
