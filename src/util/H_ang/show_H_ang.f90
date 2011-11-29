@@ -49,11 +49,11 @@
         endif	
       end if
 
-!
-!  ---  Determine input data; non-orthogonal case
-!
 
       call data
+
+
+      call unsparse(.true.,.false.)
 
 
       end program show_H_ang

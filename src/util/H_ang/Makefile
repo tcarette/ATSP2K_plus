@@ -41,7 +41,7 @@ $(SN): $(OBJECT)
 clean:
 	-rm -f *.o $(SN)
 
-mdata.o: data.f90 spintgrl.f90
+mdata.o: data.f90 spintgrl.f90 unsparse.f90
 
 %.o: %.f90
 	$(FC) -c $(FC_F90) $<  -I . -o $@
