@@ -108,7 +108,15 @@
           ibe = ibe + n_read;
           n_left = n_left - n_read
         end do
+
+        ! modifies the 1-electron integral coefficients (L->I)
+
+        i=intptr(3)
+        do int=1,ncn_bl(iblock)
+          if(inptr(int).gt.i) cn(int)=-2.d0*cn(int)
+        enddo
       end do
+
 
       if(safe_close(fp1)/=0) call crash
 
