@@ -21,7 +21,8 @@ SRCALL = $(SRC) $(SRC1)
 LIBDIR = $(ATSP)/lib
 LIBUSE = -lcom -lrad -lang -lcom
 
-install : lsgen
+install : show_H_ang 
+# lsgen 
 #          hf  comp condens  levels lines \
 #          w_unformat gencl select lsgen
 #          rotate2 lsgenf
@@ -30,6 +31,14 @@ install : lsgen
 #	cp save $(ATSP)/bin
 #	cd tbl; make; cd ..
 #	cd LS_trends; make; cd ..
+
+show_H_ang:
+	@echo "....entering H_ang";\
+	cd H_ang/;\
+		$(MAKE) $@ ;\
+	echo "....leaving H_ang" ;\
+	mv show_H_ang $(ATSP)/bin;\
+	cd ..
 
 hf: hf.o
 	$(FC)  -o hf $(FC_FLAGS) hf.o
@@ -101,6 +110,9 @@ rotate2 : rotate2.o
 
 clean:
 	-rm -f *.o
+	@cd show_H_ang
+	$(MAKE) $@
+	@cd ..
 
 gencl.o : gencl.f
 	${FC} -c $(ARCH) gencl.f
