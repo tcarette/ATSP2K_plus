@@ -113,7 +113,7 @@ C ja = seniority; jb = 2*L+1 ; jc = 2*S+1
         jb = mod(jd,64)
         jc = jd/64
         jv1(1) = jb + jc - 2
-        print*,' seniority = ',ja,' (2L+1) = ',jb,' (2S+1) = ',jc
+        write(*,*) ' seniority = ',ja,' (2L+1) = ',jb,' (2S+1) = ',jc
      :        ,' 2*J = ',jv1(1)
         read(iuc(2), 1) et2(1),ligne(1:36)
         read(iuc(2),'(A)') configf
@@ -161,9 +161,7 @@ C ja = seniority; jb = 2*L+1 ; jc = 2*S+1
         k3=0
         rewind(iu)
         read(iu,'(a)') line
-  8   read(iu,14,end=10) jv,nb
-        jv=0
-        nb=1
+  8     read(iu,14,end=10) jv,nb
         if(ibug1.ne.0) print*,'     jv = ',jv,' nb = ',nb
         do 9 m = 1,nb
           k3=k3+1

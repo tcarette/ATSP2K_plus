@@ -45,6 +45,7 @@
         do 2 j = 1,nvc(2)
           write(*,*) jv1(i),jv2(j),LAM+LAM
           atst = tritst(jv1(i),jv2(j),LAM+LAM)
+          write(*,*) jv1(i),jv2(j),LAM+LAM, atst
           if (atst .eq. 0.0) then
             npair = npair + 1
             il(npair) = i
