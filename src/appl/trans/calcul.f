@@ -65,12 +65,11 @@
                   kr=(ir(k)-1)*ncf(2)+jf
                   fww=fline(k) ! *wt1(kl)*wt2(kr)
                   sl(k) = sl(k) + cl2*fww
-                  write(*,*) fww,cl2
                   if(vok) sv(k) = sv(k) + cv2*fww
                   if(ibug1.ne.0) then
                     print*,' pair = ',k,
      :                   ' wt1 = ',wt1(kl),' wt2 = ',wt2(kr)
-                    print*,'              sl(pair) = ',sl(k)
+                    print*,'sl(pair) = ',sl(k), 'ang = ', cl2*fww
                   end if
     4           continue
               ENDIF

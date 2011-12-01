@@ -1,4 +1,3 @@
-*YTRANS
 * Last modifications : September 14, 1997  
 * tests to do : E2/M1
 *               lhs = rhs 
@@ -251,9 +250,6 @@ CSUN  end if
 *     velocity form only for E1/E2 using the non-relativistic option.
       call radint(im)
 *
-      wt1(1:6)=1.d0
-      wt2(1)=1.d0
-      write(*,*) wt1(1:6),wt2(1)
       WRITE(IWRITE,200) IEM(IFL),LAM,IEM(IFL),LAM
       WRITE(IWRITE,4) IEM(IFL),LAM
       write(*,*) ' npair = ',npair
@@ -265,6 +261,6 @@ CSUN  end if
         CALL CALCUL(NPAIR)
       ENDIF
       CLOSE(IANG)
-!      CALL PROBAB(ICI,IULS,IULSJ,NPAIR,CONFIGI,CONFIGF,LESS,IPRINT,IM)
+        CALL PROBAB(ICI,IULS,IULSJ,NPAIR,CONFIGI,CONFIGF,LESS,IPRINT,IM)
       STOP
       END

@@ -36,6 +36,7 @@
       JI=0
       JF=0
     1 READ(IANG,END=3) IFL,JJJI,JJJF,LLB,LLD,CL1
+      write(*,*)  IFL,JJJI,JJJF,LLB,LLD,CL1
       IF(JI.NE.JJJI) THEN
         IF(MOD(JJJI,10).EQ.0) PRINT*,' JA = ',JJJI
       ENDIF

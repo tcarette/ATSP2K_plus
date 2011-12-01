@@ -27,15 +27,11 @@
       IS1=J1QN1(I2HSH,3)-1
       IS2=J1QN2(I2HSH,3)-1
       LAM2=LAM+LAM
-      write(*,*) ifl,in
       IF(IFL.NE.4) THEN
-      write(*,*) "jjell"
-      write(*,*) LL1,IS1,IVL,IVR,LAM2,LL2,1,F
         CALL SIXJ(LL1,IS1,IVL,IVR,LAM2,LL2,1,F)
         IF(MOD(LL1+IS1+IVR+LAM2,4).NE.0) F=-F
         IF(IFL.EQ.3) F=F/DBLE(LAM+1)
         FLINE=F
-        write(*,*) f
       ELSE
         L4=LAM2-2
         CALL NINELS(IVL,LL1,IS1,IVR,LL2,IS2,LAM2,L4,2,1,IN,F)
