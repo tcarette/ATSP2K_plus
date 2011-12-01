@@ -58,10 +58,10 @@
           KB=1
         ENDIF
         DO 2 JII=1,NCF(1)
-	  JI=JII
+          JI=JII
           IF(MOD(JI,100).EQ.0) WRITE(ISCW,*) '     JA = ',JI
           DO 3 JFI=1,NCF(2)
-	    JF=JFI
+            JF=JFI
             if(npair.eq.0) then
               print*,' ji = ',ji,' jf = ',jf
               stop
@@ -85,7 +85,7 @@
 * --- set up the occupation and coupling arrays
 *
             CALL SETUP(JI,JFF,LET)
-	    IF(LET.EQ.0) GO TO 3
+            IF(LET.EQ.0) GO TO 3
 *
 * --- test selection rules delta(S)=0 for Ek and M1
 *                          delta(L)=0 for M1
@@ -93,27 +93,29 @@
             ITIK=1
             IF(ITTK(J1QN1(N1,2)-1,J1QN2(N1,2)-1,2*KA).EQ.0)ITIK=0
             IF(ITTK(J1QN1(N1,3)-1,J1QN2(N1,3)-1,2*KB).EQ.0)ITIK=0
-	    IF(ITIK.NE.0) THEN
+            IF(ITIK.NE.0) THEN
               CALL NONTRANS(KA,KB,CL2,CV2)
 !              print*,KA,KB,CL2,CV2, ' nontrans'
 *
 * --- calculate the contribution of <JI/ O /JF> to the line
 *     strengths for the npair (J,J') found
+              write(*,*) "cl2=",Cl2,"cv2=",CV2
               IF(DABS(CL2).GT.ZERO.OR.DABS(CV2).GT.ZERO) THEN
                 do 4 k = 1,npair
                   kl=(il(k)-1)*ncf(1)+ji
                   kr=(ir(k)-1)*ncf(2)+jf
-                  fww=fline(k)*wt1(kl)*wt2(kr)
+                  fww=fline(k) ! *wt1(kl)*wt2(kr)
+                  write(*,*) "fline=", fww
                   sl(k) = sl(k) + cl2*fww
                   if(vok) sv(k) = sv(k) + cv2*fww
-                  if(iprint .and. (abs(cl2*fww) .gt. tol)) then
+!                  if(iprint .and. (abs(cl2*fww) .gt. tol)) then
                    Write(configi,'(8A8)') (cfg1(ii,il(k)),ii=1,8)
                    WRITE(configf,'(8A8)') (cfg2(ii,ir(k)),ii=1,8)
                    print
      :              '(I3,2X,A,I3,2X,F7.5,4X,A,I3,2X,F7.5,2X,2f10.6)',
-     :			  k,configi(1:20),kl, wt1(kl), configf(1:20), 
+     :                    k,configi(1:20),kl, wt1(kl), configf(1:20), 
      :                    kr, wt2(kr),cl2*fww, cv2*fww
-                  end if
+!                  end if
     4           continue
               ENDIF
             ENDIF

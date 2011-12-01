@@ -142,12 +142,12 @@ C     iut(2) = 16
       call factrl(32)
       WRITE(IWRITE,5)
       rel = .false.
-      IBUG1 = 1
+      IBUG1 = 0
 *     IBUG1 = 1  ! Allows for output
-      IBUG2 = 1
-      IBUG3 = 1
-      IBUGM = 1
-      NBUG6 = 1
+      IBUG2 = 0
+      IBUG3 = 0
+      IBUGM = 0
+      NBUG6 = 0
 *
 * --- determine debug information
 CDBG  WRITE(ISCW,*)  ' Input IBUG1, IBUG3, NBUG6 (0/1) '
@@ -255,7 +255,7 @@ Cdbg  OPEN(UNIT=iut(2),STATUS='scratch',FORM='FORMATTED')
 *
 * --- calculate the overlap matrix between initial and final
 *     orbitals
-      CALL BRKT
+!      CALL BRKT
 *
 * --- open .l/.j and .ls/.lsj files according rel value
     3 j = index(ttfile,' ')
@@ -273,23 +273,23 @@ Cdbg  OPEN(UNIT=iut(2),STATUS='scratch',FORM='FORMATTED')
         write(iulsj,9) name(1),name(2)
       else
         if (m_or_c .eq. 'C' .or. m_or_c .eq. 'c') then
-	   ici = 2
+           ici = 2
            OPEN(UNIT=iul(1),FILE=lfile(1),STATUS='OLD')
            OPEN(UNIT=iul(2),FILE=lfile(2),STATUS='OLD')
 *          .. compute correct J values
-	   nc = 1
-	   do i =1,2
-	   print *, 'j1qnrd', nc, j1qnrd(2*noccsh(nc)-1,nc)
-	   jd = j1qnrd(2*noccsh(nc)-1,nc)
-	   ja = mod(jd,64)
-	   jd = jd/64
-	   jb = mod(jd,64)
-	   jc = jd/64
-	   print *, 'seniority =', ja, '  2*L+1=',jb, ' 2S+1 =',jc
-	   lsj(i) = jb+jc-2
-	   nc = nc+ncf(1)
-	   print *, 'nc,ncf', nc,ncf(1)
-	   end do
+           nc = 1
+           do i =1,2
+           print *, 'j1qnrd', nc, j1qnrd(2*noccsh(nc)-1,nc)
+           jd = j1qnrd(2*noccsh(nc)-1,nc)
+           ja = mod(jd,64)
+           jd = jd/64
+           jb = mod(jd,64)
+           jc = jd/64
+           print *, 'seniority =', ja, '  2*L+1=',jb, ' 2S+1 =',jc
+           lsj(i) = jb+jc-2
+           nc = nc+ncf(1)
+           print *, 'nc,ncf', nc,ncf(1)
+           end do
         else
            ici = 0
         end if
@@ -327,29 +327,29 @@ Cmrg  LBUF = 96*1027
       MXL = MAX0(LMAX(1),LMAX(2))-1
 *. Define TEST level for BIOTRN : 0 => silence, 1=> just a bit
 Cmrg  NTESTB = 1
-      NTESTB = 15
-      IF(NTESTB.NE.0) THEN
-        write(6,*) ' TRANS : MXL ', MXL
-        write(6,*) ' I am going to call BIOTRA, wish me luck'
-      END IF
-      write(iscw,*) ' Call BIOTRN...'
-      if(ibugm.ne.0) print*,' wt1(1) = ',wt1(1),' wt2(1) = ',wt2(1)
+!      NTESTB = 15
+!      IF(NTESTB.NE.0) THEN
+!        write(6,*) ' TRANS : MXL ', MXL
+!        write(6,*) ' I am going to call BIOTRA, wish me luck'
+!      END IF
+!      write(iscw,*) ' Call BIOTRN...'
+!      if(ibugm.ne.0) print*,' wt1(1) = ',wt1(1),' wt2(1) = ',wt2(1)
 *
 *. Here we are...
-      CALL BIOTRN(P(1,1),NL(1,1),WT1(1),NCF(1),NVC(1),IDUMMY,
-     &            P(1,IWF(1)+1),NL(1,2),WT2(1),NCF(2),NVC(2),IDUMMY,
-     &            NOD,MXL,NINAC(1,1),
-     &            LBUF,15,16,
-     &            NTESTB)
+!      CALL BIOTRN(P(1,1),NL(1,1),WT1(1),NCF(1),NVC(1),IDUMMY,
+!     &            P(1,IWF(1)+1),NL(1,2),WT2(1),NCF(2),NVC(2),IDUMMY,
+!     &            NOD,MXL,NINAC(1,1),
+!     &            LBUF,15,16,
+!     &            NTESTB)
 *
 *. Here we were...
       if(ibugm.ne.0) print*,' wt1(1) = ',wt1(1),' wt2(1) = ',wt2(1)
 *
 * --- calculate the rotated slopes at the origin
-      call slope
-      WRITE(6,'(A)') ' Test call of BRKT after BIOTRN'
-      CALL BRKT
- 1000 Continue
+!      call slope
+!      WRITE(6,'(A)') ' Test call of BRKT after BIOTRN'
+!      CALL BRKT
+! 1000 Continue
 *
 * --- calculate the overlap and radial one-electron transition integrals
 *     velocity form only for E1/E2 using the non-relativistic option.
@@ -365,27 +365,27 @@ Cmrg  NTESTB = 1
 *     CALL CALCUL(NPAIR)
       CALL CALCUL(NPAIR,IPRINT,TOL)
       CALL PROBAB(ICI,IULS,IULSJ,NPAIR,CONFIGI,CONFIGF,IM,IPRINT)
-      WRITE(ISCW,*)
-     :      ' Type of transition ? (E1, E2, M1, M2, .. or *) '
-      READ (IREAD,6) IM, LAM
-      IF (IM .EQ. '*' .OR. IM .EQ. ' ' ) STOP ' END OF CASE'
-      IF (IM .EQ. 'e') IM = 'E'
-      IF (IM .EQ. 'm') IM = 'M'
-      IF (IM .EQ. 'E') THEN
-         IFL = 1
-         WRITE(IWRITE,7) LAM
-      ELSE
-         IFL = 2
-         WRITE(IWRITE,8) LAM
-      ENDIF
-      lam2 = lam + lam
-      vok = .false.
+!      WRITE(ISCW,*)
+!     :      ' Type of transition ? (E1, E2, M1, M2, .. or *) '
+!      READ (IREAD,6) IM, LAM
+!      IF (IM .EQ. '*' .OR. IM .EQ. ' ' ) STOP ' END OF CASE'
+!      IF (IM .EQ. 'e') IM = 'E'
+!      IF (IM .EQ. 'm') IM = 'M'
+!      IF (IM .EQ. 'E') THEN
+!         IFL = 1
+!         WRITE(IWRITE,7) LAM
+!      ELSE
+!         IFL = 2
+!         WRITE(IWRITE,8) LAM
+!      ENDIF
+!      lam2 = lam + lam
+!      vok = .false.
 *     .. let us compute velocity also for rel = .true.
 *     if(.not.rel.and.ifl.eq.1.and.lam.le.2) vok = .true.
-      if(ifl.eq.1.and.lam.le.2) vok = .true.
+!      if(ifl.eq.1.and.lam.le.2) vok = .true.
 *
 * --- allocate the /MULT/
-      CALL ALMULT(NPAIR)
+!      CALL ALMULT(NPAIR)
 *
-      Go to 1000
+!      Go to 1000
       END

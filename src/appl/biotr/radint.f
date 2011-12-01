@@ -42,20 +42,20 @@
       if(ibugm.ne.0) print*,' transition ',im,lam
       do 1 i = 1,maxorb
         do 2 j = 1,maxorb
-           if(itab(i,1).eq.0.or.itab(j,2).eq.0) go to 2
-           il = iabs(l(itab(i,1))-l(itab(j,2)))
-           ovlp(i,j) = quadr(itab(i,1),itab(j,2),0)
-           if (im.eq.'E') then
-             rlint(i,j) = quadr(itab(i,1),itab(j,2),lam)
-*            if (.not.rel) then
-               if (lam.eq.1.and.il.eq.1)
-     :              rvint(i,j) = grad(itab(i,1),itab(j,2))
-               if (lam.eq.2.and.(il.eq.0.or.il.eq.2))
-     :              rvint(i,j) = grad2(itab(i,1),itab(j,2))
-*            end if
-           else if (im.eq.'M') then
-             rlint(i,j) = quadr(itab(i,1),itab(j,2),lam-1)
-           end if
+!           if(itab(i,1).eq.0.or.itab(j,2).eq.0) go to 2
+!           il = iabs(l(itab(i,1))-l(itab(j,2)))
+!           ovlp(i,j) = quadr(itab(i,1),itab(j,2),0)
+!           if (im.eq.'E') then
+!             rlint(i,j) = quadr(itab(i,1),itab(j,2),lam)
+!*            if (.not.rel) then
+!               if (lam.eq.1.and.il.eq.1)
+!     :              rvint(i,j) = grad(itab(i,1),itab(j,2))
+!               if (lam.eq.2.and.(il.eq.0.or.il.eq.2))
+!     :              rvint(i,j) = grad2(itab(i,1),itab(j,2))
+!*            end if
+!           else if (im.eq.'M') then
+!             rlint(i,j) = quadr(itab(i,1),itab(j,2),lam-1)
+!           end if
     2   continue
     1 continue
        return

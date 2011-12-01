@@ -110,9 +110,6 @@ rotate2 : rotate2.o
 
 clean:
 	-rm -f *.o
-	@cd H_ang
-	$(MAKE) $@
-	@cd ..
 
 gencl.o : gencl.f
 	${FC} -c $(ARCH) gencl.f

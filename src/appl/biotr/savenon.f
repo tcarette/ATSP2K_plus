@@ -29,8 +29,8 @@
         NTERMS=NTERMS+1
         RMET=RMETR(LRHO,LSIG)
         CL=A*RMET
-        IF(VOK)CV=CL*RVINT(LB,LD)
-        CL=CL*RLINT(LB,LD)
+        IF(VOK)CV=CL ! *RVINT(LB,LD)
+!        CL=CL*RLINT(LB,LD)
         CL2=CL2+CL
         CV2=CV2+CV
       ELSE

@@ -28,19 +28,25 @@
       IS2=J1QN2(I2HSH,3)-1
       LAM2=LAM+LAM
       IF(IFL.NE.4) THEN
+!
+!    { L1 S1 J1 }
+!    { J2 .. L2 }
+!..=LAM
+!
+
         CALL SIXJ(LL1,IS1,IVL,IVR,LAM2,LL2,1,F)
-	IF(MOD(LL1+IS1+IVR+LAM2,4).NE.0) F=-F
+        IF(MOD(LL1+IS1+IVR+LAM2,4).NE.0) F=-F
         IF(IFL.EQ.3) F=F/DBLE(LAM+1)
-	FLINE=F
+        FLINE=F
       ELSE
         L4=LAM2-2
         CALL NINELS(IVL,LL1,IS1,IVR,LL2,IS2,LAM2,L4,2,1,IN,F)
-	IF(IN.EQ.1) THEN
+        IF(IN.EQ.1) THEN
           CALL NINELS(IVL,LL1,IS1,IVR,LL2,IS2,LAM2,L4,2,0,IN,F)
           FLINE=F*SQRT(DBLE(LAM2+1))
-	ELSE
-	  FLINE=ZERO
-	ENDIF
+        ELSE
+          FLINE=ZERO
+        ENDIF
       ENDIF
       IF(MOD(LL1+IS1+LL2+IS2-IVL-IVR,4).NE.0) FLINE=-FLINE
       RETURN
