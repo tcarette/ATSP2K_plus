@@ -73,7 +73,7 @@ OBJ = $(OBJ1) eigvec.o rdegvc.o biotr.o
 # making
 $(EXE):  $(OBJ)
 	$(FC) -o $(EXE) $(OBJ) $(FC_LD)  -L$(LIBDIR) $(RCA) \
-                -L ${LAPACK_DIR} ${LAPACK_LIB}
+                 ${LAPACK_DIR} ${LAPACK_LIB}
 backup : 
 	tar -cvf $(TAR) *.f Makefile
 	mv $(TAR) ../../backup

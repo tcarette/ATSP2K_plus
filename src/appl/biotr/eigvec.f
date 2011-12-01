@@ -81,14 +81,14 @@
 C ja = seniority; jb = 2*L+1 ; jc = 2*S+1
       if (ici .eq. 0) then
         read(iuc(1), 1) et1(1),ligne(1:36)
-	read(iuc(1),'(A)') configi
+         read(iuc(1),'(A)') configi
 *           .. closed shells
-	lwf = iwf(1) - nclos(1)
+         lwf = iwf(1) - nclos(1)
         if(ibugm.ne.0) print*,' lwf = ',lwf
     2   read (iuc(1),'(A)') ligne
 *           .. orbitals (could have 20)
-	lwf = lwf -20
-	if (lwf .gt. 0) go to 2
+         lwf = lwf -20
+         if (lwf .gt. 0) go to 2
 
         MAX_wt1 = 0.0D0
         do 3 k = 1,ncf(1)
@@ -122,15 +122,15 @@ C ja = seniority; jb = 2*L+1 ; jc = 2*S+1
         print*,' seniority = ',ja,' (2L+1) = ',jb,' (2S+1) = ',jc
      :  ,' 2*J = ',jv1(1)
         read(iuc(2), 1) et2(1),ligne(1:36)
-	read(iuc(2),'(A)') configf
+         read(iuc(2),'(A)') configf
 *           .. closed shells
-	lwf = iwf(2) - nclos(2)
+         lwf = iwf(2) - nclos(2)
         if(ibugm.ne.0) print*,' lwf = ',lwf
         print*,' lwf = ',lwf
     5   read (iuc(2),'(A)') ligne
 *           .. orbitals (could have 20)
-	lwf = lwf -20
-	if (lwf .gt. 0) go to 5
+         lwf = lwf -20
+         if (lwf .gt. 0) go to 5
 
         MAX_wt2 = 0.0D0
         do 6 k = 1,ncf(2)

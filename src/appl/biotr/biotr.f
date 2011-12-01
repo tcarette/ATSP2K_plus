@@ -142,12 +142,12 @@ C     iut(2) = 16
       call factrl(32)
       WRITE(IWRITE,5)
       rel = .false.
-      IBUG1 = 0
+      IBUG1 = 1
 *     IBUG1 = 1  ! Allows for output
-      IBUG2 = 0
-      IBUG3 = 0
-      IBUGM = 0
-      NBUG6 = 0
+      IBUG2 = 1
+      IBUG3 = 1
+      IBUGM = 1
+      NBUG6 = 1
 *
 * --- determine debug information
 CDBG  WRITE(ISCW,*)  ' Input IBUG1, IBUG3, NBUG6 (0/1) '
