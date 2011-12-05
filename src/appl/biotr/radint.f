@@ -40,8 +40,8 @@
       if(ibugm.ne.0)print*,' iqrv    allocation: maxorb**2 = ',maxorb**2
       call alloc(iqrv,maxorb*maxorb,8)
       if(ibugm.ne.0) print*,' transition ',im,lam
-      do 1 i = 1,maxorb
-        do 2 j = 1,maxorb
+!      do 1 i = 1,maxorb
+!        do 2 j = 1,maxorb
 !           if(itab(i,1).eq.0.or.itab(j,2).eq.0) go to 2
 !           il = iabs(l(itab(i,1))-l(itab(j,2)))
 !           ovlp(i,j) = quadr(itab(i,1),itab(j,2),0)
@@ -56,7 +56,7 @@
 !           else if (im.eq.'M') then
 !             rlint(i,j) = quadr(itab(i,1),itab(j,2),lam-1)
 !           end if
-    2   continue
-    1 continue
+!    2   continue
+!    1 continue
        return
        end

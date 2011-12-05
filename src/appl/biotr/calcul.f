@@ -99,13 +99,11 @@
 *
 * --- calculate the contribution of <JI/ O /JF> to the line
 *     strengths for the npair (J,J') found
-              write(*,*) "cl2=",Cl2,"cv2=",CV2
               IF(DABS(CL2).GT.ZERO.OR.DABS(CV2).GT.ZERO) THEN
                 do 4 k = 1,npair
                   kl=(il(k)-1)*ncf(1)+ji
                   kr=(ir(k)-1)*ncf(2)+jf
                   fww=fline(k) ! *wt1(kl)*wt2(kr)
-                  write(*,*) "fline=", fww
                   sl(k) = sl(k) + cl2*fww
                   if(vok) sv(k) = sv(k) + cv2*fww
 !                  if(iprint .and. (abs(cl2*fww) .gt. tol)) then
@@ -115,6 +113,7 @@
      :              '(I3,2X,A,I3,2X,F7.5,4X,A,I3,2X,F7.5,2X,2f10.6)',
      :                    k,configi(1:20),kl, wt1(kl), configf(1:20), 
      :                    kr, wt2(kr),cl2*fww, cv2*fww
+                  write(*,*) "   cl2=",Cl2,"cv2=",CV2, "fline=",fww
 !                  end if
     4           continue
               ENDIF
