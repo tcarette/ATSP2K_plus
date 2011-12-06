@@ -6,6 +6,7 @@
 #         (1) LS-COUPLING
 #         (2) ORTHO-NORMAL CONFIGURATION STATE FUNCTIONS
 #         (3) ALL ORBITALS ARE ORTHOGONAL
+#     VERSION ADAPTED FOR INTERFACING WITH STOCK
 #
 #     WRITTEN BY -
 #     C. FROESE FISCHER, DEP'T OF COMPUTER SCIENCE
@@ -19,6 +20,10 @@
 #     DECEMBER, 1998  (C. Froese Fischer and G. Tachiev - block version)
 #
 #     C O P Y R I G H T  2000
+#
+#			MODIFIED:
+#     NOVEMBER, 2011  (T. Carette - interface with Stock)
+#
 # ======================================================================
 ################################################################################
 
@@ -28,8 +33,6 @@
 # Targets:
 # . default: default target is nonh 
 # . clean:   remove object files
-# . backup: makes a tar file, the date is incorporate in filename
-# . NONH.f: will concantenate all source files into NONH.f
 ################################################################################
 #
 #   Features:  computes coefficients of H for:
@@ -42,10 +45,8 @@
 
 EXED = ${ATSP}/bin
 #EXED = .
-TAR = nonh_`date '+%y%m%d_%H'`.bak.tar   # tar -file : year_month_date_hour
 # executable targets
-SN = $(EXED)/nonh
-SNZ = $(EXED)/nonhz
+SN = $(EXED)/nonh_ex
 
 #libraries
 LIBDIR = ${ATSP}/lib
@@ -54,14 +55,10 @@ LIBUSE = -lcom -ldvdson -lang  -lrad -lcom
 #obkjects
 OBJECT_SN  = nonh.o angmomg.o genint.o orbitals.o\
         isearch.o ltriang.o  savels.o ffgg.o analy_blk.o\
-        cfgblk.o
-
-OBJECT_SNZ  = nonhz.o angmomg.o genint.o orbitals.o\
-        isearch.o ltriang.o  savels.o ffgg.o analy_blk.o\
-        cfgblk.o
+        cfgblk.o merge.o coupex.o parity.o
 
 #making
-install: $(SN) ${SNZ}
+install: $(SN) 
 
 $(SN): $(OBJECT_SN)
 	$(FC) -o $(SN) $(FC_LD) $(FFLAGS) -L$(LIBDIR) $(OBJECT_SN) \
@@ -71,18 +68,11 @@ $(SNZ): $(OBJECT_SNZ)
 	$(FC) -o $(SNZ) $(FC_LD) $(FFLAGS) -L$(LIBDIR) $(OBJECT_SNZ) \
 	$(LIBUSE)
 clean:
-	-rm -f *.o core nonh nonhz
-backup:
-	tar -cvf $(TAR) *.f Makefile
-	mv $(TAR) ../../backup
-
+	-rm -f *.o core nonh
 
 SRCF = nonh.f nonhz.f angmomg.f genint.f orbitals.f\
         isearch.f ltriang.f  savels.f ffgg.f  analy_blk.f\
-        cfgblk.f
-
-NONH.f  : $(SRCF)
-	cat $(SRCF) > NONH.f
+        cfgblk.f merge.f coupex.f parity.f
 
 .f90.o:
 	@echo "Compiling source file $< into $@"

@@ -5,6 +5,7 @@
 *         (1) LS-COUPLING
 *         (2) ORTHO-NORMAL CONFIGURATION STATE FUNCTIONS
 *         (3) ALL ORBITALS ARE ORTHOGONAL
+*     VERSION ADAPTED FOR INTERFACING WITH STOCK
 *
 *     WRITTEN BY -
 *     C. FROESE FISCHER, DEP'T OF COMPUTER SCIENCE
@@ -18,6 +19,9 @@
 *     DECEMBER, 1998  (C. Froese Fischer and G. Tachiev - block version)
 *
 *     C O P Y R I G H T  2000
+*
+*     MODIFIED:
+*     NOVEMBER, 2011  (T. Carette - interface with Stock)
 * ======================================================================
 *
       PROGRAM NONH
@@ -57,9 +61,9 @@
       character*3 term
       character*5 su 
       integer l_clist
-      character*2 ih_file
+      character*2 ih_file, ls
 
-      CHARACTER*16 INPUT
+      CHARACTER*16 INPUTP,INPUTR
       EXTERNAL INITT
 
     1 FORMAT(//' IOUT =  FGR.LST (OUTPUT FILE)'/
@@ -67,35 +71,55 @@
      :         ' IBUG2  =',I3,' (DEBUG IN WEIGHTS OF 2-EL PART)'/
      :         ' IBUG3  =',I3,' (DEBUG IN RECOUPLING PACKAGE)'//)
 *
-    2 FORMAT(///20X,'   ==============================='/
-     :            20X,'         N O N H       2000',/
+    2 FORMAT(///20X,  '   ==============================='/
+     :            20X,'       N O N H_E X P      2011    ',/
      :            20X,'   ==============================='//)
   3   FORMAT(A30,I3,I4,I6,I8,I8,I8,2x,a5)
 
       su = 'snonh'
       i = iargc()
       if (i .eq. 0) then
-         INPUT = 'cfg.inp'
-         inquire( FILE=input, exist=yclist) 
-         if (yclist) then 
-            print *, 'input file is cfg.inp ...'
-         else 
-            print *, 'cfg.inp not found: nonh is exiting!...'
-            call exit(0)
-          endif	
-       end if
+         INPUTP = 'parents'
+         inputr = 'ground'
+      else
+         call getarg(1,inputp)
+         if(i .eq. 2) then
+           call getarg(2,inputr)
+         else
+           inputr='ground'
+         endif
+      end if
+      inquire( FILE=inputp, exist=yclist) 
+      if (yclist) then 
+        print *, 'parents input file is ', trim(inputp)
+      else 
+        print *, trim(adjustl(inputp)),' not found: nonh is exiting!...'
+        call exit(0)
+      endif	
+      inquire( FILE=inputr, exist=yclist) 
+      if (yclist) then 
+        print *, '"Ground states" input file is ', trim(inputr)
+      else 
+        print *, trim(adjustl(inputr)),' not found: nonh is exiting!...'
+        call exit(0)
+      endif	
 
 * ...  THE FOLLOWING SECTION CONCERNS INPUT/OUTPUT AND MAY BE
 *      SYSTEM DEPENDENT.  CHECK ALLOWED UNIT NUMBERS AND
 *      FILE NAME CONVENTIONS - MODIFY, IF NECESSARY.
 
-      IREAD=4
+      IREAD=15
+      IREADP=IREAD+1
+      IREADR=IREAD+2
       ISCW = 0
       IWRITE = 6
       IOUT=8
       WRITE(IWRITE,2)
 *
-      OPEN(UNIT=IREAD,FILE=inPUT,STATUS='UNKNOWN')
+      OPEN(UNIT=IREADP,FORM='FORMATTED',FILE=inPUTp,STATUS='UNKNOWN')
+      OPEN(UNIT=IREADR,FORM='FORMATTED',FILE=inPUTr,STATUS='UNKNOWN')
+      OPEN(UNIT=IREAD,FORM='FORMATTED',FILE='cfg.inp',STATUS='UNKNOWN')
+      
       OPEN(UNIT=IOUT, FILE='yint.lst',STATUS='UNKNOWN',
      :     FORM='unformatted')
       OPEN(UNIT=12, FILE='ico.lst',STATUS='UNKNOWN',
@@ -106,6 +130,12 @@
 *
 *     ... END OF MACHINE DEPENDENT SECTION
 *
+*
+Cww  Read the CSFs in the multireference and put them first in clist
+      call merge(10,'2Pe')
+      close(unit=ireadp)
+      close(unit=ireadr)
+      rewind(unit=iread)
 
       ICOLOM=1
       ISOTOP=0
