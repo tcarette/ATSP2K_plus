@@ -37,6 +37,7 @@ install: $(SN)
 $(SN): $(OBJECT)
 	$(FC) -o $(SN) $(FC_LD) $(FFLAGS) -L$(LIBDIR) $(OBJECT) \
 	$(LIBUSE) 
+	@mv $(SN) $(EXEC)
 
 clean:
 	-rm -f *.o $(SN)
