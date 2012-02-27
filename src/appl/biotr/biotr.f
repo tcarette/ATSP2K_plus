@@ -249,56 +249,56 @@ Cdbg  OPEN(UNIT=iut(2),STATUS='scratch',FORM='FORMATTED')
 * --- allocate the /NEL/
 * --- read the radial wavefunctions on units iuw(1) and iuw(2)
 *     and sort them according the RAS order
-      call readw2
-      close(iuw(1))
-      close(iuw(2))
+c      call readw2
+c      close(iuw(1))
+c      close(iuw(2))
 *
 * --- calculate the overlap matrix between initial and final
 *     orbitals
 !      CALL BRKT
 *
 * --- open .l/.j and .ls/.lsj files according rel value
-    3 j = index(ttfile,' ')
-      if (j .eq. 1) then
-        WRITE(ISCW,*) ' Names may not start with blanks'
-        go to 3
-      end if
+c    3 j = index(ttfile,' ')
+c      if (j .eq. 1) then
+c        WRITE(ISCW,*) ' Names may not start with blanks'
+c        go to 3
+c      end if
 *
-      ici = 1
-      if (rel) then
-        OPEN(UNIT=iuj(1),FILE=jfile(1),STATUS='OLD')
-        OPEN(UNIT=iuj(2),FILE=jfile(2),STATUS='OLD')
-        trfile = ttfile(1:j-1)//'.lsj'
-        OPEN(UNIT=iulsj,FILE=trfile,STATUS='UNKNOWN')
-        write(iulsj,9) name(1),name(2)
-      else
-        if (m_or_c .eq. 'C' .or. m_or_c .eq. 'c') then
-           ici = 2
-           OPEN(UNIT=iul(1),FILE=lfile(1),STATUS='OLD')
-           OPEN(UNIT=iul(2),FILE=lfile(2),STATUS='OLD')
+c      ici = 1
+c      if (rel) then
+c        OPEN(UNIT=iuj(1),FILE=jfile(1),STATUS='OLD')
+c        OPEN(UNIT=iuj(2),FILE=jfile(2),STATUS='OLD')
+c        trfile = ttfile(1:j-1)//'.lsj'
+c        OPEN(UNIT=iulsj,FILE=trfile,STATUS='UNKNOWN')
+c        write(iulsj,9) name(1),name(2)
+c      else
+c        if (m_or_c .eq. 'C' .or. m_or_c .eq. 'c') then
+c           ici = 2
+c           OPEN(UNIT=iul(1),FILE=lfile(1),STATUS='OLD')
+c           OPEN(UNIT=iul(2),FILE=lfile(2),STATUS='OLD')
 *          .. compute correct J values
-           nc = 1
-           do i =1,2
-           print *, 'j1qnrd', nc, j1qnrd(2*noccsh(nc)-1,nc)
-           jd = j1qnrd(2*noccsh(nc)-1,nc)
-           ja = mod(jd,64)
-           jd = jd/64
-           jb = mod(jd,64)
-           jc = jd/64
-           print *, 'seniority =', ja, '  2*L+1=',jb, ' 2S+1 =',jc
-           lsj(i) = jb+jc-2
-           nc = nc+ncf(1)
-           print *, 'nc,ncf', nc,ncf(1)
-           end do
-        else
-           ici = 0
-        end if
-        trfile = ttfile(1:j-1)//'.ls'
-        OPEN(UNIT=iuls,FILE=trfile,STATUS='UNKNOWN')
-        write(iuls,9) name(1),name(2)
-      end if
-      CALL EIGVEC(ICI,CONFIGI,CONFIGF,LSJ)
-      print *, 'jv1,jv2', jv1(1),jv2(1)
+c           nc = 1
+c           do i =1,2
+c           print *, 'j1qnrd', nc, j1qnrd(2*noccsh(nc)-1,nc)
+c           jd = j1qnrd(2*noccsh(nc)-1,nc)
+c           ja = mod(jd,64)
+c           jd = jd/64
+c           jb = mod(jd,64)
+c           jc = jd/64
+c           print *, 'seniority =', ja, '  2*L+1=',jb, ' 2S+1 =',jc
+c           lsj(i) = jb+jc-2
+c           nc = nc+ncf(1)
+c           print *, 'nc,ncf', nc,ncf(1)
+c           end do
+c        else
+c           ici = 0
+c        end if
+c        trfile = ttfile(1:j-1)//'.ls'
+c        OPEN(UNIT=iuls,FILE=trfile,STATUS='UNKNOWN')
+c        write(iuls,9) name(1),name(2)
+c      end if
+c      CALL EIGVEC(ICI,CONFIGI,CONFIGF,LSJ)
+c      print *, 'jv1,jv2', jv1(1),jv2(1)
 
       IF (IM .EQ. '*' .OR. IM .EQ. ' ' ) STOP ' END OF CASE'
       IF (IM .EQ. 'e') IM = 'E'
@@ -317,8 +317,23 @@ Cdbg  OPEN(UNIT=iut(2),STATUS='scratch',FORM='FORMATTED')
       if(ifl.eq.1.and.lam.le.2) vok = .true.
 *
 * --- allocate the /MULT/
+
+      nvc(1)=1
+      lgth(1)=ncf(1)
+       print*,' qjv1    allocation: nvc(1)   = ',nvc(1)
+      call alloc(qjv1,nvc(1),4)
+      jv1(1)=2
+
+      nvc(2)=3
+      lgth(2)=ncf(2)
+       print*,' qjv2    allocation: nvc(2)   = ',nvc(2)
+      call alloc(qjv2,nvc(2),4)
+      jv2(1)=0
+      jv2(2)=2 
+      jv2(3)=4 
+
       CALL ALMULT(NPAIR)
-*
+
 * --- Here,we go : call routine to perform tranformations 
 *     of shells and CI coefficients so orbital bases become
 *     biorthogonal
@@ -343,7 +358,7 @@ Cmrg  NTESTB = 1
 !     &            NTESTB)
 *
 *. Here we were...
-      if(ibugm.ne.0) print*,' wt1(1) = ',wt1(1),' wt2(1) = ',wt2(1)
+c      if(ibugm.ne.0) print*,' wt1(1) = ',wt1(1),' wt2(1) = ',wt2(1)
 *
 * --- calculate the rotated slopes at the origin
 !      call slope
@@ -354,7 +369,7 @@ Cmrg  NTESTB = 1
 * --- calculate the overlap and radial one-electron transition integrals
 *     velocity form only for E1/E2 using the non-relativistic option.
 !      write(iscw,*) ' Calculation of radial integrals...'
-      call RADINT(im)
+c      call RADINT(im)
 *
 * --- calculate the elements of vshell
       WRITE(IWRITE,10) IEM(IFL),LAM,IEM(IFL),LAM

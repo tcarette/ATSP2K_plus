@@ -15,9 +15,9 @@
      :J1QN2(31,3),IJFUL(16)
       COMMON /EMS/IEM(4),IFL,JI,JF,LAM,REL,VOK
       POINTER (QIORTH,IORTH(1))
-      COMMON /OVRLAP/MU,NU,MUP,NUP,NONORT,NOVLPS,IROWMU,IROWNU,ICOLMU,
-     1 ICOLNU,NORTH,IORDER,NCALLS,LMU,LNU,LMUP,LNUP,JMU,JNU,JMUP,JNUP,
-     2 QIORTH
+c      COMMON /OVRLAP/MU,NU,MUP,NUP,NONORT,NOVLPS,IROWMU,IROWNU,ICOLMU,
+c     1 ICOLNU,NORTH,IORDER,NCALLS,LMU,LNU,LMUP,LNUP,JMU,JNU,JMUP,JNUP,
+c     2 QIORTH
       COMMON /NOR/NCOM,NCLOSI,NCLOSF,NORBI,NORBF,IWAR
       COMMON /STATE/QET1,QLBL1,QWT1,QJV1,QET2,QLBL2,QWT2,QJV2,NJV(2),
      : NVC(2),LGTH(2),NCF(2),QCFG1,QCFG2
@@ -39,9 +39,9 @@
       print '(//A)', 'Entering calcul'
       IF (Iprint) then
         print *, 'Tolerance for print =', TOL
-        print '(A3,2X,A20,A3,2X,A7,4X,A20,A3,2X,A7,2X,2A10)',
-     :     'k','Config_1  ','I1', 'Wt(I1)', 'Config_2   ','I2', 
-     :      'Wt(I2)', 'sl_cont', 'sv_cont'
+        print *,
+     :     '  k  ', '  I1  ','  I2  ', 
+     :      '  sl_cont  ', '  sv_cont  '
       END IF
 
 !      Nbug6 = 1;
@@ -68,19 +68,21 @@
             end if
             NCONTR = 0
             IF(NBUG6.NE.0) WRITE(IWRITE,5) JI,JF
+            write(*,*) 
+            write(*,*) ji,jf
             JFF = JF+NCF(1)
-            NOVLPS=0
-            JMUP=0
-            JNUP=0
-            JMU=0
-            JNU=0
+c            NOVLPS=0
+c            JMUP=0
+c            JNUP=0
+c            JMU=0
+c            JNU=0
 *
             NC = 0
 *
-            IF (NORTH .NE. 0) CALL NORTBP(JI,JFF)
-            IF (IWAR .EQ. 1) GO TO 3
-            IF(NBUG6.NE.0) 
-     :            WRITE(IWRITE,6) NORTH,JMU,JNU,JMUP,JNUP,NOVLPS
+c            IF (NORTH .NE. 0) CALL NORTBP(JI,JFF)
+c            IF (IWAR .EQ. 1) GO TO 3
+c            IF(NBUG6.NE.0) 
+c     :            WRITE(IWRITE,6) NORTH,JMU,JNU,JMUP,JNUP,NOVLPS
 *
 * --- set up the occupation and coupling arrays
 *
@@ -107,13 +109,13 @@
                   sl(k) = sl(k) + cl2*fww
                   if(vok) sv(k) = sv(k) + cv2*fww
 !                  if(iprint .and. (abs(cl2*fww) .gt. tol)) then
-                   Write(configi,'(8A8)') (cfg1(ii,il(k)),ii=1,8)
-                   WRITE(configf,'(8A8)') (cfg2(ii,ir(k)),ii=1,8)
-                   print
-     :              '(I3,2X,A,I3,2X,F7.5,4X,A,I3,2X,F7.5,2X,2f10.6)',
-     :                    k,configi(1:20),kl, wt1(kl), configf(1:20), 
-     :                    kr, wt2(kr),cl2*fww, cv2*fww
+c                   Write(configi,'(8A8)') (cfg1(ii,il(k)),ii=1,8)
+c                   WRITE(configf,'(8A8)') (cfg2(ii,ir(k)),ii=1,8)
+                   print *,
+     :                    k,kl,
+     :                    kr,cl2*fww, cv2*fww
                   write(*,*) "   cl2=",Cl2,"cv2=",CV2, "fline=",fww
+                  write(*,*) sl(k)
 !                  end if
     4           continue
               ENDIF

@@ -1,5 +1,7 @@
 export ATSP=$(pwd)
 
+export LIBDIR=${ATSP}/lib/
+
 export FC_MALLOC="LINUX"                     
 
 #export LD_LIBRARY_PATH="/usr/local/lib64;/usr/local/products/pgi/linux86-64/6.1/lib"
