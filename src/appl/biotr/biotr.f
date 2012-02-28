@@ -231,20 +231,20 @@ Cdbg  OPEN(UNIT=iut(2),STATUS='scratch',FORM='FORMATTED')
       ncf(2) = kcfg
 *
 * --- specify the type of RAS calculation
-      CALL RASIN
+*      CALL RASIN
 *
 *     allocate memory for orthogonality
-      if(norbi.ne.0.or.norbf.ne.0) then
-         print*,' norbi or norbf is different from 0...'
-         print*,' something wrong...'
-      end if
-      north = norbi*norbf
-      print*,' north = ',north
-      if (north.gt.0) then
-      if(ibugm.ne.0) print*,' qiorth  allocation: north = ',north
-         call alloc(qiorth,north,4)
-         call orth
-      end if
+*      if(norbi.ne.0.or.norbf.ne.0) then
+*         print*,' norbi or norbf is different from 0...'
+*         print*,' something wrong...'
+*      end if
+*      north = norbi*norbf
+*      print*,' north = ',north
+*      if (north.gt.0) then
+*      if(ibugm.ne.0) print*,' qiorth  allocation: north = ',north
+*         call alloc(qiorth,north,4)
+*         call orth
+*      end if
 *
 * --- allocate the /NEL/
 * --- read the radial wavefunctions on units iuw(1) and iuw(2)
