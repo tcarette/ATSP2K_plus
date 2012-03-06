@@ -1,3 +1,4 @@
+*YTRANS
 * Last modifications : September 14, 1997  
 * tests to do : E2/M1
 *               lhs = rhs 
@@ -109,10 +110,10 @@ CDBG :         ' NBUG6  =',I3,' (DEBUG IN TENSOR PACKAGE)'//)
       WRITE(IWRITE,9)
       rel = .false.
       LORTH = .TRUE.
-      IBUG1 = 1
-      IBUG2 = 1
-      IBUG3 = 1
-      NBUG6 = 1
+      IBUG1 = 0
+      IBUG2 = 0
+      IBUG3 = 0
+      NBUG6 = 0
 CDBG  WRITE(ISCW,*)  ' Input IBUG1, IBUG3, NBUG6 (0/1) '
 CDBG  READ (IREAD,*)  IBUG1,IBUG3,NBUG6
 CDBG  WRITE(IWRITE,88) IBUG1,IBUG3,NBUG6
@@ -169,7 +170,7 @@ CSUN  end if
       if (north.gt.0) then
         if(ibug1.ne.0) print*,' qiorth  allocation: north = ',north
         call alloc(qiorth,north,4)
-      CALL ORTH
+        CALL ORTH
       end if
 *
 * --- read the radial wavefunctions on units iuw(1) and iuw(2)
@@ -182,13 +183,13 @@ CSUN  end if
       if (YES.EQ.'Y'.OR.YES.EQ.'y') rel = .true.
 *
 * --- open .l/.j and .ls/.lsj files according rel value
-!    3 j = index(ttfile,' ')
-!      if (j .eq. 1) then
-!        WRITE(ISCW,*) ' Names may not start with blanks'
-!        go to 3
-!      end if
+    3 j = index(ttfile,' ')
+      if (j .eq. 1) then
+        WRITE(ISCW,*) ' Names may not start with blanks'
+        go to 3
+      end if
 *
-!     ici = 1
+!      ici = 1
 !      if (rel) then
 !        OPEN(UNIT=iuj(1),FILE=jfile(1),STATUS='OLD')
 !        OPEN(UNIT=iuj(2),FILE=jfile(2),STATUS='OLD')
@@ -215,6 +216,7 @@ CSUN  end if
 * --- read in all the eigenvectors of the initial state
 * --- read in all the eigenvectors of the final state
 !      CALL EIGVEC(ICI,CONFIGI,CONFIGF)
+
       WRITE(ISCW,*) ' Type of transition ? (E1, E2, M1, M2, .. or *) '
       READ (IREAD,6) IM, LAM
       IF (IM .EQ. '*' .OR. IM .EQ. ' ' ) STOP ' END OF CASE'
@@ -232,15 +234,15 @@ CSUN  end if
       vok = .false.
       if(.not.rel.and.ifl.eq.1.and.lam.le.2) vok = .true.
 *
-      write(iscw,*) ' Use existing file for Angles ? (y/n) '
-      READ(iread,'(A1)') YES
-      if (YES.EQ.'Y'.OR.YES.EQ.'y') THEN
-      ANGLES = .true.
-        OPEN(UNIT=IANG,FILE=gfile,STATUS='OLD',form='unformatted' )
-      ELSE
-        ANGLES = .false.
-        OPEN(UNIT=IANG,FILE=gfile,form='unformatted' )
-      ENDIF
+!      write(iscw,*) ' Use existing file for Angles ? (y/n) '
+!      READ(iread,'(A1)') YES
+!      if (YES.EQ.'Y'.OR.YES.EQ.'y') THEN
+!      ANGLES = .true.
+!        OPEN(UNIT=IANG,FILE=gfile,STATUS='OLD',form='unformatted' )
+!      ELSE
+!        ANGLES = .false.
+!        OPEN(UNIT=IANG,FILE=gfile,STATUS='NEW',form='unformatted' )
+!      ENDIF
 *
 * --- allocate the /MULT/
 
@@ -258,7 +260,6 @@ CSUN  end if
       jv2(2)=2 
       jv2(3)=4 
 
-
 * --- determine the number of (J,J') pairs satisfying selection rules
       CALL ALMULT(NPAIR)
 *
@@ -266,10 +267,9 @@ CSUN  end if
 *     velocity form only for E1/E2 using the non-relativistic option.
 !      call radint(im)
 *
-
       WRITE(IWRITE,200) IEM(IFL),LAM,IEM(IFL),LAM
       WRITE(IWRITE,4) IEM(IFL),LAM
-      write(*,*) ' npair = ',npair
+      print*,' npair = ',npair
       NTERMS = 0
       IF(IFL .EQ. 2) IFL = 3
       IF(ANGLES) THEN
@@ -278,6 +278,6 @@ CSUN  end if
         CALL CALCUL(NPAIR)
       ENDIF
       CLOSE(IANG)
-!        CALL PROBAB(ICI,IULS,IULSJ,NPAIR,CONFIGI,CONFIGF,LESS,IPRINT,IM)
+!      CALL PROBAB(ICI,IULS,IULSJ,NPAIR,CONFIGI,CONFIGF,LESS,IPRINT,IM)
       STOP
       END

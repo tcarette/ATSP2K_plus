@@ -45,14 +45,14 @@ CGG   15 FORMAT(/I6,F16.8,8A8/(7F11.8))
 *               the total number of eigenvectors (nvc)
 *               the total length of the wt vector to allocate (lgth)
 *
-!      if (ici .eq. 0) then
+      if (ici .eq. 0) then
         nvc(1) = 1
         nvc(2) = 1
         lgth(1) = ncf(1)
         lgth(2) = ncf(2)
-!      else
-!        call rdegvc
-!      end if
+      else
+        call rdegvc
+      end if
 *
 * --- allocate the /STATE/
 *
@@ -85,12 +85,12 @@ C ja = seniority; jb = 2*L+1 ; jc = 2*S+1
 *
       if (ici .eq. 0) then
         read(iuc(1), 1) et1(1),ligne(1:36)
-        read(iuc(1),'(A)') configi
+	read(iuc(1),'(A)') configi
 *           .. closed shells
-        lwf = iwfn(1) - iclsd(1)
+	lwf = iwfn(1) - iclsd(1)
     2   read (iuc(1),'(A)') ligne
-        lwf = lwf -20
-        if (lwf .gt. 0) go to 2
+	lwf = lwf -20
+	if (lwf .gt. 0) go to 2
         do 3 k = 1,ncf(1)
           if(k.eq.1) then
             read(iuc(1),'(8(1x,a3,1x,i2,1x),f15.12)')
