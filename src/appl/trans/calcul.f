@@ -44,7 +44,7 @@
               stop
             end if
             NCONTR = 0
-            IF(NBUG6.NE.0) WRITE(IWRITE,5) JI,JF
+            WRITE(IWRITE,5) JI,JF
             JFF = JF+NCF(1)
             CALL SETUP(JI,JFF)
 *
@@ -55,7 +55,7 @@
             IF(ITTK(J1QN1(N1,2)-1,J1QN2(N1,2)-1,2*KA).EQ.0)ITIK=0
             IF(ITTK(J1QN1(N1,3)-1,J1QN2(N1,3)-1,2*KB).EQ.0)ITIK=0
             IF(ITIK.NE.0) THEN
-              CALL NONTRANS(KA,KB,CL2,CV2)
+              CALL NONTRANS(KA,KB,CL2,CV2,irho,irhop)
 *
 * --- calculate the contribution of <JI/ O /JF> to the line
 *     strengths for the npair (J,J') found
@@ -66,16 +66,11 @@
                   fww=fline(k) ! *wt1(kl)*wt2(kr)
                   sl(k) = sl(k) + cl2*fww
                   if(vok) sv(k) = sv(k) + cv2*fww
-                  if(ibug1.ne.0) then
-!                    print*,' pair = ',k,
-!     :                   ' wt1 = ',wt1(kl),' wt2 = ',wt2(kr)
-!                    print*,'sl(pair) = ',sl(k), 'ang = ', cl2*fww
                    print *,
      :                    k,kl,
      :                    kr,cl2*fww, cv2*fww
                   write(*,*) "   cl2=",Cl2,"cv2=",CV2, "fline=",fww
-                  write(*,*) sl(k)
-                  end if
+                  write(*,*) " el1=",ijful(irho),"  el2=",ijful(irhop)
     4           continue
               ENDIF
             ENDIF

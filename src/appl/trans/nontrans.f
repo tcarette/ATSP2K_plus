@@ -9,7 +9,7 @@
 *     Written by G. Gaigalas,                                      * 
 *     Vanderbilt University,  Nashville           September 1997   * 
 *
-      SUBROUTINE NONTRANS(KA,KB,CL,CV)
+      SUBROUTINE NONTRANS(KA,KB,CL,CV,irho,irhop)
       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
       LOGICAL REL,VOK
       COMMON /EMS/IEM(4),IFL,JI,JF,LAM,REL,VOK

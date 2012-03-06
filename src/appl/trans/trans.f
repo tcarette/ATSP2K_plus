@@ -252,13 +252,11 @@ CSUN  end if
       call alloc(qjv1,nvc(1),4)
       jv1(1)=2
 
-      nvc(2)=3
+      nvc(2)=1
       lgth(2)=ncf(2)
        print*,' qjv2    allocation: nvc(2)   = ',nvc(2)
       call alloc(qjv2,nvc(2),4)
       jv2(1)=0
-      jv2(2)=2 
-      jv2(3)=4 
 
 * --- determine the number of (J,J') pairs satisfying selection rules
       CALL ALMULT(NPAIR)
