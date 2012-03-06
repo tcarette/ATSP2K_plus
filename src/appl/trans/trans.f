@@ -155,10 +155,10 @@ CSUN  end if
       Read(iread,'(a1)') pp
       less = .false.
       if ( pp .eq. 'y' .or. pp .eq. 'Y' ) less = .true.
-      OPEN(UNIT=iuw(1),FILE=wfile(1),STATUS='OLD',FORM='UNFORMATTED',
-     :     action='READ')
-      OPEN(UNIT=iuw(2),FILE=wfile(2),STATUS='OLD',FORM='UNFORMATTED',
-     :     action='READ')
+!      OPEN(UNIT=iuw(1),FILE=wfile(1),STATUS='OLD',FORM='UNFORMATTED',
+!     :     action='READ')
+!      OPEN(UNIT=iuw(2),FILE=wfile(2),STATUS='OLD',FORM='UNFORMATTED',
+!     :     action='READ')
       CALL CFGIN2(MCFG,KCFG,LORTH,CFILE)
       lcfg = ncfg
       ncf(1) = mcfg
@@ -174,7 +174,7 @@ CSUN  end if
 *
 * --- read the radial wavefunctions on units iuw(1) and iuw(2)
 *     and sort them according the IAJCMP order
-      CALL READW2
+!      CALL READW2
 *
 * --- specify the type of calculation
       write(iscw,*) ' Relativistic calculation ? (y/n) '
@@ -182,39 +182,39 @@ CSUN  end if
       if (YES.EQ.'Y'.OR.YES.EQ.'y') rel = .true.
 *
 * --- open .l/.j and .ls/.lsj files according rel value
-    3 j = index(ttfile,' ')
-      if (j .eq. 1) then
-        WRITE(ISCW,*) ' Names may not start with blanks'
-        go to 3
-      end if
+!    3 j = index(ttfile,' ')
+!      if (j .eq. 1) then
+!        WRITE(ISCW,*) ' Names may not start with blanks'
+!        go to 3
+!      end if
 *
-      ici = 1
-      if (rel) then
-        OPEN(UNIT=iuj(1),FILE=jfile(1),STATUS='OLD')
-        OPEN(UNIT=iuj(2),FILE=jfile(2),STATUS='OLD')
-        trfile = ttfile(1:j-1)//'.lsj'
-        OPEN(UNIT=iulsj,FILE=trfile,STATUS='UNKNOWN')
-        write(iulsj,5) name(1),name(2)
-      else
-        write(iscw,*) ' Input from an MCHF (M) or CI (C) calculation ? '
-        read(iread,'(A1)') YES
-        if (yes .eq. 'C' .or. yes .eq. 'c') then
-           OPEN(UNIT=iul(1),FILE=lfile(1),STATUS='OLD')
-           OPEN(UNIT=iul(2),FILE=lfile(2),STATUS='OLD')
-        else
-           ici = 0
-        end if
-        trfile = ttfile(1:j-1)//'.ls'
-        OPEN(UNIT=iuls,FILE=trfile,STATUS='UNKNOWN')
-        write(iuls,5) name(1),name(2)
-      end if
+!     ici = 1
+!      if (rel) then
+!        OPEN(UNIT=iuj(1),FILE=jfile(1),STATUS='OLD')
+!        OPEN(UNIT=iuj(2),FILE=jfile(2),STATUS='OLD')
+!        trfile = ttfile(1:j-1)//'.lsj'
+!        OPEN(UNIT=iulsj,FILE=trfile,STATUS='UNKNOWN')
+!        write(iulsj,5) name(1),name(2)
+!      else
+!        write(iscw,*) ' Input from an MCHF (M) or CI (C) calculation ? '
+!        read(iread,'(A1)') YES
+!        if (yes .eq. 'C' .or. yes .eq. 'c') then
+!           OPEN(UNIT=iul(1),FILE=lfile(1),STATUS='OLD')
+!           OPEN(UNIT=iul(2),FILE=lfile(2),STATUS='OLD')
+!        else
+!           ici = 0
+!        end if
+!        trfile = ttfile(1:j-1)//'.ls'
+!        OPEN(UNIT=iuls,FILE=trfile,STATUS='UNKNOWN')
+!        write(iuls,5) name(1),name(2)
+!      end if
 *
 * --- determine the number of different J-values (njv)
 *               the total number of eigenvectors (nvc)
 *               the total length of the wt vector to allocate (lgth)
 * --- read in all the eigenvectors of the initial state
 * --- read in all the eigenvectors of the final state
-      CALL EIGVEC(ICI,CONFIGI,CONFIGF)
+!      CALL EIGVEC(ICI,CONFIGI,CONFIGF)
       WRITE(ISCW,*) ' Type of transition ? (E1, E2, M1, M2, .. or *) '
       READ (IREAD,6) IM, LAM
       IF (IM .EQ. '*' .OR. IM .EQ. ' ' ) STOP ' END OF CASE'
@@ -243,13 +243,30 @@ CSUN  end if
       ENDIF
 *
 * --- allocate the /MULT/
+
+      nvc(1)=1
+      lgth(1)=ncf(1)
+       print*,' qjv1    allocation: nvc(1)   = ',nvc(1)
+      call alloc(qjv1,nvc(1),4)
+      jv1(1)=2
+
+      nvc(2)=3
+      lgth(2)=ncf(2)
+       print*,' qjv2    allocation: nvc(2)   = ',nvc(2)
+      call alloc(qjv2,nvc(2),4)
+      jv2(1)=0
+      jv2(2)=2 
+      jv2(3)=4 
+
+
 * --- determine the number of (J,J') pairs satisfying selection rules
       CALL ALMULT(NPAIR)
 *
 * --- calculate the overlap and radial one-electron transition integrals
 *     velocity form only for E1/E2 using the non-relativistic option.
-      call radint(im)
+!      call radint(im)
 *
+
       WRITE(IWRITE,200) IEM(IFL),LAM,IEM(IFL),LAM
       WRITE(IWRITE,4) IEM(IFL),LAM
       write(*,*) ' npair = ',npair
@@ -261,6 +278,6 @@ CSUN  end if
         CALL CALCUL(NPAIR)
       ENDIF
       CLOSE(IANG)
-        CALL PROBAB(ICI,IULS,IULSJ,NPAIR,CONFIGI,CONFIGF,LESS,IPRINT,IM)
+!        CALL PROBAB(ICI,IULS,IULSJ,NPAIR,CONFIGI,CONFIGF,LESS,IPRINT,IM)
       STOP
       END

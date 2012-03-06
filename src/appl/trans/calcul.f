@@ -23,7 +23,7 @@
       POINTER(QSL,SL(1)),(QSV,SV(1)),(QIL,IL(1)),(QIR,IR(1)),
      :       (QJVL,JVL(1)),(QJVR,JVR(1))
       COMMON/CONSTS/ZERO,TENTH,HALF,ONE,TWO,THREE,FOUR,SEVEN,ELEVEN,EPS
-    5 FORMAT(//,' JI =',I4,'  JF =',I4)
+    5 FORMAT(' JI =',I4,'  JF =',I4)
       KA=LAM
       KB=0
       IREZ=1
@@ -67,9 +67,14 @@
                   sl(k) = sl(k) + cl2*fww
                   if(vok) sv(k) = sv(k) + cv2*fww
                   if(ibug1.ne.0) then
-                    print*,' pair = ',k,
-     :                   ' wt1 = ',wt1(kl),' wt2 = ',wt2(kr)
-                    print*,'sl(pair) = ',sl(k), 'ang = ', cl2*fww
+!                    print*,' pair = ',k,
+!     :                   ' wt1 = ',wt1(kl),' wt2 = ',wt2(kr)
+!                    print*,'sl(pair) = ',sl(k), 'ang = ', cl2*fww
+                   print *,
+     :                    k,kl,
+     :                    kr,cl2*fww, cv2*fww
+                  write(*,*) "   cl2=",Cl2,"cv2=",CV2, "fline=",fww
+                  write(*,*) sl(k)
                   end if
     4           continue
               ENDIF
