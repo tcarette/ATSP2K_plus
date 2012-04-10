@@ -149,13 +149,13 @@ CGG        ryrat = rydbrg/109737.31534
 *  *****  OUTPUT ON tr.lsj FILE
 *
       if(rel) then
-      if (less .and. et1(il(k)) .gt. et2(ir(k))) go to 1
+        if (less .and. et1(il(k)) .gt. et2(ir(k))) go to 1
 *
-      WRITE(iulsj,'(/)')
-      WRITE(iulsj,'(I4,F14.8,2X,A)')jvl(k),et1(il(k)),configi(1:50)
-      WRITE(iulsj,'(I4,F14.8,2X,A)')jvr(k),et2(ir(k)),configf(1:50)
-      WRITE(iulsj,38) DD,ANGS,ANGSA,im,lam,SL(k),GL,AKI
-      go to 1
+        WRITE(iulsj,'(/)')
+        WRITE(iulsj,'(I4,F14.8,2X,A)')jvl(k),et1(il(k)),configi(1:50)
+        WRITE(iulsj,'(I4,F14.8,2X,A)')jvr(k),et2(ir(k)),configf(1:50)
+        WRITE(iulsj,38) DD,ANGS,ANGSA,im,lam,SL(k),GL,AKI
+        go to 1
 *
 * --- calculate the transition properties in LS
 *

@@ -234,32 +234,33 @@ CSUN  end if
       vok = .false.
       if(.not.rel.and.ifl.eq.1.and.lam.le.2) vok = .true.
 *
-!      write(iscw,*) ' Use existing file for Angles ? (y/n) '
-!      READ(iread,'(A1)') YES
-!      if (YES.EQ.'Y'.OR.YES.EQ.'y') THEN
-!      ANGLES = .true.
-!        OPEN(UNIT=IANG,FILE=gfile,STATUS='OLD',form='unformatted' )
-!      ELSE
-!        ANGLES = .false.
-!        OPEN(UNIT=IANG,FILE=gfile,STATUS='NEW',form='unformatted' )
-!      ENDIF
+      write(iscw,*) ' Use existing file for Angles ? (y/n) '
+      READ(iread,'(A1)') YES
+      if (YES.EQ.'Y'.OR.YES.EQ.'y') THEN
+        ANGLES = .true.
+        OPEN(UNIT=IANG,FILE=gfile,STATUS='OLD',form='unformatted' )
+      ELSE
+        ANGLES = .false.
+        OPEN(UNIT=IANG,FILE=gfile,form='formatted' )
+      ENDIF
 *
 * --- allocate the /MULT/
 
       nvc(1)=1
       lgth(1)=ncf(1)
-       print*,' qjv1    allocation: nvc(1)   = ',nvc(1)
-      call alloc(qjv1,nvc(1),4)
-      jv1(1)=2
+!       print*,' qjv1    allocation: nvc(1)   = ',nvc(1)
+!      call alloc(qjv1,nvc(1),4)
+!      jv1(1)=2
 
       nvc(2)=1
       lgth(2)=ncf(2)
-       print*,' qjv2    allocation: nvc(2)   = ',nvc(2)
-      call alloc(qjv2,nvc(2),4)
-      jv2(1)=0
+!       print*,' qjv2    allocation: nvc(2)   = ',nvc(2)
+!      call alloc(qjv2,nvc(2),4)
+!      jv2(1)=0
 
 * --- determine the number of (J,J') pairs satisfying selection rules
-      CALL ALMULT(NPAIR)
+!      CALL ALMULT(NPAIR)
+      npair=1
 *
 * --- calculate the overlap and radial one-electron transition integrals
 *     velocity form only for E1/E2 using the non-relativistic option.

@@ -61,15 +61,15 @@
 *     strengths for the npair (J,J') found
               IF(DABS(CL2).GT.ZERO.OR.DABS(CV2).GT.ZERO) THEN
                 do 4 k = 1,npair
-                  kl=(il(k)-1)*ncf(1)+ji
-                  kr=(ir(k)-1)*ncf(2)+jf
-                  fww=fline(k) ! *wt1(kl)*wt2(kr)
-                  sl(k) = sl(k) + cl2*fww
-                  if(vok) sv(k) = sv(k) + cv2*fww
+!                  kl=(il(k)-1)*ncf(1)+ji
+!                  kr=(ir(k)-1)*ncf(2)+jf
+!                  fww=fline(k) ! *wt1(kl)*wt2(kr)
+!                  sl(k) = sl(k) + cl2*fww
+!                  if(vok) sv(k) = sv(k) + cv2*fww
                    print *,
-     :                    k,kl,
-     :                    kr,cl2*fww, cv2*fww
-                  write(*,*) "   cl2=",Cl2,"cv2=",CV2, "fline=",fww
+     :                    k  !, kl, kr
+!     :                    cl2*fww, cv2*fww
+                  write(*,*) "   cl2=",Cl2,"cv2=",CV2 ! , "fline=",fww
                   write(*,*) " el1=",ijful(irho),"  el2=",ijful(irhop)
     4           continue
               ENDIF

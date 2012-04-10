@@ -26,7 +26,7 @@
       RMET=RMETR(LRHO,LSIG)
       CL=A*RMET
 *
-      WRITE(IANG) IFL,JI,JF,LB,LD,CL
+      WRITE(IANG,*) IFL,JI,JF,LB,LD,CL
 *
       IF(VOK)CV=CL ! *RVINT(LB,LD)
       CL=CL ! *RLINT(LB,LD)

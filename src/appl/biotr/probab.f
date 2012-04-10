@@ -185,13 +185,13 @@ CGG        ryrat = rydbrg/109737.31534
       else
 *
       if(da_tmp.gt.0) then
-	CALL SIXJ(LL2,JVR(K),IS2,JVL(K),LL1,LAM+LAM,1,W)
-	PHAS=ONE
+        CALL SIXJ(LL2,JVR(K),IS2,JVL(K),LL1,LAM+LAM,1,W)
+        PHAS=ONE
         flsj = (jvl(k)+1)*(ll2+1)*w*W
         g = (ll2+1)*(is2+1)
       else
-	CALL SIXJ(LL1,JVL(K),IS1,JVR(K),LL2,LAM+LAM,1,W)
-	PHAS=-ONE
+        CALL SIXJ(LL1,JVL(K),IS1,JVR(K),LL2,LAM+LAM,1,W)
+        PHAS=-ONE
         flsj = (jvr(k)+1)*(ll1+1)*w*W
         g = (ll1+1)*(is1+1)
       end if
