@@ -10,12 +10,15 @@ export FC_MALLOC="LINUX"
 
 #########################################################################
 
-export FC="pgf90"                          # Fortran compiler
+export FC="gfortran"                          # Fortran compiler
 #export FC="pgf90 -C"                          # Fortran compiler + debug op.
 #export FC_FLAGS="-O2 -byteswapio"          # Serial code compiler flags
 #export FC_FLAGS="-Msave -byteswapio -Minform=inform -tp k8-64 -v -s -fast"
-export FC_FLAGS="-mcmodel=medium -Msave -O3 -fastsse"
-export FC_LD="-Bstatic"                    # Serial linker flags
+#export FC_FLAGS="-mcmodel=medium -Msave -O3 -fastsse"
+ARCH="-arch $(arch)"
+export FC_FLAGS="-fcray-pointer -std=legacy ${ARCH}" # for gfortran (-fno-automatic ~ -Msave)
+export FC_F90="-fno-automatic -O3 ${ARCH}" # for gfortran (-fno-automatic ~ -Msave)
+export FC_LD="-Bstatic ${ARCH}"             # Serial linker flags
 
 #########################################################################
 
