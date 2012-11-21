@@ -1,8 +1,8 @@
 # Flags to be added for compilation
 NOFFLAGS = $(ARCH)
 
-OBJ=hf.o lsgen.o
-SRC=hf.f lsgen.f
+OBJ=hf.o lsgen.o rotate2.o
+SRC=hf.f lsgen.f rotate2.f
 OBJU = \
 comp.o        plotw.o       tables.o      condens.o     hf.o         \
 lsgenf.o      printw.o      w_format.o    gencl.o       levels.o      \
@@ -21,7 +21,7 @@ SRCALL = $(SRC) $(SRC1)
 LIBDIR = $(ATSP)/lib
 LIBUSE = -lcom -lrad -lang -lcom
 
-install : show_H_ang 
+install : show_H_ang rotate2 w_unformat w_format
 # lsgen 
 #          hf  comp condens  levels lines \
 #          w_unformat gencl select lsgen
