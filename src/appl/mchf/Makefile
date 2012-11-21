@@ -93,15 +93,15 @@ de.o : de.f
 	$(FC) $(FC_FLAGS) -c de.f
 $(SM):  $(USPOBJ) $(SYSOBJ)
 	$(FC) -o  $(SM) $(FC_LD) -L$(LIBDIR) $(USPOBJ) $(SYSOBJ)\
-         $(SPARSE) $(RAD_COM) -L ${LAPACK_DIR} ${LAPACK_LIB}
+         $(SPARSE) $(RAD_COM) ${LAPACK_DIR} ${LAPACK_LIB}
 
 $(CDSK):  $(USPOBJ) $(COBJ)
 	$(FC) -o $(CDSK) $(FC_LD) -L$(LIBDIR) $(USPOBJ) ${COBJ} \
-	$(SPARSE) $(RAD_COM) -L ${LAPACK_DIR} ${LAPACK_LIB}
+	$(SPARSE) $(RAD_COM) ${LAPACK_DIR} ${LAPACK_LIB}
 
 $(HCDSK):  $(USPOBJ) $(HCOBJ)
 	$(FC) -o $(HCDSK) $(FC_LD)  -L$(LIBDIR) $(USPOBJ) ${HCOBJ} \
-	$(SPARSE) $(RAD_COM) -L ${LAPACK_DIR} ${LAPACK_LIB}
+	$(SPARSE) $(RAD_COM) ${LAPACK_DIR} ${LAPACK_LIB}
 
 
 clean:

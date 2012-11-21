@@ -1,8 +1,8 @@
 # Flags to be added for compilation
-NOFFLAGS = 
+NOFFLAGS = $(ARCH)
 
-OBJ=hf.o lsgen.o
-SRC=hf.f lsgen.f
+OBJ=hf.o lsgen.o rotate2.o
+SRC=hf.f lsgen.f rotate2.f
 OBJU = \
 comp.o        plotw.o       tables.o      condens.o     hf.o         \
 lsgenf.o      printw.o      w_format.o    gencl.o       levels.o      \
@@ -21,13 +21,24 @@ SRCALL = $(SRC) $(SRC1)
 LIBDIR = $(ATSP)/lib
 LIBUSE = -lcom -lrad -lang -lcom
 
-install : hf  comp condens  levels lines \
-	  plotw printw relabel w_format   \
-          w_unformat gencl select lsgen  FLS_trends T_dependence \
-          rotate2 lsgenf
-	cp save $(ATSP)/bin
-	cd tbl; make; cd ..
-	cd LS_trends; make; cd ..
+install : show_H_ang rotate2 w_unformat w_format
+# lsgen 
+#          hf  comp condens  levels lines \
+#          w_unformat gencl select lsgen
+#          rotate2 lsgenf
+#         plotw printw relabel w_format FLS_trends T_dependence \
+#
+#	cp save $(ATSP)/bin
+#	cd tbl; make; cd ..
+#	cd LS_trends; make; cd ..
+
+show_H_ang:
+	@echo "....entering H_ang";\
+	cd H_ang/;\
+		$(MAKE) $@ ;\
+	echo "....leaving H_ang" ;\
+	mv show_H_ang $(ATSP)/bin;\
+	cd ..
 
 hf: hf.o
 	$(FC)  -o hf $(FC_FLAGS) hf.o
@@ -99,11 +110,14 @@ rotate2 : rotate2.o
 
 clean:
 	-rm -f *.o
+	@cd show_H_ang
+	$(MAKE) $@
+	@cd ..
 
 gencl.o : gencl.f
-	${FC} -c gencl.f
+	${FC} -c $(ARCH) gencl.f
 lsgen.o : lsgen.f
-	${FC} -c lsgen.f
+	${FC} -c $(ARCH) lsgen.f
 
 %.o : %.f
 	$(FC) -c $(FC_FLAGS) $< -o $@

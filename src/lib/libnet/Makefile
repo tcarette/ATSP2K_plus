@@ -1,6 +1,6 @@
 LIBDIR = $(ATSP)/lib
 LIBA = $(LIBDIR)/libnet.a
-NOOPT =            # NOTE!!!! whn compiling ?lsmchf.f make sure that
+NOOPT = $(ARCH)    # NOTE!!!! whn compiling ?lsmchf.f make sure that
                    # there is NO OPTIMIZATION, you may need to do it
                    # explicitly, chech the compiler documentation 
 LIBOBJ = \

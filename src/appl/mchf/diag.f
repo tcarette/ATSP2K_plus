@@ -101,7 +101,7 @@
         nze = nze_bl(iblock)
         ih_total = nze_bl(iblock)
         lim = iiws(iblock)
-	iworksz = iws(iblock)
+        iworksz = iws(iblock)
         iiwsz = 6*lim + nume(iblock)
         nijcurr = 1
         max_col = 1; 
@@ -260,7 +260,7 @@ ctc      print *, 'wt :',(wt(i), i=1,ncfg) !ctc
              wt(ioffw+1:ioffw+ncfg) = -wt(ioffw+1:ioffw+ncfg)
            end if
            etl =  wt(ncfg*nume(iblock)+ioffe) + ec + shift
-	   wt(ncfg*nume(iblock)+ioffe) = etl
+           wt(ncfg*nume(iblock)+ioffe) = etl
            sum_energy = sum_energy +etl*eigst_weight(icc,iblock)
          end if
       end do 
@@ -271,19 +271,20 @@ ctc
          call dcopy(ncfg*nume(iblock),wt(1),1,eigvec(ievstart),1)
          call dcopy(nume(iblock), wt(ncfg*nume(iblock)+1),1,en(ies),1)
 *        .. print Energies and some component of eigenvectors
-*	 ioffw = ncfg*nume(iblock)
-	 do ie = 1,nume(iblock)
+*         ioffw = ncfg*nume(iblock)
+         do ie = 1,nume(iblock)
          ioffw = ncfg*nume(iblock)
-	   if( leigen(ie,iblock)) then
+           if( leigen(ie,iblock)) then
             write (out,'(/A,F15.8,3X,A,I3,2(1PD11.3))')
      :      '         ETOTAL=',wt(ioffw+ie),
      :      'Loops,DeltaE,Res.: ', nloops,
      :      wt(ioffw+nume(iblock)+ie),
      :      wt(ioffw+2*nume(iblock)+ie)
-	    ioffw = ncfg*(ie-1)
-	    write(out,'(4(4X,I3,F11.7))') (i,wt(ioffw+i),i=1,min(8,ncfg))
-	   end if
-	 end do
+            ioffw = ncfg*(ie-1)
+            write(out,'(4(4X,I3,F11.7))') (i,wt(ioffw+i),
+     : i=1,min(8,ncfg))
+           end if
+         end do
 ctc
 *      print *, 'stop l285 diag'
 *      STOP
@@ -294,7 +295,7 @@ ctc
          ievstart = ievstart + ncfg*nume(iblock)
          ies = ies +nume(iblock)
          nj = nj + ncfg   !nijcurr 
-	 nz = nz + nze_bl(iblock) 
+         nz = nz + nze_bl(iblock) 
          if (clst_memory.or.ico_memory) ih_start = nz + 1
          if (hmx_memory.and.(.not.ico_memory)) ih_start = nz + 1
          if (.not.hmx_memory) then 
