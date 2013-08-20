@@ -21,7 +21,7 @@ SRCALL = $(SRC) $(SRC1)
 LIBDIR = $(ATSP)/lib
 LIBUSE = -lcom -lrad -lang -lcom
 
-install : show_H_ang rotate2 w_unformat w_format
+install : show_H_ang rotate2 w_unformat w_format hf lsgen
 # lsgen 
 #          hf  comp condens  levels lines \
 #          w_unformat gencl select lsgen
