@@ -1,0 +1,1404 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>SAI_NORE</TITLE>
+<META NAME="description" CONTENT="SAI_NORE">
+<META NAME="keywords" CONTENT="ang">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ang.css">
+
+<LINK REL="next" HREF="node29.html">
+<LINK REL="previous" HREF="node25.html">
+<LINK REL="up" HREF="node6.html">
+<LINK REL="next" HREF="node29.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html368"
+  HREF="node29.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html366"
+  HREF="node6.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html360"
+  HREF="node27.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html369"
+  HREF="node29.html">SAI_DUDU</A>
+<B> Up:</B> <A NAME="tex2html367"
+  HREF="node6.html">Description of the Libraries</A>
+<B> Previous:</B> <A NAME="tex2html361"
+  HREF="node27.html">The subroutine RUMT67</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00044000000000000000">
+SAI_NORE</A>
+</H2>
+
+<P>
+This library is for calculating the angular parts of matrix elements for a
+scalar two-particle operator. It contains 18 subroutines. 
+Most of the subroutines from this module use common blocks CONSTS 
+and MEDEFN from
+MCHF atomic structure package [<A
+ HREF="node42.html#Fbook">1</A>,<A
+ HREF="node42.html#F">11</A>].
+The calculations are
+performed according to the methodology P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>].
+
+<P>
+<B>COULOMBLS</B> Investigates
+the two-electron submatrix elements of electrostatic interaction
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+\left( n_i\lambda _in_j\lambda _j||g_{Coulomb}^{\left( kk0,000\right)
+}||n_i^{\prime }\lambda _i^{\prime }n_j^{\prime }\lambda _j^{\prime }\right),
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="396" HEIGHT="34" BORDER="0"
+ SRC="img395.png"
+ ALT="\begin{displaymath}\left( n_i\lambda _in_j\lambda _j\vert\vert g_{Coulomb}^{\lef...
+... }\lambda _i^{\prime }n_j^{\prime }\lambda _j^{\prime }\right),\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+according to the formula (9) of P1&nbsp;[<A
+ HREF="node42.html#method1">3</A>]. The values of these matrix
+elements are needed because of (see  P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>]):
+
+<P>
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\Theta \left( \Xi \right) \sim \left( n_i\lambda _in_j\lambda
+_j\left\| g\right\| n_{i^{\prime }}\lambda _{i^{\prime }}n_{j^{\prime
+}}\lambda _{j^{\prime }}\right) .
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:no-aa"></A><IMG
+ WIDTH="405" HEIGHT="29" BORDER="0"
+ SRC="img396.png"
+ ALT="\begin{displaymath}
+\Theta \left( \Xi \right) \sim \left( n_i\lambda _in_j\lambd...
+...a _{i^{\prime }}n_{j^{\prime
+}}\lambda _{j^{\prime }}\right) .
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(41)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+
+<P>
+The value of the output parameter AA of this subroutine is:
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+AA=2\left[ k\right] ^{1/2}\left( l_i||C^{\left( k\right) }||l_i^{\prime
+}\right) \left( l_j||C^{\left( k\right) }||l_j^{\prime }\right).
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="422" HEIGHT="34" BORDER="0"
+ SRC="img397.png"
+ ALT="\begin{displaymath}AA=2\left[ k\right] ^{1/2}\left( l_i\vert\vert C^{\left( k\ri...
+...\vert\vert C^{\left( k\right) }\vert\vert l_j^{\prime }\right).\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+
+<P>
+Table <A HREF="node28.html#israis">3</A> lists the 
+expressions used by each of the subroutines
+NONRELAT1, NONRELAT2, NONRELAT31, NONRELAT32, NONRELAT33, NONRELAT41,
+NONRELAT51, NONRELAT52, NONRELAT53. The numbering of expressions is the
+same as in paper P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>], where all these expressions are presented.
+As the structure of all the subroutines mentioned earlier is the same, and
+only different expressions are used and different subroutines are called,
+we will discuss in more detail only one of these subroutines.
+
+<P>
+<BR>
+<DIV ALIGN="CENTER">
+<A NAME="israis"></A><A NAME="1891"></A>
+<TABLE CELLPADDING=3 BORDER="1" ALIGN="CENTER">
+<CAPTION><STRONG>Table 3:</STRONG>
+Scheme of the expressions for matrix elements of two-particle
+scalar operator (like Coulomb interaction).</CAPTION>
+<TR><TD ALIGN="RIGHT"><B>Dis.</B></TD>
+<TD ALIGN="CENTER"><B><IMG
+ WIDTH="19" HEIGHT="23" ALIGN="BOTTOM" BORDER="0"
+ SRC="img398.png"
+ ALT="$\widehat{G}$"> </B></TD>
+<TD ALIGN="CENTER"><B><!-- MATH
+ $\widehat{G}(T)$
+ -->
+<IMG
+ WIDTH="42" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
+ SRC="img399.png"
+ ALT="$\widehat{G}(T)$"> </B></TD>
+<TD ALIGN="CENTER"><B><IMG
+ WIDTH="16" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img400.png"
+ ALT="$\alpha$"> </B></TD>
+<TD ALIGN="CENTER"><B><IMG
+ WIDTH="16" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img401.png"
+ ALT="$\beta$"> </B></TD>
+<TD ALIGN="CENTER"><B><IMG
+ WIDTH="15" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img402.png"
+ ALT="$\gamma$"> </B></TD>
+<TD ALIGN="CENTER"><B><IMG
+ WIDTH="14" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img403.png"
+ ALT="$\delta$"> </B></TD>
+<TD ALIGN="CENTER"><IMG
+ WIDTH="18" HEIGHT="22" ALIGN="BOTTOM" BORDER="0"
+ SRC="img404.png"
+ ALT="$ \tilde \Theta$"></TD>
+<TD ALIGN="CENTER"><B><IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img405.png"
+ ALT="$R$"> </B></TD>
+<TD ALIGN="CENTER"><IMG
+ WIDTH="19" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img22.png"
+ ALT="$\Delta $"></TD>
+</TR>
+<TR><TD ALIGN="LEFT" COLSPAN=3><I>NONRELAT1 </I></TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\alpha\alpha\alpha\alpha$
+ -->
+<IMG
+ WIDTH="47" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img406.png"
+ ALT="$\alpha\alpha\alpha\alpha$"></TD>
+<TD ALIGN="CENTER">(47)</TD>
+<TD ALIGN="CENTER">(5)</TD>
+<TD ALIGN="CENTER">(38),(35)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(48),(49)</TD>
+<TD ALIGN="CENTER">(18)</TD>
+<TD ALIGN="CENTER">(41)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\alpha\beta\alpha\beta$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img407.png"
+ ALT="$\alpha\beta\alpha\beta$"></TD>
+<TD ALIGN="CENTER">(50)</TD>
+<TD ALIGN="CENTER">(6)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(51)</TD>
+<TD ALIGN="CENTER">(22)</TD>
+<TD ALIGN="CENTER">(41)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\beta\alpha\beta\alpha$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img408.png"
+ ALT="$\beta\alpha\beta\alpha$"></TD>
+<TD ALIGN="CENTER">(50)</TD>
+<TD ALIGN="CENTER">(6)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(51)</TD>
+<TD ALIGN="CENTER">(22)</TD>
+<TD ALIGN="CENTER">(41)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\alpha\beta\beta\alpha$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img409.png"
+ ALT="$\alpha\beta\beta\alpha$"></TD>
+<TD ALIGN="CENTER">(54)</TD>
+<TD ALIGN="CENTER">(6)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(55)</TD>
+<TD ALIGN="CENTER">(22)</TD>
+<TD ALIGN="CENTER">(41)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\beta\alpha\alpha\beta$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img410.png"
+ ALT="$\beta\alpha\alpha\beta$"></TD>
+<TD ALIGN="CENTER">(54)</TD>
+<TD ALIGN="CENTER">(6)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(55)</TD>
+<TD ALIGN="CENTER">(22)</TD>
+<TD ALIGN="CENTER">(41)</TD>
+</TR>
+<TR><TD ALIGN="LEFT" COLSPAN=3><I>NONRELAT2 </I></TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\alpha\alpha\beta\beta$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img411.png"
+ ALT="$\alpha\alpha\beta\beta$"></TD>
+<TD ALIGN="CENTER">(52)</TD>
+<TD ALIGN="CENTER">(6)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(53)</TD>
+<TD ALIGN="CENTER">(22)</TD>
+<TD ALIGN="CENTER">(41)</TD>
+</TR>
+<TR><TD ALIGN="LEFT" COLSPAN=3><I>NONRELAT31 </I></TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\beta\alpha\alpha\alpha$
+ -->
+<IMG
+ WIDTH="47" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img412.png"
+ ALT="$\beta\alpha\alpha\alpha$"></TD>
+<TD ALIGN="CENTER">(56)</TD>
+<TD ALIGN="CENTER">(6)</TD>
+<TD ALIGN="CENTER">(36)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(58)</TD>
+<TD ALIGN="CENTER">(22)</TD>
+<TD ALIGN="CENTER">(42)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\alpha\beta\alpha\alpha$
+ -->
+<IMG
+ WIDTH="47" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img413.png"
+ ALT="$\alpha\beta\alpha\alpha$"></TD>
+<TD ALIGN="CENTER">(56)</TD>
+<TD ALIGN="CENTER">(6)</TD>
+<TD ALIGN="CENTER">(36)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(59)</TD>
+<TD ALIGN="CENTER">(22)</TD>
+<TD ALIGN="CENTER">(42)</TD>
+</TR>
+<TR><TD ALIGN="LEFT" COLSPAN=3><I>NONRELAT32 </I></TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\beta\beta\beta\alpha$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img414.png"
+ ALT="$\beta\beta\beta\alpha$"></TD>
+<TD ALIGN="CENTER">(60)</TD>
+<TD ALIGN="CENTER">(6)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(37)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(62)</TD>
+<TD ALIGN="CENTER">(22)</TD>
+<TD ALIGN="CENTER">(42)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\beta\beta\alpha\beta$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img415.png"
+ ALT="$\beta\beta\alpha\beta$"></TD>
+<TD ALIGN="CENTER">(60)</TD>
+<TD ALIGN="CENTER">(6)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(37)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(63)</TD>
+<TD ALIGN="CENTER">(22)</TD>
+<TD ALIGN="CENTER">(42)</TD>
+</TR>
+<TR><TD ALIGN="LEFT" COLSPAN=3><I>NONRELAT33 </I></TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\beta\gamma\alpha\gamma$
+ -->
+<IMG
+ WIDTH="44" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img416.png"
+ ALT="$\beta\gamma\alpha\gamma$"></TD>
+<TD ALIGN="CENTER">(50)</TD>
+<TD ALIGN="CENTER">(7)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(51)</TD>
+<TD ALIGN="CENTER">(26)</TD>
+<TD ALIGN="CENTER">(42)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\gamma\beta\gamma\alpha$
+ -->
+<IMG
+ WIDTH="44" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img417.png"
+ ALT="$\gamma\beta\gamma\alpha$"></TD>
+<TD ALIGN="CENTER">(50)</TD>
+<TD ALIGN="CENTER">(7)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(51)</TD>
+<TD ALIGN="CENTER">(26)</TD>
+<TD ALIGN="CENTER">(42)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\gamma\beta\alpha\gamma$
+ -->
+<IMG
+ WIDTH="44" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img418.png"
+ ALT="$\gamma\beta\alpha\gamma$"></TD>
+<TD ALIGN="CENTER">(54)</TD>
+<TD ALIGN="CENTER">(7)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(55)</TD>
+<TD ALIGN="CENTER">(26)</TD>
+<TD ALIGN="CENTER">(42)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\beta\gamma\gamma\alpha$
+ -->
+<IMG
+ WIDTH="44" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img419.png"
+ ALT="$\beta\gamma\gamma\alpha$"></TD>
+<TD ALIGN="CENTER">(54)</TD>
+<TD ALIGN="CENTER">(7)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(55)</TD>
+<TD ALIGN="CENTER">(26)</TD>
+<TD ALIGN="CENTER">(42)</TD>
+</TR>
+<TR><TD ALIGN="LEFT" COLSPAN=3><I>NONRELAT41 </I></TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\gamma\gamma\alpha\beta$
+ -->
+<IMG
+ WIDTH="44" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img420.png"
+ ALT="$\gamma\gamma\alpha\beta$"></TD>
+<TD ALIGN="CENTER">(52)</TD>
+<TD ALIGN="CENTER">(7)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(53)</TD>
+<TD ALIGN="CENTER">(26)</TD>
+<TD ALIGN="CENTER">(42)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\gamma\gamma\beta\alpha$
+ -->
+<IMG
+ WIDTH="44" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img421.png"
+ ALT="$\gamma\gamma\beta\alpha$"></TD>
+<TD ALIGN="CENTER">(52)</TD>
+<TD ALIGN="CENTER">(7)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(53)</TD>
+<TD ALIGN="CENTER">(26)</TD>
+<TD ALIGN="CENTER">(42)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\alpha\beta\gamma\gamma$
+ -->
+<IMG
+ WIDTH="44" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img422.png"
+ ALT="$\alpha\beta\gamma\gamma$"></TD>
+<TD ALIGN="CENTER">(52)</TD>
+<TD ALIGN="CENTER">(7)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(53)</TD>
+<TD ALIGN="CENTER">(26)</TD>
+<TD ALIGN="CENTER">(42)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\beta\alpha\gamma\gamma$
+ -->
+<IMG
+ WIDTH="44" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img423.png"
+ ALT="$\beta\alpha\gamma\gamma$"></TD>
+<TD ALIGN="CENTER">(52)</TD>
+<TD ALIGN="CENTER">(7)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(35)</TD>
+<TD ALIGN="CENTER">-</TD>
+<TD ALIGN="CENTER">(53)</TD>
+<TD ALIGN="CENTER">(26)</TD>
+<TD ALIGN="CENTER">(42)</TD>
+</TR>
+<TR><TD ALIGN="LEFT" COLSPAN=3><I>NONRELAT51 </I></TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\alpha\beta\gamma\delta$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img424.png"
+ ALT="$\alpha\beta\gamma\delta$"></TD>
+<TD ALIGN="CENTER">(52)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(53)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\beta\alpha\gamma\delta$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img425.png"
+ ALT="$\beta\alpha\gamma\delta$"></TD>
+<TD ALIGN="CENTER">(52)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(53)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\alpha\beta\delta\gamma$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img426.png"
+ ALT="$\alpha\beta\delta\gamma$"></TD>
+<TD ALIGN="CENTER">(52)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(53)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\beta\alpha\delta\gamma$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img427.png"
+ ALT="$\beta\alpha\delta\gamma$"></TD>
+<TD ALIGN="CENTER">(52)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(53)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\gamma\delta\alpha\beta$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img428.png"
+ ALT="$\gamma\delta\alpha\beta$"></TD>
+<TD ALIGN="CENTER">(52)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(53)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\gamma\delta\beta\alpha$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img429.png"
+ ALT="$\gamma\delta\beta\alpha$"></TD>
+<TD ALIGN="CENTER">(52)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(53)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\delta\gamma\alpha\beta$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img430.png"
+ ALT="$\delta\gamma\alpha\beta$"></TD>
+<TD ALIGN="CENTER">(52)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(53)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\delta\gamma\beta\alpha$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img431.png"
+ ALT="$\delta\gamma\beta\alpha$"></TD>
+<TD ALIGN="CENTER">(52)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(53)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="LEFT" COLSPAN=3><I>NONRELAT52 </I></TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\alpha\gamma\beta\delta$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img432.png"
+ ALT="$\alpha\gamma\beta\delta$"></TD>
+<TD ALIGN="CENTER">(50)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(51)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\alpha\gamma\delta\beta$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img433.png"
+ ALT="$\alpha\gamma\delta\beta$"></TD>
+<TD ALIGN="CENTER">(54)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(55)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\gamma\alpha\delta\beta$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img434.png"
+ ALT="$\gamma\alpha\delta\beta$"></TD>
+<TD ALIGN="CENTER">(50)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(51)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\gamma\alpha\beta\delta$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img435.png"
+ ALT="$\gamma\alpha\beta\delta$"></TD>
+<TD ALIGN="CENTER">(54)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(55)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\beta\delta\alpha\gamma$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img436.png"
+ ALT="$\beta\delta\alpha\gamma$"></TD>
+<TD ALIGN="CENTER">(50)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(51)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\delta\beta\gamma\alpha$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img437.png"
+ ALT="$\delta\beta\gamma\alpha$"></TD>
+<TD ALIGN="CENTER">(50)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(51)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\beta\delta\gamma\alpha$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img438.png"
+ ALT="$\beta\delta\gamma\alpha$"></TD>
+<TD ALIGN="CENTER">(54)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(55)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\delta\beta\alpha\gamma$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img439.png"
+ ALT="$\delta\beta\alpha\gamma$"></TD>
+<TD ALIGN="CENTER">(54)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(55)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="LEFT" COLSPAN=3><I>NONRELAT53 </I></TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\alpha\delta\beta\gamma$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img440.png"
+ ALT="$\alpha\delta\beta\gamma$"></TD>
+<TD ALIGN="CENTER">(50)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(51)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\delta\alpha\gamma\beta$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img441.png"
+ ALT="$\delta\alpha\gamma\beta$"></TD>
+<TD ALIGN="CENTER">(50)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(51)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\alpha\delta\gamma\beta$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img442.png"
+ ALT="$\alpha\delta\gamma\beta$"></TD>
+<TD ALIGN="CENTER">(54)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(55)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\delta\alpha\beta\gamma$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img443.png"
+ ALT="$\delta\alpha\beta\gamma$"></TD>
+<TD ALIGN="CENTER">(54)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(55)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\beta\gamma\alpha\delta$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img444.png"
+ ALT="$\beta\gamma\alpha\delta$"></TD>
+<TD ALIGN="CENTER">(50)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(51)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\gamma\beta\delta\alpha$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img445.png"
+ ALT="$\gamma\beta\delta\alpha$"></TD>
+<TD ALIGN="CENTER">(50)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(51)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\beta\gamma\delta\alpha$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img446.png"
+ ALT="$\beta\gamma\delta\alpha$"></TD>
+<TD ALIGN="CENTER">(54)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(55)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><!-- MATH
+ $\gamma\beta\alpha\delta$
+ -->
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img447.png"
+ ALT="$\gamma\beta\alpha\delta$"></TD>
+<TD ALIGN="CENTER">(54)</TD>
+<TD ALIGN="CENTER">(8)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(34)</TD>
+<TD ALIGN="CENTER">(55)</TD>
+<TD ALIGN="CENTER">(33)</TD>
+<TD ALIGN="CENTER">(43)</TD>
+</TR>
+</TABLE>
+</DIV>
+<BR>
+
+<P>
+<B>NONRELAT1</B> is meant for finding angles for the distributions
+<!-- MATH
+ $\alpha \alpha \alpha \alpha$
+ -->
+<IMG
+ WIDTH="47" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img406.png"
+ ALT="$\alpha\alpha\alpha\alpha$">, <!-- MATH
+ $\alpha \beta \alpha \beta$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img407.png"
+ ALT="$\alpha\beta\alpha\beta$"> and
+<!-- MATH
+ $\beta \alpha \beta \alpha$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img408.png"
+ ALT="$\beta\alpha\beta\alpha$">.
+
+<P>
+In the <!-- MATH
+ $\alpha \alpha \alpha \alpha$
+ -->
+<IMG
+ WIDTH="47" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img406.png"
+ ALT="$\alpha\alpha\alpha\alpha$"> case, the program uses expression
+(5) from P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>]. In this case
+
+<P>
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\widehat{G}\left( I\right) \sim \displaystyle
+{\sum_{\kappa _{12},\sigma _{12},\kappa _{12}^{\prime },\sigma _{12}^{\prime
+}}}\displaystyle {\sum_p} \left[
+\Theta_{IIa} \left( n\lambda ,\Xi \right)
+A_{a}^{\left( 00\right) }\left( n\lambda ,\Xi \right) +
+\Theta_{IIb} \left( n\lambda ,\Xi \right)
+A_{(b)p,-p}^{\left( kk\right) }\left( n\lambda ,\Xi \right) \right],
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:no-a"></A><IMG
+ WIDTH="582" HEIGHT="49" BORDER="0"
+ SRC="img448.png"
+ ALT="\begin{displaymath}
+\widehat{G}\left( I\right) \sim \displaystyle
+{\sum_{\kappa ...
+...p,-p}^{\left( kk\right) }\left( n\lambda ,\Xi \right) \right],
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(42)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+
+<P>
+where
+
+<P>
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+A_{a}^{\left( 00\right) }\left( n\lambda ,\Xi \right)=
+\left[ \left[ a^{\left( l_\alpha s\right) }\times \tilde a^{\left(
+l_\alpha s\right) }\right] ^{\left( \kappa _1\sigma _1\right) }\times \left[
+\tilde a^{\left( l_\alpha s\right) }\times a^{\left( l_\alpha s\right)
+}\right] ^{\left( \kappa _2\sigma _2\right) }\right] ^{\left(00\right)},
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:no-b"></A><IMG
+ WIDTH="515" HEIGHT="49" BORDER="0"
+ SRC="img449.png"
+ ALT="\begin{displaymath}
+A_{a}^{\left( 00\right) }\left( n\lambda ,\Xi \right)=
+\left...
+...{\left( \kappa _2\sigma _2\right) }\right] ^{\left(00\right)},
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(43)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+
+<P>
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+A_{(b)p,-p}^{\left( kk\right) }\left( n\lambda ,\Xi \right)=
+\left[ a^{\left( l_\alpha s\right) }\times \tilde a^{\left( l_\alpha
+s\right) }\right] _{p,-p}^{\left( kk \right) },
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:no-c"></A><IMG
+ WIDTH="417" HEIGHT="43" BORDER="0"
+ SRC="img450.png"
+ ALT="\begin{displaymath}
+A_{(b)p,-p}^{\left( kk\right) }\left( n\lambda ,\Xi \right)=...
+...left( l_\alpha
+s\right) }\right] _{p,-p}^{\left( kk \right) },
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(44)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+
+<P>
+and
+
+<P>
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\begin{array}[b]{c}
+\Theta_{IIa} \left( n\lambda ,\Xi \right)=
+\tilde \Theta _{IIa}\left( n_\alpha \lambda _\alpha ,n_\alpha \lambda
+_\alpha ,n_\alpha \lambda _\alpha ,n_\alpha \lambda _\alpha ,\Xi \right) =\\
+=\frac 12\left( -1\right) ^{k-p}\left[ \kappa _1,\sigma _1,\kappa _2,\sigma
+_2\right] ^{-1/2}
+\times \left( n_\alpha \lambda _\alpha n_\alpha \lambda _\alpha ||g^{\left(
+\kappa _1\kappa _2k,\sigma _1\sigma _2k\right) }||n_\alpha \lambda _\alpha
+n_\alpha \lambda _\alpha \right)
+\end{array}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:no-d"></A><IMG
+ WIDTH="532" HEIGHT="49" BORDER="0"
+ SRC="img451.png"
+ ALT="\begin{displaymath}
+\begin{array}[b]{c}
+\Theta_{IIa} \left( n\lambda ,\Xi \right...
+...ha \lambda _\alpha
+n_\alpha \lambda _\alpha \right)
+\end{array}\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(45)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+
+<P>
+and
+
+<P>
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\begin{array}[b]{c}
+\Theta_{IIb} \left( n\lambda ,\Xi \right)=
+\tilde \Theta _{IIb}\left( n_\alpha \lambda _\alpha ,n_\alpha \lambda
+_\alpha ,n_\alpha \lambda _\alpha ,n_\alpha \lambda _\alpha ,\Xi \right) =
+\\
+=\left( -1\right) ^{k-p+1}\left( n_\alpha \lambda _\alpha n_\alpha \lambda
+_\alpha ||g^{\left( \kappa _1\kappa _2k,\sigma _1\sigma _2k\right)
+}||n_\alpha \lambda _\alpha n_\alpha \lambda _\alpha \right) \times \\
+\times \left\{
+\begin{array}{ccc}
+\kappa _1 & \kappa _2 & k \\
+l_\alpha & l_\alpha & l_\alpha
+\end{array}
+\right\} \left\{
+\begin{array}{ccc}
+\sigma _1 & \sigma _2 & k \\
+s & s & s
+\end{array}
+\right\} .
+\end{array}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:no-e"></A><IMG
+ WIDTH="469" HEIGHT="87" BORDER="0"
+ SRC="img452.png"
+ ALT="\begin{displaymath}
+\begin{array}[b]{c}
+\Theta_{IIb} \left( n\lambda ,\Xi \right...
+...&amp; \sigma _2 &amp; k \\
+s &amp; s &amp; s
+\end{array}\right\} .
+\end{array}\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(46)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+
+<P>
+The value of the reduced matrix element of operator (<A HREF="node28.html#eq:no-b">43</A>) is
+found by subroutine WWLS1, and that of
+(<A HREF="node28.html#eq:no-c">44</A>) by W1 (see section <B>SAI_SQLS1</B>).
+The value of coefficient <!-- MATH
+ $\Theta_{IIa} \left( n\lambda ,\Xi \right)$
+ -->
+<IMG
+ WIDTH="91" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img453.png"
+ ALT="$\Theta_{IIa} \left( n\lambda ,\Xi \right)$">
+is calculated by COULOMBLS subroutine, because this coefficient, to the
+accuracy of a factor and a phase, is equal to that part of the
+two-electron submatrix elements of electrostatic interaction,
+which this subroutine is calculating. The coefficient
+<!-- MATH
+ $\Theta_{IIb} \left( n\lambda ,\Xi \right)$
+ -->
+<IMG
+ WIDTH="89" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img454.png"
+ ALT="$\Theta_{IIb} \left( n\lambda ,\Xi \right)$"> is found by COULOMBLS and SIXJ,
+and the recoupling matrix is investigated by
+RECOUP0 (see section <B>SAI_RECLS</B>).
+
+<P>
+For the distributions <!-- MATH
+ $\alpha \beta \alpha \beta$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img407.png"
+ ALT="$\alpha\beta\alpha\beta$"> and
+<!-- MATH
+ $\beta \alpha \beta \alpha$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img408.png"
+ ALT="$\beta\alpha\beta\alpha$">
+the subroutine NONRELAT1 uses
+(6) of P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>], keeping in mind that
+<!-- MATH
+ $\Theta \left( n_\alpha \lambda _\alpha ,n_\beta \lambda _\beta ,\Xi \right)$
+ -->
+<IMG
+ WIDTH="131" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img455.png"
+ ALT="$\Theta \left( n_\alpha \lambda _\alpha ,n_\beta \lambda _\beta ,\Xi \right)$">
+is expressed as (51) of P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>] and tensorial parts
+<!-- MATH
+ $B^{\left( \kappa _{12}\sigma _{12}\right) }\left( n_\alpha \lambda _\alpha
+,\Xi \right)$
+ -->
+<IMG
+ WIDTH="138" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img456.png"
+ ALT="$B^{\left( \kappa _{12}\sigma _{12}\right) }\left( n_\alpha \lambda _\alpha
+,\Xi \right)$">,
+<!-- MATH
+ $C^{\left( \kappa _{12}^{\prime }\sigma _{12}^{\prime
+}\right) }\left( n_\beta \lambda _\beta ,\Xi \right)$
+ -->
+<IMG
+ WIDTH="139" HEIGHT="46" ALIGN="MIDDLE" BORDER="0"
+ SRC="img457.png"
+ ALT="$C^{\left( \kappa _{12}^{\prime }\sigma _{12}^{\prime
+}\right) }\left( n_\beta \lambda _\beta ,\Xi \right)$"> are equal to (35) from
+P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>]. The coefficients
+<!-- MATH
+ $\Theta \left( n_\alpha \lambda _\alpha ,n_\beta \lambda _\beta ,\Xi \right)$
+ -->
+<IMG
+ WIDTH="131" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img455.png"
+ ALT="$\Theta \left( n_\alpha \lambda _\alpha ,n_\beta \lambda _\beta ,\Xi \right)$">
+are investigated by COULOMBLS, the coefficients
+<!-- MATH
+ $B^{\left( \kappa _{12}\sigma _{12}\right) }\left( n_\alpha \lambda _\alpha
+,\Xi \right)$
+ -->
+<IMG
+ WIDTH="138" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img456.png"
+ ALT="$B^{\left( \kappa _{12}\sigma _{12}\right) }\left( n_\alpha \lambda _\alpha
+,\Xi \right)$"> and
+<!-- MATH
+ $C^{\left( \kappa _{12}^{\prime }\sigma _{12}^{\prime
+}\right) }\left( n_\beta \lambda _\beta ,\Xi \right)$
+ -->
+<IMG
+ WIDTH="139" HEIGHT="46" ALIGN="MIDDLE" BORDER="0"
+ SRC="img457.png"
+ ALT="$C^{\left( \kappa _{12}^{\prime }\sigma _{12}^{\prime
+}\right) }\left( n_\beta \lambda _\beta ,\Xi \right)$"> are found by W1W2LS
+from the <B>SAI_SQLS1</B> library, and the recoupling matrix is
+calculated by RECOUP2.
+
+<P>
+For the distributions <!-- MATH
+ $\alpha \beta \beta \alpha$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img409.png"
+ ALT="$\alpha\beta\beta\alpha$"> and
+<!-- MATH
+ $\beta \alpha \alpha \beta$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img410.png"
+ ALT="$\beta\alpha\alpha\beta$">
+the subroutine NONRELAT1 uses
+(6) of P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>], keeping in mind that
+<!-- MATH
+ $\Theta \left( n_\alpha \lambda _\alpha ,n_\beta \lambda _\beta ,\Xi \right)$
+ -->
+<IMG
+ WIDTH="131" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img455.png"
+ ALT="$\Theta \left( n_\alpha \lambda _\alpha ,n_\beta \lambda _\beta ,\Xi \right)$">
+is expressed as (55) of P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>] and tensorial parts
+<!-- MATH
+ $B^{\left( \kappa _{12}\sigma _{12}\right) }\left( n_\alpha \lambda _\alpha
+,\Xi \right)$
+ -->
+<IMG
+ WIDTH="138" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img456.png"
+ ALT="$B^{\left( \kappa _{12}\sigma _{12}\right) }\left( n_\alpha \lambda _\alpha
+,\Xi \right)$">,
+<!-- MATH
+ $C^{\left( \kappa _{12}^{\prime }\sigma _{12}^{\prime
+}\right) }\left( n_\beta \lambda _\beta ,\Xi \right)$
+ -->
+<IMG
+ WIDTH="139" HEIGHT="46" ALIGN="MIDDLE" BORDER="0"
+ SRC="img457.png"
+ ALT="$C^{\left( \kappa _{12}^{\prime }\sigma _{12}^{\prime
+}\right) }\left( n_\beta \lambda _\beta ,\Xi \right)$"> are equal to (35) from
+P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>]. The coefficients
+<!-- MATH
+ $\Theta \left( n_\alpha \lambda _\alpha ,n_\beta \lambda _\beta ,\Xi \right)$
+ -->
+<IMG
+ WIDTH="131" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img455.png"
+ ALT="$\Theta \left( n_\alpha \lambda _\alpha ,n_\beta \lambda _\beta ,\Xi \right)$">
+are investigated by COULOMBLS and SIXJ, the coefficients
+<!-- MATH
+ $B^{\left( \kappa _{12}\sigma _{12}\right) }\left( n_\alpha \lambda _\alpha
+,\Xi \right)$
+ -->
+<IMG
+ WIDTH="138" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img456.png"
+ ALT="$B^{\left( \kappa _{12}\sigma _{12}\right) }\left( n_\alpha \lambda _\alpha
+,\Xi \right)$"> and
+<!-- MATH
+ $C^{\left( \kappa _{12}^{\prime }\sigma _{12}^{\prime
+}\right) }\left( n_\beta \lambda _\beta ,\Xi \right)$
+ -->
+<IMG
+ WIDTH="139" HEIGHT="46" ALIGN="MIDDLE" BORDER="0"
+ SRC="img457.png"
+ ALT="$C^{\left( \kappa _{12}^{\prime }\sigma _{12}^{\prime
+}\right) }\left( n_\beta \lambda _\beta ,\Xi \right)$"> are found by W1W2LS
+from the <B>SAI_SQLS1</B> library, and the recoupling matrix is
+calculated by RECOUP2.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html368"
+  HREF="node29.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html366"
+  HREF="node6.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html360"
+  HREF="node27.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html369"
+  HREF="node29.html">SAI_DUDU</A>
+<B> Up:</B> <A NAME="tex2html367"
+  HREF="node6.html">Description of the Libraries</A>
+<B> Previous:</B> <A NAME="tex2html361"
+  HREF="node27.html">The subroutine RUMT67</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-12-07
+</ADDRESS>
+</BODY>
+</HTML>

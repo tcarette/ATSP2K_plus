@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The subroutine WAP1LS</TITLE>
+<META NAME="description" CONTENT="The subroutine WAP1LS">
+<META NAME="keywords" CONTENT="ang">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ang.css">
+
+<LINK REL="next" HREF="node23.html">
+<LINK REL="previous" HREF="node21.html">
+<LINK REL="up" HREF="node8.html">
+<LINK REL="next" HREF="node23.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html310"
+  HREF="node23.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html308"
+  HREF="node8.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html302"
+  HREF="node21.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html311"
+  HREF="node23.html">The subroutine WWLS1</A>
+<B> Up:</B> <A NAME="tex2html309"
+  HREF="node8.html">SAI_SQLS1</A>
+<B> Previous:</B> <A NAME="tex2html303"
+  HREF="node21.html">The subroutine AWP1LS</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION000421400000000000000">
+The subroutine WAP1LS</A>
+</H3>
+
+<P>
+This subroutine determines the value of the matrix elements:
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+(\ l^{N}\ QLS\ ||\ [ [\ a^{(qls)}_{m_{q1}} \times a^{(qls)}_{m_{q2}}\ ]^{(k_{1}k_{2})} \times a^{(qls)}_{m_{q3}}\ ]^{(k_{l}k_{s})}\ ||\ l^{N'}\ Q'L'S'\ ).
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:sq-d"></A><IMG
+ WIDTH="505" HEIGHT="31" BORDER="0"
+ SRC="img390.png"
+ ALT="\begin{displaymath}
+( l^{N} QLS \vert\vert [ [ a^{(qls)}_{m_{q1}} \times a^...
+...s)}_{m_{q3}} ]^{(k_{l}k_{s})} \vert\vert l^{N'} Q'L'S' ).
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(38)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+The structure of the routine WAP1LS is the same as that of AWP1LS.
+The subroutine has the formal arguments:
+
+<OL>
+<LI>IK is the array I for the bra function.
+</LI>
+<LI>BK is the array B for the bra function.
+</LI>
+<LI>ID is the array I for the ket function.
+</LI>
+<LI>BD is the array B for the ket function.
+</LI>
+<LI>K1 is the rank <IMG
+ WIDTH="22" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img381.png"
+ ALT="$k_{1}$">.
+</LI>
+<LI>K2 is the rank <IMG
+ WIDTH="22" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img382.png"
+ ALT="$k_{2}$">.
+</LI>
+<LI>K3 is the rank <IMG
+ WIDTH="19" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img387.png"
+ ALT="$k_{l}$">.
+</LI>
+<LI>BK4 is the rank <IMG
+ WIDTH="21" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img388.png"
+ ALT="$k_{s}$">.
+</LI>
+<LI>QM1, QM2 and QM3 are the quasispin projections in (<A HREF="node22.html#eq:sq-d">38</A>).
+</LI>
+<LI>WA is the value of the reduced matrix element (<A HREF="node22.html#eq:sq-d">38</A>) which is returned by the subroutine.
+</LI>
+</OL>
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2001-12-07
+</ADDRESS>
+</BODY>
+</HTML>

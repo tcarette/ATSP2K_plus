@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Program Structure</TITLE>
+<META NAME="description" CONTENT="Program Structure">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node76.html">
+<LINK REL="previous" HREF="node74.html">
+<LINK REL="up" HREF="node73.html">
+<LINK REL="next" HREF="node76.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1217"
+  HREF="node76.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1213"
+  HREF="node73.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1207"
+  HREF="node74.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1215"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1218"
+  HREF="node76.html">File IO</A>
+<B> Up:</B> <A NAME="tex2html1214"
+  HREF="node73.html">BIOTR</A>
+<B> Previous:</B> <A NAME="tex2html1208"
+  HREF="node74.html">Introduction</A>
+ &nbsp <B>  <A NAME="tex2html1216"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001220000000000000000">
+Program Structure</A>
+</H1>
+
+<P>
+Data is initialized in <TT>initr() and factr()</TT>, then the user
+selects the initial and final state, type of calculation (relativistic,
+or non-relativistic) and the type of transition 
+<TT>E1, E2, M1, M2, .. or *</TT>'. The program then proceeds with the
+following steps:
+
+<P>
+
+<OL>
+<LI><TT>cfgin2()</TT> reads the two sets of configuration lists and  
+determines the orthogonality conditions between the two sets. Next, 
+<TT>rasin()</TT> checks if the CI expansions used for <IMG
+ WIDTH="26" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img115.png"
+ ALT="$\Psi_1$"> and <IMG
+ WIDTH="26" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img116.png"
+ ALT="$\Psi_2$">
+satisfy the closure under de-excitation property.
+
+<P>
+</LI>
+<LI>Calculate the CSF-coupling coefficient <!-- MATH
+ ${A^{\mu\nu}_{ij}}$
+ -->
+<IMG
+ WIDTH="34" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img117.png"
+ ALT="${A^{\mu\nu}_{ij}}$"> 
+in the expression:
+ <!-- MATH
+ ${a^{\dagger}_{i}\hat{a}_{j}\mid\Phi_{nu}\rangle = 
+     \sum_{\nu}{A^{\mu\nu}_{ij}}\mid\Phi_{mu}}$
+ -->
+<IMG
+ WIDTH="204" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
+ SRC="img118.png"
+ ALT="${a^{\dagger}_{i}\hat{a}_{j}\mid\Phi_{nu}\rangle =
+\sum_{\nu}{A^{\mu\nu}_{ij}}\mid\Phi_{mu}}$">, which are needed
+to perform the transformation of the CI-coefficients. 
+
+<P>
+</LI>
+<LI>Calculate the one-electron orbital overlap matrix and 
+decompose it into block-triangular factors to find the new 
+radial functions <!-- MATH
+ ${\{R^A_{\it nl}(r)\}}$
+ -->
+<IMG
+ WIDTH="67" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img119.png"
+ ALT="${\{R^A_{\it nl}(r)\}}$"> and <!-- MATH
+ ${\{R^B_{\it nl}(r)\}}$
+ -->
+<IMG
+ WIDTH="67" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img120.png"
+ ALT="${\{R^B_{\it nl}(r)\}}$"> 
+which are biorthonormal.
+
+<P>
+</LI>
+<LI>transform the configuration interaction matrix <IMG
+ WIDTH="29" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img121.png"
+ ALT="${C^A_{\mu}}$"> and
+<IMG
+ WIDTH="30" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img122.png"
+ ALT="${C^B_{\mu}}$"> by a sequence of single orbital replacements.
+main routine for  employing biorthogonal rotations for RAS
+ type wave functions, allowing the calculation of
+ transition moments between two RAS states.
+ The task of this part of the code is to change
+ two sets of orbitals into biorthogonal orbitals
+ and counter-rotate  the CI coefficients.
+transform the configuration interaction matrix <IMG
+ WIDTH="29" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img121.png"
+ ALT="${C^A_{\mu}}$"> and
+<IMG
+ WIDTH="30" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img122.png"
+ ALT="${C^B_{\mu}}$"> by a sequence of single orbital replacements.
+
+<P>
+</LI>
+<LI>Apply the orthogonal Racah algebra to transform the many electron 
+amplitude into a sum of one-electron reduced matrix elements. 
+the l.h.s and r.h.s orbital indices of the se now refer to the two 
+different orbital biorthonormal sets.
+
+<P>
+</LI>
+</OL>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="biotr_main"></A><A NAME="4439"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.35:</STRONG>
+
+  Program structure. 
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="221" HEIGHT="783" BORDER="0"
+ SRC="img123.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/biotr_main.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The user is expected to provide information about which 
+two sets of input files should be used and the type of calculation
+(<TT>E1, E2,..., M1, M2, ...</TT>). Note in the input below
+that  <I>E1 and O1</I> supplied by the user for <I>Name of Initial 
+State and Name of Final State</I>, imply the existence of:
+<TT>E1.c E1.w E1.j</TT> and <TT>O1.c O1.w O1.j</TT>, if a relativistic
+calculation is being selected:
+
+<P>
+<PRE>
+#  ........A parity changing transition calculation........
+&gt;biotr 
+  Name of Initial State
+E1
+  Name of Final State
+O1
+  intermediate printing (y or n) ?
+n 
+  Relativistic calculation ? (y/n)
+y
+  Type of transition ? (E1, E2, M1, M2, .. or *)
+E1
+------------------------------------------------------------------------
+</PRE>
+
+<P>
+The angular data is not saved and therefore, for calculations 
+along an iso-electronic sequence, the angular calculations are 
+repeated for each atom.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1217"
+  HREF="node76.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1213"
+  HREF="node73.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1207"
+  HREF="node74.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1215"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1218"
+  HREF="node76.html">File IO</A>
+<B> Up:</B> <A NAME="tex2html1214"
+  HREF="node73.html">BIOTR</A>
+<B> Previous:</B> <A NAME="tex2html1208"
+  HREF="node74.html">Introduction</A>
+ &nbsp <B>  <A NAME="tex2html1216"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

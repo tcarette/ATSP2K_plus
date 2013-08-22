@@ -1,0 +1,914 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Compiling and testing</TITLE>
+<META NAME="description" CONTENT="Compiling and testing">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="atsp.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html208"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html204"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html198"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html206"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html209"
+  HREF="node4.html">Computing Atomic Transitions</A>
+<B> Up:</B> <A NAME="tex2html205"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html199"
+  HREF="node2.html">Contents</A>
+ &nbsp <B>  <A NAME="tex2html207"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html210"
+  HREF="#SECTION00310000000000000000">Downloading and compiling the source code</A>
+<LI><A NAME="tex2html211"
+  HREF="#SECTION00320000000000000000">Testing the installation</A>
+<LI><A NAME="tex2html212"
+  HREF="#SECTION00330000000000000000">Serial</A>
+<LI><A NAME="tex2html213"
+  HREF="#SECTION00340000000000000000">MPI tests</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00300000000000000000"></A>
+<A NAME="chap:compile"></A>
+<BR>
+Compiling and testing
+</H1>
+
+<P>
+
+<H1><A NAME="SECTION00310000000000000000">
+Downloading and compiling the source code</A>
+</H1>
+The source code can be downloaded from: 
+<BR><TT>www.vuse.vanderbilt.edu/cff/mchf_collection/html_doc/Elements/CompMeth/atsp2K.tar.gz</TT>.
+The file atsp2Kp.tar.gz should be gun-zipped 
+and untarred in a separate directory.
+<PRE>
+%gunzip atsp2Kp.tar.gz
+%tar -xvf atsp2Kp.tar
+</PRE>
+
+<P>
+The last command will create a directory <TT>atsp2K</TT> and four sub-directories,
+<TT>atsp2Kp/bin, atsp2Kp/lib, atsp2Kp/run and atsp2Kp/src</TT>. 
+
+<P>
+<I>Note:</I> In order to use <TT>GNU</TT> programs on IBM/SP <TT>seaborg</TT>, such
+as <TT>gzip, gunzip</TT> the user may need to load the module <TT>gnu</TT>:
+<PRE>
+module load gnu
+</PRE>
+
+<P>
+All make files require a number of 
+global environmental variables, <TT>FFLAGS, FC, MALLOC, LDFLAGS, 
+ATSP, lapack, blas</TT>, which need to be initialized 
+prior to compilation. 
+The following list shows each variable and its meaning.
+
+<OL>
+<LI><TT>FC</TT> is initialized to a FORTRAN 90 compiler.  
+</LI>
+<LI><TT>FC_MPI</TT> is initialized to a FORTRAN 90 MPI compiler.
+The following values should be used:
+Linux:
+      <PRE> setenv FC_MPI mpif90
+</PRE>
+seaborg (IBM/SP):
+      <PRE> setenv FC_MPI mpxlf
+</PRE>
+
+<P>
+</LI>
+<LI><TT>FFLAGS</TT> is initialized to desired optimization or debugging level.
+ Code can be optimized by using <TT>-O2, -O3</TT> flags, and 
+the user should consult the f90 man pages for description.
+As a general guideline, the flags below can be tried, they have been 
+used in production code:
+   
+<OL>
+<LI>OSF1, DEC 
+      <PRE> setenv FFLAGS -O3 -r8 -static -align dcommon -non_shared -convert big_endian
+</PRE>
+</LI>
+<LI>Sun
+      <PRE> setenv FFLAGS -O3
+</PRE>
+</LI>
+<LI>Linux
+      <PRE> setenv FFLAGS -O2
+</PRE>
+</LI>
+<LI>IBM/SP 
+      <PRE> setenv FFLAGS -O5
+</PRE>
+</LI>
+<LI>Cray T3e
+      <PRE> setenv FFLAGS -O3 -dp -e0
+</PRE>
+</LI>
+</OL> 
+The debugging flags are <TT>-g</TT> and they can be used instead of <TT>-On</TT>
+when debugging is needed.
+</LI>
+<LI><TT>MALLOC</TT> is a global environmental variable  
+initialized to a string  which indicates to the <TT>make</TT> system
+the appropriate memory allocation routine. 
+While most of the major operating systems adhere to the SUN operating
+system, and use <TT>malloc()</TT> for memory allocation, IBM AIX and 
+Cray implementations differ. IBM AIX, also uses <TT>malloc()</TT>, 
+however the arguments are passed by value 
+(called with <TT>MALLOC(%VAL(NBYTES)))</TT>).
+Sun, Linux, Dec Alpha use a call to <TT>malloc()</TT> by reference. 
+Calls to <TT>malloc()</TT> return a <TT>NULL</TT> pointer if 
+the memory request is greater than memory available on the heap. 
+On the other hand, Cray T3E uses <TT>hpalloc()</TT>, a "heap allocating 
+routine", which takes four arguments, the third one of 
+which is set to <TT>-2</TT> if no memory is available. 
+Memory allocation/deallocation is the only system 
+dependent fragment of code in the <TT>atsp2K</TT> package. 
+Therefore, the memory  allocation/deallocation routines 
+have been encoded as library routines specific to each target system.  
+In order to resolve which routine to compile, <TT>make</TT>  relies on the 
+global variable <TT>$MALLOC</TT>.  Thus, <TT>$MALLOC</TT> may be set equal to 
+one of the following four values: <TT>dec, ibmSP, sun, t3e</TT>, <TT>make</TT> 
+sellects the appropriate file depending on the value of <TT>$MALLOC</TT>. 
+For example, the corresponding section of the <TT>Makefile</TT> for system 
+dependent files is: 
+<BR><TT>DYNOBJ <IMG
+ WIDTH="18" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$=$"> alloc_$(MALLOC).o dalloc_$(MALLOC).o 
+realloc_$(MALLOC).o</TT>, 
+<BR>
+if  <TT>$MALLOC</TT> is set equal to <TT>sun</TT>, <TT>make</TT> will
+substitute <TT>$MALLOC</TT> with <TT>sun</TT> and the files which
+have the string <TT>sun</TT> will be compiled:
+<BR><TT>alloc_sun.f, dalloc_sun.f, realloc_sun.f</TT> 
+<BR>
+Since <TT>Linux</TT> adheres to the SUN system, 
+the value of tt $(MALLOC) for the <TT>Linux OS</TT> is also <TT>sun</TT>.
+<EM>Note: The user needs to be aware that some <TT>GNU</TT> programs, 
+for example <TT>gcc</TT>, utilize an <TT>$MALLOC</TT> variable during their 
+compilation process. The user may have to consider either 
+<TT>"unset MALLOC"</TT> and set this variable only on compiling 
+the <TT>atsp2K</TT> package. Alternatively, a different name can be used,  
+however this will require editing the makefiles</EM>.
+
+<P>
+</LI>
+<LI><TT>LDFLAGS</TT> contains the linker flags, normally no special 
+flags are required for this version, except for Cray T3E.
+Cray T3E uses this flag when linking atsp programs 
+with LAPACK routines. The linker substitutes all double precision
+Lapack routines used in the <TT>atsp2K</TT> package correspondingly with
+single precision routines. File <TT>atsp2K/lib/d2s.cld</TT> contains
+directives to the linker:
+<PRE>
+equiv(DAXPY)=SAXPY
+equiv(DCOPY)=SCOPY
+equiv(DDOT)=SDOT
+equiv(DGEMV)=SGEMV
+equiv(DLAMCH)=SLAMCH
+equiv(DNRM2)=SNRM2
+equiv(DSCAL)=SSCAL
+equiv(DSPEVX)=SSPEVX
+equiv(DSWAP)=SSWAP
+equiv(IDAMAX)=ISAMAX
+</PRE>
+
+<P>
+Thus, for Cray T3E, the variable <TT>LDFLAGS</TT> is set to:
+<TT>"-Wl ../../...lib/d2s.cld"</TT>.
+
+<P>
+</LI>
+<LI><TT>ATSP</TT> is set to the root atsp2K directory, this
+variable is not required for compilation. However, all test
+scripts expect to find the executables in the directory
+<TT>$ATSP/bin</TT>. Using a variable for the <TT>ATSP</TT> root
+directory allows  different versions 
+of the <TT>atsp</TT> package to be used without modifying any of
+the scripts. For this purpose, the  
+variable <TT>$ATSP</TT> need to be reset to point to the desired version.
+
+<P>
+</LI>
+<LI><TT>lapack and blas</TT> are set to the location of the 
+lapack and blas libraries, provided that they are preinstalled on 
+the system.  Additionally,
+<TT>atsp2K</TT>  provides the required routines as a small 
+subset of the standard LAPACK and BLAS libraries. The routines 
+used in <TT>atsp2K</TT> are collected in  <TT>libnet.a</TT>. 
+The following values are  recommended:
+
+<OL>
+<LI>For The Linux cluster the libraries are provided with
+the PGI compiler and the values are:
+<PRE>
+setenv lapack "/usr/pgi/linux86/lib/liblapack.a"
+setenv blas "/usr/pgi/linux86/lib/libblas.a"
+</PRE>
+</LI>
+<LI>IBM/SP seaborg combines both LAPACK and BLAS in a single library
+which is accessed by:
+<PRE>
+setenv lapack "/usr/common/usg/LAPACK/3.0a/lapack_SP.a"
+</PRE>
+
+<P>
+</LI>
+<LI>If there are no <TT>lapack</TT> or <TT>blas</TT> libraries on the 
+system, the user may link with the library provided by the <TT>atsp2K</TT> 
+package, <TT>libnet.a</TT>, by setting <TT>lapack</TT> to: 
+<PRE>
+setenv lapack "${ATSP}/lin/libnet.a"
+</PRE>
+</LI>
+</OL>
+</LI>
+</OL>
+
+<P>
+The PGI F90 compiler, <TT>pgf90</TT> is available on node <TT>hf5</TT>. 
+ The code can be compiled using the <TT>-byteswapio</TT>.  
+This option allows to convert from/to big-endian to/from 
+little endian representation for reading writing binary files  
+(little endian is used mostly on <TT>atsp2K</TT> for Sun and SGI platforms).
+
+<P>
+
+<H2><A NAME="SECTION00311000000000000000"></A><A NAME="linux:inst"></A>
+<BR>
+MPI installation on Linux
+</H2>
+The following lines should be placed in the user configuration 
+file, <TT>.cshrc</TT>, or alternatively set on the command prompt:
+<PRE>
+setenv FC "pgf90"
+setenv FC_MPI "mpif90"
+setenv FFLAGS "-O2 -byteswapio"
+setenv MALLOC sun
+setenv MPI_FFLAGS     # not used
+setenv CC "g++"
+setenv LDFLAGS        # not used
+setenv ATSP ${HOME}/atsp2K
+setenv lapack "/usr/pgi/linux86/lib/liblapack.a"
+setenv blas "/usr/pgi/linux86/lib/libblas.a"
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00312000000000000000">
+MPI installation on IBM/SP</A>
+</H2>
+The installation on IBM/SP seaborg requires the following lines to
+be placed in the file <TT>.cshrc.ext</TT> (or set on the
+command prompt):
+<PRE>
+source /usr/common/usg/Modules/3.1.1/init/csh
+module load gnu KCC 
+setenv FC "xlf"
+setenv FC_MPI "mpxlf"
+setenv FFLAGS "-O5 -qalign=4k "
+setenv MALLOC ibmSP
+setenv MPI_FFLAGS     # not used
+setenv LDFLAGS        # not used
+setenv CC KCC
+setenv CCFLAGS "-O3"
+setenv lapack "/usr/common/usg/LAPACK/3.0a/lapack_SP.a"
+setenv blas           # not used
+setenv ATSP ${HOME}/atsp2K
+#setenv XLFRTEOPTS "buffering=disable_all"
+</PRE>
+<I>Note:</I> All user modifications of the <TT>.cshrc</TT> file
+should be placed in a <TT>.cshrc.ext</TT> file instead of 
+making direct changes to <TT>.cshrc</TT>. 
+
+<P>
+After proper initialization, the user can <TT>cd</TT> to 
+<TT>atsp2Kp/src</TT> and type <TT>"make"</TT>. 
+<TT>make</TT> supports two targets; the default is <TT>install</TT>, it
+compiles, links and installs the <TT>atsp2K</TT> package. <TT>make</TT> will recurse
+in libraries, applications and utilities and it will create executables
+which are located in <TT>atsp2Kp/bin</TT>. The second target, <TT>make clean</TT> 
+can be used to recursively erase all <TT>.o</TT> files. Upon successful 
+compilation the directiory will contain the following executables:
+<PRE>
+-rw-------    1 georgio  mp52          504 Aug 30 01:05 Makefile
+-rwx------    1 georgio  mp52       737871 Aug 30 01:36 biotr
+-rwx------    1 georgio  mp52      1227799 Aug 30 01:17 bp_ang
+-rwx------    1 georgio  mp52       716050 Aug 30 07:40 bp_ang_mpi
+-rwx------    1 georgio  mp52       527610 Aug 30 01:13 bp_eiv
+-rwx------    1 georgio  mp52       472077 Aug  2 08:59 bp_eiv_mpi
+-rwx------    1 georgio  mp52       172955 Aug 30 01:17 bp_mat
+-rwx------    1 georgio  mp52       181151 Aug 30 01:43 bp_mat_mpi
+-rwx------    1 georgio  mp52      1618518 Aug 30 01:23 bpci
+-rwx------    1 georgio  mp52      1198774 Aug 30 03:02 breit_mpi
+-rwx------    1 georgio  mp52        27603 Aug 30 01:48 comp
+-rwx------    1 georgio  mp52        35020 Aug 30 01:48 condens
+-rwx------    1 georgio  mp52       100463 Aug 30 01:49 gencl
+-rwx------    1 georgio  mp52       289489 Aug 30 01:48 hf
+-rwx------    1 georgio  mp52       600635 Aug 30 01:24 hfs
+-rwx------    1 georgio  mp52       675510 Aug 30 01:26 iso
+-rwx------    1 georgio  mp52        26098 Aug 30 01:48 levels
+-rwx------    1 georgio  mp52        19693 Aug 30 01:48 lines
+-rwx------    1 georgio  mp52       240704 Aug 30 01:48 lsgen
+-rwx------    1 georgio  mp52       354333 Aug 30 01:48 lsgenf
+-rwx------    1 georgio  mp52       685741 Aug 30 01:28 lsreduce
+-rwx------    1 georgio  mp52       451418 Aug  2 16:20 mchf
+-rwx------    1 georgio  mp52       438366 Aug  1 13:32 mchf_mpi
+-rwx------    1 georgio  mp52       673763 Aug 30 01:32 nonh
+-rwx------    1 georgio  mp52       691936 Aug 30 01:47 nonh_mpi
+-rwx------    1 georgio  mp52        27172 Aug 30 01:48 plotw
+-rwx------    1 georgio  mp52         8818 Aug 30 01:48 printw
+-rwx------    1 georgio  mp52         9463 Aug 30 01:48 relabel
+-rwx------    1 georgio  mp52          437 Aug 30 01:05 sh_Repl
+-rwx------    1 georgio  mp52          625 Aug 30 01:05 sh_cat
+-rwx------    1 georgio  mp52          831 Aug 30 01:05 sh_format
+-rwx------    1 georgio  mp52          858 Aug 30 01:05 sh_unformat
+-rwx------    1 georgio  mp52        85700 Aug 30 01:49 tables
+-rwx------    1 georgio  mp52       550267 Aug 30 01:33 trans
+-rwx------    1 georgio  mp52         9459 Aug 30 01:49 w_format
+-rwx------    1 georgio  mp52         9873 Aug 30 01:49 w_unformat
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION00320000000000000000">
+Testing the installation</A>
+</H1>
+After succesfull installation, the user may test the installation
+by running a small test case. The example shows how to 
+compute a portion of the N-like electronic sequence. 
+The case can be started by <TT>cd atsp2K/run/N_like/</TT>
+and executing the main script <TT>./sh_ALL</TT> from the command prompt. 
+The script recourses in each sub-directory <TT>E1, O1, 
+LS, LSJ</TT> and performs steps of computing the N-like electronic 
+sequence (Z=8,9). This calculation will test under work load 
+some major features for the most applications. 
+The results from the tests can be 
+compared with previously computed data supplied in the 
+same directories and this can serve for verifying the correct 
+installation, for detecting errors, and for testing
+the accurateness of the program.
+In general, <TT>atsp2K</TT> performs calculations with the following 
+sequence:
+
+<P>
+
+<OL>
+<LI><TT>nonh and mchf</TT> compute wave functions and <TT>LS</TT> eigenvectors and
+save the data in *.w and *.l files correspondingly
+</LI>
+<LI><TT>bp_ang, bp_mat and bp_eiv</TT> compute requested 
+<TT>LSJ</TT> eigenvectors saving them in <TT>*.j</TT> files
+</LI>
+<LI><TT>biotr and trans</TT> compute the <TT>LS</TT> and <TT>LSJ</TT> transitions
+and save the transitions as  <TT>.ls and .lsj</TT> files.
+</LI>
+</OL>
+
+<P>
+The main scripts implements that sequence calling other scripts:
+<PRE>
+.sh_ALL
+E1/sh_hf      # Hartree - Fock program for initial estimates E1
+E1/sh_mchf_E1 # mchf method computing the wave functions of group E1
+O1/sh_hf      # Hartree - Fock program for initial estimates O1
+O1/sh_mchf_O1 # mchf method computing the wave functions of group O1
+LS/sh_LS_D    # computing the LS transitions: Doublets
+LS/sh_LS_Q    # computing LS Quartet transitions
+LSJ/sh_bp     # Breit-Pauli calculations
+LSJ/sh_biotr  # LSJ transition calculation
+LSJ/sh_for    # forbidden transitions
+LSJ/sh_tables # program for tabulating energies, lifetimes, lines
+</PRE>
+
+<P>
+The calculation starts with <TT>sh_mchf_E1 and sh_mchf_O1</TT> 
+which compute the corresponding wave functions for the initial 
+and final states <TT>E1 and O1</TT>.
+In addition, to the wave functions, (saved in <TT>*.w</TT> files), the 
+eigenvectors are computed and saved in <TT>*.l</TT> files.
+Then, <TT>sh_LS_D and sh_LS_Q</TT> which are located in the directory
+<TT>LS</TT> compute the <TT>LS</TT> transitions using the <TT>*.w</TT> and <TT>*.l</TT>
+files from the previous step. The next step is to compute the 
+<TT>LSJ</TT> energies, eigenvectors (saved as <TT>*.j</TT> files) and transitions 
+(saved as <TT>*.lsj</TT> files). This step includes the forbidden <TT>LSJ</TT> 
+transitions.  The scripts can be used interactively, they are a   
+learning tool for a user not familiar with the specifics of the 
+input expected by the program.
+The entire set of tests takes a few hours to complete on i686. 
+
+<P>
+The results can be compared with previously computed
+data, which reside in the same directories using the same files but
+with a "_" appended as a prefix to the file name:
+<PRE>
+_N8-lev.dat
+_N8-lin.dat
+_N9-lev.dat
+_N9-lin.dat
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION00330000000000000000">
+Serial</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00331000000000000000">
+Wave function files and <TT>LS</TT> Eigenvectors</A>
+</H2>
+The script descends in <TT>E1 and O1</TT> and computes
+the wave function of the initial and final states.
+Upon successful completion of the script the wave functions are
+saved in *.w files. For each <TT>n</TT>, <TT>E1 and O1</TT> will contain the
+following *.w files: 
+<PRE>
+ls -l E1/*.w O1/*.w
+(georgio@hf7)143% ls -l E1/*.w O1/*.w
+-rw-r--r--    1 georgio  users        3593 Aug 18 23:17 E1/E1.8_2.w
+-rw-r--r--    1 georgio  georgio     11211 Aug 18 23:17 E1/E1.8_3.w
+-rw-r--r--    1 georgio  georgio     12358 Aug 18 23:23 E1/E1.8_4.w
+-rw-r--r--    1 georgio  users        3545 Aug 18 23:17 E1/E1.9_2.w
+-rw-r--r--    1 georgio  georgio     10843 Aug 18 23:18 E1/E1.9_3.w
+-rw-r--r--    1 georgio  georgio     11870 Aug 18 23:34 E1/E1.9_4.w
+-rw-r--r--    1 georgio  georgio      3585 Aug 18 23:55 O1/O1.8_2.w
+-rw-r--r--    1 georgio  georgio      8301 Aug 18 23:55 O1/O1.8_3.w
+-rw-r--r--    1 georgio  georgio     11838 Aug 19 00:10 O1/O1.8_4.w
+-rw-r--r--    1 georgio  georgio      3537 Aug 18 23:55 O1/O1.9_2.w
+-rw-r--r--    1 georgio  georgio      8205 Aug 18 23:55 O1/O1.9_3.w
+-rw-r--r--    1 georgio  georgio     11686 Aug 19 00:27 O1/O1.9_4.w
+</PRE>
+The  <TT>LS</TT> eigenvectors for each term are saved in a  
+separate files and the following *.l files will be created after
+the mchf calculation is completed:  
+<PRE>
+ls -l E1/*.l O1/*.l
+(georgio@hf7)144% ls -l E1/*.l O1/*.l
+-rw-r--r--    1 georgio  georgio       378 Aug 18 23:17 E1/2D1.8_3.l
+-rw-r--r--    1 georgio  georgio     12000 Aug 18 23:23 E1/2D1.8_4.l
+-rw-r--r--    1 georgio  georgio       378 Aug 18 23:18 E1/2D1.9_3.l
+-rw-r--r--    1 georgio  georgio     12000 Aug 18 23:34 E1/2D1.9_4.l
+-rw-r--r--    1 georgio  georgio       713 Aug 18 23:17 E1/2P1.8_3.l
+-rw-r--r--    1 georgio  georgio     20947 Aug 18 23:23 E1/2P1.8_4.l
+-rw-r--r--    1 georgio  georgio       713 Aug 18 23:18 E1/2P1.9_3.l
+-rw-r--r--    1 georgio  georgio     20947 Aug 18 23:34 E1/2P1.9_4.l
+-rw-r--r--    1 georgio  georgio       267 Aug 18 23:17 E1/2S1.8_3.l
+-rw-r--r--    1 georgio  georgio      4312 Aug 18 23:23 E1/2S1.8_4.l
+-rw-r--r--    1 georgio  georgio       267 Aug 18 23:18 E1/2S1.9_3.l
+-rw-r--r--    1 georgio  georgio      4312 Aug 18 23:34 E1/2S1.9_4.l
+-rw-r--r--    1 georgio  georgio       289 Aug 18 23:17 E1/4P1.8_3.l
+-rw-r--r--    1 georgio  georgio      7566 Aug 18 23:23 E1/4P1.8_4.l
+-rw-r--r--    1 georgio  georgio       289 Aug 18 23:18 E1/4P1.9_3.l
+-rw-r--r--    1 georgio  georgio      7566 Aug 18 23:34 E1/4P1.9_4.l
+-rw-r--r--    1 georgio  georgio       326 Aug 18 23:55 O1/2Do1.8_3.l
+-rw-r--r--    1 georgio  georgio     10042 Aug 19 00:10 O1/2Do1.8_4.l
+-rw-r--r--    1 georgio  georgio       326 Aug 18 23:55 O1/2Do1.9_3.l
+-rw-r--r--    1 georgio  georgio     10042 Aug 19 00:27 O1/2Do1.9_4.l
+-rw-r--r--    1 georgio  georgio       370 Aug 18 23:55 O1/2Po1.8_3.l
+-rw-r--r--    1 georgio  georgio      9864 Aug 19 00:10 O1/2Po1.8_4.l
+-rw-r--r--    1 georgio  georgio       370 Aug 18 23:55 O1/2Po1.9_3.l
+-rw-r--r--    1 georgio  georgio      9864 Aug 19 00:27 O1/2Po1.9_4.l
+-rw-r--r--    1 georgio  georgio       237 Aug 18 23:55 O1/4So1.8_3.l
+-rw-r--r--    1 georgio  georgio      2855 Aug 19 00:10 O1/4So1.8_4.l
+-rw-r--r--    1 georgio  georgio       237 Aug 18 23:55 O1/4So1.9_3.l
+-rw-r--r--    1 georgio  georgio      2855 Aug 19 00:27 O1/4So1.9_4.l
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00332000000000000000">
+<TT>LS</TT> transitions</A>
+</H2> All <TT>LS</TT> transitions are computed
+from  complete sets of *.c *.w and *.l files for both: the initial and 
+final state. Each <TT>LS</TT> transition is saved in a separate *.ls file in 
+the directory named <TT>LS</TT>. 
+The following table shows the LS convergence with respect to <TT>n</TT>:
+<PRE>
+Z=8
+--------------------------------------------------------------------------------
+ Z  n       EL            EU        SL(v)     SL(V)     gf(L)    gf(V)   Error
+--------------------------------------------------------------------------------
+
+2s(2).2p(3)2D3_2D             2s.2p(4)1D2_2D                
+ 8 4 -74.36936886 -73.73180871 3.916e+00 3.929e+00 1.664e+00 1.670e+00 0.003
+
+2s(2).2p(3)2D3_2D             2s(2).2p(2)3P2_3P.3s_2P       
+ 8 4 -74.36936886 -73.62656680 2.296e+00 2.460e+00 1.137e+00 1.218e+00 0.067
+
+2s(2).2p(3)2P1_2P             2s.2p(4)1D2_2D                
+ 8 4 -74.30709760 -73.73180871 5.514e-01 6.070e-01 2.114e-01 2.328e-01 0.092
+
+2s(2).2p(3)2P1_2P             2s.2p(4)1S0_2S                
+ 8 4 -74.30709760 -73.59232421 1.435e+00 1.390e+00 6.839e-01 6.624e-01 0.031
+
+2s(2).2p(3)2P1_2P             2s(2).2p(2)3P2_3P.3s_2P       
+ 8 4 -74.30709760 -73.62656680 4.413e-01 5.628e-01 2.002e-01 2.553e-01 0.216
+--------------------------------------------------------------------------------
+5 LS transitions.
+--------------------------------------------------------------------------------
+
+Z=9
+--------------------------------------------------------------------------------
+ Z  n       EL            EU        SL(v)     SL(V)     gf(L)    gf(V)   Error
+--------------------------------------------------------------------------------
+
+2s(2).2p(3)2D3_2D             2s.2p(4)1D2_2D                
+ 9 4 -97.57488622 -96.77120502 2.842e+00 2.856e+00 1.523e+00 1.530e+00 0.005
+
+2s(2).2p(3)2D3_2D             2s.2p(4)3P2_2P                
+ 9 4 -97.57488622 -96.50868555 3.469e+00 3.519e+00 2.466e+00 2.501e+00 0.014
+
+2s(2).2p(3)2P1_2P             2s.2p(4)1D2_2D                
+ 9 4 -97.49544906 -96.77120502 4.893e-01 5.212e-01 2.363e-01 2.517e-01 0.061
+
+2s(2).2p(3)2P1_2P             2s.2p(4)1S0_2S                
+ 9 4 -97.49544906 -96.59546337 9.783e-01 9.638e-01 5.869e-01 5.783e-01 0.015
+
+2s(2).2p(3)2P1_2P             2s.2p(4)3P2_2P                
+ 9 4 -97.49544906 -96.50868555 8.834e-01 9.426e-01 5.811e-01 6.201e-01 0.063
+--------------------------------------------------------------------------------
+5 LS transitions.
+--------------------------------------------------------------------------------
+</PRE>
+
+<P>
+The LS convergence may considerably improve upon increasing n (provided 
+that the computational model is accurate). A complete set of  
+<TT>LS</TT> results which include <TT>n=4,5,6,7</TT> can be found at:
+<TT>www.vuse.vanderbilt.edu/cff/mchf_collection</TT>
+
+<P>
+
+<H2><A NAME="SECTION00333000000000000000">
+<TT>LSJ</TT> Energies</A>
+</H2> The <TT>LSJ</TT> Eigenvectors are computed
+using a set of 3 programs. <TT>bp_ang</TT> computes the non-relativistic 
+angular data which is invariant with Z. Next, for each <TT>Z</TT> 
+<TT>bp_mat</TT> computes the interaction matrix and  <TT>bp_eiv</TT>
+computes the eigenvector. 
+
+<P>
+
+<H2><A NAME="SECTION00334000000000000000">
+<TT>LSJ</TT> Transitions</A>
+</H2> The <TT>LSJ</TT> transitions require a 
+complete set of *.c *.w and *.j files for both: the initial and 
+final state. Each transition is saved in a separate *.ls file in     
+the directory <TT>LSJ</TT>.
+<PRE>
+-rw-r--r--    1 georgio  georgio     11738 Aug 19 19:15 LSJ/E1.O1.8.lsj
+-rw-r--r--    1 georgio  georgio     11738 Aug 19 19:15 LSJ/E1.O1.9.lsj
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00335000000000000000">
+Forbidden Transitions</A>
+</H2>
+Either of <TT>biotr or trans</TT> may be used to compute the forbidden transition.
+<TT>biotr</TT> uses a newer method for storing the angular data and 
+executes faster. After completion <TT>biotr</TT> will leave the following 
+<TT>*.lsj</TT> files in the directory <TT>LSJ</TT>.
+<PRE>
+-rw-r--r--    1 georgio  users        9407 Sep 25 00:01 F_E2_E1.E1.8.lsj
+-rw-r--r--    1 georgio  users       16733 Sep 25 00:01 F_E2_E1.E1.9.lsj
+-rw-r--r--    1 georgio  users        6743 Sep 25 00:02 F_E2_O1.O1.8.lsj
+-rw-r--r--    1 georgio  users        6743 Sep 25 00:02 F_E2_O1.O1.9.lsj
+-rw-r--r--    1 georgio  users        7409 Sep 25 00:03 F_M1_E1.E1.8.lsj
+-rw-r--r--    1 georgio  users       14735 Sep 25 00:03 F_M1_E1.E1.9.lsj
+-rw-r--r--    1 georgio  users        6077 Sep 25 00:05 F_M1_O1.O1.8.lsj
+-rw-r--r--    1 georgio  users        6077 Sep 25 00:05 F_M1_O1.O1.9.lsj
+-rw-r--r--    1 georgio  users        9407 Sep 25 00:08 F_M2_O1.E1.8.lsj
+-rw-r--r--    1 georgio  users       12404 Sep 25 00:09 F_M2_O1.E1.9.lsj
+</PRE>
+
+<P>
+Finally, <TT>sh_tables</TT> tabulates the computed data in several files:
+Energy data and lifetimes are stored in <TT>*-lev.dat</TT> and the 
+transition data, which is tabulated from the <TT>*.j and *.lsj</TT> is 
+stored in <TT>*-lin.dat</TT>. The table below shows the excitation 
+energies and the lifetimes after the last script <TT>sh_tables</TT>. 
+
+<P>
+<PRE>
+Z = 8  Energy levels and lifetimes for O II : N-like  (7 electrons).
+  Rydberg constant is = 109733.5522
+--------------------------------------------------------------------------------
+Configuration                 Term J   Energy Total  Levels Splitting  Lifetimes
+                                          (a.u.)      cm^-1   cm^-1        s    
+--------------------------------------------------------------------------------
+
+2s(2).2p(3)              4S  3/2  -74.54466851   
+2s(2).2p(3)              2D  5/2  -74.41892491    27596.58          1.0823E+04 
+                             3/2  -74.41882951    27617.52   20.94  2.9088E+03 
+2s(2).2p(3)              2P  3/2  -74.35654274    41287.42          2.2079E+00 
+                             1/2  -74.35652224    41291.92    4.50  2.8168E+00 
+2s.2p(4)3P2              4P  5/2  -73.99552981   120517.88          1.1329E-09 
+                             3/2  -73.99479693   120678.72  160.84  1.1278E-09 
+                             1/2  -73.99442941   120759.38  241.50  1.1253E-09 
+2s.2p(4)1D2              2D  5/2  -73.77952143   167924.61          4.1398E-10 
+                             3/2  -73.77948918   167931.69    7.08  4.1311E-10 
+2s.2p(4)1S0              2S  1/2  -73.64006121   198531.54          1.7691E-10 
+
+--------------------------------------------------------------------------------
+</PRE>
+
+<P>
+The result are at <TT>n = 4</TT>
+and they are less accurate compared to calculation using the same
+computational model but considerably
+larger expansions of the configuration lists <TT>n = 7</TT> 
+&nbsp;<A HREF="#NO_paper"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/usr/share/latex2html/icons/crossref.png"></A> and &nbsp;<A HREF="#Website"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/usr/share/latex2html/icons/crossref.png"></A>. 
+
+<P>
+<PRE>
+Z = 8  Energy levels and lifetimes for O II : N-like  (7 electrons).
+  Rydberg constant is = 109733.5522
+--------------------------------------------------------------------------------
+Configuration                 Term J   Energy Total  Levels Splitting  Lifetimes
+                                          (a.u.)      cm^-1   cm^-1        s    
+--------------------------------------------------------------------------------
+
+2s(2).2p(3)4S3              4S   3/2 -74.551394060                     
+
+2s(2).2p(3)2D3              2D   5/2 -74.428265260  27022.72          1.3391e+05
+                                 3/2 -74.428175520  27042.42    19.69 6.9843e+03
+
+2s(2).2p(3)2P1              2P   3/2 -74.366517290  40574.37          1.2375e+01
+                                 1/2 -74.366505540  40576.95     2.58 3.0891e+01
+
+2s.2p(4)3P2                 4P   5/2 -74.004265810  120076.7          1.1684e-09
+                                 3/2 -74.003535020  120237.0   160.38 1.1631e-09
+                                 1/2 -74.003168170  120317.5   240.90 1.1604e-09
+
+2s.2p(4)1D2                 2D   5/2 -73.792071530  166646.3          4.4290e-10
+                                 3/2 -73.792039970  166653.2     6.93 4.4192e-10
+
+2s.2p(4)1S0                 2S   1/2 -73.655737500  196567.2          1.8842e-10
+
+--------------------------------------------------------------------------------
+</PRE>
+
+<P>
+For Z = 9 the calculated energies at n=4 are:
+<PRE>
+  Energy levels and lifetimes for  N-like  F (Z  =  9). 
+  Rydberg constant is  109734.14635
+--------------------------------------------------------------------------------
+Configuration             Term J    Energy Total   Levels  Splitting  Lifetimes
+                                     (a.u.)       (cm^-1)  (cm^-1)      (s) 
+--------------------------------------------------------------------------------
+
+2s(2).2p(3)              4S  3/2  -97.81761021   
+2s(2).2p(3)              2D  5/2  -97.65839985    34941.63          2.7467E+03 
+                             3/2  -97.65824209    34976.25   34.62  4.7914E+02 
+2s(2).2p(3)              2P  3/2  -97.57872612    52427.48          7.6882E-01 
+                             1/2  -97.57870049    52433.11    5.63  1.3035E+00 
+2s.2p(4)3P2              4P  5/2  -97.12234620   152588.41          7.5663E-10 
+                             3/2  -97.12082933   152921.31  332.91  7.5126E-10 
+                             1/2  -97.12004810   153092.77  504.36  7.4851E-10 
+2s.2p(4)1D2              2D  5/2  -96.85121653   212092.77          2.7818E-10 
+                             3/2  -96.85114662   212108.11   15.34  2.7719E-10 
+2s.2p(4)1S0              2S  1/2  -96.67541751   250675.08          1.2962E-10 
+2s.2p(4)3P2              2P  3/2  -96.58900785   269639.26          5.4901E-11 
+                             1/2  -96.58727430   270019.72  380.46  5.4858E-11 
+
+--------------------------------------------------------------------------------
+</PRE>
+
+<P>
+A comparison with accurately computed data (posted on the MCHF Web site),
+shows that at <TT>n=4</TT>, the results for Z=9 are slightly better
+than the same for  Z = 8, which shows higher sensitivity of the lower
+atomic number to the computational model:
+<PRE>
+Z = 9  Energy levels and lifetimes for F III : N-like  (7 electrons).
+  Rydberg constant is = 109734.1464
+--------------------------------------------------------------------------------
+Configuration                 Term J   Energy Total  Levels Splitting  Lifetimes
+                                          (a.u.)      cm^-1   cm^-1        s    
+--------------------------------------------------------------------------------
+
+2s(2).2p(3)4S3              4S   3/2 -97.824624380                     
+
+2s(2).2p(3)2D3              2D   5/2 -97.668142190  34342.88          2.4569e+04
+                                 3/2 -97.667992890  34375.65    32.77 1.0642e+03
+
+2s(2).2p(3)2P1              2P   3/2 -97.589097640  51690.65          2.2677e+00
+                                 1/2 -97.589084120  51693.62     2.97 5.6544e+00
+
+2s.2p(4)3P2                 4P   5/2 -97.130993260  152230.0          7.7098e-10
+                                 3/2 -97.129480130  152562.1   332.08 7.6548e-10
+                                 1/2 -97.128700850  152733.1   503.11 7.6264e-10
+
+2s.2p(4)1D2                 2D   5/2 -96.862946820  211057.7          2.8708e-10
+                                 3/2 -96.862883060  211071.7    13.99 2.8603e-10
+
+2s.2p(4)1S0                 2S   1/2 -96.688982340  249237.4          1.3445e-10
+
+2s.2p(4)3P2                 2P   3/2 -96.603193650  268065.3          5.6987e-11
+                                 1/2 -96.601469960  268443.6   378.30 5.6929e-11
+--------------------------------------------------------------------------------
+</PRE>
+
+<P>
+The user
+can accomplish higher accuracy by performing extended runs which will 
+include <TT>n=5,6,7</TT>.  However, this would place considerable 
+demands with respect to time and memory because of 5-fold increase of the
+number of configurations. (Configuration lists are included for
+up to <TT>n=7</TT> and the original data shown in the second table is at
+<TT>n=7</TT>). It is appropriate to use the MPI version for <TT>n &lt; 4</TT>,
+and scripts for extending this calculation up to <TT>n=7</TT> are
+included. 
+
+<P>
+
+<H1><A NAME="SECTION00340000000000000000">
+MPI tests</A>
+</H1>
+In addition to scripts for serial tests, the corresponding
+tests are described for the parallel version of the programs.
+The scripts for parallel calculation have "mpi" in the 
+scriptname, they test <TT>atsp2K</TT> on larger cases, <TT>n=4,5,6,7</TT>
+
+<P>
+<PRE>
+E1/sh_mchf_E1_mpi_ibmSP # mchf in parallel on ibm/SP
+E1/sh_mchf_E1_mpi_linux #mchf in parallel on Linux
+O1/sh_mchf_O1_mpi_ibmSP  #  IBM/SP
+O1/sh_mchf_O1_mpi_linux  #  Linux:
+LSJ/sh_bp_mpi_ibmSP      # IBM/SP: BP calculation in parallel
+LSJ/sh_bp_mpi_linux      # Linux: BP calculation in parallel
+</PRE>
+
+<P>
+MPI tests are provided for <TT>nonh_mpi, mchf_mpi, bp_ang_mpi, 
+bp_mat_mpi, and bp_eiv_mpi</TT>. The test repeat the serial 
+calculation previously described and includes <TT>n=5,6,7</TT>. 
+
+<P>
+Because of different
+system requirements, there is a significant difference between 
+<TT>seaborg and linux</TT> in using the MPI programs. Computing in
+parallel also shows significant difference compared to
+the serial versions.  
+Thus, a separate set of scripts is provided for computing 
+on <TT>seaborg</TT> and  the Linux cluster.
+
+<P>
+
+<H2><A NAME="SECTION00341000000000000000">
+Linux cluster.</A>
+</H2> The linux cluster has 4 nodes: 
+<TT>hf5, hf6, hf7, hf8</TT>.  Each node has a user partition 
+<TT>/home</TT>, on which the user keeps 
+permanent files, and a temporary partition <TT>/tmp</TT>, which
+may be used  for 
+processing large temporary files. The users are 
+expected to store data files in a <TT>/tmp/$USER</TT> 
+directory.  The files are created with a mode <TT>744</TT>,  which
+allows any user to erase any files upon need without being the
+owner or  <TT>root</TT>. The MPI runs can be started from any directory, 
+but it is preferable to have the starting directory 
+in the home directory. The important files, which may 
+be needed in further stages of the <TT>atsp</TT> calculation 
+should reside in a permanent location.
+Files, containing only temporary data and related only to the current
+calculation, are stored on <TT>/tmp/$USER</TT>. 
+An MPI run can be started on each node, however the scripts 
+which are provided with the installation, require <TT>hf7</TT> to
+be the starting (master) node and <TT>hf6</TT>
+as a slave. Nodes <TT>hf5 and hf8</TT> can be included after 
+a proper modification of the process files. Other node can be used
+as a starting node, but this also require modification of the 
+process files. 
+
+<P>
+Directory <TT>E1 and O1</TT> provide <TT>sh_mchf_E1_mpi_linux 
+and sh_mchf_O1_mpi_linux</TT> which may used to compute the first 
+even and odd groups (<TT>E1, O1</TT>). The MPI calculations on the 
+linux cluster are started by:
+<PRE>
+cd atsp2K/run/N_like/
+./sh_ALL_mpi_linux
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00342000000000000000">
+IBM/SP:</A>
+</H2> seaborg is different in that it has very large 
+scratch storage space located in: <TT>/scratch/scratchdirs</TT>. 
+Each user is expected to create a <TT>$USER</TT>
+subdirectory in the temporary space. The temporary space allows 
+for very fast disk access. All extensive I/O calculations are 
+recommended to be processed there. The MPI programs create a subdirectory 
+<TT>tmp_mpi</TT> in the starting directory and keep in this
+location all temporary files. 
+
+<P>
+After compiling the sources the user can test the installation
+with the script <TT>ll_bp</TT> which is in directory <TT>atsp2K/run/N_like</TT>.
+The script can be started interactively :
+<PRE>
+% ./ll_bp
+</PRE>
+or, alternatively submitted to the batch processing system with: 
+<PRE>
+% llsubmit ll_bp
+subfilter: default repo mp52 will be charged
+llsubmit: Processed command file through Submit Filter: "/usr/common/nsg/etc/subfilter".
+llsubmit: The job "s03513.nersc.gov.531" has been submitted.
+</PRE>
+It is prfereable to use the batch system. Please note that the 
+batch job is submitted with a "premium" priority and the job will
+run immediately on the next available nodes. This is only for 
+testing purposes and "regular" priority should be used  for mass 
+production.
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html208"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html204"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html198"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html206"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html209"
+  HREF="node4.html">Computing Atomic Transitions</A>
+<B> Up:</B> <A NAME="tex2html205"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html199"
+  HREF="node2.html">Contents</A>
+ &nbsp <B>  <A NAME="tex2html207"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

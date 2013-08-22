@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The subroutine SIXJ</TITLE>
+<META NAME="description" CONTENT="The subroutine SIXJ">
+<META NAME="keywords" CONTENT="ang">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ang.css">
+
+<LINK REL="next" HREF="node17.html">
+<LINK REL="previous" HREF="node15.html">
+<LINK REL="up" HREF="node8.html">
+<LINK REL="next" HREF="node17.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html250"
+  HREF="node17.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html248"
+  HREF="node8.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html242"
+  HREF="node15.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html251"
+  HREF="node17.html">The subroutine NINE</A>
+<B> Up:</B> <A NAME="tex2html249"
+  HREF="node8.html">SAI_SQLS1</A>
+<B> Previous:</B> <A NAME="tex2html243"
+  HREF="node15.html">The subroutine C1E1SM</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00042800000000000000">
+The subroutine SIXJ</A>
+</H3>
+
+<P>
+This routine determines the value of the <TT>6j</TT>- coefficients:
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\left\{
+\begin{array}{ccc}
+I/2 & J/2 & K/2 \\
+L/2 & M/2 & N/2
+\end{array}
+\right\}.
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:sixj"></A><IMG
+ WIDTH="365" HEIGHT="45" BORDER="0"
+ SRC="img373.png"
+ ALT="\begin{displaymath}
+\left\{
+\begin{array}{ccc}
+I/2 &amp; J/2 &amp; K/2 \\
+L/2 &amp; M/2 &amp; N/2
+\end{array}\right\}.
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(32)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+The subroutine has the input arguments <TT>I</TT>, 
+<TT>J</TT>, <TT>K</TT>, <TT>L</TT>, <TT>M</TT>, <TT>N</TT>, <TT>ITIK</TT> and
+output argument <TT>SI</TT>. If the parameter <TT>ITIK=0</TT>, the subroutine does not
+check the triangular conditions for <TT>6j</TT>- coefficient. In other cases it
+checks these. If any of the parameters of <TT>6j</TT>- coefficient is equal to
+<TT>0</TT>, <TT>1/2</TT>, <TT>1</TT>, <TT>3/2</TT>, <TT>2</TT>, 
+<TT>3</TT>, <TT>4</TT>, the subroutine
+calculates the <TT>6j</TT>- coefficients according to analytical formulas.
+Otherwise, the customary calculations are performed. In that case, the
+COMMON block /FACT/ must be defined. This is done by addressing the
+SUBROUTINE FACTRL from the library <B>MCHF_LIB_COM</B> [<A
+ HREF="node42.html#Fbook">1</A>,<A
+ HREF="node42.html#F">11</A>].
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2001-12-07
+</ADDRESS>
+</BODY>
+</HTML>

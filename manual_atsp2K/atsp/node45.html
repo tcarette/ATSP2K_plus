@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>I/O Files</TITLE>
+<META NAME="description" CONTENT="I/O Files">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node46.html">
+<LINK REL="previous" HREF="node44.html">
+<LINK REL="up" HREF="node44.html">
+<LINK REL="next" HREF="node46.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html841"
+  HREF="node46.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html837"
+  HREF="node44.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html831"
+  HREF="node44.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html839"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html842"
+  HREF="node46.html">Parallel routines</A>
+<B> Up:</B> <A NAME="tex2html838"
+  HREF="node44.html">MPI version</A>
+<B> Previous:</B> <A NAME="tex2html832"
+  HREF="node44.html">MPI version</A>
+ &nbsp <B>  <A NAME="tex2html840"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00731000000000000000">
+I/O Files</A>
+</H2>
+The files which are used or created by <TT>mpi_nonh and mpi_mchf</TT> 
+can be divided into:
+
+<OL>
+<LI>Common files for all nodes, with a single copy
+<TT>cfg.inp</TT> stores the configuration lists. Node <TT>0</TT> 
+creates and writes on a <TT>cfg.inp</TT> file general information
+about the problem, it is similar to the serial version. 
+<PRE>
+-rw-r--r--    1 georgio  georgio       252 Sep 20 00:35 cfg.h
+-rw-r--r--    1 georgio  georgio    114019 Sep 20 00:34 cfg.inp
+</PRE>
+
+<P>
+</LI>
+<LI>Node dependent files, with a copy per node
+Each node creates a file with a basename which is the same as in the
+serial version, with an additional suffix. The suffix is a string
+which shows the node <TT>ID</TT>. All
+files are written into a temporary directory and the 
+processor ID is the most convenient way for referring to each file.
+Note, that this method <I>ensures</I> that both applications, 
+<TT>nonh_mpi and mchf_mpi</TT> refer to precisely the same file 
+as the node <TT>ID</TT>. This is important for using parallel 
+environments which do not explicitly specify the processor nodes. 
+<PRE>
+-rw-r--r--    1 georgio  georgio   6619380 Sep 20 00:35 c.lst.000
+-rw-r--r--    1 georgio  georgio    863484 Sep 20 00:35 ico.lst.000
+-rw-r--r--    1 georgio  georgio    393736 Sep 20 00:35 ih.lst.000
+-rw-r--r--    1 georgio  georgio     16760 Sep 20 00:35 yint.lst.000
+</PRE>
+</LI>
+</OL>
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

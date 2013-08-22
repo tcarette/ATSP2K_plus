@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Introduction</TITLE>
+<META NAME="description" CONTENT="Introduction">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node43.html">
+<LINK REL="previous" HREF="node41.html">
+<LINK REL="up" HREF="node41.html">
+<LINK REL="next" HREF="node43.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html805"
+  HREF="node43.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html801"
+  HREF="node41.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html795"
+  HREF="node41.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html803"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html806"
+  HREF="node43.html">Program Structure</A>
+<B> Up:</B> <A NAME="tex2html802"
+  HREF="node41.html">NONH</A>
+<B> Previous:</B> <A NAME="tex2html796"
+  HREF="node41.html">NONH</A>
+ &nbsp <B>  <A NAME="tex2html804"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00710000000000000000">
+Introduction</A>
+</H1>
+
+<P>
+The function of <TT>nonh</TT> is to produce data needed by 
+<TT>mchf</TT> for deriving the multiconfigurational Hartree-Fock 
+equations, and for generating the interaction matrix [#!book!#]. 
+The wave function expansion are expressed as:
+
+<P>
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\Psi(\gamma LS) = \sum_i^M c_i \Phi(\gamma_i, LS), {\mbox{where}}
+\sum_i^M c_i^2 =1.
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="433" HEIGHT="56" BORDER="0"
+ SRC="img38.png"
+ ALT="\begin{displaymath}
+\Psi(\gamma LS) = \sum_i^M c_i \Phi(\gamma_i, LS), {\mbox{where}}
+\sum_i^M c_i^2 =1.
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(4)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+Then, by definition, the interaction matrix <!-- MATH
+ ${\bf H} = (H_{ij})$
+ -->
+<IMG
+ WIDTH="78" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img39.png"
+ ALT="${\bf H} = (H_{ij})$">, 
+can be computed as (see &nbsp;[#!book!#], page 74):
+
+<P>
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+H_{ij} =  \sum_{ab}w_{ab}^{ij} I(a,b) + 
+          \sum_{abcd;k} v_{abcd;k}^{ij}R^k(ab,cd).
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="438" HEIGHT="47" BORDER="0"
+ SRC="img40.png"
+ ALT="\begin{displaymath}
+H_{ij} = \sum_{ab}w_{ab}^{ij} I(a,b) +
+\sum_{abcd;k} v_{abcd;k}^{ij}R^k(ab,cd).
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(5)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+Where,  sum on <IMG
+ WIDTH="21" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img41.png"
+ ALT="$ab$"> or <IMG
+ WIDTH="37" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img42.png"
+ ALT="$abcd$"> is a sum over occupied 
+orbitals in either the initial or final states (<!-- MATH
+ $\Phi(\gamma_j LS)$
+ -->
+<IMG
+ WIDTH="66" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img43.png"
+ ALT="$\Phi(\gamma_j LS)$">), 
+<IMG
+ WIDTH="20" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img44.png"
+ ALT="${\cal H}$"> is the non-relativistic Hamiltonian, <IMG
+ WIDTH="49" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img45.png"
+ ALT="$I(a,b)$"> are integrals
+arising from the kinetic energy operator of the Hamiltonian 
+and <IMG
+ WIDTH="76" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img46.png"
+ ALT="$R^k(ab,cd)$"> are Slater integrals 
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Parallel atsp2K on IBM/SP</TITLE>
+<META NAME="description" CONTENT="Parallel atsp2K on IBM/SP">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="previous" HREF="node26.html">
+<LINK REL="up" HREF="node26.html">
+<LINK REL="next" HREF="node29.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html625"
+  HREF="node29.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html621"
+  HREF="node26.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html617"
+  HREF="node27.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html623"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html626"
+  HREF="node29.html">Data analysis</A>
+<B> Up:</B> <A NAME="tex2html622"
+  HREF="node26.html">Parallel atsp2K</A>
+<B> Previous:</B> <A NAME="tex2html618"
+  HREF="node27.html">Parallel atsp2K on Linux</A>
+ &nbsp <B>  <A NAME="tex2html624"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00491000000000000000">
+Parallel <TT>atsp2K</TT> on IBM/SP</A>
+</H2>
+<TT>seaborg</TT> uses <I>poe</I> (A Parallel
+Operating Environment) for management of MPI jobs and each
+MPI application is called by poe. In addition to the name of the
+application, <TT>poe</TT> requires the number of
+nodes and processors as arguments:
+
+<P>
+<PRE>
+poe ${ATSP}/bin/nonh_mpi \
+        -nodes ${NN} -procs ${NP}  # fur ibmSP use poe
+poe ${ATSP}/bin/mchf_mpi -nodes ${NN} -procs ${NP} \
+               &gt; out_${s}.${Z}-${n} &lt;&lt; EOF
+</PRE>
+
+<P>
+and <TT>bp_ang_mpi, bp_mat_mpi, and bp_eiv_mpi</TT>:
+<PRE>
+poe ${ATSP}/bin/bp_ang_mpi -nodes ${NN} -procs ${NP} \
+                     &lt;in_ang_${D}  # generate angular data
+poe ${ATSP}/bin/bp_mat_mpi -nodes ${NN} -procs ${NP} \
+                     &lt;in_mat_${D}   #  compute all contributions
+poe ${ATSP}/bin/bp_eiv_mpi -nodes ${NN} -procs ${NP} \
+                     &lt;in_eiv_${D}_${Z}   #  compute eigenvectors
+</PRE>
+
+<P>
+In addition to the variable <TT>$ATSP</TT> (described in the beginning
+of this section), each script uses a number of local variables
+<TT>s, Z, n, NN, NP</TT>.
+
+<P>
+In order to run batch jobs, the user will need to address
+several issues:
+
+<P>
+
+<OL>
+<LI>Proper setup of the environment. This is accomplished with
+editing <TT>.cshrc.ext</TT> in the <TT>$HOME</TT> directory. The
+minimum <TT>.cshrc.ext</TT> is shown below:
+
+<P>
+<PRE>
+# start .cshrc
+if ($?tcsh) then
+# start .cshrc.ext
+
+if ($?tcsh) then
+   set modules_shell="tcsh"
+else
+   set modules_shell="csh"
+endif
+#alias module 'eval `/opt/modules/modules/bin/modulecmd $modules_shell \!*`'
+
+set path = ( $path /u2/georgio/SPII/atsp2K/bin \
+                   /u2/georgio/graspVU/bin \
+                   ${HOME}/atsp2K/bin )
+
+
+source /usr/common/usg/Modules/3.1.1/init/csh #initialize module env
+module load gnu KCC       # load modules 
+# put any user defined aliases here
+setenv FC "xlf"           # the fortran compiler
+setenv FC_MPI "mpxlf"     # FORTRAN compiler for MPI
+setenv FFLAGS "-O3 "      # FORTRAN flags
+setenv MALLOC ibmSP       # memory allocation routines
+setenv MPI_FFLAGS         #
+setenv LDFLAGS            #
+setenv CC KCC             #
+setenv CCFLAGS "-O3"      #
+setenv lapack "/usr/common/usg/LAPACK/3.0a/lapack_SP.a"  #
+setenv blas
+setenv ATSP ${HOME}/atsp2K    # this can be set to /usr/common/homes/g/georgio/atsp2K"
+#setenv XLFRTEOPTS "buffering=disable_all"  # a debugging option, slows down the appl
+
+alias   l        'ls -l'
+alias   ll       'ls -la'
+alias   vim      'vi Makefile'
+alias   cds      'cd /scratch/scratchdirs/${USER}/'
+alias   llh      'llqs | head -30'
+alias   llg      'llqs | grep ${USER}'
+
+# end .cshrc.ext
+</PRE>
+
+<P>
+</LI>
+<LI>Use the command <TT>llsubmit</TT> and a special batch
+script to submit jobs. The MPI tests are started with:
+<PRE>
+cd atsp2K/run/N_like/
+llsubmit ll_bp
+</PRE>
+
+<P>
+<TT>"llsubmit ll_bp"</TT>, will submit the script ll_bp to
+the batch queue. <TT>ll_bp</TT> is only an initializing script.
+It defines a number of parameters required for batch jobs, and
+it contains the following information:
+<PRE>
+#!/usr/bin/csh
+#@ job_name        = mpi_test         # job identifier
+#@ output          = mpi_test.out     # where stdout is redirected
+#@ error           = mpi_test.err     # stderr
+#@ job_type        = parallel         # parallel job
+#@ class           = premium          # regular, premium, debug
+#@ environment     = COPY_ALL         # use the env variables
+#@ tasks_per_node  = 16               #
+#@ node            = 2                #
+#@ wall_clock_limit= 0:60:00          #
+#@ notification    = never            #
+#@ network.MPI     = css0,not_shared,us  #
+#@ node_usage      = not_shared          #
+#@ queue
+
+cd /scratch/scratchdirs/georgio/atsp2K/run/N_like
+echo "changed directory to " `pwd`
+echo "starting script po_breit at " `date` " ..."
+./sh_ALL_mpi_ibmSP
+echo " time is: " `date`
+echo "  at " `date` " script po_breit finished!"
+</PRE>
+
+<P>
+After submitting the job, the system responds with:
+
+<P>
+<PRE>
+% llsubmit ll_bp
+subfilter: default repo mp52 will be charged
+llsubmit: Processed command file through Submit Filter: "/usr/common/nsg/etc/subfilter".
+llsubmit: The job "s03513.nersc.gov.531" has been submitted.
+</PRE>
+
+<P>
+</LI>
+<LI>Monitoring the queue and job progress.
+To check if the job has been correctly submitted type:
+<PRE>
+% llstat | grep ${USER}
+s03513.531.0     mpi_test        georgio  premium I    2 01:00:00  9/30 09:47
+</PRE>
+The first table entry is the node from which the job has been
+submitted. Next entry is the job identifier, then the user. The
+job priority is shown as a <TT>premium</TT>. Normally, the jobs are
+submitted with <TT>regular</TT> priority. For debugging this entry
+is <TT>debug</TT>. The status of the job is showed by <TT>I</TT>, which
+means the job is in the queue. Running jobs have an <TT>R</TT> entry.
+The number of requested nodes (2) and remaining time, which
+is equal to the requested, for jobs not yet running, (1 hr) are
+shown after the job status. The last two entries are the
+date and time submitted.  The user may cancel the job by
+sending <TT>"llcancel s03513.531"</TT>. Occasionally, it is helpful
+to monitor the status of the queue: <TT>llqs | head 30</TT> gives
+the first 30 jobs:
+
+<P>
+<PRE>
+% llqs | head -20
+Step Id          JobName         UserName  Class  ST NDS WallClck Submit Time
+---------------- --------------- -------- ------- -- --- -------- -----------
+s02901.470.0     xCmod1          xu       regular R    4 07:56:22  9/25 14:00
+s02813.471.0     s02813.nersc.go kogut    regular R    4 03:20:57  9/26 06:13
+s02901.475.0     s02901.nersc.go kogut    regular R    4 03:36:22  9/26 06:16
+....
+</PRE>
+
+<P>
+The user may monitor a running job by inspecting the <TT>stderr, stdout</TT>
+files, which have been redirected to <TT>mpi_test.err and mpi_test.out</TT>.
+
+<P>
+</LI>
+</OL>
+
+<P>
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html625"
+  HREF="node29.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html621"
+  HREF="node26.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html617"
+  HREF="node27.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html623"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html626"
+  HREF="node29.html">Data analysis</A>
+<B> Up:</B> <A NAME="tex2html622"
+  HREF="node26.html">Parallel atsp2K</A>
+<B> Previous:</B> <A NAME="tex2html618"
+  HREF="node27.html">Parallel atsp2K on Linux</A>
+ &nbsp <B>  <A NAME="tex2html624"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

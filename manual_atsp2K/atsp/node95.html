@@ -1,0 +1,291 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>hf</TITLE>
+<META NAME="description" CONTENT="hf">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node96.html">
+<LINK REL="previous" HREF="node94.html">
+<LINK REL="up" HREF="node91.html">
+<LINK REL="next" HREF="node96.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1475"
+  HREF="node96.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1471"
+  HREF="node91.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1465"
+  HREF="node94.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1473"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1476"
+  HREF="node96.html">levels</A>
+<B> Up:</B> <A NAME="tex2html1472"
+  HREF="node91.html">Utility programs</A>
+<B> Previous:</B> <A NAME="tex2html1466"
+  HREF="node94.html">condens</A>
+ &nbsp <B>  <A NAME="tex2html1474"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001640000000000000000">
+hf</A>
+</H1>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><B>Input files: </B></TD>
+<TD ALIGN="LEFT"><TT>wfn.inp</TT>, optional</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><B>Output files: </B></TD>
+<TD ALIGN="LEFT"><TT>wfn.out</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><B>Reference: </B></TD>
+<TD ALIGN="LEFT">Froese Fischer C 1987 <I>Computer Phys. Commun.</I>
+<B>43</B> 355</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">Gaigalas G and Froese Fischer C 1996</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><I>Computer Phys.  Commun.</I> <B>98</B> 255</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+</TABLE>
+
+<P>
+This program has some built-in help features. By entering <TT>H</TT> (or <TT>h</TT>)
+a brief summary of possible responses is provided.
+<BR> 
+<BR>
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><TT>ATOM</TT></TD>
+<TD ALIGN="LEFT">1-6 character label for the calculation</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>TERM</TT></TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="28" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img59.png"
+ ALT="$LS$"> term value or "AV" or "av" (for average
+energy)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>Z</TT></TD>
+<TD ALIGN="LEFT">Atomic number, real;  non-integers are allowed.</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>S</TT></TD>
+<TD ALIGN="LEFT">screening parameter for the orbital</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>IND</TT></TD>
+<TD ALIGN="LEFT">&nbsp;&nbsp;0 - use screened hydrogenic functions as initial estimates</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;&nbsp;1 - leave radial function unchanged (already in memory)</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="26" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img149.png"
+ ALT="$-1$"> - search for function in <TT>wfn.inp</TT>;
+          otherwise same as 0</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>ACC</TT></TD>
+<TD ALIGN="LEFT">accelerating parameter (see HF-acc)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>NO</TT></TD>
+<TD ALIGN="LEFT">maximum number of points in the range of the function (<IMG
+ WIDTH="47" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img150.png"
+ ALT="$\le 220$">)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>STRONG</TT></TD>
+<TD ALIGN="LEFT">if true,  orthogonalize after each orbital update (see
+HF-strong.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">Enter <TT>t</TT> for true, <TT>f</TT> for false</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>PRINT</TT></TD>
+<TD ALIGN="LEFT">If <TT>t</TT>(true) radial functions are printed</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>SCFTOL</TT></TD>
+<TD ALIGN="LEFT">initial value of the self-consistency
+criterion</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>NSCF</TT></TD>
+<TD ALIGN="LEFT">the maximum number of SCF cycles.</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>IC</TT></TD>
+<TD ALIGN="LEFT">number of orbitals to be updated using the least
+self-consistent</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">criteria.</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>TRACE</TT></TD>
+<TD ALIGN="LEFT">If <TT>t</TT> (true), detailed  information about the
+SCF energy adjust-</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">ment process is printed</TD>
+</TR>
+</TABLE>
+
+<P>
+A feature of the <TT>HF</TT> program is that the occupation
+numbers need not be integer. In order to study the <IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img151.png"
+ ALT="$2s - 2p$">
+transition in Be, for example, orbitals could be computed for
+the configuration <TT>2s(1.5)2p(0.5)</TT> in which case average energy
+calculations will be performed for
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+(1/2) \left[ E_{av}(2s^2) + E_{av}(2s2p)\right]
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="380" HEIGHT="30" BORDER="0"
+ SRC="img152.png"
+ ALT="\begin{displaymath}(1/2) \left[ E_{av}(2s^2) + E_{av}(2s2p)\right]\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+
+<P>
+Also, various expectation values may be printed at the end of
+a calculation. A sample input data line is given for each case
+and, ideally, the input should  be aligned with the sample.
+However, the format for the
+input is also  provided.  Here it is helpful to know the
+following format rules for a line of input. 
+<BR><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><TT>nX</TT></TD>
+<TD ALIGN="LEFT">skip <TT>n</TT> positions on the line (i.e. enter n blanks)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>An</TT></TD>
+<TD ALIGN="LEFT">the next <TT>n</TT> positions on the line will be
+interpreted as characters</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>In</TT></TD>
+<TD ALIGN="LEFT">the next <TT>n</TT> positions on the line will be
+interpreted as an integer</TD>
+</TR>
+</TABLE>
+<BR>
+More details can be found in any FORTRAN text.
+
+<P>
+It should also be remembered that <TT>HF</TT> is a program for
+simple cases: if there are two or more open shells, an <IMG
+ WIDTH="28" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img59.png"
+ ALT="$LS$">
+calculation may not be possible using <TT>HF</TT>.  Configurations of
+the form <IMG
+ WIDTH="52" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="img153.png"
+ ALT="$nl^w n's$"> generally are allowed, <IMG
+ WIDTH="40" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img154.png"
+ ALT="$l \le 3$">; configurations
+<IMG
+ WIDTH="53" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img155.png"
+ ALT="$np^w n'l$">, <IMG
+ WIDTH="40" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img156.png"
+ ALT="$l\le 2$"> may
+request information about the parent term for <IMG
+ WIDTH="34" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img157.png"
+ ALT="$np^w$">; CSFs
+of the form <IMG
+ WIDTH="53" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="img158.png"
+ ALT="$nd^w n'l$"> are not allowed except for <IMG
+ WIDTH="68" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="img159.png"
+ ALT="$n'l = n's$">;
+open <IMG
+ WIDTH="16" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img160.png"
+ ALT="$f$">-shells may have any occupation but, any other open
+shell may only be single <IMG
+ WIDTH="14" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img161.png"
+ ALT="$s$">-electron.  For more
+complex situations <TT>NONH</TT> and <TT>MCHF</TT> should be used,
+though these codes have not yet been extended to open
+<IMG
+ WIDTH="16" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img160.png"
+ ALT="$f$">-shells.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1475"
+  HREF="node96.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1471"
+  HREF="node91.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1465"
+  HREF="node94.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1473"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1476"
+  HREF="node96.html">levels</A>
+<B> Up:</B> <A NAME="tex2html1472"
+  HREF="node91.html">Utility programs</A>
+<B> Previous:</B> <A NAME="tex2html1466"
+  HREF="node94.html">condens</A>
+ &nbsp <B>  <A NAME="tex2html1474"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

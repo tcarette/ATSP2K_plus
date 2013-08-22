@@ -1,0 +1,657 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Computing the wave functions using MCHF</TITLE>
+<META NAME="description" CONTENT="Computing the wave functions using MCHF">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node22.html">
+<LINK REL="previous" HREF="node20.html">
+<LINK REL="up" HREF="node17.html">
+<LINK REL="next" HREF="node22.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html545"
+  HREF="node22.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html541"
+  HREF="node17.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html535"
+  HREF="node20.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html543"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html546"
+  HREF="node22.html">Computing LS transitions</A>
+<B> Up:</B> <A NAME="tex2html542"
+  HREF="node17.html">Computing Atomic Transitions</A>
+<B> Previous:</B> <A NAME="tex2html536"
+  HREF="node20.html">Optimization</A>
+ &nbsp <B>  <A NAME="tex2html544"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00440000000000000000">
+Computing the wave functions using <TT>MCHF</TT></A>
+</H1>
+In the MCHF approach, the first step is to find an
+approximate wave function for the initial and final states of
+an atomic system.  An energy criterion is used for this 
+purpose and once a wave function has been determined, then
+a number of atomic properties can be computed including  
+also relativistic effects.
+Figure &nbsp;<A HREF="node21.html#run1">2.2</A> is more a detailed version of Figure
+&nbsp;<A HREF="node18.html#atsp_general">2.1</A> and includes information about the
+applications and intermediate files in each major step.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="run1"></A><A NAME="1429"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2.2:</STRONG>
+
+Computing wave functions for the initial and final states. 
+Initially, <TT>hf</TT> gives
+an estimate for the <TT>n=3</TT>. The angular data is Z independent
+and for each <TT>n</TT> computed only once. For each Z <TT>mchf</TT> 
+computes the wave functions.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="453" HEIGHT="367" BORDER="0"
+ SRC="img27.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\epsfig{file=tex/fig/atsp_run1.epsi,width=10cm}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+Normally, an <TT>mchf</TT> calculation starts at <TT>n=3</TT>.
+In order to start the calculation with good initial
+estimates, an average energy Hartree-Fock calculation is performed.
+Providing initial estimates for <TT>n=3</TT> from <TT>hf</TT>  
+is an optional but a worthwhile step to
+ensure good initial estimates for the correlation calculation.
+The script below shows a way of using the <TT>hf</TT> program, the 
+comments on the right side explain the expected input:
+
+<P>
+<PRE>
+set -x
+
+# this script runs the Hartree-Fock program and for average energies
+# and saves the output wave function file in E1.${Z}_2.w, which
+# will be used as initial estimates at n=3 for the mchf calculation
+# the file shows runs for Z=8,9, for different Z the line below 
+# should be modified:
+
+for Z in  8 9 #10 11 12 13 14 15 16 17
+do
+   (echo
+   rm wfn.inp
+${ATSP}/bin/hf &lt;&lt;EOF
+N,AV,${Z}         # Atom label, Average energy, Atomic number
+  1s              # closed shells
+2s(1)2p(4)        # electrons outside closed shells
+all               # optimize on all orbitals
+y                 # default electron parameters
+y                 # default remaining parameters
+n                 # 
+n
+EOF
+   mv wfn.out E1.${Z}_2.w)    # wfn.out is moved
+done
+rm *log
+</PRE>
+
+<P>
+The script demonstrates the <TT>hf</TT> calculation only for 
+<TT>Z=8,9</TT>, however, it is easily extendible for higher <TT>Z</TT>.
+By default <TT>hf</TT> saves the resulting wave function in 
+a file <TT>wfn.out</TT> and the script further renames it to incorporate
+the group and atomic number in the file name. Since this file is used 
+as initial estimate for <TT>mchf</TT> at <TT>n=3</TT>, it is convenient to 
+use number 2 in the file name (the <TT>mchf</TT> script starts at n=3
+and expects an initial estimate from n=2). 
+
+<P>
+When a range of mchf calculations is desired, it is convenient to 
+encode the algorithm shown in Figure &nbsp;<A HREF="node21.html#run1">2.2</A> into a shell script. 
+In this case, the calculations for <TT>n=3,4,5,6,...</TT> and 
+for the desired set of atomic numbers <TT>Z=8,9,...</TT> are included.
+The script starts with assigning values for terms, eigenvalues,
+optimization of orbitals and other parameters as required by <TT>mchf</TT>. 
+Note that the main loop is over each <TT>n</TT> and 
+the internal loop for a given <TT>n</TT> is over each <TT>Z</TT>. 
+The script assumes all files are in the current directory, except 
+the configuration lists for the terms. 
+They are common to all groups and are located in a separate directory,
+<TT>file_c</TT>. An expansion for a given term has the
+name <TT>LSn.c</TT>.  For example, the expansion for <TT><IMG
+ WIDTH="26" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img28.png"
+ ALT="$^4P$"></TT> 
+and <TT>n=3</TT> has been
+saved in the file  <TT>files_c/4P3.c</TT>.  In order to avoid name conflicts 
+with even terms with the same LS, the odd parity is denoted as "o" in the 
+file name (<TT>4Po3.c</TT>).
+A script like the above assumes calculations are robust,
+that no errors are encountered. The user should inspect the output 
+for potential errors.
+
+<P>
+<PRE>
+set -x
+# Variables $a, $b, $c and $d correspond to the configuration
+# expansions for the 2s.2p(4)3P2 states, which are simultaneously
+# optimized and the group is named E1
+
+a=2S;
+b=2P;
+c=2D;
+d=4P;
+
+# the variable $o is used to include the parity in the file names saved
+# for further reference
+o=
+
+#the variables below are set equal to a string with the
+#desired eigenvalue and in a parenthesis the value of the
+#weights, note that the eigenvalues for a given term
+#are separated by comas. Example: EIG1='1(1.0),3(0.3),4(1.0)'
+EIG1='1(1.0)';
+EIG2='1(1.0)';
+EIG3='1(1.0)';
+EIG4='1(1.0)';
+
+# the variable $s refers to the name  of the states E1 (Even, 1-st group)
+s=E1;
+
+# variable n; f desired the calculation can be extended
+# up to n=7 by erasing the '#' character, configuration files are
+# provided
+for n in 3 4 #5 6 7
+do
+   (echo
+cat \
+../files_c/${a}${n}.c \
+../files_c/${b}${n}.c \
+../files_c/${c}${n}.c \
+../files_c/${d}${n}.c \
+&gt; cfg.inp;
+
+cp cfg.inp E${n}.c          # Make a copy of the configuration file
+
+#run nonh
+${ATSP}/bin/nonh
+
+# select orbitals to optimize and n iterations as a function of n
+# for example at n=4, 1s is kept fixed, n=5 1s,2s,2p are fixed etc.
+   case $n in
+        3)      ORB=all; NEW=all;;
+        4)      ORB==9;  NEW==4;;
+        5)      ORB==12; NEW==5;;
+        6)      ORB==14; NEW==5;;
+        7)      ORB==19; NEW==5;;
+   esac
+
+#delete previous wfn.inp files
+rm wfn.inp
+
+# the line below is used to assign the variable $previous_n=n-1
+# this variable is used to copy the wave function at n-1 to file
+# wfn.inp used as initial estimates at n
+   previous_n=`expr $n - 1`;
+
+#for each atomic number optimize the energy functional with mchf
+#here only Z=8 and Z=9 will be processed, the same procedure is
+#valid for the entire sequence
+
+for nat in 8 9
+do
+   (echo
+
+#use the wave function file at n-1 for initial estimates
+cp ${s}.${nat}_${previous_n}.w wfn.inp;
+
+${ATSP}/bin/mchf &gt; out_${s}.${Z}-${n} &lt;&lt; EOF
+Z=${nat}, ${nat}.
+${EIG1}             # eigenvalues for term a
+${EIG2}             # eigenvalues for term b
+${EIG3}             # eigenvalues for term c
+${EIG4}             # eigenvalues for term d
+${ORB}              # orbitals which will be optimized
+1s,2s,2p            # spectroscopic orbitals
+y                   # default electron parameters
+n                   # not default other parameters (iterations, etc)
+y                   # default values of
+n                   # non-default values of the convergence criteria
+F,10E-9,10E-9       # convergence criteria
+n                   # non-default number of scf iterations (default is 200)
+2000,0              # number of iterations
+y                   # default other parameters.
+EOF
+
+# save all LSn.l files to unique names, not to be overwritten at next n, Z
+   mv ${a}.l ${a}1.${nat}_${n}.l;
+   mv ${b}.l ${b}1.${nat}_${n}.l;
+   mv ${c}.l ${c}1.${nat}_${n}.l;
+   mv ${d}.l ${d}1.${nat}_${n}.l;
+# save the file summry which gives some wave functions computed parameters
+   mv summry ${d}1.${nat}_${n}.s;
+# save wfn.out, the computed wave function with a unique file name
+   mv wfn.out ${s}.${nat}_${n}.w;)
+   done;)
+done;
+
+# remove not needed files
+rm *lst* fort* *log summry wfn* cfg*  ??.l
+</PRE>
+
+<P>
+The script utilizes  <TT>nonh and mchf</TT>, but it is preferable 
+to look upon the needs and I/O data separately for each one. 
+
+<P>
+<TT>nonh</TT> requires <TT>cfg.inp</TT> to be present in the current 
+working directory.  All parameters in  <TT>nonh</TT> are default. 
+The only input file is <TT>cfg.inp</TT>, which is required. 
+While processing the configuration lists, <TT>nonh</TT>  prints out
+important reference information which can be used to detect
+possible errors or deviations from the desired procedures: number 
+of orbitals, number of closed shells, number of integrals, number of
+configurations. The same information is repeated for 
+each term.  <TT>nonh</TT> can be run interactively without 
+providing any input: 
+
+<P>
+<PRE>
+%nonh
+</PRE>
+Thus, the output of correctly running <TT>nonh</TT> (at <TT>n=4</TT>)
+is similar to:
+
+<P>
+<PRE>
+%nonh
+ input file is cfg.inp ...
+
+
+
+                       ===============================
+                             N O N H       2000
+                       ===============================
+
+
+
+ THERE ARE  9 ORBITALS AS FOLLOWS:
+
+       2s  2p  3s  3p  3d  4s  4p  4d  4f
+
+ THERE ARE  1 CLOSED SUBSHELLS COMMON TO ALL CONFIGURATIONS AS FOLLOWS:
+
+       1s
+ Allocating space for          1054  integrals
+ processing  2P with           872 configurations
+    jb =          100
+    jb =          200
+    jb =          300
+    jb =          400
+    jb =          500
+    jb =          600
+    jb =          700
+    jb =          800
+   95818 non-zero matrix elements
+   10959 NF   23905 NG  204934 NR    8481 NL
+  248279 Total number of integrals
+ processing  2D with           888 configurations
+    jb =          100
+    jb =          200
+    jb =          300
+    jb =          400
+    jb =          500
+    jb =          600
+    jb =          700
+    jb =          800
+  103833 non-zero matrix elements
+   11940 NF   28320 NG  223283 NR    8557 NL
+  272100 Total number of integrals
+ processing  4S with           243 configurations
+    jb =          100
+    jb =          200
+   10211 non-zero matrix elements
+    2575 NF    3623 NG   23286 NR    1731 NL
+   31215 Total number of integrals
+
+ end-of-file clist!!!
+</PRE>
+
+<P>
+After a successful completion <TT>nonh</TT> will have created the following 
+files (Note the presence of <TT>ih.01.lst, ih.02.lst and ih.03.lst</TT>,
+which correspond to <TT>2P, 2D, 4S</TT>, in the order they occurred in
+<TT>cfg.inp</TT>. 
+
+<P>
+<PRE>
+-rw-r--r--    1 georgio  georgio       252 Sep 20 00:35 cfg.h
+-rw-r--r--    1 georgio  georgio    114019 Sep 20 00:34 cfg.inp
+-rw-r--r--    1 georgio  georgio   6619380 Sep 20 00:35 c.lst
+-rw-r--r--    1 georgio  georgio    863484 Sep 20 00:35 ico.lst
+-rw-r--r--    1 georgio  georgio    393736 Sep 20 00:35 ih.01.lst
+-rw-r--r--    1 georgio  georgio    425988 Sep 20 00:35 ih.02.lst
+-rw-r--r--    1 georgio  georgio     43760 Sep 20 00:35 ih.03.lst
+-rw-r--r--    1 georgio  georgio     16760 Sep 20 00:35 yint.lst
+</PRE>
+
+<P>
+<TT>cfg.h</TT> is a text file
+which provides information pertaining to the expansions for each 
+term found in the list and it is used by <TT>mchf</TT> for memory 
+allocation and initialization and it records a number of parameters
+(discussed in &nbsp;<A HREF="node107.html#chap:io">14.15</A>): 
+<PRE>
+   1 Closed Shells:
+  1s
+   9 Other Orbitals:
+  2s  2p  3s  3p  3d  4s  4p  4d  4f
+  3    1054   30000   snonh
+   2P   872     95818         248279       370
+   2D   888    103833         272100       400
+   4S   243     10211          31215       124
+</PRE>
+
+<P>
+<TT>yint.lst</TT> is a binary file that has 
+global information about the expansions. <TT>c.lst</TT> has the 
+coefficients and integrals needed for the energy expression
+and the generation of the interaction matrix. <TT>ih.#n.lst</TT> is also 
+a binary file, it records the row index of a matrix element. 
+The user can find the description of the format of each file
+in Chapter &nbsp;<A HREF="node107.html#chap:io">14.15</A>. 
+
+<P>
+After <TT>nonh</TT>, <TT>mchf</TT> continues with computing the radial 
+wave functions.  Step wise <TT>mchf</TT> calculations with respect to 
+<TT>n</TT> and good initial estimates are one of the most important 
+factors for correct results and faster convergence of <TT>mchf</TT>
+calculations. The wave function at <TT>n-1</TT> is used as
+an optional initial estimate and it is copied into <TT>wfn.inp</TT>.
+<TT>mchf</TT> reads <TT>wfn.inp</TT> provided that it is present in the current
+working directory. The script must have a consistent way 
+to refer each needed file and to save results from each 
+<TT>n and Z</TT> step into a unique file. After converging <TT>mchf</TT> 
+saves the output wave function by default to <TT>wfn.out</TT>, and further, 
+the scripts renames it to a file with name comprised by the name of the
+group, <TT>Z and n</TT>. In addition to the wave function saved in file 
+<TT>wfn.out</TT>, the eigenvectors are computed and saved in <TT>LS.l</TT> 
+files by default, which  the script renames to a unique file name from
+a combination of  <TT>LS</TT> term, <TT>Z and n</TT> information.
+
+<P>
+The user is responsible for providing
+correct initial estimate of the wave function. This becomes  
+more difficult for runs covering multiple <TT>n and Z</TT>. Shell scripts
+should be prepared with care. Correct shell makes the calculation
+easier and reduce the error, however, they may propagate multiple 
+errors.
+
+<P>
+In interactive mode the user must provide a number of 
+parameters (the expected input is shown on lines 
+starting with '<IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img29.png"
+ ALT="$&gt;$">'):
+<PRE>
+                    =======================
+                            M C H F  ... 2000
+                    =======================
+
+
+
+
+          THE DIMENSIONS FOR THE CURRENT VERSION ARE:
+             NWD= 60        NO=220    Lagrange Multipliers=800
+
+
+
+ START OF CASE
+ =============
+
+
+ ATOM, Z in FORMAT(A, F) :
+ cfg.inp has configurations for             4  terms
+
+ Enter eigenvalues and weights: one line per term, eigenvalues with weights
+ in parenthesis and separated by commas, default is 1.0
+ 2S
+ 2P
+ 2D
+ 4P
+
+ There are  10 orbitals as follows:
+   1s  2s  2p  3s  3p  3d  4s  4p  4d  4f
+ Enter orbitals to be varied: (ALL,NONE,SOME,NIT=,comma delimited list)
+&gt;=9
+ Enter those that are spectroscopic
+&gt;1s,2s,2p
+ Default electron parameters ? (Y/N)
+&gt;y         # normally yes
+Default values for other parameters? (Y/N)
+&gt;n         # the answer no opens a dialog for which parameters to modify
+ Default values (NO,REL,STRONG) ? (Y/N)
+&gt;y         # 
+ Z=9       9.   220 10  9  0  F
+
+ Default values for PRINT, CFGTOL, SCFTOL ? (Y/N)
+&gt;y
+ Input free FORMAT(L, F, F)
+&gt;F,10E-9,10E-9    #convergence criteria, default is 10E-9
+ Default values for NSCF, IC ? (Y/N)
+&gt;n
+ Input free FORMAT(I, I)
+&gt;1000, 0    #by default mchf makes only 200, larger may be needed
+Default values for ACFG,LD,TRACE? (Y/N)
+
+  &gt;&gt;&gt; MEMORY AND DISK USE: &lt;&lt;&lt;
+  ALL IN MEMORY : c.lst ih ico hmx
+  &gt;&gt;&gt; END MEMORY AND DISK USE&lt;&lt;&lt;
+
+  DeltaE =   -96.71221392604600      Sum_Energy =    -96.71221392604600
+  DeltaE =  -1.3491365617298356E-002 Sum_Energy =    -96.72570529166330
+  DeltaE =  -1.5615602415124386E-003 Sum_Energy =    -96.72726685190482
+  DeltaE =  -6.3982817178498408E-004 Sum_Energy =    -96.72790668007660
+  DeltaE =  -3.5633507930299402E-004 Sum_Energy =    -96.72826301515590
+  DeltaE =  -1.9477728162087260E-004 Sum_Energy =    -96.72845779243752
+...
+...
+...
+  DeltaE =  -1.0284111340297386E-008 Sum_Energy =    -96.72916623947961
+          740  iterations, output written to wfn.out
+  DeltaE =  -1.0245514658890897E-008 Sum_Energy =    -96.72916624972513
+  DeltaE =  -1.0207216405433428E-008 Sum_Energy =    -96.72916625993234
+  DeltaE =  -1.0169003417104250E-008 Sum_Energy =    -96.72916627010135
+  DeltaE =  -1.0207216405433428E-008 Sum_Energy =    -96.72916625993234
+  DeltaE =  -1.0169003417104250E-008 Sum_Energy =    -96.72916627010135
+  DeltaE =  -1.0131046224159945E-008 Sum_Energy =    -96.72916628023239
+  DeltaE =  -1.0093202718053362E-008 Sum_Energy =    -96.72916629032559
+  DeltaE =  -1.0055515531348647E-008 Sum_Energy =    -96.72916630038111
+  DeltaE =  -1.0018084140028805E-008 Sum_Energy =    -96.72916631039919
+  DeltaE =  -9.9807664355466841E-009 Sum_Energy =    -96.72916632037996
+  DeltaE =  -9.9436334721758612E-009 Sum_Energy =    -96.72916633032359
+++ mv 2S.l 2S1.9_4.l
+++ mv 2P.l 2P1.9_4.l
+++ mv 2D.l 2D1.9_4.l
+++ mv 4P.l 4P1.9_4.l
+++ mv wfn.out E1.9_4.w
+</PRE>
+
+<P>
+In the first line, <TT>mchf</TT> program, expects a label (Z=9, in this 
+case), followed by the atomic number.  Then, for each
+term, the user is asked to specify the index of the desirable
+eigenvalue and its weight.  For example, to compute the first
+eigenvalue, with weight 1.0, and the second with weight 0.5,
+say, the input data would be 1(1.0), 2(0.5).  In the present
+case both are the lowest with the default weight of 1.  Again,
+it may not be necessary to optimize only the orbitals for which
+there are no initial estimates provided. 
+So in this case, we optimize only on the last 9 orbitals, or
+all <TT>n=2,3</TT>  orbitals.
+
+<P>
+<TT>mchf</TT> processes all CPU intensive calculations in memory,
+however the program has the capability to switch to disk storage,
+if the memory is insufficient for all arrays. The major
+arrays are: c.lst (coefficient data), ih and ico (pointer data)
+and <TT>hmx</TT> (matrix elements) and the output shows if 
+all arrays are in the memory, or which ones are on disk, this 
+can help the user to optimize the speed of an <TT>mchf</TT> 
+calculation.  CPU intensive calculations for data
+stored on disk could be considerably slower compared to 
+data storage in memory. The output above shows that all four arrays
+are in memory.  
+
+<P>
+In the course of an <TT>mchf</TT> calculation the change in the weighted
+energy and the total energy are displayed after each iteration. 
+Poor models or 
+optimization strategies (LS terms or weights) may result in 
+oscillation of the total energy, or very slow convergence. The 
+user needs to monitor the change <TT>DeltaE</TT> and the total energy 
+<TT>Sum_Energy</TT> and should modify the script if the optimization
+does not proceed as expected. Those two parameters are printed to
+<TT>stderr, or UNIT=0</TT>. In the script described
+earlier the output <TT>stdout</TT> from <TT>mchf</TT> is redirected to a separate
+file for each <TT>mchf</TT> run. It contains more extensive information with
+intermediate results for each iteration and the user should review it
+carefully for errors or unexpected events. The output from <TT>stderr</TT>
+only prints the energy convergence.
+
+<P>
+Assuming that the output of <TT>stdout</TT> has been saved to a file
+<TT>out_O1.9-4</TT>, <TT>"grep Sum out_O1.9-4"</TT> will provide 
+the weighted total energy after each iteration:
+<PRE>
+         Sum of ETOTAL :     -97.58248322
+         Sum of ETOTAL :     -97.59942473
+         Sum of ETOTAL :     -97.60086846
+         Sum of ETOTAL :     -97.60101437
+         Sum of ETOTAL :     -97.60103722
+         Sum of ETOTAL :     -97.60104493
+......
+</PRE>
+and <TT>"grep ETOT out_O1.9-4"</TT> will show more details about the 
+the energy convergence of each <TT>LS</TT> term, including some details
+of the performance of the Davidson program after computing the eigenvalues
+(<TT>Loops,DeltaE,Res.</TT>):
+<PRE>
+         ETOTAL=   -97.47484217   Loops,DeltaE,Res.:  17  8.105D-15  6.183D-08
+         ETOTAL=   -97.55365890   Loops,DeltaE,Res.:  16  6.439D-15  5.888D-08
+         ETOTAL=   -97.71893986   Loops,DeltaE,Res.:  15  3.442D-15  4.197D-08
+         Sum of ETOTAL :     -97.58248322
+         ETOTAL=   -97.49290695   Loops,DeltaE,Res.:  15  8.438D-15  9.867D-08
+         ETOTAL=   -97.57279015   Loops,DeltaE,Res.:  15  1.443D-15  6.171D-08
+         ETOTAL=   -97.73256837   Loops,DeltaE,Res.:  15  3.331D-15  3.015D-08
+         Sum of ETOTAL :     -97.59942473
+         ETOTAL=   -97.49465420   Loops,DeltaE,Res.:  14  3.109D-15  6.362D-08
+         ETOTAL=   -97.57421689   Loops,DeltaE,Res.:  14  3.053D-15  3.286D-08
+         ETOTAL=   -97.73372555   Loops,DeltaE,Res.:  13  5.551D-15  5.598D-08
+         Sum of ETOTAL :     -97.60086846
+</PRE>
+Those  are  valuable quick checks on the convergence patterns during 
+and after an <TT>mchf</TT> run for each <TT>LS</TT> term and for the total 
+energy without interrupting the program.
+In the next step of the <TT>mchf</TT> cycle, we again move the 
+<TT>wfn.out</TT> to <TT>wfn.inp</TT> and perform a calculation on the 
+next <TT>n</TT>..  
+
+<P>
+Upon successful completion the iteration over each <TT>Z and n</TT>,
+a set of files is saved: <TT>*.w, out*, *.s</TT>, and a number of
+<TT>.l</TT> files corresponding to the number of terms. 
+Multiple eigenvectors for the same LS term are saved in a single 
+<TT>.l</TT> file. Note that in addition to energy, coefficient 
+and electron data, each *.l contains the specific mass shift 
+parameter <TT>Ssms</TT>.
+
+<P>
+<PRE>
+245% head  4So1.8_4.l
+  Z=8     Z =   8.0  NEL =   0   NCFG =    243
+
+
+  2*J =    0  NUMBER =   1
+     Ssms =      4.623859419
+     1   -74.495142248  2s(2).2p(3)4S3_4S
+ 0.98261091-0.05205512-0.00749617 0.00713153 0.08850041-0.02273411 0.01386312
+-0.04402566-0.00635483 0.03426689-0.02166538-0.00616148 0.01724229-0.00998867
+ 0.00111927 0.00189890 0.00070353 0.00106733 0.00063790-0.00146846 0.00026875
+-0.00005382 0.00010698-0.00011283 0.10293901 0.01172426-0.00401144-0.04858777
+</PRE>
+In addition to the wave functions, and eigenvectors, <TT>mchf</TT> writes many 
+orbital parameters to <TT>summry</TT> file.  Each <TT>summry</TT> file is saved to a
+file with a suffix .s and a base name consistent with the wave function
+file name. 
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html545"
+  HREF="node22.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html541"
+  HREF="node17.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html535"
+  HREF="node20.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html543"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html546"
+  HREF="node22.html">Computing LS transitions</A>
+<B> Up:</B> <A NAME="tex2html542"
+  HREF="node17.html">Computing Atomic Transitions</A>
+<B> Previous:</B> <A NAME="tex2html536"
+  HREF="node20.html">Optimization</A>
+ &nbsp <B>  <A NAME="tex2html544"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

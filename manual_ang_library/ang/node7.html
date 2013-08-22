@@ -1,0 +1,462 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>SAI_RECLS</TITLE>
+<META NAME="description" CONTENT="SAI_RECLS">
+<META NAME="keywords" CONTENT="ang">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ang.css">
+
+<LINK REL="next" HREF="node8.html">
+<LINK REL="previous" HREF="node6.html">
+<LINK REL="up" HREF="node6.html">
+<LINK REL="next" HREF="node8.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html144"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html142"
+  HREF="node6.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html136"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html145"
+  HREF="node8.html">SAI_SQLS1</A>
+<B> Up:</B> <A NAME="tex2html143"
+  HREF="node6.html">Description of the Libraries</A>
+<B> Previous:</B> <A NAME="tex2html137"
+  HREF="node6.html">Description of the Libraries</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00041000000000000000">
+SAI_RECLS</A>
+</H2>
+
+<P>
+This library contains 20 routines for calculation of recoupling matrices
+
+<P>
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+R\left( \lambda _i,\lambda _j,\lambda
+_i^{\prime },\lambda _j^{\prime },\Lambda ^{bra},\Lambda ^{ket},\Gamma
+\right) 
+=  R\left( l_i,l_j,l_i^{\prime },l_j^{\prime
+},\Lambda _l^{bra},\Lambda _l^{ket},\Gamma _l\right) R\left(
+s,s,s,s,\Lambda _s^{bra},\Lambda _s^{ket},\Gamma _s\right).
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:rec-a"></A><IMG
+ WIDTH="606" HEIGHT="30" BORDER="0"
+ SRC="img63.png"
+ ALT="\begin{displaymath}
+R\left( \lambda _i,\lambda _j,\lambda
+_i^{\prime },\lambda _...
+...t(
+s,s,s,s,\Lambda _s^{bra},\Lambda _s^{ket},\Gamma _s\right).
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(21)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+For more details see
+P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>] (Section 4).
+Most of the subroutines from this module use common blocks CONSTS 
+and MEDEFN from
+MCHF atomic structure package [<A
+ HREF="node42.html#Fbook">1</A>,<A
+ HREF="node42.html#F">11</A>].
+
+<P>
+<B>DLSA1</B>  Evaluates the coefficients <IMG
+ WIDTH="25" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img64.png"
+ ALT="$C_{1}$"> (see (15) P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>]).
+<BR>
+<P>
+<B>DLSA2</B>  Evaluates the coefficients <IMG
+ WIDTH="25" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img65.png"
+ ALT="$C_{5}$"> (see (16) P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>]).
+<BR>
+<P>
+<B>DLSA3</B>  Evaluates the coefficients <IMG
+ WIDTH="25" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img66.png"
+ ALT="$C_{2}$"> (see (23) P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>]).
+<BR>
+<P>
+<B>DLSA4</B>  Evaluates the coefficients <IMG
+ WIDTH="25" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img67.png"
+ ALT="$C_{4}$"> (see (21) P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>]).
+<BR>
+<P>
+<B>DLSA5</B>  Evaluates the coefficients <IMG
+ WIDTH="25" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img68.png"
+ ALT="$C_{3}$"> (see (17) P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>]).
+<BR>
+<P>
+<B>DLSA6</B>  Evaluates the coefficients <!-- MATH
+ $C^{\prime}_{6}$
+ -->
+<IMG
+ WIDTH="25" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img69.png"
+ ALT="$C^{\prime}_{6}$"> (see (25) P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>]).
+<BR>
+<P>
+<B>RECOUP0</B>  Checks the angular momentu selection rules
+for the recoupling coefficients. For example it uses the
+expression (18) in one interacting shell case (see P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>]).
+<BR>
+<P>
+<B>RECOUP2</B> Checks or calculates the recoupling coefficients for
+the scalar operator which has the tensorial structure
+<BR>
+<DIV ALIGN="CENTER"><A NAME="eq:rec-b"></A>
+<!-- MATH
+ \begin{eqnarray}
+\left[ A^{(k)} \left( n_{1}l_{1} \right) \times B^{(k)} \left(
+n_{2}l_{2} \right) \right] ^{(0)},
+\end{eqnarray}
+ -->
+<TABLE ALIGN="CENTER" CELLPADDING="0" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="212" HEIGHT="56" ALIGN="MIDDLE" BORDER="0"
+ SRC="img70.png"
+ ALT="$\displaystyle \left[ A^{(k)} \left( n_{1}l_{1} \right) \times B^{(k)} \left(
+n_{2}l_{2} \right) \right] ^{(0)},$"></TD>
+<TD>&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(22)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+where <IMG
+ WIDTH="36" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img71.png"
+ ALT="$A^{(k)}$"> and <IMG
+ WIDTH="37" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img72.png"
+ ALT="$B^{(k)}$"> are simple or composite tensor operators
+of rank <TT>k</TT>. <IMG
+ WIDTH="36" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img71.png"
+ ALT="$A^{(k)}$"> acts only on the first active shell and <IMG
+ WIDTH="37" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img72.png"
+ ALT="$B^{(k)}$">
+on the second active shell in the order in which they are coupled in the
+configuration. It uses (22) from P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>].
+<BR>
+<P>
+<B>RECOUP3</B> Checks or calculates the recoupling coefficients for
+the scalar operator:
+<BR>
+<DIV ALIGN="CENTER"><A NAME="eq:rec-c"></A>
+<!-- MATH
+ \begin{eqnarray}
+\left[ \left[ A^{(k_1)} \left( n_{i}l_{i} \right) \times B^{(k_2)} \left(
+n_{j}l_{j} \right) \right] ^{(k)} \times C^{(k)} \left( n_{m}l_{m} \right)
+\right] ^{(0)}.
+\end{eqnarray}
+ -->
+<TABLE ALIGN="CENTER" CELLPADDING="0" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="357" HEIGHT="65" ALIGN="MIDDLE" BORDER="0"
+ SRC="img73.png"
+ ALT="$\displaystyle \left[ \left[ A^{(k_1)} \left( n_{i}l_{i} \right) \times B^{(k_2)...
+...\right) \right] ^{(k)} \times C^{(k)} \left( n_{m}l_{m} \right)
+\right] ^{(0)}.$"></TD>
+<TD>&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(23)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+As in (<A HREF="node7.html#eq:rec-b">22</A>), <IMG
+ WIDTH="37" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img74.png"
+ ALT="$A^{(k_1}$">, <IMG
+ WIDTH="43" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img75.png"
+ ALT="$B^{(k_2)}$"> and <IMG
+ WIDTH="36" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img76.png"
+ ALT="$C^{(k)}$"> are simple
+or composite tensor operators which act, on subshells <IMG
+ WIDTH="12" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img77.png"
+ ALT="$i$">, <IMG
+ WIDTH="14" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img78.png"
+ ALT="$j$"> and <IMG
+ WIDTH="20" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img79.png"
+ ALT="$m$">
+respectively. It uses (26) from P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>].
+<BR>
+<P>
+<B>RECOUP31</B> Aids RECOUP3 in calculating the recoupling matrix
+in the case of three interacting shells. 
+<BR>
+<P>
+<B>RECOUP4</B> Checks or calculates the recoupling coefficients for
+the the operator:
+<BR>
+<DIV ALIGN="CENTER"><A NAME="eq:rec-d"></A>
+<!-- MATH
+ \begin{eqnarray}
+\left[ \left[ A^{(k_1)} \left( n_{1}l_{1} \right) \times B^{(k_2)} \left(
+n_{2}l_{2} \right) \right] ^{(k)} \times
+\left[ C^{(k_3)} \left( n_{3}l_{3} \right) \times D^{(k_4)} \left( n_{4}l_{4}
+\right) \right] ^{(k)} \right] ^{(0)},
+\end{eqnarray}
+ -->
+<TABLE ALIGN="CENTER" CELLPADDING="0" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="491" HEIGHT="65" ALIGN="MIDDLE" BORDER="0"
+ SRC="img80.png"
+ ALT="$\displaystyle \left[ \left[ A^{(k_1)} \left( n_{1}l_{1} \right) \times B^{(k_2)...
+...ight) \times D^{(k_4)} \left( n_{4}l_{4}
+\right) \right] ^{(k)} \right] ^{(0)},$"></TD>
+<TD>&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(24)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+where <IMG
+ WIDTH="36" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img71.png"
+ ALT="$A^{(k)}$">, <IMG
+ WIDTH="43" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img75.png"
+ ALT="$B^{(k_2)}$">, <IMG
+ WIDTH="42" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img81.png"
+ ALT="$C^{(k_3)}$">
+and <IMG
+ WIDTH="43" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img82.png"
+ ALT="$D^{(k_4)}$"> may be simple or composite tensor operators of the orders
+indicated, corresponding to the structure of (<A HREF="node7.html#eq:rec-d">24</A>). The subshells
+must be ordered so that <IMG
+ WIDTH="42" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img83.png"
+ ALT="$A^{(k_1)}$"> operates on the first and <IMG
+ WIDTH="43" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img82.png"
+ ALT="$D^{(k_4)}$">
+on the last in order. It uses (33) from P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>]. 
+<BR>
+<P>
+<B>RLSP0</B> Checks for delta-functions
+<!-- MATH
+ $\delta \left ( L_i, L^{\prime}_i \right)$
+ -->
+<IMG
+ WIDTH="68" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img84.png"
+ ALT="$\delta \left ( L_i, L^{\prime}_i \right)$">
+for one and two interacting shell
+(see (14) and (19) in P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>]).
+<BR>
+<P>
+<B>RLSP00</B>  Checks for delta-functions
+<!-- MATH
+ $\delta \left ( L_{i},L^{\prime}_i \right)$
+ -->
+<IMG
+ WIDTH="68" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img85.png"
+ ALT="$\delta \left ( L_{i},L^{\prime}_i \right)$">
+for three and four interacting shell
+(see (24) and (27) in P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>]).
+<BR>
+<P>
+<B>RLSP1</B> Checks or calculates the recoupling coefficients for
+the operator which has the tensorial structure
+<BR>
+<DIV ALIGN="CENTER"><A NAME="eq:rec-pa"></A>
+<!-- MATH
+ \begin{eqnarray}
+A^{(k)} \left( n_{1}l_{1} \right).
+\end{eqnarray}
+ -->
+<TABLE ALIGN="CENTER" CELLPADDING="0" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="87" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img86.png"
+ ALT="$\displaystyle A^{(k)} \left( n_{1}l_{1} \right).$"></TD>
+<TD>&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(25)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+It uses (14) from P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>].
+<BR>
+<P>
+<B>RLSP2</B> Checks or calculates the recoupling coefficients for
+the operator which has the tensorial structure
+<BR>
+<DIV ALIGN="CENTER"><A NAME="eq:rec-pb"></A>
+<!-- MATH
+ \begin{eqnarray}
+\left[ A^{(k_1)} \left( n_{1}l_{1} \right) \times B^{(k_2)} \left(
+n_{2}l_{2} \right) \right] ^{(k)}.
+\end{eqnarray}
+ -->
+<TABLE ALIGN="CENTER" CELLPADDING="0" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="225" HEIGHT="56" ALIGN="MIDDLE" BORDER="0"
+ SRC="img87.png"
+ ALT="$\displaystyle \left[ A^{(k_1)} \left( n_{1}l_{1} \right) \times B^{(k_2)} \left(
+n_{2}l_{2} \right) \right] ^{(k)}.$"></TD>
+<TD>&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(26)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+It uses (19) from P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>].
+<BR>
+<P>
+<B>RLSP3</B>
+Checks or calculates the recoupling coefficients for
+the operator:
+<BR>
+<DIV ALIGN="CENTER"><A NAME="eq:rec-pc"></A>
+<!-- MATH
+ \begin{eqnarray}
+\left[ \left[ A^{(k_1)} \left( n_{i}l_{i} \right) \times B^{(k_2)} \left(
+n_{j}l_{j} \right) \right] ^{(k_3)} \times C^{(k_4)} \left( n_{m}l_{m} \right)
+\right] ^{(k)}.
+\end{eqnarray}
+ -->
+<TABLE ALIGN="CENTER" CELLPADDING="0" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="370" HEIGHT="65" ALIGN="MIDDLE" BORDER="0"
+ SRC="img88.png"
+ ALT="$\displaystyle \left[ \left[ A^{(k_1)} \left( n_{i}l_{i} \right) \times B^{(k_2)...
+...ht) \right] ^{(k_3)} \times C^{(k_4)} \left( n_{m}l_{m} \right)
+\right] ^{(k)}.$"></TD>
+<TD>&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(27)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+It uses (24) from P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>].
+<BR>
+<P>
+<B>RLSP31</B> is needed by RLSP2.
+<BR>
+<P>
+<B>RLSP32</B> is needed by RLSP2.
+<BR>
+<P>
+<B>RLSP4a</B> Checks or calculates one part of the recoupling coefficients for
+the operator:
+<BR>
+<DIV ALIGN="CENTER"><A NAME="eq:rec-pd"></A>
+<!-- MATH
+ \begin{eqnarray}
+\left[ \left[ A^{(k_1)} \left( n_{1}l_{1} \right) \times B^{(k_2)} \left(
+n_{2}l_{2} \right) \right] ^{(k_3)} \times
+\left[ C^{(k_4)} \left( n_{3}l_{3} \right) \times D^{(k_5)} \left( n_{4}l_{4}
+\right) \right] ^{(k_3)} \right] ^{(k)}.
+\end{eqnarray}
+ -->
+<TABLE ALIGN="CENTER" CELLPADDING="0" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="504" HEIGHT="65" ALIGN="MIDDLE" BORDER="0"
+ SRC="img89.png"
+ ALT="$\displaystyle \left[ \left[ A^{(k_1)} \left( n_{1}l_{1} \right) \times B^{(k_2)...
+...ht) \times D^{(k_5)} \left( n_{4}l_{4}
+\right) \right] ^{(k_3)} \right] ^{(k)}.$"></TD>
+<TD>&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(28)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+<B>RLSP4b</B> Checks or calculates other parts of the recoupling coefficients for
+the operator (<A HREF="node7.html#eq:rec-pd">28</A>).
+<BR>
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html144"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html142"
+  HREF="node6.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html136"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html145"
+  HREF="node8.html">SAI_SQLS1</A>
+<B> Up:</B> <A NAME="tex2html143"
+  HREF="node6.html">Description of the Libraries</A>
+<B> Previous:</B> <A NAME="tex2html137"
+  HREF="node6.html">Description of the Libraries</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-12-07
+</ADDRESS>
+</BODY>
+</HTML>

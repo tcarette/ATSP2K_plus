@@ -1,0 +1,308 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Breit-Pauli calculations</TITLE>
+<META NAME="description" CONTENT="Breit-Pauli calculations">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node24.html">
+<LINK REL="previous" HREF="node22.html">
+<LINK REL="up" HREF="node17.html">
+<LINK REL="next" HREF="node24.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html569"
+  HREF="node24.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html565"
+  HREF="node17.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html559"
+  HREF="node22.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html567"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html570"
+  HREF="node24.html">Computing Allowed Transitions</A>
+<B> Up:</B> <A NAME="tex2html566"
+  HREF="node17.html">Computing Atomic Transitions</A>
+<B> Previous:</B> <A NAME="tex2html560"
+  HREF="node22.html">Computing LS transitions</A>
+ &nbsp <B>  <A NAME="tex2html568"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00460000000000000000">
+Breit-Pauli calculations</A>
+</H1>
+
+<P>
+The  relativistic effects can be determined using a
+Breit-Pauli calculation.  The <TT>LSJ</TT> eigenvectors are computed
+using a set of 3 programs. <TT>bp_ang</TT> computes the non relativistic
+angular data which is invariant with Z. Next, for each <TT>Z</TT>
+<TT>bp_mat</TT> computes the interaction matrix and  <TT>bp_eiv</TT>
+computes the tt J dependent eigenvectors.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="run-j"></A><A NAME="1434"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2.4:</STRONG>
+
+First the LSJ eigenvectors are determined and saved in .lsj files.
+<TT>biotr</TT> then computes the .lsj transitions from a set 
+of *.c *.j *.w files for each group.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="271" HEIGHT="351" BORDER="0"
+ SRC="img31.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\epsfig{file=tex/fig/atsp_run3.epsi,width=6cm}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+This step performs a Breit-Pauli Configuration
+Interaction (BPCI) calculation for the
+expansion included in groups <TT>E1 and O1</TT>. The script 
+below shows the steps, assuming Breit-Pauli calculation in 
+the directory <TT>LSJ</TT>, configuration lists and wavefunctions in
+<TT>E1 and O1</TT>:
+
+<P>
+<PRE>
+% cat sh_bp
+set -x
+echo "computing *.j files"
+n=4                      # n shows for which n to perform BPCI
+
+D=E1                     # name of the group
+
+# compute even
+cp ../E1/E${n}.c A.c     # copy from E1 the cfg list
+
+${ATSP}/bin/sh_cat A.c  # remove '*' and blanks
+
+${ATSP}/bin/bp_ang &lt;in_ang_${D}  # generate angular data
+
+for Z in 8 9             # range of Z's 
+do
+   (echo
+
+   cp ../${D}/${D}.${Z}_${n}.w A.w          #  copy the wavefunctions in A.w
+   ${ATSP}/bin/bp_mat &lt;in_mat_${D}         #  compute all contributions 
+   ${ATSP}/bin/bp_eiv &lt;in_eiv_${D}_${Z}    #  compute eigenvectors 
+   mv A.j ${D}.${Z}.j                       #  rename A.j 
+
+   echo)
+done
+
+rm *lst* A.l A.w                            # rm previous files
+
+D=O1                                        # start group O1
+
+# compute odd
+cp ../O1/O${n}.c A.c    # copy from O1 the cfg list
+${ATSP}/bin/sh_cat A.c # remove '*' and blanks
+
+${ATSP}/bin/bp_ang &lt;in_ang_O1   # generate angular data
+
+for Z in 8 9                     # range of Z's
+do
+   (echo
+  
+   cp ../${D}/${D}.${Z}_${n}.w A.w          #  copy the wavefunctions in A.w
+   ${ATSP}/bin/bp_mat &lt;in_mat_${D}         #  compute all contributions
+   ${ATSP}/bin/bp_eiv &lt;in_eiv_${D}_${Z}    #  compute eigenvectors
+   mv A.j ${D}.${Z}.j                       #  rename A.j 
+  
+   echo)
+done
+
+rm *lst* A.l A.w A.* A.c.old                # rmv not needed files
+</PRE>
+
+<P>
+The scripts starts with setting <TT>D</TT> to the name of the group.
+Note that after completing the mchf calculation, 
+there will be 2 files <TT>E3.c, E4.c</TT> and <TT>O3.c, O4.c</TT> in 
+each directory <TT>E1 and O1</TT>. The files are concatenated 
+configurations lists from the terms participating in each group,
+the number 3 or 4 indicate <TT>n</TT>, the principal quantum number.
+Within a *.c file, each group has two header lines 
+and a separator "*". However, 
+the Breit-Pauli programs expect a single list with a single header
+part and no separators, i.e. the configuration list is considered
+the expansion of ONE wave function. In addition, the programs read 
+the configuration list until the first occurrence of an "*". Therefore, 
+the configuration list prior to the Breit-Pauli calculation need to be 
+reformatted, removing separators, blank lines and multiple header lines. 
+This can be accomplished by using the shell script <TT>sh_cat</TT> supplied 
+with the code, or by editing each *.c file. The script 
+uses <TT>sed</TT>, and the user may need to verify
+if there is a <TT>sed</TT> program on the system and its path 
+(<TT>"which sed"</TT>). (<I>Node:</I> the script uses <TT>sed</TT> from the
+<TT>gnu</TT> distribution, other <TT>sed</TT> may not work as expected
+and the user needs to test the script before using it). 
+
+<P>
+There is a single call to <TT>bp_ang</TT> which computes <TT>Z</TT> 
+independent angular data.  Then, for each <TT>Z</TT>, the 
+data needed for forming the various <TT>J</TT>-dependent matrices are 
+computed by <TT>bp_mat</TT>, after
+which eigenvalues are determined by <TT>bp_eiv</TT>.  
+
+<P>
+In this case, since there
+were no variables involved, it was decided to put the input data for each
+application in a separate file is shown below (group <TT>E1</TT>).
+
+<P>
+<PRE>
+#    .......input file in_ang_E1, used for bp_ang........
+&gt;cat in_ang_E1
+A,y,y
+y
+2
+n
+1,1,1,0
+y
+#    .......input file in_mat_E1, used for bp_mat........
+&gt;cat in_mat_E1
+A,y,y
+g
+y
+
+#    .......input file in_eiv_E1_8, used for bp_eiv........
+&gt;cat in_eiv_E1_8
+A,y,y
+g
+5,1
+1,2
+1,2
+1,4
+y
+0  # 2S  # energy correction 2S
+0  # 2P  # energy correction 2P
+0  # 2D  # energy correction 2D
+0  # 4P  # energy correction 4P
+</PRE>
+
+<P>
+Each program takes the following interactive input, assuming
+that input files are from group <TT>E1</TT>, the calculation 
+is for <TT>Z=8</TT> and the required configuration list and
+the wave function files have been copied to <TT>A.c and A.w</TT>:
+<PRE>
+#  ........Breit-Pauli Calculation for Iso-electronic Sequence........
+&gt; bp_ang
+ Enter ATOM, relativistic (Y/N) with mass correction (Y/N)
+&gt;A,y,y
+ Gradient or Slater form? (G/S):
+&gt;g
+ Indicate the type of calculation  
+ 0 =&gt; non-relativistic Hamiltonian only; 
+ 1 =&gt; one or more relativistic operators only;
+ 2 =&gt; non-relativistic operators and selected relativistic:
+&gt;2
+ All relativistic operators ? (Y/N)
+&gt;n
+Spin-orbit,Spin-other-orbit,Spin-spin,Orbit-Orbit (0/1)
+&gt;1,1,1,0
+ All Interactions? (Y/N):
+&gt;y     
+
+&gt; bp_mat
+ Enter ATOM, relativistic (Y/N) with mass correction (Y/N)
+&gt;A,y,y
+ Gradient or Slater form? (G/S):
+&gt;g
+ Default Rydberg constant (y/n)
+&gt;y
+ Finished with the file
+
+&gt; bp_eiv
+ Enter ATOM, relativistic (Y/N) with mass correction (Y/N)
+&gt;A,y,y
+ Gradient or Slater form? (G/S):
+&gt;g
+  Enter Maximum and minimum values of 2*J
+&gt;5,1
+ Enter eigenvalues: one line per term, eigenvalues separated by commas
+2*J =  4
+&gt;1,2
+2*J =  2
+&gt;1,2
+2*J =  0
+&gt;1,4
+ Default Rydberg constant (y/n)
+&gt;y
+ :: Allocating memory for Block 2J =  4
+ :: IN MEMORY: Block 2J =  4 with  455633  matrix elements
+ Starting Davidson
+   ...
+ Finished with the file
+------------------------------------------------------------------------
+</PRE>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html569"
+  HREF="node24.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html565"
+  HREF="node17.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html559"
+  HREF="node22.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html567"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html570"
+  HREF="node24.html">Computing Allowed Transitions</A>
+<B> Up:</B> <A NAME="tex2html566"
+  HREF="node17.html">Computing Atomic Transitions</A>
+<B> Previous:</B> <A NAME="tex2html560"
+  HREF="node22.html">Computing LS transitions</A>
+ &nbsp <B>  <A NAME="tex2html568"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

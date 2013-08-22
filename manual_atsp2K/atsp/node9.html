@@ -1,0 +1,348 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>BP_MAT</TITLE>
+<META NAME="description" CONTENT="BP_MAT">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node10.html">
+<LINK REL="previous" HREF="node8.html">
+<LINK REL="up" HREF="atsp.html">
+<LINK REL="next" HREF="node10.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html309"
+  HREF="node10.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html305"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html299"
+  HREF="node8.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html307"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html310"
+  HREF="node10.html">BP_EIV</A>
+<B> Up:</B> <A NAME="tex2html306"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html300"
+  HREF="node8.html">BP_ANG</A>
+ &nbsp <B>  <A NAME="tex2html308"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html311"
+  HREF="#SECTION00910000000000000000">Introduction</A>
+<LI><A NAME="tex2html312"
+  HREF="#SECTION00920000000000000000"><TT>bp_mat</TT> Program Structure</A>
+<LI><A NAME="tex2html313"
+  HREF="#SECTION00930000000000000000">I/O Files</A>
+<LI><A NAME="tex2html314"
+  HREF="#SECTION00940000000000000000">MPI implementation</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00900000000000000000"></A>
+<A NAME="chap:bp_mat"></A>
+<BR>
+BP_MAT
+</H1>
+
+<P>
+
+<H1><A NAME="SECTION00910000000000000000">
+Introduction</A>
+</H1> The function of this program is to 
+compute all possible radial integrals and combined with 
+the angular data to determine all requested contributions 
+to the Hamiltonian.  All contributions are grouped into 
+three types of data, which are saved in three files, respectively:
+
+<OL>
+<LI><TT>hnr.lst</TT> non-relativistic, J-independent contributions.
+</LI>
+<LI><TT>hzeta.lst</TT> spin-orbit and spin-other-orbit contributions
+</LI>
+<LI><TT>hspin.lst</TT> spin-spin contributions
+</LI>
+</OL>
+This stage of the Breit-Pauli calculation was made a separate 
+program in order to simplify the process of energy adjustment of 
+computed eigenvalues, which is the last step <TT>bp_eiv</TT> in
+a Breit-Pauli calculation. 
+
+<P>
+The basic constants of the program are initialized in <TT>inita(),
+initr()</TT>. Then the user is prompted to input information about the 
+name of the files with configuration <TT>.c</TT> and radial <TT>.w</TT> 
+data. The user also need to specify the type of calculation,
+relativistic, with or without mass correction and the type of 
+integration: in Gradient or Slater form. 
+
+<P>
+
+<H1><A NAME="SECTION00920000000000000000">
+<TT>bp_mat</TT> Program Structure</A>
+</H1>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:bp_mat_main"></A><A NAME="3827"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7.27:</STRONG>
+
+  <TT>bp_mat</TT> program structure. 
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="232" HEIGHT="174" BORDER="0"
+ SRC="img95.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/bp_mat_main.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+<TT>brevalf()</TT>  reads the files generated from <TT>bp_ang</TT> and 
+uses the information to allocate memory and to initialize
+the parameters which have been already determined by <TT>bp_ang</TT>
+and saved in <TT>cint.lst</TT>.  <TT>readw()</TT> reads the radial data 
+<TT>readw()</TT>. Next, <TT>genintbr()</TT> generates the list of 
+possible integrals, (<!-- MATH
+ ${\tt F_k, G_k, R_k, L, Z, N_k, V_k, S_k}$
+ -->
+<IMG
+ WIDTH="163" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img96.png"
+ ALT="${\tt F_k, G_k, R_k, L, Z, N_k, V_k, S_k}$">).
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:bp_mat_brevalf"></A><A NAME="3829"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7.28:</STRONG>
+
+  Subroutine <TT>brevalf()</TT>. 
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="421" HEIGHT="548" BORDER="0"
+ SRC="img97.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/bp_mat_brevalr.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The contributions to the Hamiltonian are computed in <TT>genslt()</TT>.
+The next code segment shows data processing by columns, 
+the contribution are saved in a set of three files <TT>hnr.lst,
+hzeta.lst, hspin.lst</TT>.
+This program currently does not include the <EM>orbit-orbit</EM> 
+contribution. When  <TT>IORBORB=1</TT>, which is a signal to 
+<TT>bp_mat</TT> to include <EM>orbit-orbit</EM>, then 
+<TT>inptr &gt; intptr(0,4)</TT> and <TT>lcase = 1</TT>, while the 
+correct handling should provide for this case <TT>lcase = 2</TT>. 
+In most calculations this interaction
+shows very little effect on the accuracy, while the computational
+time may double &nbsp;. On the other hand <TT>bpci</TT> correctly
+includes the <EM>orbit-orbit</EM> interaction and can be used 
+for this purpose.
+
+<P>
+<PRE>
+ JB = 1,ncfg
+         if(mod(jb,100).eq.0) write(0,'(A,I5)') '   jb = ',jb
+         if(jb == ncfg) write(0,'(A,I5)') '   jb = ',jb
+*        initialize arrays for a column
+         nrow(1:3) = 0
+         jan(1:ncfg,1:3) = 0
+         h(1:ncfg,1:3) = 0.d0
+         ico(1:ncfg) = 0
+         iflag(1:3)=0
+         lij =  1
+*       read info on matrix elements for the column
+         read (51) nih, (janc(i),i=1,nih)
+         read (52) nih, (ico(i),i=1,nih)
+         Do
+           n = n+1;
+           if (n .gt. new) then
+*           .. more data is needed
+             read (50) new,(cn(j),j=1,new),(inptr(j),j=1,new)
+             n = 1
+           end if
+*         .. determine case
+           if (inptr(n) &lt; 0) then
+             lcase = 3
+           else if (inptr(n) == 0) then
+             print*,'inptr(',n,') can''t be 0'; lcase = 2
+           else if (inptr(n).le.intptr(1,4))  then
+             lcase = 1
+           else
+             lcase = 2
+           end if
+*         .. determine matrix element
+           if ((nij &gt; ico(lij))) then
+*           .. we have new matrix element; set iflags to zero
+             lij = lij + 1
+             iflag(1:3) = 0
+           end if
+           if (iflag(lcase) .eq. 0) then
+             nrow(lcase) = nrow(lcase) + 1
+             jan(nrow(lcase),lcase) = janc(lij)
+             iflag(lcase) = 1
+           end if
+*         .. add contribution to right matrix element
+           v = value(abs(inptr(n)))
+           h(nrow(lcase),lcase) = h(nrow(lcase),lcase) + cn(n)*v
+           hh = h(nrow(lcase),lcase)
+           nij = nij + 1
+           if (nij .eq. jptr(jb_count) + 1) exit
+*          if (lij .eq. nih) exit
+         END DO
+         write(iouhn) jb,nrow(1),(h(i,1),i=1,nrow(1)),
+     :                (jan(i,1),i=1,nrow(1))
+         write(iouhz) jb,nrow(2),(h(i,2),i=1,nrow(2)),
+     :                (jan(i,2),i=1,nrow(2))
+         write(iouhs) jb,nrow(3),(h(i,3),i=1,nrow(3)),
+     :                (jan(i,3),i=1,nrow(3))
+       END DO
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION00930000000000000000">
+I/O Files</A>
+</H1>
+<TT>bp_mat</TT> relies on a set of input files, 
+Figure &nbsp;<A HREF="node10.html#fig:bp_mat_brevalr">8.33</A>. All of them, except <TT>&lt;name&gt;.c</TT>
+are in binary format. The output files,
+<TT>hnr.lst.s, hzeta.lst.s, hspin.lst.s</TT> contain the nonrelativistic
+part and the J-dependent contributions to the Hamiltonian. 
+The reason all IO files from serial calculation have the suffix <TT>.s</TT>, 
+is to distinguish the files generated from <TT>nonh</TT>. Some of the 
+filenames of the Breit-Pauli calculation <TT>bp_ang, bp_mat, bp_eiv</TT>
+coincide with the ons from  the <TT>nonh, mchf</TT> calculation.
+This becomes is inconvenient when computing in the same directory.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:bp_mat_brevalr"></A><A NAME="3831"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7.29:</STRONG>
+
+  Subroutine <TT>brevalr()</TT>.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="206" HEIGHT="369" BORDER="0"
+ SRC="img98.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/io_bp_mat.eps}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<H1><A NAME="SECTION00940000000000000000">
+MPI implementation</A>
+</H1>
+The MPI implementation computes all columns in an interleaved
+fashion. Each node computes only the <TT>nprocs + myid</TT>,
+where <TT>jb, nprocs, myid</TT> are correspondingly the current 
+column, the number of processes (nodes), and ID number of the node.
+
+<P>
+<PRE>
+ For column = 1,ncfg,nprocs
+    For row = column to ncfg
+       compute the matrix elements for all 
+       three types HNR, HZETA, HSPIN
+</PRE>
+
+<P>
+Each node reads input angular data for the current column and
+writes the contributions to a set of files. The filenames
+contain the processor ID as a four digit number, 
+Figure &nbsp;<A HREF="node9.html#fig:io_bp_mat">7.30</A>.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:io_bp_mat"></A><A NAME="3833"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7.30:</STRONG>
+
+  Subroutine <TT>brevalr()</TT>.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="461" HEIGHT="632" BORDER="0"
+ SRC="img99.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/mpi_io_bp_mat.eps}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html309"
+  HREF="node10.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html305"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html299"
+  HREF="node8.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html307"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html310"
+  HREF="node10.html">BP_EIV</A>
+<B> Up:</B> <A NAME="tex2html306"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html300"
+  HREF="node8.html">BP_ANG</A>
+ &nbsp <B>  <A NAME="tex2html308"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

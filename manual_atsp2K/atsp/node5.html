@@ -1,0 +1,359 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The MCDHF/MCHF Data Collection</TITLE>
+<META NAME="description" CONTENT="The MCDHF/MCHF Data Collection">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node6.html">
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="up" HREF="atsp.html">
+<LINK REL="next" HREF="node6.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html245"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html241"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html235"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html243"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html246"
+  HREF="node6.html">NONH</A>
+<B> Up:</B> <A NAME="tex2html242"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html236"
+  HREF="node4.html">Computing Atomic Transitions</A>
+ &nbsp <B>  <A NAME="tex2html244"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html247"
+  HREF="#SECTION00510000000000000000">Introduction</A>
+<LI><A NAME="tex2html248"
+  HREF="#SECTION00520000000000000000">Atomic data</A>
+<LI><A NAME="tex2html249"
+  HREF="#SECTION00530000000000000000">Computational Methods</A>
+<LI><A NAME="tex2html250"
+  HREF="#SECTION00540000000000000000">Hartree-Fock Program</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00500000000000000000"></A>
+<A NAME="chap:web"></A>
+<BR>
+The MCDHF/MCHF Data Collection
+</H1>
+
+<P>
+
+<P>
+
+<H1><A NAME="SECTION00510000000000000000">
+Introduction</A>
+</H1>
+The main goal of the Website is to store and allow acces to the world
+to accurate atomic transition data for light atoms. The data
+have been computed and analyzed at Vanderbilt University under the 
+direction of Prof. Charlotte F. Fischer. The computational schemes 
+include correlation and relativistic effects, through Breit-Pauli 
+interactions. The data are organized by sequences and by atoms,
+Figure &nbsp;<A HREF="node5.html#fig:coll">3.5</A>,  and are accessible through the main
+page at <PRE> 
+http://www.vuse.vanderbilt.edu/~cff/mchf_collection/
+</PRE>,
+which displays the Periodic Table. In addition to 
+Atomic data, the Web site contains source code, an interactive
+version of the <TT>hf</TT> program and information relevant to 
+the computational methods utilized for mass production. 
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:coll"></A><A NAME="2114"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.5:</STRONG>
+
+Main web page of the MCDHF/MCHF Collection.
+The website contains ab initio and energy adjusted 
+transition data for the Li- through Ne-like electronic 
+sequences (Z=4-24)
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="544" HEIGHT="459" BORDER="0"
+ SRC="img32.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/mchf_image0.eps,width=12cm}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<H1><A NAME="SECTION00520000000000000000">
+Atomic data</A>
+</H1>
+
+<H2><A NAME="SECTION00521000000000000000">
+Goals</A>
+</H2>
+By conducting systematic large-scale relativistic studies of a
+portion of the spectra including the ground state, the MCDHF/MCHF
+Collection aims at creating accurate ab initio collection of
+atomic transition data of the light atoms
+A detailed agreement between ab initio methods for computing atomic
+spectroscopic data and experiment requires the relativistic effects 
+to be included even in light atoms. In addition, fine structure 
+levels, inter-combination lines, and lifetimes of some levels can be 
+accurately determined only by considering the relativistic effects 
+(spin-orbit, spin-spin, and spin-other-orbit) and all computed data
+have included them.
+
+<P>
+
+<H2><A NAME="SECTION00522000000000000000">
+Methods</A>
+</H2>
+The wave functions for both initial and final states were 
+determined using the nonrelativistic multiconfgiurational 
+Hartree-Fock (MCHF) approach. The wave functions were built 
+from a basis of one-electron spin-orbital functions and were 
+expanded in terms of configuration state functions (CSF). In 
+order to keep the calculations in reasonable bounds the 
+method of Restrictive Active Space (RAS) was applied. The 
+size of the active sets (characterized by the largest principal 
+quantum number, n) was incremented until a convergence of both 
+the LS transition energy and the two forms of LS line 
+strength were achieved.
+
+<P>
+In the Breit-Pauli approximation, terms for a specific J value 
+interact, and this requires that mixing effects between  
+terms be considered. The traditional MCHF method was 
+modified to permit a simultaneous optimization of the weighted 
+energy expressions derived from multiple terms. This 
+allowed a single orbital set to represent a choice of terms with 
+strong relativistic mixing. Then, by diagonalization 
+of the Breit-Pauli Hamiltonian a few selected eigenvalues 
+were determined. The bi-orthonormal method was applied to 
+compute the transition data.
+
+<P>
+
+<H2><A NAME="SECTION00523000000000000000">
+Results</A>
+</H2>. 
+The MCDHF/MCHF Collection contains extensive transition data 
+currently for seven isoelectronic sequences (LI, Be, B, C, N, O, F, Ne). 
+The method of simultaneous optimization considerably enhanced the means of 
+computing a common radial basis when many terms exhibit 
+relativistic mixing effects. The method allows for a simultaneous 
+optimization of the weighted energy functional of a set of selected 
+terms and eigenvalues. Applying the Breit-Pauli corrections 
+included the relativistic effects. The accuracies of the 
+transition energy, rates and lifetimes were compared with some 
+high precision experiments and benchmark studies. The transition 
+energies compared to the observed were accurate within a 
+fraction of percent, and the accuracy of the transition rates was 
+very often less than 1data were evaluated based on discrepancies between observed and 
+theoretical energy, and the velocity and length forms of line strength.
+
+<P>
+
+<H1><A NAME="SECTION00530000000000000000">
+Computational Methods</A>
+</H1> This page contains links to 
+<TT>atsp2K, graspVU</TT> source code, installation help, this 
+help manual converted to html format, and additional information 
+about how to setup run parallel jobs on the Linux cluster
+and on seaborg. Additionally cluster management information can be 
+found.
+
+<P>
+
+<H1><A NAME="SECTION00540000000000000000">
+Hartree-Fock Program</A>
+</H1> A web interfaced interactive 
+version of the Hartree-Fock program can be accessed by clicking
+on the link HF Program. 
+Additionally, the user can read the theory behind the <TT>hf</TT> program.
+The Hartree-Fock program is a Java interfaced FORTRAN program
+which is installed on hf5.
+
+<P>
+Note to the system administrator of hf5:
+If problem occurs with the <TT>hf</TT> program on the Web,
+<TT>hf5</TT> should be checked for the following:
+
+<UL>
+<LI>Apache Web Server. The following command shows that
+Apache runs properly;
+<PRE>
+(georgio@hf5)103% ps -ef | grep apache
+apache    9933   826  0 Oct07 ?        00:00:00 /usr/sbin/httpd -DHAVE_PROXY -DH
+apache    9934   826  0 Oct07 ?        00:00:00 /usr/sbin/httpd -DHAVE_PROXY -DH
+apache    9935   826  0 Oct07 ?        00:00:00 /usr/sbin/httpd -DHAVE_PROXY -DH
+apache    9936   826  0 Oct07 ?        00:00:00 /usr/sbin/httpd -DHAVE_PROXY -DH
+apache    9937   826  0 Oct07 ?        00:00:00 /usr/sbin/httpd -DHAVE_PROXY -DH
+apache    9938   826  0 Oct07 ?        00:00:00 /usr/sbin/httpd -DHAVE_PROXY -DH
+apache   16238   826  0 04:40 ?        00:00:00 /usr/sbin/httpd -DHAVE_PROXY -DH
+georgio  17442 17403  0 18:41 pts/7    00:00:00 grep apache
+</PRE>
+</LI>
+<LI><TT>hf</TT> Java Server The interface between the <TT>hf</TT> program 
+and the Web is accomplished by a server written in Java. Thus the 
+command below shows that the Java server is OK, it has a number of
+listening server threads.
+<PRE>
+(georgio@hf5)101% ps -ef | grep java
+root       950     1  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root       986   950  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root       987   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root       988   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root       989   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root       990   986  0 Oct05 ?        00:00:01 /opt/java/j2sdk1.4.0/bin/i386/na
+root       991   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root       992   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root       993   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root       996   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root      1269   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root      1270   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+georgio  17438 17403  0 18:40 pts/7    00:00:00 grep java
+</PRE>
+
+<P>
+If the Java server was not running the output would have been:
+<PRE>
+(georgio@hf5)101% ps -ef | grep java
+georgio  17438 17403  0 18:40 pts/7    00:00:00 grep java
+</PRE>
+
+<P>
+</LI>
+</UL>
+
+<P>
+Both, the Apache server and the <TT>hf</TT> Java server are configured to 
+automatically start upon rebooting of the node hf5. While the 
+scripts for the Apache server are default in the RedHat 7.1 installation 
+and have not been modified, the <TT>hf</TT> Java server startup script
+is executed in <TT>/etc/rc.local</TT> (this script starts the local services).
+<TT>/etc/rc.local</TT> starts the <TT>hf</TT> Java server by executing the 
+script <TT>/var/www/html/sh_start_HFapplet_server</TT>. Note that 
+in order to start the <TT>hf</TT> Java server it is sufficient to 
+execute as a root:
+<PRE>
+#cd /var/www/html/
+#./_start_HFapplet_server
+</PRE>
+
+<P>
+The file <TT>/var/www/html/log.hf_applet</TT> keeps information about
+all IP's which had accessed the <TT>hf</TT> program and performed 
+runs (The output below shows  a portion of this file and IP's from all
+over the world for the last 2 months &gt; 1000 accesses):
+<PRE>
+(georgio@hf5)128% tail /var/www/html/log.hf_applet 
+Server: Connection to 139.91.195.54/139.91.195.54 established
+Server: Connection to elena.iesl.forth.gr/139.91.195.54 established
+Server: Connection to 195.54.103.39/195.54.103.39 established
+Server: Connection to kublai.djingis.m.se/195.54.103.39 established
+Server: Connection to alain.m36sci.nrc.ca/132.246.22.169 established
+Server: Connection to pcphy117.physik.uni-kl.de/131.246.11.210 established
+Server: Connection to atm.nist.gov/129.6.84.160 established
+Server: Connection to useraa87.uk.uudial.com/62.188.130.87 established
+Server: Connection to natpool1-1.bsu.unibel.by/195.50.4.44 established
+Server: Connection to d80h103.public.uconn.edu/137.99.80.103 established
+Server: Connection to duchamp.phy.nist.gov/129.6.169.31 established
+Server: Connection to capsule.neep.wisc.edu/128.104.185.245 established
+Server: Connection to cfppp2-17.harvard.edu/131.142.14.117 established
+Server: Connection to P-1.251.EUnet.yu/213.240.1.251 established
+Server: Connection to mdm3428.chem.utah.edu/128.110.196.147 established
+Server: Connection to wigner.physik.uni-kassel.de/141.51.196.23 established
+Server: Connection to mdm3428.chem.utah.edu/128.110.196.147 established
+Server: Connection to naglfar.sljus.lu.se/130.235.91.187 established
+Server: Connection to mach.ulb.ac.be/164.15.128.3 established
+Server: Connection to berry.phys.nd.edu/129.74.75.176 established
+Server: Connection to hgberry.phys.nd.edu/129.74.76.3 established
+Server: Connection to coral-56-96.pompano.net/24.26.56.96 established
+Server: Connection to elettra.arcetri.astro.it/193.206.155.27 established
+Server: Connection to 1Cust29.tnt9.tco2.da.uu.net/63.15.231.29 established
+Server: Connection to coral-56-96.pompano.net/24.26.56.96 established
+Server: Connection to hgberry.phys.nd.edu/129.74.76.3 established
+Server: Connection to 129.74.76.24/129.74.76.24 established
+Server: Connection to hal4.usm.uni-muenchen.de/129.187.204.12 established
+Server: Connection to lavender.phys.put.poznan.pl/150.254.132.5 established
+Server: Connection to ykkim.phy.nist.gov/129.6.169.2 established
+Server: Connection to m133-48.bgsu.edu/129.1.133.48 established
+Server: Connection to ljclap.physics.utoledo.edu/131.183.161.100 established
+Server: Connection to meltemi.physics.uoc.gr/147.52.180.194 established
+Server: Connection to bethe.fy.chalmers.se/129.16.113.136 established
+</PRE>
+
+<P>
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html245"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html241"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html235"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html243"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html246"
+  HREF="node6.html">NONH</A>
+<B> Up:</B> <A NAME="tex2html242"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html236"
+  HREF="node4.html">Computing Atomic Transitions</A>
+ &nbsp <B>  <A NAME="tex2html244"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>MPI implementation</TITLE>
+<META NAME="description" CONTENT="MPI implementation">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="previous" HREF="node66.html">
+<LINK REL="up" HREF="node63.html">
+<LINK REL="next" HREF="node68.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1116"
+  HREF="node68.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1112"
+  HREF="node63.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1108"
+  HREF="node66.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1114"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1117"
+  HREF="node68.html">BP_EIV</A>
+<B> Up:</B> <A NAME="tex2html1113"
+  HREF="node63.html">BP_MAT</A>
+<B> Previous:</B> <A NAME="tex2html1109"
+  HREF="node66.html">I/O Files</A>
+ &nbsp <B>  <A NAME="tex2html1115"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001040000000000000000">
+MPI implementation</A>
+</H1>
+The MPI implementation computes all columns in an interleaved
+fashion. Each node computes only the <TT>nprocs + myid</TT>,
+where <TT>jb, nprocs, myid</TT> are correspondingly the current 
+column, the number of processes (nodes), and ID number of the node.
+
+<P>
+<PRE>
+ For column = 1,ncfg,nprocs
+    For row = column to ncfg
+       compute the matrix elements for all 
+       three types HNR, HZETA, HSPIN
+</PRE>
+
+<P>
+Each node reads input angular data for the current column and
+writes the contributions to a set of files. The filenames
+contain the processor ID as a four digit number, 
+Figure &nbsp;<A HREF="node67.html#fig:io_bp_mat">8.30</A>.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:io_bp_mat"></A><A NAME="4042"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 8.30:</STRONG>
+
+  Subroutine <TT>brevalr()</TT>.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="461" HEIGHT="632" BORDER="0"
+ SRC="img104.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/mpi_io_bp_mat.eps}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<BR><HR>
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

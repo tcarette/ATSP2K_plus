@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>File IO</TITLE>
+<META NAME="description" CONTENT="File IO">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node62.html">
+<LINK REL="previous" HREF="node60.html">
+<LINK REL="up" HREF="node58.html">
+<LINK REL="next" HREF="node62.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1044"
+  HREF="node62.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1040"
+  HREF="node58.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1034"
+  HREF="node60.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1042"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1045"
+  HREF="node62.html">MPI implementation bp_ang_mpi</A>
+<B> Up:</B> <A NAME="tex2html1041"
+  HREF="node58.html">BP_ANG</A>
+<B> Previous:</B> <A NAME="tex2html1035"
+  HREF="node60.html">Program Structure</A>
+ &nbsp <B>  <A NAME="tex2html1043"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00930000000000000000">
+File IO</A>
+</H1>  
+Provided with the list of configurations, <TT>bp_ang</TT>  generates
+lists with angular data, including selected or all relativistic
+effects.  The angular data is <TT>Z</TT> independent and need to
+be generated only ones for a given configuration list, or a sequence.
+The data files are consequently used by  <TT>bp_mat</TT> to
+generate the potential contributions to the interaction matrix,
+Figure &nbsp;<A HREF="node61.html#fig:bp_ang_io">7.25</A>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:bp_ang_io"></A><A NAME="3768"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7.25:</STRONG>
+
+Serial version. The angular data are stored in files.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="180" HEIGHT="367" BORDER="0"
+ SRC="img98.png"
+ ALT="\begin{figure}\centerline{\psfig{file=tex/fig/bp_ang_io.eps}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The only input file required is the configuration list, which needs
+to have a <TT>.c</TT> suffix. This file has the configurations
+for all terms that mix in the BP calculation. The list is obtained by
+concatenating the relevant configuration lists of each term.
+<TT>bp_ang</TT> reads <TT>cfg.inp</TT> until the first occurrences of an .
+Since each configuration list contains two header lines and an 
+asterisk at the end, after concatenating the files, all header 
+lines and asterisks in intermediate position need to be erased. 
+
+<P>
+After a <TT>bp_ang</TT> calucaltion the user will find
+four binary files which contain the angular data and
+general information relevant to the number and 
+type of orbitals, number of configurations:
+
+<OL>
+<LI>cint.lst.s This file is created by <TT>bp_ang</TT> and it
+contains general information: the number of closed shells,
+and other orbitals, the highest orbital, the number of
+configuration's the buffer size, <TT>lsdim</TT>, number include
+are also column pointer data, number of terms and electron
+parameters.
+</LI>
+<LI>c.lst.s coefficients and integrals
+required for deriving the energy expression.
+</LI>
+<LI>ih.lst.s
+Row indices of the matrix elements.
+</LI>
+<LI>ico.lst.s
+Column pointers, each pointer defines the end of a matrix element.
+</LI>
+</OL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1044"
+  HREF="node62.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1040"
+  HREF="node58.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1034"
+  HREF="node60.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1042"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1045"
+  HREF="node62.html">MPI implementation bp_ang_mpi</A>
+<B> Up:</B> <A NAME="tex2html1041"
+  HREF="node58.html">BP_ANG</A>
+<B> Previous:</B> <A NAME="tex2html1035"
+  HREF="node60.html">Program Structure</A>
+ &nbsp <B>  <A NAME="tex2html1043"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Preface</TITLE>
+<META NAME="description" CONTENT="Preface">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node2.html">
+<LINK REL="previous" HREF="atsp.html">
+<LINK REL="up" HREF="atsp.html">
+<LINK REL="next" HREF="node2.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html75"
+  HREF="node2.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html71"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html65"
+  HREF="atsp.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html73"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html76"
+  HREF="node2.html">Contents</A>
+<B> Up:</B> <A NAME="tex2html72"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html66"
+  HREF="atsp.html">ATSP2K manual</A>
+ &nbsp <B>  <A NAME="tex2html74"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00100000000000000000">
+Preface</A>
+</H1>
+
+In this manual a new MCHF atomic-structure package
+is presented based on dynamic memory allocation, sparse matrix
+methods, and a recently developed angular library. It is meant for
+large-scale calculations in a basis of orthogonal orbitals within a
+state or group of terms of arbitrary parity. The MPI versions
+of CPU and storage demanding applications are also presented.
+
+This manual provides basic information for performing 
+atomic structure calculations with <TT>atsp2K</TT>. Large scale
+serial and parallel calculations are demonstrated, using 
+the N-like electronic sequence, &nbsp;<A HREF="#paper_N-like"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/usr/share/latex2html/icons/crossref.png"></A>. 
+A number of scripts are described with the purpose of
+automating the calculations and processing the computed data.
+For most of the applications this paper also 
+provides information on  program structure and flow. 
+
+The sections of this document are arranged considering the user's
+prospective of using <TT>atsp2K</TT>. Chapter 1, describes details 
+about compiling the package and the installation process. Chapter 2
+gives the required steps for transition calculations and   
+explains helpful shell scripts. Generally, the scripts are used for batch 
+computing, but they may also be used in interactive mode 
+for automating the tasks. Further, chapter 3 to 13 describe 
+important computational details, program 
+structure, program flow and give information about the major 
+features. This information may be helpful for further modifications
+and improvement. Chapter 14 explains the file I/O and formats, used 
+to communicate between various applications. Finally,
+the appendix tabulates the common data structures.
+
+In the MCHF approach, the first step
+is to find an approximate wave function of the initial and final
+states.  Once a set of wave functions has been determined,
+the Breit-Pauli relativistic
+corrections can be applied and a number of atomic
+properties can be computed, including the relativistic
+transition rates, lifetimes, energies.
+The manual explain the calculation steps which can be performed in 
+batch or interactive mode. The preferred method for computing with 
+<TT>atsp2K</TT> is in batch mode and a number of shell scripts are shown 
+for each step.  For large cases batch processing using shell scripts 
+is a necessity. For smaller cases and in interactive mode scripts 
+simplify and automate tasks and in addition, each shell script 
+is by itself a record of how the data was computed. It is also
+an example how to provide the expected input.  The scripts also serve in 
+automating repetitive steps in computing the electronic sequences.
+Included are sections of screen output which demonstrate 
+the  computational process and important case parameters. 
+The screen output also serves 
+to confirm proper execution of the code. 
+
+The code needs a FORTRAN90 compiler to generate executable. The 
+following compilers have been tested: PGI's pgf90, xlf, Digital 
+FORTRAN f90, Sun's f90.  The <TT>atsp2K</TT> package has been tested on 
+many platforms, but primarily on Dec, ibm/SP, Cray t3e, Linux, 
+rs6000, Sun. <TT>atsp2K</TT> has been applied to many atomic systems 
+and for computing the Li-, Be, B-, C-, N-, O-, F-, Na-like electronic
+systems (&nbsp;<A HREF="#paper1"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/usr/share/latex2html/icons/crossref.png"></A>,&nbsp;<A HREF="#paper1"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/usr/share/latex2html/icons/crossref.png"></A>,&nbsp;<A HREF="#paper1"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/usr/share/latex2html/icons/crossref.png"></A>,&nbsp;<A HREF="#paper1"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/usr/share/latex2html/icons/crossref.png"></A>). The 
+<TT>atsp2K</TT> code including all computed data are available at the 
+<TT>http://www.vuse.vanderbilt.edu/cff/mchf_collection</TT>
+
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html75"
+  HREF="node2.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html71"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html65"
+  HREF="atsp.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html73"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html76"
+  HREF="node2.html">Contents</A>
+<B> Up:</B> <A NAME="tex2html72"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html66"
+  HREF="atsp.html">ATSP2K manual</A>
+ &nbsp <B>  <A NAME="tex2html74"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

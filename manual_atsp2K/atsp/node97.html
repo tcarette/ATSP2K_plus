@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>lines</TITLE>
+<META NAME="description" CONTENT="lines">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node98.html">
+<LINK REL="previous" HREF="node96.html">
+<LINK REL="up" HREF="node91.html">
+<LINK REL="next" HREF="node98.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1499"
+  HREF="node98.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1495"
+  HREF="node91.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1489"
+  HREF="node96.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1497"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1500"
+  HREF="node98.html">lsgen and lsgenf</A>
+<B> Up:</B> <A NAME="tex2html1496"
+  HREF="node91.html">Utility programs</A>
+<B> Previous:</B> <A NAME="tex2html1490"
+  HREF="node96.html">levels</A>
+ &nbsp <B>  <A NAME="tex2html1498"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001660000000000000000">
+lines</A>
+</H1>
+
+<P>
+Print transition data in a <TT>tr.lsj</TT> file (produced
+  by the <TT>LSJTR</TT> program) in
+  sorted (increasing) order, according to a number of different
+  criteria.
+  A maximum of 1000 lines may be processed. The <TT>tr.lsj</TT>
+  files from a number of runs may be concatenated before
+  processing.
+<PRE>
+#  ........Processing line data........
+&gt;lines
+ Enter tolerance on line strength
+&gt;0
+ Name of .lsj file ?
+&gt;A.lsj
+ The file that will be searched is A.lsj
+ Number of transitions = 11
+ Select the line list order:
+ 1:  Energy (cm-1)
+ 2:  Wavelength (Angstroms) in Vacuum
+ 3:  Wavelength (Angstroms) in Air
+ 4:  Line Strength
+ 5:  gf Value
+ 6:  Transition Probability
+ Enter your selection:
+&gt;1
+
+ Line List for  ( Z =  7.) with  4 electrons
+
+--------------------------------------------------------------------------------
+
+ Transition Array
+   Multiplet  Line   Type   E(cm-1)     L(air)       S       gf       Aki
+--------------------------------------------------------------------------------
+
+1s(2).2s_2S.2p               1s(2).2s_2S.2p
+     3P  3P  0.0- 1.0  M1       61.0  1639524.9   2.0000   0.0000   4.079E-06
+             1.0- 2.0  M1      140.2   713336.2   2.5000   0.0000   3.714E-05
+         1P  2.0- 1.0  M1    65387.7     1529.3   0.0000   0.0000   1.611E-02
+             1.0- 1.0  M1    65527.9     1526.1   0.0000   0.0000   9.730E-03
+             0.0- 1.0  M1    65588.8     1524.7   0.0000   0.0000   1.301E-02
+--------------------------------------------------------------------------------
+</PRE>
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

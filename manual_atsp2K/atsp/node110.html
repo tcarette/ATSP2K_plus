@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>bp_ang, bp_mat, bp_eiv</TITLE>
+<META NAME="description" CONTENT="bp_ang, bp_mat, bp_eiv">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node111.html">
+<LINK REL="previous" HREF="node109.html">
+<LINK REL="up" HREF="node107.html">
+<LINK REL="next" HREF="node111.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1658"
+  HREF="node111.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1654"
+  HREF="node107.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1648"
+  HREF="node109.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1656"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1659"
+  HREF="node111.html">Parallel mpi_nonh, mpi_mchf.</A>
+<B> Up:</B> <A NAME="tex2html1655"
+  HREF="node107.html">I/O File Formats</A>
+<B> Previous:</B> <A NAME="tex2html1649"
+  HREF="node109.html">Parallel mpi_nonh, mpi_mchf.</A>
+ &nbsp <B>  <A NAME="tex2html1657"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001730000000000000000">
+<TT>bp_ang, bp_mat, bp_eiv</TT></A>
+</H1>
+All three program use a nuber of files in binary format
+to communicate computed data:
+
+<P>
+
+<OL>
+<LI>cint.lst This file is created by <TT>bp_ang</TT> and it 
+contains general information about the problem in binary format.
+The number of closed shells, the highest orbital, the number of
+conigurations the buffer size, <TT>lsdim</TT>, inlcuded are also
+column pointer data, number of terms and electron parameters. 
+
+<P>
+<PRE>
+    . nclosd,maxorb,lsdim, ncfg
+    . l(1:nclsd),l(1:maxorb)
+    . el(1:nwf)
+    . lmax, nnel, skip
+    . lsp(1:ncfg), jptr(1:ncfg)
+    . nterm, index(1:nterm)
+</PRE>
+
+<P>
+</LI>
+<LI>c.lst
+This binary file contains the coefficients and integrals
+required for deriving the energy expression.  
+<PRE>
+For each column (1 : ncfg)
+    . n, cn(1:n), inptr(1:n)
+    . in blocks of lsdim.  Last record for a column has nij = ico(nih)
+</PRE>
+
+<P>
+</LI>
+<LI>ih.lst
+The indices of the matrix elements are saved in binary format.
+<PRE>
+  For each column (1 : ncfg)
+     . mih, jan(1:cij) where
+         - nih is the number of non-zero matrix elements
+         - jan(i) is the row index of the i'th
+</PRE> 
+
+<P>
+</LI>
+<LI>ico.lst
+The column pointers are saved in binary format.
+<PRE>
+  For each column, nih,ico(i)  where
+     . nih is the number of non-zero matrix elements
+     . ico(i) is the value of nij when the matrix
+       element calculation has been completed.
+</PRE>
+
+<P>
+</LI>
+<LI> hnr.lst, hzeta.lst, hspin.lst
+Each type of interaction, nonrelativistc, zeta, and spin/spin
+are stored in a st of three files, they are prodiced by <TT>bp_mat</TT>.
+<PRE>
+For each column, and each type of interaction
+     . write(iouhz) jb,m,(h(i,.),i=1,m),(jan(i,.),i=1,m)
+          where now the matrix elements are counted with respect to type.
+</PRE>
+
+<P>
+</LI>
+<LI><TT>LSJ.j</TT>:
+<TT>bp_eiv</TT> saves the eigenvectors for each term included
+in the configuration list in a separate file. Multiple eigenvalues
+and eigenvectors for a given term are saved in the same file. The 
+format is similar to <TT>LSn.l</TT> files shown above.
+<PRE>
+Global Information for the term:
+   Label, Atomic number, Number of electrons, number of configurations
+       (2X,A6,A,F5.1,A,I3,A,I6)' )
+   2 blank lines
+   J value, number of eigenvalues: (//A8,I4,2X,A8,I4)'
+   .For each eigenvalue index requested:
+      . Ssms factor, gJ_LSJ, gJ_LS Zeeman factors: (3'(A8,f15.10)'
+      . index of dominant configuration, energy, label (i6,f16.9,2x,A)
+      . weight coefficients(eigenvector) '(7F11.8)'
+
+The command
+%"head Atom.j" shows the head of the file, the first 10 lines:
+####
+  Z=9     Z =   9.0  NEL =   7   NCFG =  14482
+
+
+  2*J =    5  NUMBER =   1
+   Ssms=    .0000000000    g_J=   1.2004638609  g_JLS=   1.2004638609
+  6225   -97.668082391  2s(2).2p(3)2D3_2D
+  .00000000  .00000000  .00000000  .00000000  .00000000  .00000000  .00000000
+  .00000000  .00000000  .00000000  .00000000  .00000000  .00000000  .00000000
+  .00000000  .00000000  .00000000  .00000000  .00000000  .00000000  .00000000
+  .00000000  .00000000  .00000000  .00000000  .00000000  .00000000  .00000000
+...........
+</PRE>
+
+<P>
+The column pointers are saved in binary format.
+<PRE>
+</PRE>
+
+<P>
+</LI>
+</OL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1658"
+  HREF="node111.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1654"
+  HREF="node107.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1648"
+  HREF="node109.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1656"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1659"
+  HREF="node111.html">Parallel mpi_nonh, mpi_mchf.</A>
+<B> Up:</B> <A NAME="tex2html1655"
+  HREF="node107.html">I/O File Formats</A>
+<B> Previous:</B> <A NAME="tex2html1649"
+  HREF="node109.html">Parallel mpi_nonh, mpi_mchf.</A>
+ &nbsp <B>  <A NAME="tex2html1657"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

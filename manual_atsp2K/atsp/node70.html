@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Program Structure</TITLE>
+<META NAME="description" CONTENT="Program Structure">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node71.html">
+<LINK REL="previous" HREF="node69.html">
+<LINK REL="up" HREF="node68.html">
+<LINK REL="next" HREF="node71.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1156"
+  HREF="node71.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1152"
+  HREF="node68.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1146"
+  HREF="node69.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1154"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1157"
+  HREF="node71.html">Energy corrections</A>
+<B> Up:</B> <A NAME="tex2html1153"
+  HREF="node68.html">BP_EIV</A>
+<B> Previous:</B> <A NAME="tex2html1147"
+  HREF="node69.html">Introduction</A>
+ &nbsp <B>  <A NAME="tex2html1155"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001120000000000000000">
+Program Structure</A>
+</H1>
+The program starts with initializing basic constants in <TT>inita(), 
+initr()</TT>.  <TT>inp_case()</TT> prompts the user to supply the name of the 
+case, type of calculation, relativistic or non-relativistic, and 
+if the mass correction will be included. Then, 
+the maximum and minimum eigenvalue to be computed need to be specified
+as a 2*J number, followed by a request for indices to be computed 
+within each J. This data must be entered using the following format.
+
+<P>
+<PRE>
+&gt;Enter ATOM, relativistic (Y/N) with mass correction (Y/N)
+A,y,y
+&gt;Gradient or Slater form? (G/S):
+g
+&gt; Enter Maximum and minimum values of 2*J
+4,2
+&gt;Enter eigenvalues: one line per term, eigenvalues separated by commas
+2*J =  4
+2,3,4
+2*J =  2
+1,2
+.......
+</PRE>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="bp_eiv_main"></A><A NAME="4253"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 9.31:</STRONG>
+
+  <TT>bp_eiv</TT> program structure.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="232" HEIGHT="275" BORDER="0"
+ SRC="img108.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/bp_eiv_main.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+To compute the number of matrix elements, and respectively to 
+allocate memory, <TT>alcmat() and alctab()</TT> rely on a call to 
+<TT>jmem()</TT>, which in effect reads 
+<TT>hnr.lst, hzeta.lst, hspin.lst</TT> and computes
+the number of nonzero elements in the interaction matrix. 
+If the requested memory is larger than the what is available, the
+program continues the calculation, by allocating memory for the 
+largest column. In this case the <TT>dvdson()</TT> performs 
+<EM>matrix-vector</EM> multiplication (in <TT>dssbmv</TT>),
+keeping in memory only a single column.  
+
+<P>
+The matrix elements are assembled in (<TT>hmx_lsj()</TT>), then the
+interaction matrix is diagonalized (<TT>lsjmat()</TT>). Next, 
+<TT>dvdson()</TT> finds the requested eigenvalues. Finally,
+<TT>brci_zeeman()</TT>, computes the Zeman factor. The requested
+eigenvectors are saved in a <TT>&lt;name&gt;.j</TT> file.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:lsjm"></A><A NAME="4255"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 9.32:</STRONG>
+
+  Subroutine <TT>lsjmat()</TT>. 
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="611" HEIGHT="558" BORDER="0"
+ SRC="img109.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/bp_eiv_lsjmat.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1156"
+  HREF="node71.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1152"
+  HREF="node68.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1146"
+  HREF="node69.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1154"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1157"
+  HREF="node71.html">Energy corrections</A>
+<B> Up:</B> <A NAME="tex2html1153"
+  HREF="node68.html">BP_EIV</A>
+<B> Previous:</B> <A NAME="tex2html1147"
+  HREF="node69.html">Introduction</A>
+ &nbsp <B>  <A NAME="tex2html1155"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

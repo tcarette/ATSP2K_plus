@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Parallel mpi_nonh, mpi_mchf.</TITLE>
+<META NAME="description" CONTENT="Parallel mpi_nonh, mpi_mchf.">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node110.html">
+<LINK REL="previous" HREF="node108.html">
+<LINK REL="up" HREF="node107.html">
+<LINK REL="next" HREF="node110.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1646"
+  HREF="node110.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1642"
+  HREF="node107.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1636"
+  HREF="node108.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1644"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1647"
+  HREF="node110.html">bp_ang, bp_mat, bp_eiv</A>
+<B> Up:</B> <A NAME="tex2html1643"
+  HREF="node107.html">I/O File Formats</A>
+<B> Previous:</B> <A NAME="tex2html1637"
+  HREF="node108.html">Serial nonh, mchf.</A>
+ &nbsp <B>  <A NAME="tex2html1645"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001720000000000000000">
+Parallel <TT>mpi_nonh, mpi_mchf</TT>.</A>
+</H1>
+The parallel versions use the same formats, except the file which
+stores the row index of a matrix element, <TT>ico</TT>. The serial version
+requires the row indices <EM>of each</EM> to be stored in a seperate
+file for each block. This simplifies the dynamic memory management
+for large cases, when the eigenvalue routine, <TT>dvdson()</TT> performs
+the calculation on disc. The parallel version 
+assumes that sufficient number of nodes
+may be provided to have all arrays, except the coefficient data
+in memory, therefore, disk version of <TT>dvdson()</TT> is not used.  
+
+<OL>
+<LI><TT>ih.lst.nnn</TT>: records the row index of a matrix element.  
+This also is a binary file for each block:
+ih.nn.lst: (unformatted), where nn is a 2 digit number and is the block number
+<PRE>
+   For each Block (1 : NB)
+      . lij, ico(1:lsj) repeated, terminating condition:
+                       lij &lt; lsdim ncol (or ncfg for block), jptr(1:ncol)
+</PRE>
+</LI>
+</OL>
+
+<P>
+The parallel versions use different file naming convention:
+The name of the files are comprised by a basename which is the 
+name of the corresponding file from the serial routine, and a suffix
+which indicates the node ID. 
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

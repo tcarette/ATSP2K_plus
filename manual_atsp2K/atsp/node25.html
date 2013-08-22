@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Computing Forbidden Transition</TITLE>
+<META NAME="description" CONTENT="Computing Forbidden Transition">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node26.html">
+<LINK REL="previous" HREF="node24.html">
+<LINK REL="up" HREF="node17.html">
+<LINK REL="next" HREF="node26.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html593"
+  HREF="node26.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html589"
+  HREF="node17.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html583"
+  HREF="node24.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html591"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html594"
+  HREF="node26.html">Parallel atsp2K</A>
+<B> Up:</B> <A NAME="tex2html590"
+  HREF="node17.html">Computing Atomic Transitions</A>
+<B> Previous:</B> <A NAME="tex2html584"
+  HREF="node24.html">Computing Allowed Transitions</A>
+ &nbsp <B>  <A NAME="tex2html592"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00480000000000000000">
+Computing Forbidden Transition</A>
+</H1>
+Both <TT>biotr and trans</TT> are used to compute forbidden transitions.
+<TT>biotr</TT> computes the angular data storing it in the memory and it
+executes faster.  When orbitals in the initial and final state are 
+orthogonal, the program <TT>trans</TT> may be used.
+This happens often to be the case for forbidden transitions between
+levels of a Breit-Pauli calculation.  For example,  the example
+below demonstrate the interactive use of <TT>trans</TT>. To determine 
+the E2 transitions between the <TT>E1 and O1</TT> states discussed in 
+the previous section, the interactive session is shown below:
+<PRE>
+#  ........An E2 transition between two odd parity states........
+  Name of Initial State
+I
+  Name of Final State
+F
+  intermediate printing (y or n) ?
+n
+  transitions only for E(initial) &lt; E(final) (y or n) ?
+y
+ Default Rydberg constant (y/n)
+y
+  Relativistic calculation ? (y/n)
+y
+  Type of transition ? (E1, E2, M1, M2, .. or *)
+E2
+  Use existing file for Angles ? (y/n)
+n
+------------------------------------------------------------------------
+</PRE>
+
+<P>
+The above calculation produces two files: <TT>I.F.lsj</TT> which contains
+the data about each transition and it has the 
+same format as the file from the former section, and the angular 
+information is stored in <TT>I.F.E2</TT>.  The latter is binary and 
+in the case of an iso-electronic sequence, the angular data can be 
+
+<P>
+A script below is shown which uses <TT>biotr</TT> for computing
+the forbidden transitions. Note that the script is very
+general, it computes for each combination of output and input
+state, and additionally for each of the the forbidden <TT>E2, M1, M2</TT>.
+
+<P>
+<PRE>
+set -x
+# compute forbidden transitions, in general biotr and trans can be 
+# used for this purpose, here the use of biotr is shown. trans use
+# similar set of input parameters. 
+
+echo "computing *.j files"
+# in this case we use n=4 calculation.
+n=4
+
+# copy configuration lists
+cp E4.c E1.c
+cp O4.c O1.c
+
+I=E1
+F=O1
+
+# start a loop over forbidden transitions E2, M1, M2
+for T in E2 M1 M2
+do
+   (for I in E1 O1
+   do
+      (for F in E1 O1
+      do
+         (for Z in 8 9 
+         do
+            (echo
+         
+# remove files that may stay from previous calculation
+            rm I.F.???
+
+# copy initial files into I.c I.w I.j 
+            cp ${I}.c I.c
+            cp ../${I}/${I}.${Z}_${n}.w I.w
+            cp ${I}.${Z}.j I.j
+# copy final into F.c, F.w, F.j 
+            cp ${F}.c F.c
+            cp ../${F}/${F}.${Z}_${n}.w F.w
+            cp ${F}.${Z}.j F.j
+#run biotr         
+${ATSP}/bin/biotr&lt;&lt;EOF
+I
+F
+n
+y
+${T}
+EOF
+
+# save the computed transitions under unique name incorporating
+# Initial state, Finals state, type of transitions, and Z. 
+            mv I.F.lsj F_${T}_${I}.${F}.${Z}.lsj 
+      
+            echo)
+         done)
+      done)
+   done)
+done
+
+
+# remove not needed files.
+rm ?.?  fort*
+</PRE>
+
+<P>
+Finally <TT>sh_tables</TT> tabulates the computed data in several files:
+Energy data and lifetimes <TT>*-lev.dat</TT> and the transition data 
+stored in <TT>*-lin.dat</TT>. Both are tabulated from data found in
+<TT>*.j and *.lsj</TT>.  
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html593"
+  HREF="node26.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html589"
+  HREF="node17.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html583"
+  HREF="node24.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html591"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html594"
+  HREF="node26.html">Parallel atsp2K</A>
+<B> Up:</B> <A NAME="tex2html590"
+  HREF="node17.html">Computing Atomic Transitions</A>
+<B> Previous:</B> <A NAME="tex2html584"
+  HREF="node24.html">Computing Allowed Transitions</A>
+ &nbsp <B>  <A NAME="tex2html592"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

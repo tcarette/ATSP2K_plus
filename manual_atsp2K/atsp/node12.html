@@ -1,0 +1,423 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>HFS</TITLE>
+<META NAME="description" CONTENT="HFS">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node13.html">
+<LINK REL="previous" HREF="node11.html">
+<LINK REL="up" HREF="atsp.html">
+<LINK REL="next" HREF="node13.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html356"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html352"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html346"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html354"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html357"
+  HREF="node13.html">ISO</A>
+<B> Up:</B> <A NAME="tex2html353"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html347"
+  HREF="node11.html">BIOTR</A>
+ &nbsp <B>  <A NAME="tex2html355"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html358"
+  HREF="#SECTION001210000000000000000">Introduction</A>
+<LI><A NAME="tex2html359"
+  HREF="#SECTION001220000000000000000"><TT>hfs</TT>  Program Structure</A>
+<LI><A NAME="tex2html360"
+  HREF="#SECTION001230000000000000000">Input data</A>
+<LI><A NAME="tex2html361"
+  HREF="#SECTION001240000000000000000">File IO</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION001200000000000000000"></A><A NAME="chap:intro"></A>
+<BR>
+HFS
+</H1>
+
+<P>
+
+<H1><A NAME="SECTION001210000000000000000">
+Introduction</A>
+</H1>
+The atomic hyperfine splitting is determined by the hyperfine interaction
+constant <IMG
+ WIDTH="27" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img120.png"
+ ALT="${A_J}$"> and <IMG
+ WIDTH="27" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img121.png"
+ ALT="${B_J}$">. In strong external magnetic fields,
+the splitting is also affected by the off-diagonal hyperfine
+constants <!-- MATH
+ ${A_{J,J-1}, B_{J,J-1}, B_{J,J-2}}$
+ -->
+<IMG
+ WIDTH="163" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img122.png"
+ ALT="${A_{J,J-1}, B_{J,J-1}, B_{J,J-2}}$">.
+The hyperfine program computes the magnetic dipole and 
+electric quadrupole constants from MCHF wave functions. 
+The program requires that the orbitals of a single configuration 
+from the initial and final state to be mutually orthogonal.
+
+<P>
+
+<H1><A NAME="SECTION001220000000000000000">
+<TT>hfs</TT>  Program Structure</A>
+</H1>
+The program structure is shown on Figure &nbsp;<A HREF="node12.html#fig:hfs_main">7.37</A>.
+The configurations are analyzed for orthogonality (<TT>cfgn(), cfg01()</TT>).  
+<TT>factr()</TT> computes a table of logarithms of factorials.
+<TT>readwt()</TT> reads the weight from <TT>.l or .j</TT> file. A number of
+<!-- MATH
+ $L_{j}, S_{j}, L_{k}, S_{k}$
+ -->
+<IMG
+ WIDTH="98" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img123.png"
+ ALT="$L_{j}, S_{j}, L_{k}, S_{k}$"> and <IMG
+ WIDTH="16" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img124.png"
+ ALT="$J$"> dependent factors are determined
+in <TT>lsjfact()</TT>. The wave functions are read in <TT>readwfn()</TT>.
+The one-electron active radial integrals are determined in <TT>radial1()
+and radial2()</TT>. <TT>multwt()</TT> multiplies the weights of configuration 
+<IMG
+ WIDTH="14" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img125.png"
+ ALT="$j$"> and <IMG
+ WIDTH="15" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img126.png"
+ ALT="$k$">. <TT>setup()</TT> transforms the occupation and coupling 
+for a configuration pair in a format suitable for use by <TT>tensor()</TT>, 
+which evaluates the reduced matrix element between arbitrarily LS 
+coupled configurations.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:hfs_main"></A><A NAME="4486"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7.37:</STRONG>
+
+  <TT>hfs</TT>  program structure. 
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="432" HEIGHT="783" BORDER="0"
+ SRC="img127.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/hfs_main.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<H1><A NAME="SECTION001230000000000000000">
+Input data</A>
+</H1>
+The user provides the following input data:
+
+<OL>
+<LI><I>Name of state</I>
+<BR>
+This program requires that the name of the sate, denoted 
+  here as <TT>&lt;name&gt;</TT>, to be specified. The program expects 
+expects all data from <TT>&lt;name&gt;.c, &lt;name&gt;.w</TT> and either
+of <TT>&lt;name&gt;.l, or &lt;name&gt;.j</TT>.
+
+<P>
+</LI>
+<LI><I>Type</I>
+<BR>
+The following options are provided;
+
+<UL>
+<LI>only diagonal <IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img128.png"
+ ALT="$A$"> and <IMG
+ WIDTH="19" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img129.png"
+ ALT="$B$"> factors.
+</LI>
+<LI>both diagonal and off-diagonal <IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img128.png"
+ ALT="$A$"> and <IMG
+ WIDTH="19" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img129.png"
+ ALT="$B$"> factors
+</LI>
+<LI>only the coefficients of the radial matrix elements
+</LI>
+</UL>
+  For the last option all needed input data is in the
+  configuration input file <TT>&lt;name&gt;</TT>.c .
+
+<P>
+</LI>
+<LI><I>Hyperfine parameters</I>
+<BR>
+The hyperfine parameters <!-- MATH
+ $a_{l},a_{d},a_{c}$
+ -->
+<IMG
+ WIDTH="64" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img130.png"
+ ALT="$a_{l},a_{d},a_{c}$"> and <IMG
+ WIDTH="20" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img131.png"
+ ALT="$b_{q}$">
+  can be printed out. (meaningful for pure LS terms).
+
+<P>
+</LI>
+<LI><I>Input</I>
+<BR>
+The program can use wave function expansion from either an 
+MCHF or CI calculation. 
+
+<P>
+</LI>
+<LI><I>Number</I>
+<BR>
+Specifies the  particular states for which the
+<IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img128.png"
+ ALT="$A$"> and <IMG
+ WIDTH="19" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img129.png"
+ ALT="$B$"> factors to be calculated (when <TT>&lt;name&gt;.j</TT> contains more
+than one state).
+
+<P>
+</LI>
+<LI><I>Print-out</I>
+<BR>
+In a calculation of the <IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img128.png"
+ ALT="$A$"> and <IMG
+ WIDTH="19" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img129.png"
+ ALT="$B$"> factors, 
+values of the <!-- MATH
+ $A^{orb},A^{dip}, A^{cont}$
+ -->
+<IMG
+ WIDTH="119" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img132.png"
+ ALT="$A^{orb},A^{dip}, A^{cont}$">, and <IMG
+ WIDTH="19" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img129.png"
+ ALT="$B$"> terms are 
+written to the file <TT>&lt;name&gt;</TT>.h.  Full print-out prints the
+ values of coefficients and radial matrix elements as well as 
+the contribution to the different <IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img128.png"
+ ALT="$A$"> and <IMG
+ WIDTH="19" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img129.png"
+ ALT="$B$"> factors
+for every pair of configurations.
+
+<P>
+</LI>
+<LI><I>Tolerance for printing</I>
+<BR>
+In the case of a full print-out it is possible to set 
+a tolerance for printing. If the contribution to a term is 
+less than the tolerance, then it will not be printed.
+
+<P>
+</LI>
+<LI><I>Nuclear data</I>
+<BR>
+The user provides:
+
+<UL>
+<LI><IMG
+ WIDTH="22" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img133.png"
+ ALT="$2I$">
+</LI>
+<LI><IMG
+ WIDTH="23" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img134.png"
+ ALT="$\mu_{I}$"> in nuclear magnetons
+</LI>
+<LI><IMG
+ WIDTH="19" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img135.png"
+ ALT="$Q$">  in barns
+</LI>
+</UL>
+which are experimental values.
+</LI>
+</OL>
+
+<P>
+
+<H1><A NAME="SECTION001240000000000000000">
+File IO</A>
+</H1>
+The input files are described in Chapter &nbsp;<A HREF="node16.html#chap:io">13.16</A>.
+
+<P>
+The output is written to a file <TT>&lt;name&gt;</TT>.h .
+If a full print-out is requested, the program outputs the following data
+from equations (46) and (47) for a pair of configurations <IMG
+ WIDTH="14" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img125.png"
+ ALT="$j$"> and <IMG
+ WIDTH="15" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img126.png"
+ ALT="$k$">.
+
+<OL>
+<LI><IMG
+ WIDTH="16" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img124.png"
+ ALT="$J$"> <IMG
+ WIDTH="21" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="img136.png"
+ ALT="$J'$"> 
+<BR>
+The <IMG
+ WIDTH="16" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img124.png"
+ ALT="$J$"> values for which the matrix element has been calculated.
+
+<P>
+</LI>
+<LI><I>Weight </I>
+<BR>
+The configuration weight <IMG
+ WIDTH="34" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img137.png"
+ ALT="$c_{j}c_{k}$">.
+
+<P>
+</LI>
+<LI><I>Coeff </I>
+<BR>
+The coefficient coef<IMG
+ WIDTH="43" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img138.png"
+ ALT="$(\rho,\sigma)$">.
+
+<P>
+</LI>
+<LI><I>Radial matrix elements </I>
+<BR>
+Values of the radial matrix elements <!-- MATH
+ $\mbox{rad}({\rho},{\sigma}),
+({\mu}|{\mu}')^{n_{1}}$
+ -->
+<IMG
+ WIDTH="129" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img139.png"
+ ALT="$\mbox{rad}({\rho},{\sigma}),
+({\mu}\vert{\mu}')^{n_{1}}$"> and <!-- MATH
+ $({\nu}|{\nu}')^{n_{2}}$
+ -->
+<IMG
+ WIDTH="60" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img140.png"
+ ALT="$({\nu}\vert{\nu}')^{n_{2}} $">
+
+<P>
+</LI>
+<LI><I>A(MHz), B(MHz)</I>
+<BR>
+The contribution in MHz to the different <IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img128.png"
+ ALT="$A$"> and <IMG
+ WIDTH="19" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img129.png"
+ ALT="$B$"> factors
+  from this pair of configurations.
+</LI>
+</OL>
+
+<P>
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html356"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html352"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html346"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html354"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html357"
+  HREF="node13.html">ISO</A>
+<B> Up:</B> <A NAME="tex2html353"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html347"
+  HREF="node11.html">BIOTR</A>
+ &nbsp <B>  <A NAME="tex2html355"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

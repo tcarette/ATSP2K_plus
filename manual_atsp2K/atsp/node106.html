@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Useful scripts</TITLE>
+<META NAME="description" CONTENT="Useful scripts">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="previous" HREF="node105.html">
+<LINK REL="up" HREF="node91.html">
+<LINK REL="next" HREF="node107.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1605"
+  HREF="node107.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1601"
+  HREF="node91.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1597"
+  HREF="node105.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1603"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1606"
+  HREF="node107.html">I/O File Formats</A>
+<B> Up:</B> <A NAME="tex2html1602"
+  HREF="node91.html">Utility programs</A>
+<B> Previous:</B> <A NAME="tex2html1598"
+  HREF="node105.html">tables</A>
+ &nbsp <B>  <A NAME="tex2html1604"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION0016150000000000000000">
+Useful scripts</A>
+</H1>
+There are several scripts which proved to be useful in decreasing
+manual tasks for a mass production:
+
+<UL>
+<LI><TT>sh_cat</TT> Given a concatenated list of configurations, 
+<TT>sh_cat</TT> removes the intermediate blank lines, header files
+and asterisks. The file is used to transform a configuration 
+list from the format what <TT>nonh and mchf</TT> use to the 
+format which <TT>bp_ang, bp_mat, bp_eiv, biotr</TT> use. 
+The script uses the <TT>sed</TT> program and it has been tested with
+<PRE>
+(georgio@gitm)131% sed -V
+GNU sed version 3.02
+</PRE>
+This script takes a single .c, or multiple *.c files as an argument
+and formats them saving the original files in *.c.old.
+Usage: "./sh_cat *.c" will transform all .c files in the 
+directory.
+
+<P>
+</LI>
+<LI><TT>sh_format</TT>
+The script take as an argument *.w files and formats 
+the wavefunctions. Formatted files are saved with .wfm
+extension. The script uses <TT>w_format</TT>. Usage:
+"./sh_format *.w" will create the formatted versions
+of all *.w in the directory.
+
+<P>
+</LI>
+<LI><TT>sh_unformat</TT>                  
+The script take as an argument *.wfm files and respectively
+unformat the wavefunctions. Unformatted files are saved with .w
+extension. The script uses  <TT>w_unformat</TT>. 
+Usage: "./sh_unformat *.wfm" This will unfromat all .wfm
+files in the directory.
+</LI>
+</UL>
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1605"
+  HREF="node107.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1601"
+  HREF="node91.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1597"
+  HREF="node105.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1603"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1606"
+  HREF="node107.html">I/O File Formats</A>
+<B> Up:</B> <A NAME="tex2html1602"
+  HREF="node91.html">Utility programs</A>
+<B> Previous:</B> <A NAME="tex2html1598"
+  HREF="node105.html">tables</A>
+ &nbsp <B>  <A NAME="tex2html1604"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

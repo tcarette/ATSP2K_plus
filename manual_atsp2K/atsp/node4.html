@@ -1,0 +1,1887 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Computing Atomic Transitions</TITLE>
+<META NAME="description" CONTENT="Computing Atomic Transitions">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node5.html">
+<LINK REL="previous" HREF="node3.html">
+<LINK REL="up" HREF="atsp.html">
+<LINK REL="next" HREF="node5.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html224"
+  HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html220"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html214"
+  HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html222"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html225"
+  HREF="node5.html">The MCDHF/MCHF Data Collection</A>
+<B> Up:</B> <A NAME="tex2html221"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html215"
+  HREF="node3.html">Compiling and testing</A>
+ &nbsp <B>  <A NAME="tex2html223"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html226"
+  HREF="#SECTION00410000000000000000">Introduction</A>
+<LI><A NAME="tex2html227"
+  HREF="#SECTION00420000000000000000">Generating Configuration State Functions</A>
+<LI><A NAME="tex2html228"
+  HREF="#SECTION00430000000000000000">Optimization</A>
+<LI><A NAME="tex2html229"
+  HREF="#SECTION00440000000000000000">Computing the wave functions using <TT>MCHF</TT></A>
+<LI><A NAME="tex2html230"
+  HREF="#SECTION00450000000000000000">Computing <TT>LS</TT> transitions</A>
+<LI><A NAME="tex2html231"
+  HREF="#SECTION00460000000000000000">Breit-Pauli calculations</A>
+<LI><A NAME="tex2html232"
+  HREF="#SECTION00470000000000000000">Computing Allowed Transitions</A>
+<LI><A NAME="tex2html233"
+  HREF="#SECTION00480000000000000000">Computing Forbidden Transition</A>
+<LI><A NAME="tex2html234"
+  HREF="#SECTION00490000000000000000">Parallel <TT>atsp2K</TT> </A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00400000000000000000"></A>
+<A NAME="chap:run"></A>
+<BR>
+Computing Atomic Transitions
+</H1>
+
+<P>
+
+<H1><A NAME="SECTION00410000000000000000">
+Introduction</A>
+</H1>
+
+<P>
+A typical calculation for the wave function of a group of 
+terms, is:
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="atsp_general"></A><A NAME="1418"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2.1:</STRONG>
+
+Sequence in computing atomic properties with <TT>atsp2K</TT>.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="310" HEIGHT="229" BORDER="0"
+ SRC="img2.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\epsfig{file=tex/fig/atsp_general.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+Each stage in this sequence is considered an application.  In order
+to simplify the dynamic memory allocation, each stage outputs
+information about the problem and its size to a file so that 
+the next stage has the crucial information for 
+memory allocation.  
+This chapter of the document describes the steps 
+for performing transition calculations with <TT>atsp2K</TT>
+and a number of other atomic properties. The N-like electronic 
+sequence is described as an example.  
+
+<P>
+
+<H1><A NAME="SECTION00420000000000000000">
+Generating Configuration State Functions</A>
+</H1>
+
+<P>
+The calculation starts with generating the configuration state functions
+using <TT>lsgen and lsreduce</TT>, which are explained in &nbsp;<A HREF="#chap:lsgen"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/usr/share/latex2html/icons/crossref.png"></A>,
+and &nbsp;<A HREF="#chap:lsreduce"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/usr/share/latex2html/icons/crossref.png"></A>.
+The first choice is the decision of the model to be used for
+generating expansions. In this example, the wave function expansions 
+were obtained from orbital sets of increasing size characterized by 
+their maximum quantum number. For orbital sets with <IMG
+ WIDTH="45" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3.png"
+ ALT="$n=4$"> or <IMG
+ WIDTH="45" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4.png"
+ ALT="$n=5$">, these
+were obtained, by single (S) and double (D) excitations from a 
+multi-reference set, treating <IMG
+ WIDTH="29" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img5.png"
+ ALT="$1s^2$"> as a common closed core. The 
+multi-reference set contained all configurations
+<!-- MATH
+ $\{2s^22p^2\; {\mbox{or}}\;2p^{3}\}\{2p,3s,3p,3d,4s,4p,4d\}$
+ -->
+<IMG
+ WIDTH="283" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.png"
+ ALT="$\{2s^22p^2\; {\mbox{or}}\;2p^{3}\}\{2p,3s,3p,3d,4s,4p,4d\}$"> and
+<!-- MATH
+ $2s2p^{3}\{2p,3s,3p,3d\}$
+ -->
+<IMG
+ WIDTH="145" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.png"
+ ALT="$2s2p^{3}\{2p,3s,3p,3d\}$">. Only those configuration states from SD 
+excitations which interacted with at least one member of the multi-reference 
+set were retained. To these expansions 
+were added all configuration states of the form
+<!-- MATH
+ $1s^2.\{2\}^{m+1}\{2s,2p,\ldots, 6s,6p,6d,6f,6g\}^2$
+ -->
+<IMG
+ WIDTH="291" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$1s^2.\{2\}^{m+1}\{2s,2p,\ldots, 6s,6p,6d,6f,6g\}^2$"> at the <IMG
+ WIDTH="45" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img9.png"
+ ALT="$n=6$"> stage and then
+<!-- MATH
+ $1s^2.\{2\}^{m+1}\{2s,2p,\ldots,7s,7p,7d,7f,7g\}^2$
+ -->
+<IMG
+ WIDTH="291" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img10.png"
+ ALT="$1s^2.\{2\}^{m+1}\{2s,2p,\ldots,7s,7p,7d,7f,7g\}^2$"> at the <IMG
+ WIDTH="45" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img11.png"
+ ALT="$n=7$"> stage.  
+In this notation <IMG
+ WIDTH="58" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img12.png"
+ ALT="$\{2\}^{m+1}$"> implies any combination of <IMG
+ WIDTH="45" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img13.png"
+ ALT="$2s,2p$"> orbitals 
+which, when coupled to two of the orbitals in the last orbital set,
+yields the required term and parity. All configuration files, including
+the multi-reference sets are located in the directory <TT>atsp2K/files_c</TT>.
+The configuration lists have *.c suffix, the reference lists are 
+prefixed with <TT>mrlist</TT>.
+
+<P>
+
+<H1><A NAME="SECTION00430000000000000000">
+Optimization</A>
+</H1>
+The second decision is which terms to include and how to proceed with
+the multiconfigurational calculations. The different states of the 
+ions were grouped together and a radial basis determined for a set 
+of terms and/or eigenvalues that were deemed to be important for 
+the relativistic effects.  In Table&nbsp;<A HREF="node4.html#state-opt">2.1</A>, shows the 
+group of terms for which accurate Breit-Pauli results are required. 
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+
+<A NAME="state-opt"></A>
+<DIV ALIGN="CENTER">
+<A NAME="1013"></A>
+<TABLE CELLPADDING=3 BORDER="1">
+<CAPTION><STRONG>Table 2.1:</STRONG>
+
+Optimization strategies for groups of terms for N-like. Eigenfunctions for
+a specific term are designated by the dominant configuration.
+All weights are unity unless designated otherwise in parenthesis
+following the term.
+</CAPTION>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="CENTER" COLSPAN=1>&nbsp;</TD>
+<TD ALIGN="CENTER" COLSPAN=2>N-like</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="CENTER" COLSPAN=1>&nbsp;</TD>
+<TD ALIGN="CENTER" COLSPAN=1>Config.</TD>
+<TD ALIGN="CENTER" COLSPAN=1>Terms</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" COLSPAN=3><I>Even</I></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" COLSPAN=3>First Group: <TT>E1</TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="45" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img14.png"
+ ALT="$2s2p^4$"></TD>
+<TD ALIGN="LEFT">2 S /,  2 P /, 2 S /, 4 P /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" COLSPAN=3>Second Group: <TT>E2</TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^2(^3P)3s$
+ -->
+<IMG
+ WIDTH="99" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img15.png"
+ ALT="$2s^22p^2(^3P)3s$"></TD>
+<TD ALIGN="LEFT">2 P /, 2 D /, 4 P /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^2(^1S)3s$
+ -->
+<IMG
+ WIDTH="97" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img16.png"
+ ALT="$2s^22p^2(^1S)3s$"></TD>
+<TD ALIGN="LEFT">2 S /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" COLSPAN=3>Third Group: <TT>E3</TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^2(^3P)3d$
+ -->
+<IMG
+ WIDTH="100" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img17.png"
+ ALT="$2s^22p^2(^3P)3d$"></TD>
+<TD ALIGN="LEFT">2 P /, 2 D /, 2 F /, 4 P /, 4 D /,
+4 F /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^2(^1D)3d$
+ -->
+<IMG
+ WIDTH="101" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img18.png"
+ ALT="$2s^22p^2(^1D)3d$"></TD>
+<TD ALIGN="LEFT">2 S /,2 P /,2 D /,2 F /,2 G /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^3(^5S)3p$
+ -->
+<IMG
+ WIDTH="98" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img19.png"
+ ALT="$2s^22p^3(^5S)3p$"></TD>
+<TD ALIGN="LEFT">4 P /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^2(^1S)3d$
+ -->
+<IMG
+ WIDTH="98" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img20.png"
+ ALT="$2s^22p^2(^1S)3d$"></TD>
+<TD ALIGN="LEFT">2 D /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" COLSPAN=3><I>Odd</I></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" COLSPAN=3>First Group: <TT>O1</TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="52" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img21.png"
+ ALT="$2s^22p^3$"></TD>
+<TD ALIGN="LEFT">2 P /, 2 D /, 4 P /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" COLSPAN=3>Second Group: <TT>O2</TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="29" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img22.png"
+ ALT="$2p^5$"></TD>
+<TD ALIGN="LEFT">2 P /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" COLSPAN=3>Third Group: <TT>O3</TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^2(^3P)3p$
+ -->
+<IMG
+ WIDTH="100" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img23.png"
+ ALT="$2s^22p^2(^3P)3p$"></TD>
+<TD ALIGN="LEFT">2 S /, 2 P /, 2 D /, 4 S /,
+    4 P /, 4 D /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^2(^1D)3p$
+ -->
+<IMG
+ WIDTH="101" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img24.png"
+ ALT="$2s^22p^2(^1D)3p$"></TD>
+<TD ALIGN="LEFT">2 P /, 2 D /, 2 F /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^3(^5S)3s$
+ -->
+<IMG
+ WIDTH="97" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img25.png"
+ ALT="$2s^22p^3(^5S)3s$"></TD>
+<TD ALIGN="LEFT">4 S /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^2(^1S)3p$
+ -->
+<IMG
+ WIDTH="98" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img26.png"
+ ALT="$2s^22p^2(^1S)3p$"></TD>
+<TD ALIGN="LEFT">2 P /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+<BR>
+
+<P>
+This example demonstrates the computational steps for the 
+first Even (<TT>E1</TT>), or 2 S /,  2 P /, 2 S /
+and 4 P / from <IMG
+ WIDTH="45" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img14.png"
+ ALT="$2s2p^4$"> and first odd groups (<TT>O1</TT>),
+or 2 P /, 2 D / and 4 P /  from <IMG
+ WIDTH="52" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img21.png"
+ ALT="$2s^22p^3$">.
+They cover only the beginning of the spectra of
+O&nbsp;II and F&nbsp;III, however it is easy to extend the calculation
+for higher Z by modifying the included scripts,
+<TT>sh_mchf_E1 and sh_mchf_O1</TT>.  To extend the spectra,
+the scripts need to be modified by including the terms 
+according to &nbsp;<A HREF="node4.html#state-opt">2.1</A>.
+
+<P>
+
+<H1><A NAME="SECTION00440000000000000000">
+Computing the wave functions using <TT>MCHF</TT></A>
+</H1>
+In the MCHF approach, the first step is to find an
+approximate wave function for the initial and final states of
+an atomic system.  An energy criterion is used for this 
+purpose and once a wave function has been determined, then
+a number of atomic properties can be computed including  
+also relativistic effects.
+Figure &nbsp;<A HREF="node4.html#run1">2.2</A> is more a detailed version of Figure
+&nbsp;<A HREF="node4.html#atsp_general">2.1</A> and includes information about the
+applications and intermediate files in each major step.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="run1"></A><A NAME="1429"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2.2:</STRONG>
+
+Computing wave functions for the initial and final states. 
+Initially, <TT>hf</TT> gives
+an estimate for the <TT>n=3</TT>. The angular data is Z independent
+and for each <TT>n</TT> computed only once. For each Z <TT>mchf</TT> 
+computes the wave functions.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="453" HEIGHT="367" BORDER="0"
+ SRC="img27.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\epsfig{file=tex/fig/atsp_run1.epsi,width=10cm}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+Normally, an <TT>mchf</TT> calculation starts at <TT>n=3</TT>.
+In order to start the calculation with good initial
+estimates, an average energy Hartree-Fock calculation is performed.
+Providing initial estimates for <TT>n=3</TT> from <TT>hf</TT>  
+is an optional but a worthwhile step to
+ensure good initial estimates for the correlation calculation.
+The script below shows a way of using the <TT>hf</TT> program, the 
+comments on the right side explain the expected input:
+
+<P>
+<PRE>
+set -x
+
+# this script runs the Hartree-Fock program and for average energies
+# and saves the output wave function file in E1.${Z}_2.w, which
+# will be used as initial estimates at n=3 for the mchf calculation
+# the file shows runs for Z=8,9, for different Z the line below 
+# should be modified:
+
+for Z in  8 9 #10 11 12 13 14 15 16 17
+do
+   (echo
+   rm wfn.inp
+${ATSP}/bin/hf &lt;&lt;EOF
+N,AV,${Z}         # Atom label, Average energy, Atomic number
+  1s              # closed shells
+2s(1)2p(4)        # electrons outside closed shells
+all               # optimize on all orbitals
+y                 # default electron parameters
+y                 # default remaining parameters
+n                 # 
+n
+EOF
+   mv wfn.out E1.${Z}_2.w)    # wfn.out is moved
+done
+rm *log
+</PRE>
+
+<P>
+The script demonstrates the <TT>hf</TT> calculation only for 
+<TT>Z=8,9</TT>, however, it is easily extendible for higher <TT>Z</TT>.
+By default <TT>hf</TT> saves the resulting wave function in 
+a file <TT>wfn.out</TT> and the script further renames it to incorporate
+the group and atomic number in the file name. Since this file is used 
+as initial estimate for <TT>mchf</TT> at <TT>n=3</TT>, it is convenient to 
+use number 2 in the file name (the <TT>mchf</TT> script starts at n=3
+and expects an initial estimate from n=2). 
+
+<P>
+When a range of mchf calculations is desired, it is convenient to 
+encode the algorithm shown in Figure &nbsp;<A HREF="node4.html#run1">2.2</A> into a shell script. 
+In this case, the calculations for <TT>n=3,4,5,6,...</TT> and 
+for the desired set of atomic numbers <TT>Z=8,9,...</TT> are included.
+The script starts with assigning values for terms, eigenvalues,
+optimization of orbitals and other parameters as required by <TT>mchf</TT>. 
+Note that the main loop is over each <TT>n</TT> and 
+the internal loop for a given <TT>n</TT> is over each <TT>Z</TT>. 
+The script assumes all files are in the current directory, except 
+the configuration lists for the terms. 
+They are common to all groups and are located in a separate directory,
+<TT>file_c</TT>. An expansion for a given term has the
+name <TT>LSn.c</TT>.  For example, the expansion for <TT><IMG
+ WIDTH="26" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img28.png"
+ ALT="$^4P$"></TT> 
+and <TT>n=3</TT> has been
+saved in the file  <TT>files_c/4P3.c</TT>.  In order to avoid name conflicts 
+with even terms with the same LS, the odd parity is denoted as "o" in the 
+file name (<TT>4Po3.c</TT>).
+A script like the above assumes calculations are robust,
+that no errors are encountered. The user should inspect the output 
+for potential errors.
+
+<P>
+<PRE>
+set -x
+# Variables $a, $b, $c and $d correspond to the configuration
+# expansions for the 2s.2p(4)3P2 states, which are simultaneously
+# optimized and the group is named E1
+
+a=2S;
+b=2P;
+c=2D;
+d=4P;
+
+# the variable $o is used to include the parity in the file names saved
+# for further reference
+o=
+
+#the variables below are set equal to a string with the
+#desired eigenvalue and in a parenthesis the value of the
+#weights, note that the eigenvalues for a given term
+#are separated by comas. Example: EIG1='1(1.0),3(0.3),4(1.0)'
+EIG1='1(1.0)';
+EIG2='1(1.0)';
+EIG3='1(1.0)';
+EIG4='1(1.0)';
+
+# the variable $s refers to the name  of the states E1 (Even, 1-st group)
+s=E1;
+
+# variable n; f desired the calculation can be extended
+# up to n=7 by erasing the '#' character, configuration files are
+# provided
+for n in 3 4 #5 6 7
+do
+   (echo
+cat \
+../files_c/${a}${n}.c \
+../files_c/${b}${n}.c \
+../files_c/${c}${n}.c \
+../files_c/${d}${n}.c \
+&gt; cfg.inp;
+
+cp cfg.inp E${n}.c          # Make a copy of the configuration file
+
+#run nonh
+${ATSP}/bin/nonh
+
+# select orbitals to optimize and n iterations as a function of n
+# for example at n=4, 1s is kept fixed, n=5 1s,2s,2p are fixed etc.
+   case $n in
+        3)      ORB=all; NEW=all;;
+        4)      ORB==9;  NEW==4;;
+        5)      ORB==12; NEW==5;;
+        6)      ORB==14; NEW==5;;
+        7)      ORB==19; NEW==5;;
+   esac
+
+#delete previous wfn.inp files
+rm wfn.inp
+
+# the line below is used to assign the variable $previous_n=n-1
+# this variable is used to copy the wave function at n-1 to file
+# wfn.inp used as initial estimates at n
+   previous_n=`expr $n - 1`;
+
+#for each atomic number optimize the energy functional with mchf
+#here only Z=8 and Z=9 will be processed, the same procedure is
+#valid for the entire sequence
+
+for nat in 8 9
+do
+   (echo
+
+#use the wave function file at n-1 for initial estimates
+cp ${s}.${nat}_${previous_n}.w wfn.inp;
+
+${ATSP}/bin/mchf &gt; out_${s}.${Z}-${n} &lt;&lt; EOF
+Z=${nat}, ${nat}.
+${EIG1}             # eigenvalues for term a
+${EIG2}             # eigenvalues for term b
+${EIG3}             # eigenvalues for term c
+${EIG4}             # eigenvalues for term d
+${ORB}              # orbitals which will be optimized
+1s,2s,2p            # spectroscopic orbitals
+y                   # default electron parameters
+n                   # not default other parameters (iterations, etc)
+y                   # default values of
+n                   # non-default values of the convergence criteria
+F,10E-9,10E-9       # convergence criteria
+n                   # non-default number of scf iterations (default is 200)
+2000,0              # number of iterations
+y                   # default other parameters.
+EOF
+
+# save all LSn.l files to unique names, not to be overwritten at next n, Z
+   mv ${a}.l ${a}1.${nat}_${n}.l;
+   mv ${b}.l ${b}1.${nat}_${n}.l;
+   mv ${c}.l ${c}1.${nat}_${n}.l;
+   mv ${d}.l ${d}1.${nat}_${n}.l;
+# save the file summry which gives some wave functions computed parameters
+   mv summry ${d}1.${nat}_${n}.s;
+# save wfn.out, the computed wave function with a unique file name
+   mv wfn.out ${s}.${nat}_${n}.w;)
+   done;)
+done;
+
+# remove not needed files
+rm *lst* fort* *log summry wfn* cfg*  ??.l
+</PRE>
+
+<P>
+The script utilizes  <TT>nonh and mchf</TT>, but it is preferable 
+to look upon the needs and I/O data separately for each one. 
+
+<P>
+<TT>nonh</TT> requires <TT>cfg.inp</TT> to be present in the current 
+working directory.  All parameters in  <TT>nonh</TT> are default. 
+The only input file is <TT>cfg.inp</TT>, which is required. 
+While processing the configuration lists, <TT>nonh</TT>  prints out
+important reference information which can be used to detect
+possible errors or deviations from the desired procedures: number 
+of orbitals, number of closed shells, number of integrals, number of
+configurations. The same information is repeated for 
+each term.  <TT>nonh</TT> can be run interactively without 
+providing any input: 
+
+<P>
+<PRE>
+%nonh
+</PRE>
+Thus, the output of correctly running <TT>nonh</TT> (at <TT>n=4</TT>)
+is similar to:
+
+<P>
+<PRE>
+%nonh
+ input file is cfg.inp ...
+
+
+
+                       ===============================
+                             N O N H       2000
+                       ===============================
+
+
+
+ THERE ARE  9 ORBITALS AS FOLLOWS:
+
+       2s  2p  3s  3p  3d  4s  4p  4d  4f
+
+ THERE ARE  1 CLOSED SUBSHELLS COMMON TO ALL CONFIGURATIONS AS FOLLOWS:
+
+       1s
+ Allocating space for          1054  integrals
+ processing  2P with           872 configurations
+    jb =          100
+    jb =          200
+    jb =          300
+    jb =          400
+    jb =          500
+    jb =          600
+    jb =          700
+    jb =          800
+   95818 non-zero matrix elements
+   10959 NF   23905 NG  204934 NR    8481 NL
+  248279 Total number of integrals
+ processing  2D with           888 configurations
+    jb =          100
+    jb =          200
+    jb =          300
+    jb =          400
+    jb =          500
+    jb =          600
+    jb =          700
+    jb =          800
+  103833 non-zero matrix elements
+   11940 NF   28320 NG  223283 NR    8557 NL
+  272100 Total number of integrals
+ processing  4S with           243 configurations
+    jb =          100
+    jb =          200
+   10211 non-zero matrix elements
+    2575 NF    3623 NG   23286 NR    1731 NL
+   31215 Total number of integrals
+
+ end-of-file clist!!!
+</PRE>
+
+<P>
+After a successful completion <TT>nonh</TT> will have created the following 
+files (Note the presence of <TT>ih.01.lst, ih.02.lst and ih.03.lst</TT>,
+which correspond to <TT>2P, 2D, 4S</TT>, in the order they occurred in
+<TT>cfg.inp</TT>. 
+
+<P>
+<PRE>
+-rw-r--r--    1 georgio  georgio       252 Sep 20 00:35 cfg.h
+-rw-r--r--    1 georgio  georgio    114019 Sep 20 00:34 cfg.inp
+-rw-r--r--    1 georgio  georgio   6619380 Sep 20 00:35 c.lst
+-rw-r--r--    1 georgio  georgio    863484 Sep 20 00:35 ico.lst
+-rw-r--r--    1 georgio  georgio    393736 Sep 20 00:35 ih.01.lst
+-rw-r--r--    1 georgio  georgio    425988 Sep 20 00:35 ih.02.lst
+-rw-r--r--    1 georgio  georgio     43760 Sep 20 00:35 ih.03.lst
+-rw-r--r--    1 georgio  georgio     16760 Sep 20 00:35 yint.lst
+</PRE>
+
+<P>
+<TT>cfg.h</TT> is a text file
+which provides information pertaining to the expansions for each 
+term found in the list and it is used by <TT>mchf</TT> for memory 
+allocation and initialization and it records a number of parameters
+(discussed in &nbsp;<A HREF="node16.html#chap:io">13.16</A>): 
+<PRE>
+   1 Closed Shells:
+  1s
+   9 Other Orbitals:
+  2s  2p  3s  3p  3d  4s  4p  4d  4f
+  3    1054   30000   snonh
+   2P   872     95818         248279       370
+   2D   888    103833         272100       400
+   4S   243     10211          31215       124
+</PRE>
+
+<P>
+<TT>yint.lst</TT> is a binary file that has 
+global information about the expansions. <TT>c.lst</TT> has the 
+coefficients and integrals needed for the energy expression
+and the generation of the interaction matrix. <TT>ih.#n.lst</TT> is also 
+a binary file, it records the row index of a matrix element. 
+The user can find the description of the format of each file
+in Chapter &nbsp;<A HREF="node16.html#chap:io">13.16</A>. 
+
+<P>
+After <TT>nonh</TT>, <TT>mchf</TT> continues with computing the radial 
+wave functions.  Step wise <TT>mchf</TT> calculations with respect to 
+<TT>n</TT> and good initial estimates are one of the most important 
+factors for correct results and faster convergence of <TT>mchf</TT>
+calculations. The wave function at <TT>n-1</TT> is used as
+an optional initial estimate and it is copied into <TT>wfn.inp</TT>.
+<TT>mchf</TT> reads <TT>wfn.inp</TT> provided that it is present in the current
+working directory. The script must have a consistent way 
+to refer each needed file and to save results from each 
+<TT>n and Z</TT> step into a unique file. After converging <TT>mchf</TT> 
+saves the output wave function by default to <TT>wfn.out</TT>, and further, 
+the scripts renames it to a file with name comprised by the name of the
+group, <TT>Z and n</TT>. In addition to the wave function saved in file 
+<TT>wfn.out</TT>, the eigenvectors are computed and saved in <TT>LS.l</TT> 
+files by default, which  the script renames to a unique file name from
+a combination of  <TT>LS</TT> term, <TT>Z and n</TT> information.
+
+<P>
+The user is responsible for providing
+correct initial estimate of the wave function. This becomes  
+more difficult for runs covering multiple <TT>n and Z</TT>. Shell scripts
+should be prepared with care. Correct shell makes the calculation
+easier and reduce the error, however, they may propagate multiple 
+errors.
+
+<P>
+In interactive mode the user must provide a number of 
+parameters (the expected input is shown on lines 
+starting with '<IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img29.png"
+ ALT="$&gt;$">'):
+<PRE>
+                    =======================
+                            M C H F  ... 2000
+                    =======================
+
+
+
+
+          THE DIMENSIONS FOR THE CURRENT VERSION ARE:
+             NWD= 60        NO=220    Lagrange Multipliers=800
+
+
+
+ START OF CASE
+ =============
+
+
+ ATOM, Z in FORMAT(A, F) :
+ cfg.inp has configurations for             4  terms
+
+ Enter eigenvalues and weights: one line per term, eigenvalues with weights
+ in parenthesis and separated by commas, default is 1.0
+ 2S
+ 2P
+ 2D
+ 4P
+
+ There are  10 orbitals as follows:
+   1s  2s  2p  3s  3p  3d  4s  4p  4d  4f
+ Enter orbitals to be varied: (ALL,NONE,SOME,NIT=,comma delimited list)
+&gt;=9
+ Enter those that are spectroscopic
+&gt;1s,2s,2p
+ Default electron parameters ? (Y/N)
+&gt;y         # normally yes
+Default values for other parameters? (Y/N)
+&gt;n         # the answer no opens a dialog for which parameters to modify
+ Default values (NO,REL,STRONG) ? (Y/N)
+&gt;y         # 
+ Z=9       9.   220 10  9  0  F
+
+ Default values for PRINT, CFGTOL, SCFTOL ? (Y/N)
+&gt;y
+ Input free FORMAT(L, F, F)
+&gt;F,10E-9,10E-9    #convergence criteria, default is 10E-9
+ Default values for NSCF, IC ? (Y/N)
+&gt;n
+ Input free FORMAT(I, I)
+&gt;1000, 0    #by default mchf makes only 200, larger may be needed
+Default values for ACFG,LD,TRACE? (Y/N)
+
+  &gt;&gt;&gt; MEMORY AND DISK USE: &lt;&lt;&lt;
+  ALL IN MEMORY : c.lst ih ico hmx
+  &gt;&gt;&gt; END MEMORY AND DISK USE&lt;&lt;&lt;
+
+  DeltaE =   -96.71221392604600      Sum_Energy =    -96.71221392604600
+  DeltaE =  -1.3491365617298356E-002 Sum_Energy =    -96.72570529166330
+  DeltaE =  -1.5615602415124386E-003 Sum_Energy =    -96.72726685190482
+  DeltaE =  -6.3982817178498408E-004 Sum_Energy =    -96.72790668007660
+  DeltaE =  -3.5633507930299402E-004 Sum_Energy =    -96.72826301515590
+  DeltaE =  -1.9477728162087260E-004 Sum_Energy =    -96.72845779243752
+...
+...
+...
+  DeltaE =  -1.0284111340297386E-008 Sum_Energy =    -96.72916623947961
+          740  iterations, output written to wfn.out
+  DeltaE =  -1.0245514658890897E-008 Sum_Energy =    -96.72916624972513
+  DeltaE =  -1.0207216405433428E-008 Sum_Energy =    -96.72916625993234
+  DeltaE =  -1.0169003417104250E-008 Sum_Energy =    -96.72916627010135
+  DeltaE =  -1.0207216405433428E-008 Sum_Energy =    -96.72916625993234
+  DeltaE =  -1.0169003417104250E-008 Sum_Energy =    -96.72916627010135
+  DeltaE =  -1.0131046224159945E-008 Sum_Energy =    -96.72916628023239
+  DeltaE =  -1.0093202718053362E-008 Sum_Energy =    -96.72916629032559
+  DeltaE =  -1.0055515531348647E-008 Sum_Energy =    -96.72916630038111
+  DeltaE =  -1.0018084140028805E-008 Sum_Energy =    -96.72916631039919
+  DeltaE =  -9.9807664355466841E-009 Sum_Energy =    -96.72916632037996
+  DeltaE =  -9.9436334721758612E-009 Sum_Energy =    -96.72916633032359
+++ mv 2S.l 2S1.9_4.l
+++ mv 2P.l 2P1.9_4.l
+++ mv 2D.l 2D1.9_4.l
+++ mv 4P.l 4P1.9_4.l
+++ mv wfn.out E1.9_4.w
+</PRE>
+
+<P>
+In the first line, <TT>mchf</TT> program, expects a label (Z=9, in this 
+case), followed by the atomic number.  Then, for each
+term, the user is asked to specify the index of the desirable
+eigenvalue and its weight.  For example, to compute the first
+eigenvalue, with weight 1.0, and the second with weight 0.5,
+say, the input data would be 1(1.0), 2(0.5).  In the present
+case both are the lowest with the default weight of 1.  Again,
+it may not be necessary to optimize only the orbitals for which
+there are no initial estimates provided. 
+So in this case, we optimize only on the last 9 orbitals, or
+all <TT>n=2,3</TT>  orbitals.
+
+<P>
+<TT>mchf</TT> processes all CPU intensive calculations in memory,
+however the program has the capability to switch to disk storage,
+if the memory is insufficient for all arrays. The major
+arrays are: c.lst (coefficient data), ih and ico (pointer data)
+and <TT>hmx</TT> (matrix elements) and the output shows if 
+all arrays are in the memory, or which ones are on disk, this 
+can help the user to optimize the speed of an <TT>mchf</TT> 
+calculation.  CPU intensive calculations for data
+stored on disk could be considerably slower compared to 
+data storage in memory. The output above shows that all four arrays
+are in memory.  
+
+<P>
+In the course of an <TT>mchf</TT> calculation the change in the weighted
+energy and the total energy are displayed after each iteration. 
+Poor models or 
+optimization strategies (LS terms or weights) may result in 
+oscillation of the total energy, or very slow convergence. The 
+user needs to monitor the change <TT>DeltaE</TT> and the total energy 
+<TT>Sum_Energy</TT> and should modify the script if the optimization
+does not proceed as expected. Those two parameters are printed to
+<TT>stderr, or UNIT=0</TT>. In the script described
+earlier the output <TT>stdout</TT> from <TT>mchf</TT> is redirected to a separate
+file for each <TT>mchf</TT> run. It contains more extensive information with
+intermediate results for each iteration and the user should review it
+carefully for errors or unexpected events. The output from <TT>stderr</TT>
+only prints the energy convergence.
+
+<P>
+Assuming that the output of <TT>stdout</TT> has been saved to a file
+<TT>out_O1.9-4</TT>, <TT>"grep Sum out_O1.9-4"</TT> will provide 
+the weighted total energy after each iteration:
+<PRE>
+         Sum of ETOTAL :     -97.58248322
+         Sum of ETOTAL :     -97.59942473
+         Sum of ETOTAL :     -97.60086846
+         Sum of ETOTAL :     -97.60101437
+         Sum of ETOTAL :     -97.60103722
+         Sum of ETOTAL :     -97.60104493
+......
+</PRE>
+and <TT>"grep ETOT out_O1.9-4"</TT> will show more details about the 
+the energy convergence of each <TT>LS</TT> term, including some details
+of the performance of the Davidson program after computing the eigenvalues
+(<TT>Loops,DeltaE,Res.</TT>):
+<PRE>
+         ETOTAL=   -97.47484217   Loops,DeltaE,Res.:  17  8.105D-15  6.183D-08
+         ETOTAL=   -97.55365890   Loops,DeltaE,Res.:  16  6.439D-15  5.888D-08
+         ETOTAL=   -97.71893986   Loops,DeltaE,Res.:  15  3.442D-15  4.197D-08
+         Sum of ETOTAL :     -97.58248322
+         ETOTAL=   -97.49290695   Loops,DeltaE,Res.:  15  8.438D-15  9.867D-08
+         ETOTAL=   -97.57279015   Loops,DeltaE,Res.:  15  1.443D-15  6.171D-08
+         ETOTAL=   -97.73256837   Loops,DeltaE,Res.:  15  3.331D-15  3.015D-08
+         Sum of ETOTAL :     -97.59942473
+         ETOTAL=   -97.49465420   Loops,DeltaE,Res.:  14  3.109D-15  6.362D-08
+         ETOTAL=   -97.57421689   Loops,DeltaE,Res.:  14  3.053D-15  3.286D-08
+         ETOTAL=   -97.73372555   Loops,DeltaE,Res.:  13  5.551D-15  5.598D-08
+         Sum of ETOTAL :     -97.60086846
+</PRE>
+Those  are  valuable quick checks on the convergence patterns during 
+and after an <TT>mchf</TT> run for each <TT>LS</TT> term and for the total 
+energy without interrupting the program.
+In the next step of the <TT>mchf</TT> cycle, we again move the 
+<TT>wfn.out</TT> to <TT>wfn.inp</TT> and perform a calculation on the 
+next <TT>n</TT>..  
+
+<P>
+Upon successful completion the iteration over each <TT>Z and n</TT>,
+a set of files is saved: <TT>*.w, out*, *.s</TT>, and a number of
+<TT>.l</TT> files corresponding to the number of terms. 
+Multiple eigenvectors for the same LS term are saved in a single 
+<TT>.l</TT> file. Note that in addition to energy, coefficient 
+and electron data, each *.l contains the specific mass shift 
+parameter <TT>Ssms</TT>.
+
+<P>
+<PRE>
+245% head  4So1.8_4.l
+  Z=8     Z =   8.0  NEL =   0   NCFG =    243
+
+
+  2*J =    0  NUMBER =   1
+     Ssms =      4.623859419
+     1   -74.495142248  2s(2).2p(3)4S3_4S
+ 0.98261091-0.05205512-0.00749617 0.00713153 0.08850041-0.02273411 0.01386312
+-0.04402566-0.00635483 0.03426689-0.02166538-0.00616148 0.01724229-0.00998867
+ 0.00111927 0.00189890 0.00070353 0.00106733 0.00063790-0.00146846 0.00026875
+-0.00005382 0.00010698-0.00011283 0.10293901 0.01172426-0.00401144-0.04858777
+</PRE>
+In addition to the wave functions, and eigenvectors, <TT>mchf</TT> writes many 
+orbital parameters to <TT>summry</TT> file.  Each <TT>summry</TT> file is saved to a
+file with a suffix .s and a base name consistent with the wave function
+file name. 
+
+<P>
+
+<H1><A NAME="SECTION00450000000000000000">
+Computing <TT>LS</TT> transitions</A>
+</H1>
+<TT>LS</TT> transitions are the second most important factor (along 
+with accurate energies) which verify the computational model. Before 
+continuing with the Breit-Pauli Configuration Interactions, it is desirable to 
+compute <TT>LS</TT> transitions.
+Each of the files pertaining to a group, reside in  the                     
+corresponding directory,  (<TT>atsp2K/E1 and atsp2K/O1</TT>). 
+The <TT>LS</TT> transition calculations are handled into a 
+separate directory: <TT>atsp2K/LS</TT>.  The script below shows an example of
+the extensive file manipulation, including copying and renaming a number
+of files, required for computing the numerous <TT>LS</TT> transitions for 
+each <TT>Z and n</TT>. This task is best handled by shell scripting.
+The example below, <TT>sh_LS_D and sh_LS_Q</TT> 
+(located in the directory <TT>LS</TT>)
+require previously computed data saved in files <TT>*.w</TT> and <TT>*.l</TT>.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="run3"></A><A NAME="1432"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2.3:</STRONG>
+
+The wave functions (*.w) and the eigenvectors (*.l) 
+computed from <TT>mchf</TT> 
+used as input files to <TT>biotr</TT>
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="271" HEIGHT="211" BORDER="0"
+ SRC="img30.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\epsfig{file=tex/fig/atsp_run2.epsi,width=6cm}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+<PRE>
+set -x
+ls -l
+
+#Doublets
+for Z in  8 9
+do
+  (for n in  4 # 5 6 7
+  do
+     (for ED in E1    # even directories
+      do
+        (for OD in O1        # odd directories
+         do
+           (for E in 2D 2P 2S     # Even terms
+            do
+              (for EE in 1                 # Even eigenvalues
+               do
+                 (for O in 2D 2P  # Odd terms
+                  do
+                     (for  OE in 1           # Odd eigenvalues
+                      do
+                         (echo
+         rm ?.? ?.?.ls;
+         test -f ./${E}${EE}.${O}o${OE}.${Z}-${n}.ls &amp;&amp; break;
+         test -f ../${OD}/${O}o${OE}.${Z}_${n}.l || break;
+         test -f ../${ED}/${E}${EE}.${Z}_${n}.l || break;
+         test -f ../${OD}/${OD}.${Z}_${n}.w || break;
+         test -f ../${ED}/${ED}.${Z}_${n}.w || break;
+         cp ../${OD}/${OD}.${Z}_${n}.w O.w
+         cp ../${ED}/${E}${EE}.${Z}_${n}.l E.l;
+         cp ../files_c/${E}${n}.c E.c;
+         cp ../${ED}/${ED}.${Z}_${n}.w E.w
+         cp ../${OD}/${O}o${OE}.${Z}_${n}.l O.l;
+         cp ../files_c/${O}o${n}.c O.c;
+         ${ATSP}/bin/biotr &lt;in
+         mv E.O.ls ${E}${EE}.${O}o${OE}.${Z}-${n}.ls;)
+                       done;)
+                   done;)
+                done;)
+            done;)
+          done;)
+      done;)
+  done;)
+done
+
+rm ?.? fort*
+ls -l
+</PRE>
+
+<P>
+The input file, <TT>in</TT>, used in the script shows the expected input:
+<PRE>
+(georgio@hf7)195% cat sh_in
+E   # initial state
+O   # final state
+n   # question about full printout: used for debugging
+n   # non relativistic calculations
+c   # input from CI calculations
+E1  # requested LS transition
+</PRE>
+
+<P>
+A table of the <TT>LS</TT> convergence is an important indicator for the
+accuracy of the computational model. Full sets of <TT>LS</TT> accuracy tables
+for N-like atoms for the model described above can be found at 
+<PRE>www.vuse.vanderbilt.edu/~cff/mchf_collection
+</PRE> 
+
+<P>
+
+<H1><A NAME="SECTION00460000000000000000">
+Breit-Pauli calculations</A>
+</H1>
+
+<P>
+The  relativistic effects can be determined using a
+Breit-Pauli calculation.  The <TT>LSJ</TT> eigenvectors are computed
+using a set of 3 programs. <TT>bp_ang</TT> computes the non relativistic
+angular data which is invariant with Z. Next, for each <TT>Z</TT>
+<TT>bp_mat</TT> computes the interaction matrix and  <TT>bp_eiv</TT>
+computes the tt J dependent eigenvectors.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="run-j"></A><A NAME="1434"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2.4:</STRONG>
+
+First the LSJ eigenvectors are determined and saved in .lsj files.
+<TT>biotr</TT> then computes the .lsj transitions from a set 
+of *.c *.j *.w files for each group.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="271" HEIGHT="351" BORDER="0"
+ SRC="img31.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\epsfig{file=tex/fig/atsp_run3.epsi,width=6cm}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+This step performs a Breit-Pauli Configuration
+Interaction (BPCI) calculation for the
+expansion included in groups <TT>E1 and O1</TT>. The script 
+below shows the steps, assuming Breit-Pauli calculation in 
+the directory <TT>LSJ</TT>, configuration lists and wavefunctions in
+<TT>E1 and O1</TT>:
+
+<P>
+<PRE>
+% cat sh_bp
+set -x
+echo "computing *.j files"
+n=4                      # n shows for which n to perform BPCI
+
+D=E1                     # name of the group
+
+# compute even
+cp ../E1/E${n}.c A.c     # copy from E1 the cfg list
+
+${ATSP}/bin/sh_cat A.c  # remove '*' and blanks
+
+${ATSP}/bin/bp_ang &lt;in_ang_${D}  # generate angular data
+
+for Z in 8 9             # range of Z's 
+do
+   (echo
+
+   cp ../${D}/${D}.${Z}_${n}.w A.w          #  copy the wavefunctions in A.w
+   ${ATSP}/bin/bp_mat &lt;in_mat_${D}         #  compute all contributions 
+   ${ATSP}/bin/bp_eiv &lt;in_eiv_${D}_${Z}    #  compute eigenvectors 
+   mv A.j ${D}.${Z}.j                       #  rename A.j 
+
+   echo)
+done
+
+rm *lst* A.l A.w                            # rm previous files
+
+D=O1                                        # start group O1
+
+# compute odd
+cp ../O1/O${n}.c A.c    # copy from O1 the cfg list
+${ATSP}/bin/sh_cat A.c # remove '*' and blanks
+
+${ATSP}/bin/bp_ang &lt;in_ang_O1   # generate angular data
+
+for Z in 8 9                     # range of Z's
+do
+   (echo
+  
+   cp ../${D}/${D}.${Z}_${n}.w A.w          #  copy the wavefunctions in A.w
+   ${ATSP}/bin/bp_mat &lt;in_mat_${D}         #  compute all contributions
+   ${ATSP}/bin/bp_eiv &lt;in_eiv_${D}_${Z}    #  compute eigenvectors
+   mv A.j ${D}.${Z}.j                       #  rename A.j 
+  
+   echo)
+done
+
+rm *lst* A.l A.w A.* A.c.old                # rmv not needed files
+</PRE>
+
+<P>
+The scripts starts with setting <TT>D</TT> to the name of the group.
+Note that after completing the mchf calculation, 
+there will be 2 files <TT>E3.c, E4.c</TT> and <TT>O3.c, O4.c</TT> in 
+each directory <TT>E1 and O1</TT>. The files are concatenated 
+configurations lists from the terms participating in each group,
+the number 3 or 4 indicate <TT>n</TT>, the principal quantum number.
+Within a *.c file, each group has two header lines 
+and a separator "*". However, 
+the Breit-Pauli programs expect a single list with a single header
+part and no separators, i.e. the configuration list is considered
+the expansion of ONE wave function. In addition, the programs read 
+the configuration list until the first occurrence of an "*". Therefore, 
+the configuration list prior to the Breit-Pauli calculation need to be 
+reformatted, removing separators, blank lines and multiple header lines. 
+This can be accomplished by using the shell script <TT>sh_cat</TT> supplied 
+with the code, or by editing each *.c file. The script 
+uses <TT>sed</TT>, and the user may need to verify
+if there is a <TT>sed</TT> program on the system and its path 
+(<TT>"which sed"</TT>). (<I>Node:</I> the script uses <TT>sed</TT> from the
+<TT>gnu</TT> distribution, other <TT>sed</TT> may not work as expected
+and the user needs to test the script before using it). 
+
+<P>
+There is a single call to <TT>bp_ang</TT> which computes <TT>Z</TT> 
+independent angular data.  Then, for each <TT>Z</TT>, the 
+data needed for forming the various <TT>J</TT>-dependent matrices are 
+computed by <TT>bp_mat</TT>, after
+which eigenvalues are determined by <TT>bp_eiv</TT>.  
+
+<P>
+In this case, since there
+were no variables involved, it was decided to put the input data for each
+application in a separate file is shown below (group <TT>E1</TT>).
+
+<P>
+<PRE>
+#    .......input file in_ang_E1, used for bp_ang........
+&gt;cat in_ang_E1
+A,y,y
+y
+2
+n
+1,1,1,0
+y
+#    .......input file in_mat_E1, used for bp_mat........
+&gt;cat in_mat_E1
+A,y,y
+g
+y
+
+#    .......input file in_eiv_E1_8, used for bp_eiv........
+&gt;cat in_eiv_E1_8
+A,y,y
+g
+5,1
+1,2
+1,2
+1,4
+y
+0  # 2S  # energy correction 2S
+0  # 2P  # energy correction 2P
+0  # 2D  # energy correction 2D
+0  # 4P  # energy correction 4P
+</PRE>
+
+<P>
+Each program takes the following interactive input, assuming
+that input files are from group <TT>E1</TT>, the calculation 
+is for <TT>Z=8</TT> and the required configuration list and
+the wave function files have been copied to <TT>A.c and A.w</TT>:
+<PRE>
+#  ........Breit-Pauli Calculation for Iso-electronic Sequence........
+&gt; bp_ang
+ Enter ATOM, relativistic (Y/N) with mass correction (Y/N)
+&gt;A,y,y
+ Gradient or Slater form? (G/S):
+&gt;g
+ Indicate the type of calculation  
+ 0 =&gt; non-relativistic Hamiltonian only; 
+ 1 =&gt; one or more relativistic operators only;
+ 2 =&gt; non-relativistic operators and selected relativistic:
+&gt;2
+ All relativistic operators ? (Y/N)
+&gt;n
+Spin-orbit,Spin-other-orbit,Spin-spin,Orbit-Orbit (0/1)
+&gt;1,1,1,0
+ All Interactions? (Y/N):
+&gt;y     
+
+&gt; bp_mat
+ Enter ATOM, relativistic (Y/N) with mass correction (Y/N)
+&gt;A,y,y
+ Gradient or Slater form? (G/S):
+&gt;g
+ Default Rydberg constant (y/n)
+&gt;y
+ Finished with the file
+
+&gt; bp_eiv
+ Enter ATOM, relativistic (Y/N) with mass correction (Y/N)
+&gt;A,y,y
+ Gradient or Slater form? (G/S):
+&gt;g
+  Enter Maximum and minimum values of 2*J
+&gt;5,1
+ Enter eigenvalues: one line per term, eigenvalues separated by commas
+2*J =  4
+&gt;1,2
+2*J =  2
+&gt;1,2
+2*J =  0
+&gt;1,4
+ Default Rydberg constant (y/n)
+&gt;y
+ :: Allocating memory for Block 2J =  4
+ :: IN MEMORY: Block 2J =  4 with  455633  matrix elements
+ Starting Davidson
+   ...
+ Finished with the file
+------------------------------------------------------------------------
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION00470000000000000000">
+Computing Allowed Transitions</A>
+</H1>
+The <TT>LSJ</TT> transitions require a 
+complete set of *.c *.w and *.j files for both: the initial and 
+final state. The transitions between initial and final groups
+are computed by <TT>biotr</TT> and the transition are saved in a 
+ *.lsj file in the directory <TT>LSJ</TT>.
+
+<P>
+For transition probabilities the orbitals of the initial and final state 
+need not be orthogonal.  A biorthogonal transformation is used for 
+the evaluation of matrix elements.  For Breit-Pauli calculations, all 
+operators may be included, spin-orbit, spin-other orbit, spin-spin, 
+and orbit-orbit.  In addition to transition rates of all types,
+isotope shifts and hyperfine constants can
+be computed as well as <TT>g_J</TT> factors.
+
+<P>
+<PRE>
+set -x
+
+# compute the LSJ transitions using biotr.
+
+echo "computing *.j files"
+# set n to desired value (this script will work for up to n=7)
+n=4
+
+#copy the files for initial and final state
+cp E4.c I.c
+cp O4.c F.c
+
+# the script computes for Z=8,9 but provided that the wavefunctions and
+# .j have already been computed for other Z's the line below can be modified
+# to reflect different desired Z's
+for Z in 8 9 
+do
+   (echo
+
+   # copy the wave function files from ../E1 into I.w
+   cp ../E1/E1.${Z}_${n}.w I.w
+   
+   #copy the *.j file 
+   cp E1.${Z}.j I.j
+   
+   #copy the final wave function from O1 into F.w
+   cp ../O1/O1.${Z}_${n}.w F.w
+   cp O1.${Z}.j F.j
+   
+   # use input file in_biotr which is universal and it accepts as 
+   # file names for initial and final states as I (needs I.w, I.c I.j) 
+   # and final state F (needs F.w, F.c, F.j)
+${ATSP}/bin/biotr&lt;in_biotr
+   
+   # the LSJ transitions between groups E1 and O1 will be saved into 
+   # a file with a unique name, note  that since Breit-Pauli is 
+   # performed only for the most accurate calculation and $n does
+   # not need to be incorporated into the *.lsj file name.
+   mv I.F.lsj E1.O1.${Z}.lsj
+      
+   echo)
+done
+
+
+# remove not needed files
+rm ?.?  fort*
+</PRE>
+
+<P>
+After completion <TT>biotr</TT> will leave the following
+<TT>*.lsj</TT> files in the directory <TT>LSJ</TT>.
+<PRE>
+-rw-r--r--    1 georgio  georgio     11738 Aug 19 19:15 LSJ/E1.O1.8.lsj
+-rw-r--r--    1 georgio  georgio     11738 Aug 19 19:15 LSJ/E1.O1.9.lsj
+</PRE>
+
+<P>
+The script starts with copying the appropriate files and running
+<TT>biotr</TT>. The input file for biotr is shown below:
+
+<P>
+<PRE>
+E1         # initial state
+O1         # final state
+n          # do not give a full printout (only for debugging)
+y          # relativistic calculation
+E1         # transition
+</PRE>
+
+<P>
+The transitions between each two groups are saved in a .lsj file which 
+contains essential data per transition:
+<PRE>
+   1  -74.35652224  2s(2).2p(3)2P1_2P
+   1  -73.64006121  2s.2p(4)1S0_2S
+  157239.63 CM-1       635.97 ANGS(VAC)       635.97 ANGS(AIR)
+ E1  S =  4.87252D-01   GF =  2.32723D-01   AKI =  1.91900D+09
+          4.71411D-01         2.25157D-01          1.85662D+09
+</PRE>
+The first two lines are blank, the next line is the initial
+state including the <TT>J</TT> value, the energy and the label.
+The same information for the final state is shown on the next
+line. The first line for the transition data is computed in the length
+form, whereas the second is the velocity form.  The Breit-Pauli
+methods have not modified the transition operator for the lowest
+order relativistic corrections in the velocity form.  These
+are not important for the allowed transitions, but are important
+in spin-forbidden transitions.  Generally, the accuracy of a
+transition depends on the accuracy of the length and velocity
+form in the non-relativistic approximation, and the accuracy of the
+Breit-Pauli transition energy, with the normalized length form
+value preferred.  For intercombination transition, accuracy also
+depends on other factors, such as the accuracy of the separation
+of the two terms important for the transition.
+
+<P>
+
+<H1><A NAME="SECTION00480000000000000000">
+Computing Forbidden Transition</A>
+</H1>
+Both <TT>biotr and trans</TT> are used to compute forbidden transitions.
+<TT>biotr</TT> computes the angular data storing it in the memory and it
+executes faster.  When orbitals in the initial and final state are 
+orthogonal, the program <TT>trans</TT> may be used.
+This happens often to be the case for forbidden transitions between
+levels of a Breit-Pauli calculation.  For example,  the example
+below demonstrate the interactive use of <TT>trans</TT>. To determine 
+the E2 transitions between the <TT>E1 and O1</TT> states discussed in 
+the previous section, the interactive session is shown below:
+<PRE>
+#  ........An E2 transition between two odd parity states........
+  Name of Initial State
+I
+  Name of Final State
+F
+  intermediate printing (y or n) ?
+n
+  transitions only for E(initial) &lt; E(final) (y or n) ?
+y
+ Default Rydberg constant (y/n)
+y
+  Relativistic calculation ? (y/n)
+y
+  Type of transition ? (E1, E2, M1, M2, .. or *)
+E2
+  Use existing file for Angles ? (y/n)
+n
+------------------------------------------------------------------------
+</PRE>
+
+<P>
+The above calculation produces two files: <TT>I.F.lsj</TT> which contains
+the data about each transition and it has the 
+same format as the file from the former section, and the angular 
+information is stored in <TT>I.F.E2</TT>.  The latter is binary and 
+in the case of an iso-electronic sequence, the angular data can be 
+
+<P>
+A script below is shown which uses <TT>biotr</TT> for computing
+the forbidden transitions. Note that the script is very
+general, it computes for each combination of output and input
+state, and additionally for each of the the forbidden <TT>E2, M1, M2</TT>.
+
+<P>
+<PRE>
+set -x
+# compute forbidden transitions, in general biotr and trans can be 
+# used for this purpose, here the use of biotr is shown. trans use
+# similar set of input parameters. 
+
+echo "computing *.j files"
+# in this case we use n=4 calculation.
+n=4
+
+# copy configuration lists
+cp E4.c E1.c
+cp O4.c O1.c
+
+I=E1
+F=O1
+
+# start a loop over forbidden transitions E2, M1, M2
+for T in E2 M1 M2
+do
+   (for I in E1 O1
+   do
+      (for F in E1 O1
+      do
+         (for Z in 8 9 
+         do
+            (echo
+         
+# remove files that may stay from previous calculation
+            rm I.F.???
+
+# copy initial files into I.c I.w I.j 
+            cp ${I}.c I.c
+            cp ../${I}/${I}.${Z}_${n}.w I.w
+            cp ${I}.${Z}.j I.j
+# copy final into F.c, F.w, F.j 
+            cp ${F}.c F.c
+            cp ../${F}/${F}.${Z}_${n}.w F.w
+            cp ${F}.${Z}.j F.j
+#run biotr         
+${ATSP}/bin/biotr&lt;&lt;EOF
+I
+F
+n
+y
+${T}
+EOF
+
+# save the computed transitions under unique name incorporating
+# Initial state, Finals state, type of transitions, and Z. 
+            mv I.F.lsj F_${T}_${I}.${F}.${Z}.lsj 
+      
+            echo)
+         done)
+      done)
+   done)
+done
+
+
+# remove not needed files.
+rm ?.?  fort*
+</PRE>
+
+<P>
+Finally <TT>sh_tables</TT> tabulates the computed data in several files:
+Energy data and lifetimes <TT>*-lev.dat</TT> and the transition data 
+stored in <TT>*-lin.dat</TT>. Both are tabulated from data found in
+<TT>*.j and *.lsj</TT>.  
+
+<P>
+
+<H1><A NAME="SECTION00490000000000000000">
+Parallel <TT>atsp2K</TT> </A>
+</H1>
+
+<H3><A NAME="SECTION00490100000000000000">
+Parallel <TT>atsp2K</TT> on Linux</A>
+</H3> 
+
+<OL>
+<LI>Environmental variables
+<PRE>
+setenv FC "pgf90"
+setenv FC_MPI "mpif90"
+setenv FFLAGS "-O2 -byteswapio"
+setenv MALLOC sun
+setenv MPI_FFLAGS     # not used
+setenv CC "g++"
+setenv LDFLAGS        # not used
+setenv ATSP ${HOME}/atsp2K
+setenv lapack "/usr/pgi/linux86/lib/liblapack.a"
+setenv blas "/usr/pgi/linux86/lib/libblas.a"
+</PRE>
+
+<P>
+The MPI test can be started with:
+<PRE>
+cd atsp2K/run/N_like/
+./sh_ALL_mpi_linux
+</PRE>
+The MPI scripts are similar to the previously described serial
+scripts: <TT>sh_mchf_E1, sh_mchf_O1</TT>, except for the
+method used to execute each application. MPI runs need to 
+be executed using the <TT>mpirun</TT> script supplied with the
+MPI distribution:
+<PRE>
+.....
+mpirun -p4pg proc_file_nonh ${ATSP2K}/bin/nonh_mpi  #
+.....
+.....
+mpirun -p4pg proc_file_mchf ${ATSP2K}/bin/mchf_mpi &gt; out_${s}.${nat}-${n} &lt;&lt; EOF
+.....
+</PRE>
+
+<P>
+The starting node <TT>id=0</TT> requires a process file as an 
+argument. The process file contains information about each
+node and the executables.
+<PRE>
+%cat  proc_file_nonh
+hf7 0 ${ATSP}/bin/nonh_mpi
+hf6 1 ${ATSP}/bin/nonh_mpi
+</PRE>
+and  <TT>proc_file_mchf</TT>:
+<PRE>
+%cat proc_file_mchf
+hf7 0 ${ATSP2K}/bin/mchf_mpi
+hf6 1 ${ATSP2K}/bin/mchf_mpi
+</PRE>
+
+<P>
+Directory <TT>LSJ</TT> contains a script, <TT>sh_bp_mpi_linux</TT>, 
+which facilitates the Breit-Pauli calculation (<TT>bp_ang_mpi,
+bp_mat_mpi, and bp_eiv_mpi</TT>). Each application
+is called with:
+<PRE>
+...... 
+mpirun -p4pg proc_file_ang ${ATSP2K}/bin/bp_ang_mpi \
+                    &lt;in_ang_${D}  # generate angular data
+...... 
+mpirun -p4pg proc_file_mat ${ATSP2K}/bin/bp_mat_mpi  \
+                    &lt;in_mat_${D}   #  compute all contributions
+mpirun -p4pg proc_file_eiv ${ATSP2K}/bin/bp_eiv_mpi  \
+                    &lt;in_eiv_${D}_${Z}   #  compute eigenvectors
+......
+</PRE>
+
+<P>
+Three process files are required:
+<PRE>
+cat proc_file_ang
+hf7 0 ${ATSP2K}/bin/bp_ang_mpi
+hf6 1 ${ATSP2K}/bin/bp_ang_mpi
+cat proc_file_mat
+hf7 0 ${ATSP2K}/bin/bp_mat_mpi
+hf6 1 ${ATSP2K}/bin/bp_mat_mpi
+cat proc_file_eiv
+hf7 0 ${ATSP2K}/bin/bp_eiv_mpi
+hf6 1 ${ATSP2K}/bin/bp_eiv_mpi
+</PRE>
+</LI>
+</OL>
+
+<P>
+
+<H2><A NAME="SECTION00491000000000000000">
+Parallel <TT>atsp2K</TT> on IBM/SP</A>
+</H2>
+<TT>seaborg</TT> uses <I>poe</I> (A Parallel
+Operating Environment) for management of MPI jobs and each
+MPI application is called by poe. In addition to the name of the
+application, <TT>poe</TT> requires the number of
+nodes and processors as arguments:
+
+<P>
+<PRE>
+poe ${ATSP}/bin/nonh_mpi \
+        -nodes ${NN} -procs ${NP}  # fur ibmSP use poe
+poe ${ATSP}/bin/mchf_mpi -nodes ${NN} -procs ${NP} \
+               &gt; out_${s}.${Z}-${n} &lt;&lt; EOF
+</PRE>
+
+<P>
+and <TT>bp_ang_mpi, bp_mat_mpi, and bp_eiv_mpi</TT>:
+<PRE>
+poe ${ATSP}/bin/bp_ang_mpi -nodes ${NN} -procs ${NP} \
+                     &lt;in_ang_${D}  # generate angular data
+poe ${ATSP}/bin/bp_mat_mpi -nodes ${NN} -procs ${NP} \
+                     &lt;in_mat_${D}   #  compute all contributions
+poe ${ATSP}/bin/bp_eiv_mpi -nodes ${NN} -procs ${NP} \
+                     &lt;in_eiv_${D}_${Z}   #  compute eigenvectors
+</PRE>
+
+<P>
+In addition to the variable <TT>$ATSP</TT> (described in the beginning
+of this section), each script uses a number of local variables
+<TT>s, Z, n, NN, NP</TT>.
+
+<P>
+In order to run batch jobs, the user will need to address
+several issues:
+
+<P>
+
+<OL>
+<LI>Proper setup of the environment. This is accomplished with
+editing <TT>.cshrc.ext</TT> in the <TT>$HOME</TT> directory. The
+minimum <TT>.cshrc.ext</TT> is shown below:
+
+<P>
+<PRE>
+# start .cshrc
+if ($?tcsh) then
+# start .cshrc.ext
+
+if ($?tcsh) then
+   set modules_shell="tcsh"
+else
+   set modules_shell="csh"
+endif
+#alias module 'eval `/opt/modules/modules/bin/modulecmd $modules_shell \!*`'
+
+set path = ( $path /u2/georgio/SPII/atsp2K/bin \
+                   /u2/georgio/graspVU/bin \
+                   ${HOME}/atsp2K/bin )
+
+
+source /usr/common/usg/Modules/3.1.1/init/csh #initialize module env
+module load gnu KCC       # load modules 
+# put any user defined aliases here
+setenv FC "xlf"           # the fortran compiler
+setenv FC_MPI "mpxlf"     # FORTRAN compiler for MPI
+setenv FFLAGS "-O3 "      # FORTRAN flags
+setenv MALLOC ibmSP       # memory allocation routines
+setenv MPI_FFLAGS         #
+setenv LDFLAGS            #
+setenv CC KCC             #
+setenv CCFLAGS "-O3"      #
+setenv lapack "/usr/common/usg/LAPACK/3.0a/lapack_SP.a"  #
+setenv blas
+setenv ATSP ${HOME}/atsp2K    # this can be set to /usr/common/homes/g/georgio/atsp2K"
+#setenv XLFRTEOPTS "buffering=disable_all"  # a debugging option, slows down the appl
+
+alias   l        'ls -l'
+alias   ll       'ls -la'
+alias   vim      'vi Makefile'
+alias   cds      'cd /scratch/scratchdirs/${USER}/'
+alias   llh      'llqs | head -30'
+alias   llg      'llqs | grep ${USER}'
+
+# end .cshrc.ext
+</PRE>
+
+<P>
+</LI>
+<LI>Use the command <TT>llsubmit</TT> and a special batch
+script to submit jobs. The MPI tests are started with:
+<PRE>
+cd atsp2K/run/N_like/
+llsubmit ll_bp
+</PRE>
+
+<P>
+<TT>"llsubmit ll_bp"</TT>, will submit the script ll_bp to
+the batch queue. <TT>ll_bp</TT> is only an initializing script.
+It defines a number of parameters required for batch jobs, and
+it contains the following information:
+<PRE>
+#!/usr/bin/csh
+#@ job_name        = mpi_test         # job identifier
+#@ output          = mpi_test.out     # where stdout is redirected
+#@ error           = mpi_test.err     # stderr
+#@ job_type        = parallel         # parallel job
+#@ class           = premium          # regular, premium, debug
+#@ environment     = COPY_ALL         # use the env variables
+#@ tasks_per_node  = 16               #
+#@ node            = 2                #
+#@ wall_clock_limit= 0:60:00          #
+#@ notification    = never            #
+#@ network.MPI     = css0,not_shared,us  #
+#@ node_usage      = not_shared          #
+#@ queue
+
+cd /scratch/scratchdirs/georgio/atsp2K/run/N_like
+echo "changed directory to " `pwd`
+echo "starting script po_breit at " `date` " ..."
+./sh_ALL_mpi_ibmSP
+echo " time is: " `date`
+echo "  at " `date` " script po_breit finished!"
+</PRE>
+
+<P>
+After submitting the job, the system responds with:
+
+<P>
+<PRE>
+% llsubmit ll_bp
+subfilter: default repo mp52 will be charged
+llsubmit: Processed command file through Submit Filter: "/usr/common/nsg/etc/subfilter".
+llsubmit: The job "s03513.nersc.gov.531" has been submitted.
+</PRE>
+
+<P>
+</LI>
+<LI>Monitoring the queue and job progress.
+To check if the job has been correctly submitted type:
+<PRE>
+% llstat | grep ${USER}
+s03513.531.0     mpi_test        georgio  premium I    2 01:00:00  9/30 09:47
+</PRE>
+The first table entry is the node from which the job has been
+submitted. Next entry is the job identifier, then the user. The
+job priority is shown as a <TT>premium</TT>. Normally, the jobs are
+submitted with <TT>regular</TT> priority. For debugging this entry
+is <TT>debug</TT>. The status of the job is showed by <TT>I</TT>, which
+means the job is in the queue. Running jobs have an <TT>R</TT> entry.
+The number of requested nodes (2) and remaining time, which
+is equal to the requested, for jobs not yet running, (1 hr) are
+shown after the job status. The last two entries are the
+date and time submitted.  The user may cancel the job by
+sending <TT>"llcancel s03513.531"</TT>. Occasionally, it is helpful
+to monitor the status of the queue: <TT>llqs | head 30</TT> gives
+the first 30 jobs:
+
+<P>
+<PRE>
+% llqs | head -20
+Step Id          JobName         UserName  Class  ST NDS WallClck Submit Time
+---------------- --------------- -------- ------- -- --- -------- -----------
+s02901.470.0     xCmod1          xu       regular R    4 07:56:22  9/25 14:00
+s02813.471.0     s02813.nersc.go kogut    regular R    4 03:20:57  9/26 06:13
+s02901.475.0     s02901.nersc.go kogut    regular R    4 03:36:22  9/26 06:16
+....
+</PRE>
+
+<P>
+The user may monitor a running job by inspecting the <TT>stderr, stdout</TT>
+files, which have been redirected to <TT>mpi_test.err and mpi_test.out</TT>.
+
+<P>
+</LI>
+</OL>
+
+<P>
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html224"
+  HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html220"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html214"
+  HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html222"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html225"
+  HREF="node5.html">The MCDHF/MCHF Data Collection</A>
+<B> Up:</B> <A NAME="tex2html221"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html215"
+  HREF="node3.html">Compiling and testing</A>
+ &nbsp <B>  <A NAME="tex2html223"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

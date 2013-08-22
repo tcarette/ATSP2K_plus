@@ -1,0 +1,314 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Serial nonh, mchf.</TITLE>
+<META NAME="description" CONTENT="Serial nonh, mchf.">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node109.html">
+<LINK REL="previous" HREF="node107.html">
+<LINK REL="up" HREF="node107.html">
+<LINK REL="next" HREF="node109.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1634"
+  HREF="node109.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1630"
+  HREF="node107.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1624"
+  HREF="node107.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1632"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1635"
+  HREF="node109.html">Parallel mpi_nonh, mpi_mchf.</A>
+<B> Up:</B> <A NAME="tex2html1631"
+  HREF="node107.html">I/O File Formats</A>
+<B> Previous:</B> <A NAME="tex2html1625"
+  HREF="node107.html">I/O File Formats</A>
+ &nbsp <B>  <A NAME="tex2html1633"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001710000000000000000">
+Serial <TT>nonh, mchf</TT>.</A>
+</H1>
+Each <TT>mchf</TT> calculation begins with computing the angular coefficient 
+and integral data using <TT>nonh</TT>. <TT>nonh</TT> records the data
+in  a set of files.  The only input file
+needed by <TT>nonh</TT> is the list of configurations.  
+By default the list of configurations is named <TT>cfg.inp</TT>. 
+Each cfg.inp is produced by <TT>lsgen</TT> using a set of rules. <TT>lsgen</TT>
+generates a single file per <TT>LS</TT> term. <TT>mchf</TT> 
+calculates the radial functions by performing optimization
+of the energy functional over a set of LS terms which are known 
+to mix in the Breit-Pauli configuration interaction calculation. 
+For each LS term in the  <TT>cfg.inp</TT> file, the output
+data consists of a one-dimensional list of coefficients,
+<IMG
+ WIDTH="31" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img49.png"
+ ALT="$w_{ab}^{ij}$"> or <!-- MATH
+ $v_{abcd;k}^{ij}$
+ -->
+<IMG
+ WIDTH="50" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img50.png"
+ ALT="$v_{abcd;k}^{ij}$"> (denoted by <TT>cn(j)</TT> in <TT>nonh</TT>,
+and <TT>coeff</TT> in <TT>mchf</TT>) and with each such coefficient
+there is associated an integral.   The latter is specified by
+an integer, <TT>inptr(j)</TT> that indicates the position of the
+integral within the list of all possible integrals.
+In the generation of a matrix element, we then need to
+know where the data for a matrix element terminates.  This is achieved
+by specifying the end position of a matrix element without the necessity
+of specifying the first, since it follows the last coefficient of the
+previous. This is the role of the array <TT>ico(i)</TT> which indicates
+the last position of the i'th non-zero matrix elements.  Since only
+non-zero matrix elements are stored, another integer is needed to
+specify the value of the row index:  <TT>jan(i)</TT> (<TT>ih(i)</TT> in
+<TT>mchf</TT>) is the array containing this
+information.  Because  the list of coefficients and associated integrals
+may become extremely large, the data is collected and written to disk
+after <TT>LSDIM=30000</TT> have been collected to memory.  The last record
+for a given LS term will always contain less than <TT>LSDIM</TT> elements,
+possibly zero, if necessary.  The value of <TT>LSDIM</TT> can readily be
+changed by changing four parameter statements.
+
+<P>
+Since <TT>nonh</TT> expects a single configuration list named
+<TT>cfg.inp</TT>, the configuration lists for each term participating
+in the <TT>mchf</TT> calculation are concatenated to <TT>cfg.inp</TT>. 
+In general, <TT>cfg.inp</TT> is a file created by concatenating 
+a number of configuration lists of terms that mix, or the 
+final list contains a set of block of terms.
+<TT>nonh</TT> reads each block for the entire <TT>cfg.inp</TT> and computes 
+all integral and angular data for the Hamiltonian.
+then,  the computed data is stored in a set of files, which are
+used in a later stage by the by <TT>mchf</TT> calculation.
+
+<P>
+The files have the following format:
+
+<P>
+
+<OL>
+<LI><TT>cfg.inp</TT> is a text file. It is used as input to both:
+<TT>nonh and mchf</TT>:
+<PRE>
+cfg.inp: (formatted)
+   For each block (1 : NB)
+     . header (A72) -- not used by the program
+     . List of closed shells el(1:nclosd) Format: (20(1X,A3))
+
+   For each CSF (1 : ncfg)
+     . Configuration information  (el(i),q(i), i=1,nocc) Format: (8(1x,A3,1x,I2,1x))
+     . Angular coupling  LSv(1:nocc),RLS(1:nocc-1) Format: (15(5X,A3))
+Terminating condition: *
+</PRE>
+
+<P>
+</LI>
+<LI><TT>cfg.h</TT>: This files is created by <TT>nonh</TT> and it
+contains information which pertains to the expansions for 
+each term found in the list.
+<PRE>
+   Global information (formatted:
+      . nclosd 'Closed shells:' (I4, A15)
+      . el(1:nclosd)   (18(1X,A3))
+      . nwf    'Other Orbitals' (I4, A16)
+      . el(nclosd+1:nwf) (18(1X,A3))
+      . nb, idim, lsdim, who   (I3, I8, I8, 3X,  A5)
+   For each block (1 : NB)
+      . Term, ncfg, max number of coeff per column, total coefficients
+</PRE>
+
+<P>
+</LI>
+<LI><TT>yint.lst</TT>: This is a file that has global information about
+all the expansions in <TT>cfg.inp</TT>.  This is a binary file.
+yint.lst: (unformatted)
+<PRE>
+     . nclosed, maxorb, nb, lsdim
+     . list of closed shells (converted to 24A3 format)
+     . list of other orbitals  -- one or more records (24A3) format
+
+   For each Block (1 : NB)
+     . lij, jan(1:lij) repeated, terminating condition:
+                         lij &lt; lsdim ncol (or ncfg for block), jptr(1:ncol)
+
+   Global information:
+   For each
+     . integral case (1:4) icase, noint(icase)
+                             (last position in global list of integrals)
+     . ipackn(:), lused(:) for this case  where the range is from
+                              beginning to noint(icase)
+</PRE>
+
+<P>
+</LI>
+<LI><TT>c.lst</TT>:  The coefficients and integrals needed for the
+energy expression
+and the generation of the interaction matrix are stored, by column,
+sequentially for each term found in <TT>cfg.inp</TT>.  This is a binary
+file.
+c.lst: (unformatted) (Each processor writes on its own c.lst.nn file)
+<PRE>
+      . For each block (1:NB) ncoff, cn(1:ncoff), inptr(1:ncoff)
+                    repeated terminating condition: ncoff &lt; lsdim (may be zero)
+</PRE>
+
+<P>
+</LI>
+<LI><TT>ih.0n.lst</TT>: For each of the terms, numbered <IMG
+ WIDTH="76" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img180.png"
+ ALT="$n=1,2,..$">, a file
+is created which records the row index of a matrix element.  This
+facilitates the sparse matrix representation. This also is a binary
+file.
+ih.nn.lst: (unformatted), where nn is a 2 digit number and is the block number
+<PRE>
+      . lij, ico(1:lsj) repeated, terminating condition:
+                       lij &lt; lsdim ncol (or ncfg for block), jptr(1:ncol)
+      NOTE: The use of separate ih.nn.lst for each term simplifis the
+            memory management in diag();
+</PRE>
+
+<P>
+</LI>
+<LI>summry contains some additional information:
+
+<OL>
+<LI>The mean radius, the expectaion of <IMG
+ WIDTH="43" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img85.png"
+ ALT="$\sum_i r_i$">.
+</LI>
+<LI>The mean square radius, the expectation of <IMG
+ WIDTH="46" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img86.png"
+ ALT="$\sum_i r_i^2$">.
+</LI>
+<LI>The dipole-dipole operator, the expectation of <!-- MATH
+ $(\sum_i r_i)^2$
+ -->
+<IMG
+ WIDTH="63" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img87.png"
+ ALT="$(\sum_i r_i)^2$">,
+</LI>
+<LI>The Isotope shift parameter, <!-- MATH
+ $S= - \sum_{i<j} \nabla_i\cdot \nabla_j$
+ -->
+<IMG
+ WIDTH="144" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img88.png"
+ ALT="$S= - \sum_{i&lt;j} \nabla_i\cdot \nabla_j$">.
+</LI>
+</OL>
+The mean radius gives an indication of the size of the atomic system,
+whereas the dipole-dipole operator (denoted as <TT>r.r</TT> in the <TT>summry</TT> file) is relevant to long-range interactions&nbsp;[#!babb!#].
+
+<P>
+</LI>
+<LI><TT>LSn.l</TT>:
+<TT>mchf</TT> saves the eigenvectors for each term included
+in the configuration list in a separate file. Multiple eigenvalues
+and eigenvectors for a given term are saved in the same file, Therefore,
+an <TT>LSn.l</TT> file contains a single term, however, it may contain
+multile eigenvalues. A number of <TT>LSn.l</TT> files are created, 
+correspondingly  file per block (term). 
+<PRE> 
+
+Global Information for the term:
+   Label, Atomic number, Number of electrons, number of configurations 
+       (2X,A6,A,F5.1,A,I3,A,I6)' )
+   2 blank lines
+   J value, number of eigenvalues: (//A8,I4,2X,A8,I4)'      
+   .For each eigenvalue index requested:
+      . Ssms factor: (A8,f15.10)
+      . index of dominant configuration, energy, label (i6,f16.9,2x,A)
+      . weight coefficients(eigenvector) '(7F11.8)' 
+
+The command
+%"head 4P.l" shows the head of the file, the first 10 lines:
+####
+  Z=9     Z =   9.0  NEL =   0   NCFG =   4552
+
+
+  2*J =    0  NUMBER =   1
+   Ssms=   9.1044850144
+     5   -97.049494320  2s.2p(4)3P2_4P
+ -.03539122 -.10039993  .00687978  .00152753  .98568399 -.01049074 -.04761180
+  .00214886  .02015163 -.03685424 -.03234737 -.01254864 -.00348771  .00099990
+ -.00848004 -.00053098  .00079421  .00175919  .00089763  .00013236 -.00007157
+ -.00452096 -.00173801  .00167690  .00337817 -.00020025 -.00041671 -.00144874
+...........
+</PRE>
+
+<P>
+</LI>
+</OL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1634"
+  HREF="node109.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1630"
+  HREF="node107.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1624"
+  HREF="node107.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1632"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1635"
+  HREF="node109.html">Parallel mpi_nonh, mpi_mchf.</A>
+<B> Up:</B> <A NAME="tex2html1631"
+  HREF="node107.html">I/O File Formats</A>
+<B> Previous:</B> <A NAME="tex2html1625"
+  HREF="node107.html">I/O File Formats</A>
+ &nbsp <B>  <A NAME="tex2html1633"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>SCF procedure</TITLE>
+<META NAME="description" CONTENT="SCF procedure">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node52.html">
+<LINK REL="previous" HREF="node50.html">
+<LINK REL="up" HREF="node49.html">
+<LINK REL="next" HREF="node52.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html924"
+  HREF="node52.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html920"
+  HREF="node49.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html914"
+  HREF="node50.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html922"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html925"
+  HREF="node52.html">Diagonalization</A>
+<B> Up:</B> <A NAME="tex2html921"
+  HREF="node49.html">Program Structure</A>
+<B> Previous:</B> <A NAME="tex2html915"
+  HREF="node50.html">Data initialization</A>
+ &nbsp <B>  <A NAME="tex2html923"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00822000000000000000">
+<TT>SCF</TT> procedure</A>
+</H2>
+
+<P>
+The <TT>scf()</TT> algorithm is the most CPU intensive part 
+of the <TT>mchf</TT> program. It is an iterative process with
+two sequential phases in each iteration: solving the
+differential equation, then, finding the eigenvalue problem
+&nbsp;<A HREF="node49.html#fig:mchf_main">6.10</A>.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:mchf_scf"></A><A NAME="3148"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.13:</STRONG>
+ 
+Two phases of an <TT>scf()</TT> iteration: The eigenvalue
+phase constructs the matrix, finds eigenvalues and updates
+the coefficients. The differential equation phase updates
+radial functions on each node.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="525" HEIGHT="310" BORDER="0"
+ SRC="img74.png"
+ ALT="\begin{figure}\centerline{ \psfig{file=tex/fig/mchf_mpi.eps}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The first phase solves the differential equation for each 
+radial function and finds the sets of radial functions 
+<!-- MATH
+ $\{ P_{n_j l_j} (r) \}$
+ -->
+<IMG
+ WIDTH="77" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img61.png"
+ ALT="$\{ P_{n_j l_j} (r) \} $">, Figure &nbsp;<A HREF="node51.html#fig:scf_de">6.14</A>. 
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:scf_de"></A><A NAME="2906"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.14:</STRONG>
+
+Steps in finding the radial functions.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="571" HEIGHT="139" BORDER="0"
+ SRC="img75.png"
+ ALT="\begin{figure}\centerline{ \psfig{file=tex/fig/scf_de.eps}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The routines applied to this phase are shown on Figure &nbsp;<A HREF="node51.html#fig:mchf_de">6.15</A>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:mchf_de"></A><A NAME="3151"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.15:</STRONG>
+
+  <TT>de()</TT> procedure. On each iteration <TT>diag(), de(), orthog() and
+  grange()</TT> are called.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="527" HEIGHT="411" BORDER="0"
+ SRC="img76.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/mchf_de.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

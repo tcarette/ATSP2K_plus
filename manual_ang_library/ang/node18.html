@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The subroutine SLS</TITLE>
+<META NAME="description" CONTENT="The subroutine SLS">
+<META NAME="keywords" CONTENT="ang">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ang.css">
+
+<LINK REL="next" HREF="node19.html">
+<LINK REL="previous" HREF="node17.html">
+<LINK REL="up" HREF="node8.html">
+<LINK REL="next" HREF="node19.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html270"
+  HREF="node19.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html268"
+  HREF="node8.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html262"
+  HREF="node17.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html271"
+  HREF="node19.html">The subroutine RWLS</A>
+<B> Up:</B> <A NAME="tex2html269"
+  HREF="node8.html">SAI_SQLS1</A>
+<B> Previous:</B> <A NAME="tex2html263"
+  HREF="node17.html">The subroutine NINE</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION000421000000000000000">
+The subroutine SLS</A>
+</H3>
+
+<P>
+This subroutine determines the value of the RCFP:
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+(\ l\ QLS\ |||\ a^{(qls)}\ |||\ l\ Q'L'S'\ )
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:sq-a"></A><IMG
+ WIDTH="385" HEIGHT="28" BORDER="0"
+ SRC="img375.png"
+ ALT="\begin{displaymath}
+( l QLS \vert\vert\vert a^{(qls)} \vert\vert\vert l Q'L'S' )
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(34)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+for <TT>p</TT> -, <TT>d</TT> -, and <TT>f</TT> - 
+shells (see (39) in P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>]).
+The routine uses the table of reduced matrix elements of the <IMG
+ WIDTH="42" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img376.png"
+ ALT="$a^{(qls)}$">
+tensor operator from P4&nbsp;[<A
+ HREF="node42.html#method5">6</A>]).
+The subroutine has the following arguments:
+
+<OL>
+<LI>L is the orbital quantum number <TT>l</TT>.
+</LI>
+<LI>IT is the state number of the bra function
+(see Tables <A HREF="node9.html#ta-a">1</A>, <A HREF="node9.html#ta-b">2</A>).
+</LI>
+<LI>LQ is the quasispin <TT>Q</TT> for the bra function multiplied by two.
+</LI>
+<LI>LL is the total angular momentum <TT>L</TT> 
+for the bra function multiplied by two.
+</LI>
+<LI>LS is the total angular momentum <TT>S</TT> 
+for the bra function multiplied by two.
+</LI>
+<LI>ITS is the state number of the ket function.
+</LI>
+<LI>LQS is the quasispin <TT>Q</TT> for the ket function multiplied by two.
+</LI>
+<LI>LLS is the total angular momentum <TT>L</TT> for the ket function multiplied by
+      two.
+</LI>
+<LI>LSS is the total angular momentum <TT>S</TT> for the ket function multiplied by
+      two.
+</LI>
+<LI>S is the value of the reduced matrix element (<A HREF="node18.html#eq:sq-a">34</A>) which is
+      returned by the subroutine.
+</LI>
+</OL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html270"
+  HREF="node19.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html268"
+  HREF="node8.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html262"
+  HREF="node17.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html271"
+  HREF="node19.html">The subroutine RWLS</A>
+<B> Up:</B> <A NAME="tex2html269"
+  HREF="node8.html">SAI_SQLS1</A>
+<B> Previous:</B> <A NAME="tex2html263"
+  HREF="node17.html">The subroutine NINE</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-12-07
+</ADDRESS>
+</BODY>
+</HTML>

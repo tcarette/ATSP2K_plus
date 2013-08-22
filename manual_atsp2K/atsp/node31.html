@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Program description</TITLE>
+<META NAME="description" CONTENT="Program description">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node32.html">
+<LINK REL="previous" HREF="node30.html">
+<LINK REL="up" HREF="node29.html">
+<LINK REL="next" HREF="node32.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html664"
+  HREF="node32.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html660"
+  HREF="node29.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html654"
+  HREF="node30.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html662"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html665"
+  HREF="node32.html">IO Files</A>
+<B> Up:</B> <A NAME="tex2html661"
+  HREF="node29.html">Data analysis</A>
+<B> Previous:</B> <A NAME="tex2html655"
+  HREF="node30.html">Introduction</A>
+ &nbsp <B>  <A NAME="tex2html663"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00520000000000000000">
+Program description</A>
+</H1>
+The program performs the following data manipulation:
+
+<UL>
+<LI>Energy differences.
+Compute the energy differences: computed-observed,
+and tabulate the data for the the entire sequence.
+</LI>
+<LI>LS accuracies.
+Compute the LS trends and the LS accuracies for all 
+transitions.
+</LI>
+<LI>LSJ uncertainties. For each LSJ transition, the uncertainty 
+is calculated from the combined error in transition energy and the
+error caused by LS discrepancy. 
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+U = (e + c) A^{adjusted}_{ki}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="351" HEIGHT="29" BORDER="0"
+ SRC="img32.png"
+ ALT="\begin{displaymath}
+U = (e + c) A^{adjusted}_{ki}
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(1)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+where <I>e </I> is error from the transition energy, and 
+<TT>c</TT> is the error from LS discrepancy.
+
+<P>
+With respect to computing the uncertainty from 
+LS discrepancy the allowed transitions and 
+intercombination lines are treated differently:
+  
+<UL>
+<LI>allowed For allowed transitions uncertainty
+from LS discrepancy is computed from the error in 
+the corresponding LS transition. 
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+c = \frac{\vert S_L - S_V \vert}{ max(S_L,S_V)}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="341" HEIGHT="44" BORDER="0"
+ SRC="img33.png"
+ ALT="\begin{displaymath}
+c = \frac{\vert S_L - S_V \vert}{ max(S_L,S_V)}
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(2)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+where <IMG
+ WIDTH="53" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img34.png"
+ ALT="$S_L, S_V$"> are length and velocity line strengths.
+</LI>
+<LI>intercombination lines 
+Intercombination lines may involve complex mixing of terms,
+therefore, the uncertainty considers the mixing effects.
+Assuming that the uncertainty is independent of the direction
+of the transition, the program searches for all other  LS
+transitions of the <I>same RHS configuration</I> with the <I>same J</I>.
+Then the program finds all other LS of the <I>same LHS configuration</I>
+with the <I>same J</I>. The composite error is normalized with respect to 
+the <TT>gf values</TT>:
+
+<P>
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+c = \frac{\sum_{i}\sum_{j}c_{ij}gf_{ij}}{\sum_{i}\sum_{j}gf_{ij}}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="343" HEIGHT="50" BORDER="0"
+ SRC="img35.png"
+ ALT="\begin{displaymath}
+c = \frac{\sum_{i}\sum_{j}c_{ij}gf_{ij}}{\sum_{i}\sum_{j}gf_{ij}}
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(3)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P> 
+
+<P>
+where <TT>i, j</TT> represent respectively all LHS and RHS states.
+In addition, to the requirement to include only LS transitions for 
+the same configuration and the same J, the  LS transitions are 
+included only if <!-- MATH
+ ${(S+L \geq J \geq \mid L-S \mid)}$
+ -->
+<IMG
+ WIDTH="166" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img36.png"
+ ALT="${(S+L \geq J \geq \mid L-S \mid)}$"> is 
+satisfied. This algorithm treats the mixing effects with equal 
+weights which is a simplifying assumption since not all other
+LS transitions would involve terms with strong mixing with the 
+terms for which the uncertainty is computed.
+
+<P>
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html664"
+  HREF="node32.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html660"
+  HREF="node29.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html654"
+  HREF="node30.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html662"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html665"
+  HREF="node32.html">IO Files</A>
+<B> Up:</B> <A NAME="tex2html661"
+  HREF="node29.html">Data analysis</A>
+<B> Previous:</B> <A NAME="tex2html655"
+  HREF="node30.html">Introduction</A>
+ &nbsp <B>  <A NAME="tex2html663"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

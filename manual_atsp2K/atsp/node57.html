@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>MPI I/O </TITLE>
+<META NAME="description" CONTENT="MPI I/O ">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="previous" HREF="node56.html">
+<LINK REL="up" HREF="node55.html">
+<LINK REL="next" HREF="node58.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html992"
+  HREF="node58.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html988"
+  HREF="node55.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html984"
+  HREF="node56.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html990"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html993"
+  HREF="node58.html">BP_ANG</A>
+<B> Up:</B> <A NAME="tex2html989"
+  HREF="node55.html">MPI version</A>
+<B> Previous:</B> <A NAME="tex2html985"
+  HREF="node56.html">Introduction</A>
+ &nbsp <B>  <A NAME="tex2html991"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00852000000000000000">
+MPI I/O </A>
+</H2>
+The <TT>mchf</TT> program implements parallel IO for the
+largest input data files, Figure &nbsp;<A HREF="node57.html#fig:mpi_io">6.20</A>.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:mpi_io"></A><A NAME="3160"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.20:</STRONG>
+
+The angular data are stored in files, which are processed in
+parallel. Files with negligible IO requirements are read
+by node <TT>0</TT>, which broadcasts the data to other nodes.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="461" HEIGHT="596" BORDER="0"
+ SRC="img89.png"
+ ALT="\begin{figure}\centerline{ \psfig{file=tex/fig/mpi_io.eps}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The IO files used by <TT>mpi_mchf</TT> can be divided into two
+categories based on their use:
+
+<P>
+
+<OL>
+<LI>Small input data files (<TT>cfg.inp, cfg.h, wfn.inp</TT>.
+There is a single copy of each file. Each node process the 
+file and broadcasts the data to the other nodes. Those files
+are small and incurs only a negligible communication 
+overhead. In addition, the output files <TT>wfn.out, summry,
+LSn.l</TT> have a single copy, which is written by processor 0. 
+
+<P>
+
+<OL>
+<LI><TT>wfn.inp</TT> initial estimates for the wave function
+</LI>
+<LI> <TT>wfn.out</TT> computed radial functions. 
+</LI>
+<LI> <TT>cfg.inp</TT> configuration list
+</LI>
+<LI> <TT>cfg.h</TT>  file containing information for the memory allocation.
+</LI>
+<LI> <TT>summry</TT> summary of wave function properties
+</LI>
+<LI> <TT>LSn.l</TT> eigenvectors for each LS term. 
+</LI>
+</OL>
+
+<P>
+</LI>
+<LI>Node dependent large data files, with a copy per node They 
+contain the integral coefficient
+and pointer data. Depending on how extensive
+is the computational model, <TT>c.lst.nnn</TT> may exceed 1 GB, the 
+pointer data files <TT>ico.lst.nnn, ih.lst.nnn, yint.lst.nnn</TT>
+may reach hundreds of MB,  and
+they need to be processed in parallel. 
+Each file has a name comprised by a basename which is the same as the
+serial version. However, the filename appends the node ID. 
+Those files are needed only for the <TT>mchf</TT> calculation.
+They are Z independent and can be reused when the configuration
+lists have not changed. 
+
+<OL>
+<LI><TT>c.lst.000</TT> pointer and coefficient data for each 
+element of the Hamiltonian
+</LI>
+<LI><TT>ico.lst.000</TT> column indexes per element
+</LI>
+<LI><TT>ih.lst.000</TT>  row index
+</LI>
+<LI><TT>yint.lst.000</TT> integral data
+</LI>
+</OL>
+
+<P>
+Details about the format and each entry are given in chapter 
+&nbsp;<A HREF="node107.html#chap:io">14.15</A>.
+</LI>
+</OL>
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html992"
+  HREF="node58.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html988"
+  HREF="node55.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html984"
+  HREF="node56.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html990"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html993"
+  HREF="node58.html">BP_ANG</A>
+<B> Up:</B> <A NAME="tex2html989"
+  HREF="node55.html">MPI version</A>
+<B> Previous:</B> <A NAME="tex2html985"
+  HREF="node56.html">Introduction</A>
+ &nbsp <B>  <A NAME="tex2html991"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

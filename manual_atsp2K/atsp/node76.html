@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>File IO</TITLE>
+<META NAME="description" CONTENT="File IO">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="previous" HREF="node75.html">
+<LINK REL="up" HREF="node73.html">
+<LINK REL="next" HREF="node77.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1227"
+  HREF="node77.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1223"
+  HREF="node73.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1219"
+  HREF="node75.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1225"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1228"
+  HREF="node77.html">HFS</A>
+<B> Up:</B> <A NAME="tex2html1224"
+  HREF="node73.html">BIOTR</A>
+<B> Previous:</B> <A NAME="tex2html1220"
+  HREF="node75.html">Program Structure</A>
+ &nbsp <B>  <A NAME="tex2html1226"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001230000000000000000">
+File IO</A>
+</H1>
+<TT>biotr</TT> requires two sets of input files: configuration list, 
+wave function, and either non-relativistic eigenvector produced
+by <TT>mchf</TT>, or the relativistic counterpart, computed by 
+<TT>bp_eiv</TT>. Note that when the calculation is nonrelativistic
+the user computes the LS transitions between the two
+states for a given set of two terms only. The relativistic  
+calculations computes all LSJ transitions between two
+states and each state may contain a number of LS terms.   
+The transition properties are saved in files. The 
+filenames of the transition data are comprised by the 
+strings which the user had provided for <I>Initial and 
+Final</I> states, and additionally a <TT>.ls</TT> suffix is 
+append in the case of non-relativistic calculation, or, 
+<TT>.lsj</TT> is used for the relativistic case. 
+The first line for the transition data is computed in the length
+form, whereas the second is the velocity form.  
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:io_biotr"></A><A NAME="4479"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.36:</STRONG>
+ 
+  <TT>biotr</TT> IO files. 
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="139" HEIGHT="254" BORDER="0"
+ SRC="img124.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/biotr_io.eps}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+Each .ls file contains a number of transition properties including:
+Atomic weight, principal quantum number, energies of initial and
+final states, transition energies, wavelength in vacuum, wavelength 
+air, type of transition, line strengths, gf values, transition rates:
+
+<P>
+<PRE>
+Format of an LS transition:
+#####
+  Transition between files:
+  E
+  O
+
+ Z =   9 n =  7
+   3  -97.50578137  2s(2).2p(3)2P1_2P
+   3  -96.52277315  2s.2p(4)3P2_2P
+  215739.13 CM-1       463.52 ANGS(VAC)       463.52 ANGS(AIR)
+ E1  length:   S =  7.81694D-01   GF =  5.12259D-01   AKI =  2.65057D+09
+    velocity:  S =  8.22227D-01   GF =  5.38822D-01   AKI =  2.78801D+09
+#####
+An LSJ transition:
+#####
+
+
+   1  -74.36649804  2s(2).2p(3)2P1_2P
+   1  -73.65565658  2s.2p(4)1S0_2S
+  156006.31 CM-1       641.00 ANGS(VAC)       641.00 ANGS(AIR)
+ E1  S =  4.69243D-01   GF =  2.22364D-01   AKI =  1.80493D+09
+          4.68123D-01         2.21833D-01          1.80062D+09
+.....
+</PRE>
+
+<P>
+The convergence of the length and velocity forms
+are important factor for estimating the accuracy of the model.
+The Breit-Pauli methods have not modified the transition operator 
+for the lowest
+order relativistic corrections in the velocity form.  These
+are not important for the allowed transitions, but are important
+in spin-forbidden transitions.  Generally, the accuracy of a
+transition depends on the accuracy of the length and velocity
+form in the non-relativistic approximation, and the accuracy of the
+Breit-Pauli transition energy, with the normalized length form
+value preferred.  For intercombination transition, accuracy also
+depends on other factors, such as the accuracy of the separation
+of the two terms important for the transition.
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1227"
+  HREF="node77.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1223"
+  HREF="node73.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1219"
+  HREF="node75.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1225"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1228"
+  HREF="node77.html">HFS</A>
+<B> Up:</B> <A NAME="tex2html1224"
+  HREF="node73.html">BIOTR</A>
+<B> Previous:</B> <A NAME="tex2html1220"
+  HREF="node75.html">Program Structure</A>
+ &nbsp <B>  <A NAME="tex2html1226"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

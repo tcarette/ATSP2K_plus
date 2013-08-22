@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>lsgen and lsgenf</TITLE>
+<META NAME="description" CONTENT="lsgen and lsgenf">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node99.html">
+<LINK REL="previous" HREF="node97.html">
+<LINK REL="up" HREF="node91.html">
+<LINK REL="next" HREF="node99.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1511"
+  HREF="node99.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1507"
+  HREF="node91.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1501"
+  HREF="node97.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1509"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1512"
+  HREF="node99.html">lsreduce</A>
+<B> Up:</B> <A NAME="tex2html1508"
+  HREF="node91.html">Utility programs</A>
+<B> Previous:</B> <A NAME="tex2html1502"
+  HREF="node97.html">lines</A>
+ &nbsp <B>  <A NAME="tex2html1510"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001670000000000000000">
+lsgen and lsgenf</A>
+</H1>
+
+<P>
+The new version of the <TT>genclf</TT> program has the same design as
+GENCL (see Froese Fischer and Liu &nbsp;[#!FL!#])
+but has been extended to arbitrarily-filled f-shells.
+The latter required some change in notation.
+The subroutines that changed a lot
+are the LVAL, SYMB and COUPLD. The rest of the subroutines are either unchanged
+or the changes are not substantial. The LVAL subroutine is extended with
+a possibility to convert the symbols
+O and Q into its corresponding quantum number and in SYMB to convert the quantum
+numbers 11 and 12 into its corresponding symbol. In the COUPLD subroutine the
+data blocks containing the term characteristics are enlarged.
+
+<P>
+Input and output data of the new version are the same as before.
+One needs only to take into account that the  classification of
+terms of the <IMG
+ WIDTH="16" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img160.png"
+ ALT="$f$"> subshell
+is more complicated than for <IMG
+ WIDTH="14" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img161.png"
+ ALT="$s$">, <IMG
+ WIDTH="14" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img162.png"
+ ALT="$p$">, <IMG
+ WIDTH="14" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img163.png"
+ ALT="$d$"> subshells.
+For the classification of <IMG
+ WIDTH="16" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img160.png"
+ ALT="$f$">-subshell terms the characteristics (2<IMG
+ WIDTH="17" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img164.png"
+ ALT="$S$">+1)
+(multiplicity), <IMG
+ WIDTH="17" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img165.png"
+ ALT="$L$"> (total orbital momentum), and <IMG
+ WIDTH="15" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img166.png"
+ ALT="$\nu$"> (seniority) are not
+sufficient.
+Here we use a notation <!-- MATH
+ $^{(2S+1)}L^{Nr}$
+ -->
+<IMG
+ WIDTH="77" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img167.png"
+ ALT="$^{(2S+1)}L^{Nr}$"> for the classification of
+an <IMG
+ WIDTH="16" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img160.png"
+ ALT="$f$">-subshell.
+The <IMG
+ WIDTH="28" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img168.png"
+ ALT="$Nr$"> is single character, which corresponds the group
+labels <IMG
+ WIDTH="45" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img169.png"
+ ALT="$\nu WU$">.  It is identical to Gaigalas
+and Froese Fischer&nbsp;[#!GFa!#] and P5&nbsp;[#!__5172__method5__5172__!#].
+The value <IMG
+ WIDTH="28" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img168.png"
+ ALT="$Nr$"> is found in Table&nbsp;1 of P5&nbsp;[#!__5173__method5__5173__!#]
+where all terms for <IMG
+ WIDTH="16" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img160.png"
+ ALT="$f$">-subshells are presented.  In most
+cases, <IMG
+ WIDTH="28" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img168.png"
+ ALT="$Nr$"> appears to be a digit, but since it is a single
+character, the single letter <IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img133.png"
+ ALT="$A$"> is used instead of the number 10.
+While in all the other cases the two-digit numbers n in <IMG
+ WIDTH="58" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img170.png"
+ ALT="$cfg.inp$"> file
+encode the following <IMG
+ WIDTH="16" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img171.png"
+ ALT="$n$"> = CHAR(n+ICHAR('0')) (see [#!FL!#]).
+For example, the values of the principal quantum number
+<IMG
+ WIDTH="16" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img171.png"
+ ALT="$n$"> or multiplicity <IMG
+ WIDTH="64" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img172.png"
+ ALT="$(2S+1)$"> may exceed 9. On most systems the list of
+integers, <!-- MATH
+ $\{10,11,12,13,14,15\}$
+ -->
+<IMG
+ WIDTH="153" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img173.png"
+ ALT="$\{10,11,12,13,14,15\}$"> map into the list of characters,
+<IMG
+ WIDTH="99" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img174.png"
+ ALT="$\{:,;,&lt;,=,&gt;\}$">.  The CSF list if output to the file <TT>cfg.inp</TT>.
+
+<P>
+When <IMG
+ WIDTH="16" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img160.png"
+ ALT="$f$">-shells are restricted to two electrons, the earlier
+LSGEN program may be used&nbsp;[#!lsgen!#].  This program
+has been extended to arbitrarily filled f-shells,  and is known as
+<TT>lsgenf</TT> but has not been documented.  Like LSGEN, the CSF list that
+is output is left in <TT>clist.out</TT>. For simple cases, <TT>gencl</TT> is
+easier to use interactively.  Unlike <TT>genclf</TT> where <IMG
+ WIDTH="33" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img175.png"
+ ALT="$^{10}D$"> on
+SUN systems must be entered as <IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img176.png"
+ ALT="$^:D$">, <TT>lsgenf</TT> allows the user to
+specify <IMG
+ WIDTH="36" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img177.png"
+ ALT="$10D$">, although the output file will adhere to the proper
+convention.
+
+<P>
+The program maintains an order for the orbitals, determined from the order
+in which an orbital is first encountered.  Thus, with a
+reference set of <TT>4s(2)3d(1)</TT> and an active set of
+<TT>3d,4s,4p</TT> the file <TT>cfg.inp</TT> will not have orbitals in a
+consistent ordering.  The ordering of orbitals in the reference 
+set, the active set, and the virtual set should always be the
+same in the sense that one orbital will always appear <I>before</I> or <I>after</I> another.  Sometimes this is referred to
+as the <I>after relation</I>.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1511"
+  HREF="node99.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1507"
+  HREF="node91.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1501"
+  HREF="node97.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1509"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1512"
+  HREF="node99.html">lsreduce</A>
+<B> Up:</B> <A NAME="tex2html1508"
+  HREF="node91.html">Utility programs</A>
+<B> Previous:</B> <A NAME="tex2html1502"
+  HREF="node97.html">lines</A>
+ &nbsp <B>  <A NAME="tex2html1510"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

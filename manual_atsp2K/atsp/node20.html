@@ -1,0 +1,339 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Optimization</TITLE>
+<META NAME="description" CONTENT="Optimization">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node21.html">
+<LINK REL="previous" HREF="node19.html">
+<LINK REL="up" HREF="node17.html">
+<LINK REL="next" HREF="node21.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html533"
+  HREF="node21.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html529"
+  HREF="node17.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html523"
+  HREF="node19.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html531"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html534"
+  HREF="node21.html">Computing the wave functions</A>
+<B> Up:</B> <A NAME="tex2html530"
+  HREF="node17.html">Computing Atomic Transitions</A>
+<B> Previous:</B> <A NAME="tex2html524"
+  HREF="node19.html">Generating Configuration State Functions</A>
+ &nbsp <B>  <A NAME="tex2html532"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00430000000000000000">
+Optimization</A>
+</H1>
+The second decision is which terms to include and how to proceed with
+the multiconfigurational calculations. The different states of the 
+ions were grouped together and a radial basis determined for a set 
+of terms and/or eigenvalues that were deemed to be important for 
+the relativistic effects.  In Table&nbsp;<A HREF="node20.html#state-opt">2.1</A>, shows the 
+group of terms for which accurate Breit-Pauli results are required. 
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+
+<A NAME="state-opt"></A>
+<DIV ALIGN="CENTER">
+<A NAME="1013"></A>
+<TABLE CELLPADDING=3 BORDER="1">
+<CAPTION><STRONG>Table 2.1:</STRONG>
+
+Optimization strategies for groups of terms for N-like. Eigenfunctions for
+a specific term are designated by the dominant configuration.
+All weights are unity unless designated otherwise in parenthesis
+following the term.
+</CAPTION>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="CENTER" COLSPAN=1>&nbsp;</TD>
+<TD ALIGN="CENTER" COLSPAN=2>N-like</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="CENTER" COLSPAN=1>&nbsp;</TD>
+<TD ALIGN="CENTER" COLSPAN=1>Config.</TD>
+<TD ALIGN="CENTER" COLSPAN=1>Terms</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" COLSPAN=3><I>Even</I></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" COLSPAN=3>First Group: <TT>E1</TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="45" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img14.png"
+ ALT="$2s2p^4$"></TD>
+<TD ALIGN="LEFT">2 S /,  2 P /, 2 S /, 4 P /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" COLSPAN=3>Second Group: <TT>E2</TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^2(^3P)3s$
+ -->
+<IMG
+ WIDTH="99" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img15.png"
+ ALT="$2s^22p^2(^3P)3s$"></TD>
+<TD ALIGN="LEFT">2 P /, 2 D /, 4 P /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^2(^1S)3s$
+ -->
+<IMG
+ WIDTH="97" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img16.png"
+ ALT="$2s^22p^2(^1S)3s$"></TD>
+<TD ALIGN="LEFT">2 S /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" COLSPAN=3>Third Group: <TT>E3</TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^2(^3P)3d$
+ -->
+<IMG
+ WIDTH="100" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img17.png"
+ ALT="$2s^22p^2(^3P)3d$"></TD>
+<TD ALIGN="LEFT">2 P /, 2 D /, 2 F /, 4 P /, 4 D /,
+4 F /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^2(^1D)3d$
+ -->
+<IMG
+ WIDTH="101" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img18.png"
+ ALT="$2s^22p^2(^1D)3d$"></TD>
+<TD ALIGN="LEFT">2 S /,2 P /,2 D /,2 F /,2 G /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^3(^5S)3p$
+ -->
+<IMG
+ WIDTH="98" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img19.png"
+ ALT="$2s^22p^3(^5S)3p$"></TD>
+<TD ALIGN="LEFT">4 P /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^2(^1S)3d$
+ -->
+<IMG
+ WIDTH="98" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img20.png"
+ ALT="$2s^22p^2(^1S)3d$"></TD>
+<TD ALIGN="LEFT">2 D /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" COLSPAN=3><I>Odd</I></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" COLSPAN=3>First Group: <TT>O1</TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="52" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img21.png"
+ ALT="$2s^22p^3$"></TD>
+<TD ALIGN="LEFT">2 P /, 2 D /, 4 P /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" COLSPAN=3>Second Group: <TT>O2</TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="29" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img22.png"
+ ALT="$2p^5$"></TD>
+<TD ALIGN="LEFT">2 P /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT" COLSPAN=3>Third Group: <TT>O3</TT></TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^2(^3P)3p$
+ -->
+<IMG
+ WIDTH="100" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img23.png"
+ ALT="$2s^22p^2(^3P)3p$"></TD>
+<TD ALIGN="LEFT">2 S /, 2 P /, 2 D /, 4 S /,
+    4 P /, 4 D /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^2(^1D)3p$
+ -->
+<IMG
+ WIDTH="101" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img24.png"
+ ALT="$2s^22p^2(^1D)3p$"></TD>
+<TD ALIGN="LEFT">2 P /, 2 D /, 2 F /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^3(^5S)3s$
+ -->
+<IMG
+ WIDTH="97" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img25.png"
+ ALT="$2s^22p^3(^5S)3s$"></TD>
+<TD ALIGN="LEFT">4 S /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="LEFT"><!-- MATH
+ $2s^22p^2(^1S)3p$
+ -->
+<IMG
+ WIDTH="98" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img26.png"
+ ALT="$2s^22p^2(^1S)3p$"></TD>
+<TD ALIGN="LEFT">2 P /</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+<BR>
+
+<P>
+This example demonstrates the computational steps for the 
+first Even (<TT>E1</TT>), or 2 S /,  2 P /, 2 S /
+and 4 P / from <IMG
+ WIDTH="45" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img14.png"
+ ALT="$2s2p^4$"> and first odd groups (<TT>O1</TT>),
+or 2 P /, 2 D / and 4 P /  from <IMG
+ WIDTH="52" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img21.png"
+ ALT="$2s^22p^3$">.
+They cover only the beginning of the spectra of
+O&nbsp;II and F&nbsp;III, however it is easy to extend the calculation
+for higher Z by modifying the included scripts,
+<TT>sh_mchf_E1 and sh_mchf_O1</TT>.  To extend the spectra,
+the scripts need to be modified by including the terms 
+according to &nbsp;<A HREF="node20.html#state-opt">2.1</A>.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html533"
+  HREF="node21.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html529"
+  HREF="node17.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html523"
+  HREF="node19.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html531"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html534"
+  HREF="node21.html">Computing the wave functions</A>
+<B> Up:</B> <A NAME="tex2html530"
+  HREF="node17.html">Computing Atomic Transitions</A>
+<B> Previous:</B> <A NAME="tex2html524"
+  HREF="node19.html">Generating Configuration State Functions</A>
+ &nbsp <B>  <A NAME="tex2html532"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

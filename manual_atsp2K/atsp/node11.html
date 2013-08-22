@@ -1,0 +1,383 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>BIOTR</TITLE>
+<META NAME="description" CONTENT="BIOTR">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node12.html">
+<LINK REL="previous" HREF="node10.html">
+<LINK REL="up" HREF="atsp.html">
+<LINK REL="next" HREF="node12.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html341"
+  HREF="node12.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html337"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html331"
+  HREF="node10.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html339"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html342"
+  HREF="node12.html">HFS</A>
+<B> Up:</B> <A NAME="tex2html338"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html332"
+  HREF="node10.html">BP_EIV</A>
+ &nbsp <B>  <A NAME="tex2html340"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html343"
+  HREF="#SECTION001110000000000000000">Introduction</A>
+<LI><A NAME="tex2html344"
+  HREF="#SECTION001120000000000000000">Program Structure</A>
+<LI><A NAME="tex2html345"
+  HREF="#SECTION001130000000000000000">File IO</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION001100000000000000000"></A><A NAME="chap:intro"></A>
+<BR>
+BIOTR
+</H1>
+
+<P>
+
+<H1><A NAME="SECTION001110000000000000000">
+Introduction</A>
+</H1>
+
+<P>
+Given the two sets of configuration lists, wave functions and
+eigenvectors, <TT>biotr</TT> evaluates the transition data between
+the two CI expansions, <!-- MATH
+ ${\Psi_1\mid \sum_{i} \hat{O}(i) \mid \Psi_2}$
+ -->
+<IMG
+ WIDTH="127" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img108.png"
+ ALT="${\Psi_1\mid \sum_{i} \hat{O}(i) \mid \Psi_2}$">,
+with <IMG
+ WIDTH="37" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img109.png"
+ ALT="${\hat{O}(i)}$"> representing a magnetic or electric 
+transition probability operator of any order.
+
+<P>
+The calculation is non-relativistic when the eigenvectors were obtained
+using the <TT>mchf</TT> method. In this case the program expects 
+to find the eigenvectors in a file with a <TT>.l</TT> suffix. 
+If the user had applied the relativistic corrections 
+using the Breit-Pauli method, the transitions determined by 
+<TT>biotr</TT> will include the relativistic effects as well. In this case the 
+program expects to read the eigenvectors from a file with <TT>.j</TT>  
+suffix. In biotr, the initial and final states, which may not be orthogonal,
+are transformed in such a way that the orbitals are orthogonal 
+<EM>between</EM> states so that orthogonal methods may be used to 
+evaluate the transition matrix elements&nbsp;[#!mrg-bio!#]. 
+
+<P>
+
+<H1><A NAME="SECTION001120000000000000000">
+Program Structure</A>
+</H1>
+
+<P>
+Data is initialized in <TT>initr() and factr()</TT>, then the user
+selects the initial and final state, type of calculation (relativistic,
+or non-relativistic) and the type of transition 
+<TT>E1, E2, M1, M2, .. or *</TT>'. The program then proceeds with the
+following steps:
+
+<P>
+
+<OL>
+<LI><TT>cfgin2()</TT> reads the two sets of configuration lists and  
+determines the orthogonality conditions between the two sets. Next, 
+<TT>rasin()</TT> checks if the CI expansions used for <IMG
+ WIDTH="26" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img110.png"
+ ALT="$\Psi_1$"> and <IMG
+ WIDTH="26" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img111.png"
+ ALT="$\Psi_2$">
+satisfy the closure under de-excitation property.
+
+<P>
+</LI>
+<LI>Calculate the CSF-coupling coefficient <!-- MATH
+ ${A^{\mu\nu}_{ij}}$
+ -->
+<IMG
+ WIDTH="34" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img112.png"
+ ALT="${A^{\mu\nu}_{ij}}$"> 
+in the expression:
+ <!-- MATH
+ ${a^{\dagger}_{i}\hat{a}_{j}\mid\Phi_{nu}\rangle = 
+     \sum_{\nu}{A^{\mu\nu}_{ij}}\mid\Phi_{mu}}$
+ -->
+<IMG
+ WIDTH="204" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
+ SRC="img113.png"
+ ALT="${a^{\dagger}_{i}\hat{a}_{j}\mid\Phi_{nu}\rangle =
+\sum_{\nu}{A^{\mu\nu}_{ij}}\mid\Phi_{mu}}$">, which are needed
+to perform the transformation of the CI-coefficients. 
+
+<P>
+</LI>
+<LI>Calculate the one-electron orbital overlap matrix and 
+decompose it into block-triangular factors to find the new 
+radial functions <!-- MATH
+ ${\{R^A_{\it nl}(r)\}}$
+ -->
+<IMG
+ WIDTH="67" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img114.png"
+ ALT="${\{R^A_{\it nl}(r)\}}$"> and <!-- MATH
+ ${\{R^B_{\it nl}(r)\}}$
+ -->
+<IMG
+ WIDTH="67" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img115.png"
+ ALT="${\{R^B_{\it nl}(r)\}}$"> 
+which are biorthonormal.
+
+<P>
+</LI>
+<LI>transform the configuration interaction matrix <IMG
+ WIDTH="29" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img116.png"
+ ALT="${C^A_{\mu}}$"> and
+<IMG
+ WIDTH="30" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img117.png"
+ ALT="${C^B_{\mu}}$"> by a sequence of single orbital replacements.
+main routine for  employing biorthogonal rotations for RAS
+ type wave functions, allowing the calculation of
+ transition moments between two RAS states.
+ The task of this part of the code is to change
+ two sets of orbitals into biorthogonal orbitals
+ and counter-rotate  the CI coefficients.
+transform the configuration interaction matrix <IMG
+ WIDTH="29" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img116.png"
+ ALT="${C^A_{\mu}}$"> and
+<IMG
+ WIDTH="30" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img117.png"
+ ALT="${C^B_{\mu}}$"> by a sequence of single orbital replacements.
+
+<P>
+</LI>
+<LI>Apply the orthogonal Racah algebra to transform the many electron 
+amplitude into a sum of one-electron reduced matrix elements. 
+the l.h.s and r.h.s orbital indices of the se now refer to the two 
+different orbital biorthonormal sets.
+
+<P>
+</LI>
+</OL>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="biotr_main"></A><A NAME="4230"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.35:</STRONG>
+
+  Program structure. 
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="221" HEIGHT="783" BORDER="0"
+ SRC="img118.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/biotr_main.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The user is expected to provide information about which 
+two sets of input files should be used and the type of calculation
+(<TT>E1, E2,..., M1, M2, ...</TT>). Note in the input below
+that  <I>E1 and O1</I> supplied by the user for <I>Name of Initial 
+State and Name of Final State</I>, imply the existence of:
+<TT>E1.c E1.w E1.j</TT> and <TT>O1.c O1.w O1.j</TT>, if a relativistic
+calculation is being selected:
+
+<P>
+<PRE>
+#  ........A parity changing transition calculation........
+&gt;biotr 
+  Name of Initial State
+E1
+  Name of Final State
+O1
+  intermediate printing (y or n) ?
+n 
+  Relativistic calculation ? (y/n)
+y
+  Type of transition ? (E1, E2, M1, M2, .. or *)
+E1
+------------------------------------------------------------------------
+</PRE>
+
+<P>
+The angular data is not saved and therefore, for calculations 
+along an iso-electronic sequence, the angular calculations are 
+repeated for each atom.
+
+<P>
+
+<H1><A NAME="SECTION001130000000000000000">
+File IO</A>
+</H1>
+<TT>biotr</TT> requires two sets of input files: configuration list, 
+wave function, and either non-relativistic eigenvector produced
+by <TT>mchf</TT>, or the relativistic counterpart, computed by 
+<TT>bp_eiv</TT>. Note that when the calculation is nonrelativistic
+the user computes the LS transitions between the two
+states for a given set of two terms only. The relativistic  
+calculations computes all LSJ transitions between two
+states and each state may contain a number of LS terms.   
+The transition properties are saved in files. The 
+filenames of the transition data are comprised by the 
+strings which the user had provided for <I>Initial and 
+Final</I> states, and additionally a <TT>.ls</TT> suffix is 
+append in the case of non-relativistic calculation, or, 
+<TT>.lsj</TT> is used for the relativistic case. 
+The first line for the transition data is computed in the length
+form, whereas the second is the velocity form.  
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:io_biotr"></A><A NAME="4270"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.36:</STRONG>
+ 
+  <TT>biotr</TT> IO files. 
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="139" HEIGHT="254" BORDER="0"
+ SRC="img119.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/biotr_io.eps}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+Each .ls file contains a number of transition properties including:
+Atomic weight, principal quantum number, energies of initial and
+final states, transition energies, wavelength in vacuum, wavelength 
+air, type of transition, line strengths, gf values, transition rates:
+
+<P>
+<PRE>
+Format of an LS transition:
+#####
+  Transition between files:
+  E
+  O
+
+ Z =   9 n =  7
+   3  -97.50578137  2s(2).2p(3)2P1_2P
+   3  -96.52277315  2s.2p(4)3P2_2P
+  215739.13 CM-1       463.52 ANGS(VAC)       463.52 ANGS(AIR)
+ E1  length:   S =  7.81694D-01   GF =  5.12259D-01   AKI =  2.65057D+09
+    velocity:  S =  8.22227D-01   GF =  5.38822D-01   AKI =  2.78801D+09
+#####
+An LSJ transition:
+#####
+
+
+   1  -74.36649804  2s(2).2p(3)2P1_2P
+   1  -73.65565658  2s.2p(4)1S0_2S
+  156006.31 CM-1       641.00 ANGS(VAC)       641.00 ANGS(AIR)
+ E1  S =  4.69243D-01   GF =  2.22364D-01   AKI =  1.80493D+09
+          4.68123D-01         2.21833D-01          1.80062D+09
+.....
+</PRE>
+
+<P>
+The convergence of the length and velocity forms
+are important factor for estimating the accuracy of the model.
+The Breit-Pauli methods have not modified the transition operator 
+for the lowest
+order relativistic corrections in the velocity form.  These
+are not important for the allowed transitions, but are important
+in spin-forbidden transitions.  Generally, the accuracy of a
+transition depends on the accuracy of the length and velocity
+form in the non-relativistic approximation, and the accuracy of the
+Breit-Pauli transition energy, with the normalized length form
+value preferred.  For intercombination transition, accuracy also
+depends on other factors, such as the accuracy of the separation
+of the two terms important for the transition.
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html341"
+  HREF="node12.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html337"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html331"
+  HREF="node10.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html339"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html342"
+  HREF="node12.html">HFS</A>
+<B> Up:</B> <A NAME="tex2html338"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html332"
+  HREF="node10.html">BP_EIV</A>
+ &nbsp <B>  <A NAME="tex2html340"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

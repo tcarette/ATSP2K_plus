@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Data initialization</TITLE>
+<META NAME="description" CONTENT="Data initialization">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node51.html">
+<LINK REL="previous" HREF="node49.html">
+<LINK REL="up" HREF="node49.html">
+<LINK REL="next" HREF="node51.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html912"
+  HREF="node51.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html908"
+  HREF="node49.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html902"
+  HREF="node49.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html910"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html913"
+  HREF="node51.html">SCF procedure</A>
+<B> Up:</B> <A NAME="tex2html909"
+  HREF="node49.html">Program Structure</A>
+<B> Previous:</B> <A NAME="tex2html903"
+  HREF="node49.html">Program Structure</A>
+ &nbsp <B>  <A NAME="tex2html911"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00821000000000000000">
+Data initialization</A>
+</H2>
+<TT>mchf</TT> requires a number of input items for proper calculations,
+The first part of the program <TT>data()</TT> shown on 
+Figure &nbsp;<A HREF="node50.html#fig:mchf_data">6.11</A>,
+is designed to handle both, input processing and memory management. 
+
+<P>
+Estimates of the radial wave functions are taken from the file <TT>wfn.inp</TT>, if provided.  Otherwise, hydrogenic estimates are used.
+Upon completion (either a maximum of 200 iterations or a change in
+the weighted average energy of less that <IMG
+ WIDTH="39" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img71.png"
+ ALT="$10^{-8}$"> a.u., in default
+mode) an updated <TT>wfn.out</TT> file is produced.  During the course
+of the calculation an intermediate orbital results are written to the
+<TT>wfn.out</TT> file, for restart purposes in case of process termination
+for some reason. 
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:mchf_data"></A><A NAME="3144"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.11:</STRONG>
+
+  Subroutine <TT>data()</TT>. After reading parameters from <TT>cfg.h</TT>, 
+  memory for <TT>cfgs</TT> and coefficients is allocated in <TT>alloc_mem</TT>.
+  <TT>wavefn()</TT> reads the input wave function form <TT>wfn.inp</TT>.
+  <TT>spintgrl()</TT> reads input files with the integral data and
+  calls <TT>alcsts()</TT>  for pointer initialization and memory management. 
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="304" HEIGHT="361" BORDER="0"
+ SRC="img72.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\epsfig{figure=tex/fig/mchf_data.epsi,height=8cm}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+Figure <A HREF="node50.html#fig:mchf_data_mat">6.12</A> shows the data structure of the
+interaction matrix (<TT>hmx</TT>) and the associated 
+pointers (<TT>ico</TT> and <TT>ih</TT>).  For each nonzero matrix 
+element <TT>ico</TT> accounts for the number of total angular
+coefficients as the matrix is traversed in the direction of the arrows.
+The row index of each non-zero element is stored in <TT>ih</TT>.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:mchf_data_mat"></A><A NAME="2883"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.12:</STRONG>
+
+   Data Structure of the interaction matrix.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="370" HEIGHT="377" BORDER="0"
+ SRC="img73.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/mchf_data_mat.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+Each coefficient data structure consists of two quantities:
+<BR><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><TT>coeff</TT></TD>
+<TD ALIGN="LEFT">numerical coefficient (double precision)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>inptr</TT></TD>
+<TD ALIGN="LEFT">index pointer to an integral (integer)</TD>
+</TR>
+</TABLE> 
+
+<BR>
+Thus the position of each integral needs to be known in advance and
+this is achieved by generating all possible integrals from the orbital
+set once initially, before the start of the SCF iterations.
+
+<P>
+During the initial phase of data initialization, <TT>data()</TT> 
+allocates memory for the problem, the details are covered in 
+section &nbsp;<A HREF="node53.html#sec:mem">6.3</A>.  
+
+<P>
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html912"
+  HREF="node51.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html908"
+  HREF="node49.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html902"
+  HREF="node49.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html910"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html913"
+  HREF="node51.html">SCF procedure</A>
+<B> Up:</B> <A NAME="tex2html909"
+  HREF="node49.html">Program Structure</A>
+<B> Previous:</B> <A NAME="tex2html903"
+  HREF="node49.html">Program Structure</A>
+ &nbsp <B>  <A NAME="tex2html911"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

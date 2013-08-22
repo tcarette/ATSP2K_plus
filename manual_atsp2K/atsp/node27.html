@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Parallel atsp2K on Linux</TITLE>
+<META NAME="description" CONTENT="Parallel atsp2K on Linux">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="previous" HREF="node26.html">
+<LINK REL="up" HREF="node26.html">
+<LINK REL="next" HREF="node28.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html615"
+  HREF="node28.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html611"
+  HREF="node26.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html607"
+  HREF="node26.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html613"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html616"
+  HREF="node28.html">Parallel atsp2K on IBM/SP</A>
+<B> Up:</B> <A NAME="tex2html612"
+  HREF="node26.html">Parallel atsp2K</A>
+<B> Previous:</B> <A NAME="tex2html608"
+  HREF="node26.html">Parallel atsp2K</A>
+ &nbsp <B>  <A NAME="tex2html614"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00490100000000000000">
+Parallel <TT>atsp2K</TT> on Linux</A>
+</H3> 
+
+<OL>
+<LI>Environmental variables
+<PRE>
+setenv FC "pgf90"
+setenv FC_MPI "mpif90"
+setenv FFLAGS "-O2 -byteswapio"
+setenv MALLOC sun
+setenv MPI_FFLAGS     # not used
+setenv CC "g++"
+setenv LDFLAGS        # not used
+setenv ATSP ${HOME}/atsp2K
+setenv lapack "/usr/pgi/linux86/lib/liblapack.a"
+setenv blas "/usr/pgi/linux86/lib/libblas.a"
+</PRE>
+
+<P>
+The MPI test can be started with:
+<PRE>
+cd atsp2K/run/N_like/
+./sh_ALL_mpi_linux
+</PRE>
+The MPI scripts are similar to the previously described serial
+scripts: <TT>sh_mchf_E1, sh_mchf_O1</TT>, except for the
+method used to execute each application. MPI runs need to 
+be executed using the <TT>mpirun</TT> script supplied with the
+MPI distribution:
+<PRE>
+.....
+mpirun -p4pg proc_file_nonh ${ATSP2K}/bin/nonh_mpi  #
+.....
+.....
+mpirun -p4pg proc_file_mchf ${ATSP2K}/bin/mchf_mpi &gt; out_${s}.${nat}-${n} &lt;&lt; EOF
+.....
+</PRE>
+
+<P>
+The starting node <TT>id=0</TT> requires a process file as an 
+argument. The process file contains information about each
+node and the executables.
+<PRE>
+%cat  proc_file_nonh
+hf7 0 ${ATSP}/bin/nonh_mpi
+hf6 1 ${ATSP}/bin/nonh_mpi
+</PRE>
+and  <TT>proc_file_mchf</TT>:
+<PRE>
+%cat proc_file_mchf
+hf7 0 ${ATSP2K}/bin/mchf_mpi
+hf6 1 ${ATSP2K}/bin/mchf_mpi
+</PRE>
+
+<P>
+Directory <TT>LSJ</TT> contains a script, <TT>sh_bp_mpi_linux</TT>, 
+which facilitates the Breit-Pauli calculation (<TT>bp_ang_mpi,
+bp_mat_mpi, and bp_eiv_mpi</TT>). Each application
+is called with:
+<PRE>
+...... 
+mpirun -p4pg proc_file_ang ${ATSP2K}/bin/bp_ang_mpi \
+                    &lt;in_ang_${D}  # generate angular data
+...... 
+mpirun -p4pg proc_file_mat ${ATSP2K}/bin/bp_mat_mpi  \
+                    &lt;in_mat_${D}   #  compute all contributions
+mpirun -p4pg proc_file_eiv ${ATSP2K}/bin/bp_eiv_mpi  \
+                    &lt;in_eiv_${D}_${Z}   #  compute eigenvectors
+......
+</PRE>
+
+<P>
+Three process files are required:
+<PRE>
+cat proc_file_ang
+hf7 0 ${ATSP2K}/bin/bp_ang_mpi
+hf6 1 ${ATSP2K}/bin/bp_ang_mpi
+cat proc_file_mat
+hf7 0 ${ATSP2K}/bin/bp_mat_mpi
+hf6 1 ${ATSP2K}/bin/bp_mat_mpi
+cat proc_file_eiv
+hf7 0 ${ATSP2K}/bin/bp_eiv_mpi
+hf6 1 ${ATSP2K}/bin/bp_eiv_mpi
+</PRE>
+</LI>
+</OL>
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

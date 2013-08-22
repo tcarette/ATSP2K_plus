@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The subroutine WWPLS1</TITLE>
+<META NAME="description" CONTENT="The subroutine WWPLS1">
+<META NAME="keywords" CONTENT="ang">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ang.css">
+
+<LINK REL="previous" HREF="node23.html">
+<LINK REL="up" HREF="node8.html">
+<LINK REL="next" HREF="node25.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html328"
+  HREF="node25.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html326"
+  HREF="node8.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html322"
+  HREF="node23.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html329"
+  HREF="node25.html">SAI_SQLS2</A>
+<B> Up:</B> <A NAME="tex2html327"
+  HREF="node8.html">SAI_SQLS1</A>
+<B> Previous:</B> <A NAME="tex2html323"
+  HREF="node23.html">The subroutine WWLS1</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION000421600000000000000">
+The subroutine WWPLS1</A>
+</H3>
+
+<P>
+The routine determines the value of matrix elements:
+
+<P>
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+(\ l^{N}\ QLS\ ||\ [\ [\ a^{(qls)}_{m_{q1}} \times a^{(qls)}_{m_{q2}}\ ]^{(k_{1}k_{2})} \times [\ a^{(qls)}_{m_{q3}} \times a^{(qls)}_{m_{q4}}\ ]^{(k_{3}k_{4})} ]^{(k_{l}k_{s})}\ ||\ l^{N'}\ QLS\ ).
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:sq-ep"></A><IMG
+ WIDTH="554" HEIGHT="31" BORDER="0"
+ SRC="img392.png"
+ ALT="\begin{displaymath}
+( l^{N} QLS \vert\vert [ [ a^{(qls)}_{m_{q1}} \times a...
+...]^{(k_{3}k_{4})} ]^{(k_{l}k_{s})} \vert\vert l^{N'} QLS ).
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(40)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+The routine WWPLS1 uses the routines ITLS, RUMT, IZAS1 for calculation of this sort
+of the matrix element. The subroutine W1 calculates the first and the second
+parts of the operator calculates. The routine SIXJ finds <TT>6j</TT>- symbol.
+The subroutine uses the COMMON block /TRK/, which contains arrays I and B
+for the bra and ket function (ID1, IK1,BD1 and BK1).
+It uses the expression (40) from P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>].
+The subroutine has the formal arguments:
+
+<OL>
+<LI>K1 is the rank <IMG
+ WIDTH="22" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img381.png"
+ ALT="$k_{1}$">.
+</LI>
+<LI>K2 is the rank <IMG
+ WIDTH="22" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img382.png"
+ ALT="$k_{2}$">.
+</LI>
+<LI>K3 is the rank <IMG
+ WIDTH="22" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img383.png"
+ ALT="$k_{3}$">.
+</LI>
+<LI>K4 is the rank <IMG
+ WIDTH="22" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img393.png"
+ ALT="$k_{4}$">.
+</LI>
+<LI>K5 is the rank <IMG
+ WIDTH="19" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img387.png"
+ ALT="$k_{l}$">.
+</LI>
+<LI>K6 is the rank <IMG
+ WIDTH="21" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img388.png"
+ ALT="$k_{s}$">.
+</LI>
+<LI>QM1, QM2, QM3 and QM4 are the quasispin projections in (<A HREF="node24.html#eq:sq-ep">40</A>).
+</LI>
+<LI>WW is the value of the reduced matrix element (<A HREF="node24.html#eq:sq-ep">40</A>) which is returned by the subroutine.
+</LI>
+</OL>
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2001-12-07
+</ADDRESS>
+</BODY>
+</HTML>

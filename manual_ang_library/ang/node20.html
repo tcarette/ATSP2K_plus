@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The subroutine W1</TITLE>
+<META NAME="description" CONTENT="The subroutine W1">
+<META NAME="keywords" CONTENT="ang">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ang.css">
+
+<LINK REL="next" HREF="node21.html">
+<LINK REL="previous" HREF="node19.html">
+<LINK REL="up" HREF="node8.html">
+<LINK REL="next" HREF="node21.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html290"
+  HREF="node21.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html288"
+  HREF="node8.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html282"
+  HREF="node19.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html291"
+  HREF="node21.html">The subroutine AWP1LS</A>
+<B> Up:</B> <A NAME="tex2html289"
+  HREF="node8.html">SAI_SQLS1</A>
+<B> Previous:</B> <A NAME="tex2html283"
+  HREF="node19.html">The subroutine RWLS</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION000421200000000000000"></A>
+<A NAME="sec-w1"></A>
+<BR>
+The subroutine W1
+</H3>
+
+<P>
+This subroutine determines the value of the matrix element:
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+(\ l^{N}\ QLS\ ||\ [a^{(qls)}_{m_{q1}} 
+      \times a^{(qls)}_{m_{q2}}]^{(k_{l}k_{s})} ||\ l^{N'}\ Q'L'S'\ ).
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:sq-b"></A><IMG
+ WIDTH="444" HEIGHT="31" BORDER="0"
+ SRC="img384.png"
+ ALT="\begin{displaymath}
+( l^{N} QLS \vert\vert [a^{(qls)}_{m_{q1}} \times a^{(qls)}_{m_{q2}}]^{(k_{l}k_{s})} \vert\vert l^{N'} Q'L'S' ).
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(36)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+While calculating cases where the orbital number 
+<TT>l</TT>=0, 1, 2, 3 and the shell
+occupation number <IMG
+ WIDTH="50" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img385.png"
+ ALT="$N &gt; 2$">, the program relies on the expression
+(31) from the paper P1&nbsp;[<A
+ HREF="node42.html#method1">3</A>]. In that case,
+the subroutine finds the Clebsch-Gordan coefficient which gives the 
+dependence
+on the shell occupation number. If the tensor product (<A HREF="node20.html#eq:sq-b">36</A>) consists
+of either two electron creation or two annihilation operators then C1E1SM is
+called. Otherwise CLE0SM is called. The subroutine RWLS finds the reduced matrix
+elements of the operator <!-- MATH
+ $[~a^{(qls)} \times a^{(qls)}~]^{(k_{l}k_{s})}$
+ -->
+<IMG
+ WIDTH="151" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img386.png"
+ ALT="$[&nbsp;a^{(qls)} \times a^{(qls)}&nbsp;]^{(k_{l}k_{s})}$">.
+In other cases, the program calculates according to the expression (40)
+from paper P2&nbsp;[<A
+ HREF="node42.html#method2">4</A>].
+The subroutine has the formal arguments:
+
+<OL>
+<LI>IK is the array I for the bra function.
+</LI>
+<LI>BK is the array B for the bra function.
+</LI>
+<LI>ID is the array I for the ket function.
+</LI>
+<LI>BD is the array B for the ket function.
+</LI>
+<LI>K2 is the rank <IMG
+ WIDTH="19" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img387.png"
+ ALT="$k_{l}$">.
+</LI>
+<LI>K3 is the rank <IMG
+ WIDTH="21" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img388.png"
+ ALT="$k_{s}$">.
+</LI>
+<LI>QM1, QM2 are the quasispin projections in (<A HREF="node20.html#eq:sq-b">36</A>).
+</LI>
+<LI>W is the value of the reduced matrix element (<A HREF="node20.html#eq:sq-b">36</A>) which is returned by the subroutine.
+</LI>
+</OL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html290"
+  HREF="node21.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html288"
+  HREF="node8.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html282"
+  HREF="node19.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html291"
+  HREF="node21.html">The subroutine AWP1LS</A>
+<B> Up:</B> <A NAME="tex2html289"
+  HREF="node8.html">SAI_SQLS1</A>
+<B> Previous:</B> <A NAME="tex2html283"
+  HREF="node19.html">The subroutine RWLS</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-12-07
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>relabel</TITLE>
+<META NAME="description" CONTENT="relabel">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node103.html">
+<LINK REL="previous" HREF="node101.html">
+<LINK REL="up" HREF="node91.html">
+<LINK REL="next" HREF="node103.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1559"
+  HREF="node103.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1555"
+  HREF="node91.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1549"
+  HREF="node101.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1557"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1560"
+  HREF="node103.html">gtables</A>
+<B> Up:</B> <A NAME="tex2html1556"
+  HREF="node91.html">Utility programs</A>
+<B> Previous:</B> <A NAME="tex2html1550"
+  HREF="node101.html">printw</A>
+ &nbsp <B>  <A NAME="tex2html1558"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION0016110000000000000000">
+relabel</A>
+</H1>
+Because the electron labels must match exactly (UPPERCASE
+and lowercase as well as blank fields) it may be necessary to change
+the electron label.  
+This routine lists the labels of all electrons
+found in  <TT>wfn.inp</TT> and selectively allows the user to change the
+labels before the radial function is written to a file.
+After each label is printed, the user may respond in three ways:
+<BR><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><TT>d</TT></TD>
+<TD ALIGN="LEFT">Radial function is not copied (deleted)</TD>
+</TR>
+<TR><TD ALIGN="LEFT">(Blank)</TD>
+<TD ALIGN="LEFT">No change in the label, radial function copied to <TT>wfn.out</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>AAA</TT></TD>
+<TD ALIGN="LEFT">Change label to <TT>AAA</TT>, then copy
+to <TT>wfn.out</TT></TD>
+</TR>
+</TABLE>  
+<BR>
+This routine may also be used to eliminate some radial functions from
+the file.  All <TT>.w</TT> files can always be concatenated.
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

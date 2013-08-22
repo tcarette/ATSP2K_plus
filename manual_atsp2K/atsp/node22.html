@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Computing LS transitions</TITLE>
+<META NAME="description" CONTENT="Computing LS transitions">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node23.html">
+<LINK REL="previous" HREF="node21.html">
+<LINK REL="up" HREF="node17.html">
+<LINK REL="next" HREF="node23.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html557"
+  HREF="node23.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html553"
+  HREF="node17.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html547"
+  HREF="node21.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html555"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html558"
+  HREF="node23.html">Breit-Pauli calculations</A>
+<B> Up:</B> <A NAME="tex2html554"
+  HREF="node17.html">Computing Atomic Transitions</A>
+<B> Previous:</B> <A NAME="tex2html548"
+  HREF="node21.html">Computing the wave functions</A>
+ &nbsp <B>  <A NAME="tex2html556"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00450000000000000000">
+Computing <TT>LS</TT> transitions</A>
+</H1>
+<TT>LS</TT> transitions are the second most important factor (along 
+with accurate energies) which verify the computational model. Before 
+continuing with the Breit-Pauli Configuration Interactions, it is desirable to 
+compute <TT>LS</TT> transitions.
+Each of the files pertaining to a group, reside in  the                     
+corresponding directory,  (<TT>atsp2K/E1 and atsp2K/O1</TT>). 
+The <TT>LS</TT> transition calculations are handled into a 
+separate directory: <TT>atsp2K/LS</TT>.  The script below shows an example of
+the extensive file manipulation, including copying and renaming a number
+of files, required for computing the numerous <TT>LS</TT> transitions for 
+each <TT>Z and n</TT>. This task is best handled by shell scripting.
+The example below, <TT>sh_LS_D and sh_LS_Q</TT> 
+(located in the directory <TT>LS</TT>)
+require previously computed data saved in files <TT>*.w</TT> and <TT>*.l</TT>.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="run3"></A><A NAME="1432"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 2.3:</STRONG>
+
+The wave functions (*.w) and the eigenvectors (*.l) 
+computed from <TT>mchf</TT> 
+used as input files to <TT>biotr</TT>
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="271" HEIGHT="211" BORDER="0"
+ SRC="img30.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\epsfig{file=tex/fig/atsp_run2.epsi,width=6cm}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+<PRE>
+set -x
+ls -l
+
+#Doublets
+for Z in  8 9
+do
+  (for n in  4 # 5 6 7
+  do
+     (for ED in E1    # even directories
+      do
+        (for OD in O1        # odd directories
+         do
+           (for E in 2D 2P 2S     # Even terms
+            do
+              (for EE in 1                 # Even eigenvalues
+               do
+                 (for O in 2D 2P  # Odd terms
+                  do
+                     (for  OE in 1           # Odd eigenvalues
+                      do
+                         (echo
+         rm ?.? ?.?.ls;
+         test -f ./${E}${EE}.${O}o${OE}.${Z}-${n}.ls &amp;&amp; break;
+         test -f ../${OD}/${O}o${OE}.${Z}_${n}.l || break;
+         test -f ../${ED}/${E}${EE}.${Z}_${n}.l || break;
+         test -f ../${OD}/${OD}.${Z}_${n}.w || break;
+         test -f ../${ED}/${ED}.${Z}_${n}.w || break;
+         cp ../${OD}/${OD}.${Z}_${n}.w O.w
+         cp ../${ED}/${E}${EE}.${Z}_${n}.l E.l;
+         cp ../files_c/${E}${n}.c E.c;
+         cp ../${ED}/${ED}.${Z}_${n}.w E.w
+         cp ../${OD}/${O}o${OE}.${Z}_${n}.l O.l;
+         cp ../files_c/${O}o${n}.c O.c;
+         ${ATSP}/bin/biotr &lt;in
+         mv E.O.ls ${E}${EE}.${O}o${OE}.${Z}-${n}.ls;)
+                       done;)
+                   done;)
+                done;)
+            done;)
+          done;)
+      done;)
+  done;)
+done
+
+rm ?.? fort*
+ls -l
+</PRE>
+
+<P>
+The input file, <TT>in</TT>, used in the script shows the expected input:
+<PRE>
+(georgio@hf7)195% cat sh_in
+E   # initial state
+O   # final state
+n   # question about full printout: used for debugging
+n   # non relativistic calculations
+c   # input from CI calculations
+E1  # requested LS transition
+</PRE>
+
+<P>
+A table of the <TT>LS</TT> convergence is an important indicator for the
+accuracy of the computational model. Full sets of <TT>LS</TT> accuracy tables
+for N-like atoms for the model described above can be found at 
+<PRE>www.vuse.vanderbilt.edu/~cff/mchf_collection
+</PRE> 
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html557"
+  HREF="node23.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html553"
+  HREF="node17.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html547"
+  HREF="node21.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html555"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html558"
+  HREF="node23.html">Breit-Pauli calculations</A>
+<B> Up:</B> <A NAME="tex2html554"
+  HREF="node17.html">Computing Atomic Transitions</A>
+<B> Previous:</B> <A NAME="tex2html548"
+  HREF="node21.html">Computing the wave functions</A>
+ &nbsp <B>  <A NAME="tex2html556"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

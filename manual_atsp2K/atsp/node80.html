@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Input data</TITLE>
+<META NAME="description" CONTENT="Input data">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node81.html">
+<LINK REL="previous" HREF="node79.html">
+<LINK REL="up" HREF="node77.html">
+<LINK REL="next" HREF="node81.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1279"
+  HREF="node81.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1275"
+  HREF="node77.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1269"
+  HREF="node79.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1277"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1280"
+  HREF="node81.html">File IO</A>
+<B> Up:</B> <A NAME="tex2html1276"
+  HREF="node77.html">HFS</A>
+<B> Previous:</B> <A NAME="tex2html1270"
+  HREF="node79.html">hfs Program Structure</A>
+ &nbsp <B>  <A NAME="tex2html1278"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001330000000000000000">
+Input data</A>
+</H1>
+The user provides the following input data:
+
+<OL>
+<LI><I>Name of state</I>
+<BR>
+This program requires that the name of the sate, denoted 
+  here as <TT>&lt;name&gt;</TT>, to be specified. The program expects 
+expects all data from <TT>&lt;name&gt;.c, &lt;name&gt;.w</TT> and either
+of <TT>&lt;name&gt;.l, or &lt;name&gt;.j</TT>.
+
+<P>
+</LI>
+<LI><I>Type</I>
+<BR>
+The following options are provided;
+
+<UL>
+<LI>only diagonal <IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img133.png"
+ ALT="$A$"> and <IMG
+ WIDTH="19" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img134.png"
+ ALT="$B$"> factors.
+</LI>
+<LI>both diagonal and off-diagonal <IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img133.png"
+ ALT="$A$"> and <IMG
+ WIDTH="19" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img134.png"
+ ALT="$B$"> factors
+</LI>
+<LI>only the coefficients of the radial matrix elements
+</LI>
+</UL>
+  For the last option all needed input data is in the
+  configuration input file <TT>&lt;name&gt;</TT>.c .
+
+<P>
+</LI>
+<LI><I>Hyperfine parameters</I>
+<BR>
+The hyperfine parameters <!-- MATH
+ $a_{l},a_{d},a_{c}$
+ -->
+<IMG
+ WIDTH="64" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img135.png"
+ ALT="$a_{l},a_{d},a_{c}$"> and <IMG
+ WIDTH="20" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img136.png"
+ ALT="$b_{q}$">
+  can be printed out. (meaningful for pure LS terms).
+
+<P>
+</LI>
+<LI><I>Input</I>
+<BR>
+The program can use wave function expansion from either an 
+MCHF or CI calculation. 
+
+<P>
+</LI>
+<LI><I>Number</I>
+<BR>
+Specifies the  particular states for which the
+<IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img133.png"
+ ALT="$A$"> and <IMG
+ WIDTH="19" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img134.png"
+ ALT="$B$"> factors to be calculated (when <TT>&lt;name&gt;.j</TT> contains more
+than one state).
+
+<P>
+</LI>
+<LI><I>Print-out</I>
+<BR>
+In a calculation of the <IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img133.png"
+ ALT="$A$"> and <IMG
+ WIDTH="19" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img134.png"
+ ALT="$B$"> factors, 
+values of the <!-- MATH
+ $A^{orb},A^{dip}, A^{cont}$
+ -->
+<IMG
+ WIDTH="119" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img137.png"
+ ALT="$A^{orb},A^{dip}, A^{cont}$">, and <IMG
+ WIDTH="19" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img134.png"
+ ALT="$B$"> terms are 
+written to the file <TT>&lt;name&gt;</TT>.h.  Full print-out prints the
+ values of coefficients and radial matrix elements as well as 
+the contribution to the different <IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img133.png"
+ ALT="$A$"> and <IMG
+ WIDTH="19" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img134.png"
+ ALT="$B$"> factors
+for every pair of configurations.
+
+<P>
+</LI>
+<LI><I>Tolerance for printing</I>
+<BR>
+In the case of a full print-out it is possible to set 
+a tolerance for printing. If the contribution to a term is 
+less than the tolerance, then it will not be printed.
+
+<P>
+</LI>
+<LI><I>Nuclear data</I>
+<BR>
+The user provides:
+
+<UL>
+<LI><IMG
+ WIDTH="22" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img138.png"
+ ALT="$2I$">
+</LI>
+<LI><IMG
+ WIDTH="23" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img139.png"
+ ALT="$\mu_{I}$"> in nuclear magnetons
+</LI>
+<LI><IMG
+ WIDTH="19" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img140.png"
+ ALT="$Q$">  in barns
+</LI>
+</UL>
+which are experimental values.
+</LI>
+</OL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1279"
+  HREF="node81.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1275"
+  HREF="node77.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1269"
+  HREF="node79.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1277"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1280"
+  HREF="node81.html">File IO</A>
+<B> Up:</B> <A NAME="tex2html1276"
+  HREF="node77.html">HFS</A>
+<B> Previous:</B> <A NAME="tex2html1270"
+  HREF="node79.html">hfs Program Structure</A>
+ &nbsp <B>  <A NAME="tex2html1278"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

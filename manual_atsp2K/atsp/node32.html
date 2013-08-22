@@ -1,0 +1,400 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>IO Files</TITLE>
+<META NAME="description" CONTENT="IO Files">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="previous" HREF="node31.html">
+<LINK REL="up" HREF="node29.html">
+<LINK REL="next" HREF="node33.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html674"
+  HREF="node33.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html670"
+  HREF="node29.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html666"
+  HREF="node31.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html672"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html675"
+  HREF="node33.html">The MCDHF/MCHF Data Collection</A>
+<B> Up:</B> <A NAME="tex2html671"
+  HREF="node29.html">Data analysis</A>
+<B> Previous:</B> <A NAME="tex2html667"
+  HREF="node31.html">Program description</A>
+ &nbsp <B>  <A NAME="tex2html673"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00530000000000000000">
+IO Files</A>
+</H1>
+This program requires the following input files:
+
+<UL>
+<LI>A.E.MCHF Contains concatenated spectra for
+all computed atoms of a sequence. The user can prepare this file by 
+simply copying and pasting the computed levels from the 
+program <TT>tables</TT>, the files have extension .lt. Example:
+
+<P>
+<PRE>
+Z = 8  Energy levels and lifetimes for O I : O-like  (8 electrons).
+  Rydberg constant is = 109733.5522
+--------------------------------------------------------------------------------
+Configuration                 Term J   Energy Total  Levels Splitting  Lifetimes
+                                          (a.u.)      cm^-1   cm^-1        s
+--------------------------------------------------------------------------------
+
+2s(2).2p(4)3P2              3P     2 -75.047520230
+                                   1 -75.046809230    156.04   156.04 1.1710e+04
+                                   0 -75.046502660    223.32   223.32 6.0864e+04
+
+2s(2).2p(4)1D2              1D     2 -74.974059050  16122.31          1.1477e+02
+
+2s(2).2p(4)1S0              1S     0 -74.893309390  33844.21          1.2732e+01
+
+
+Z = 9  Energy levels and lifetimes for F II : O-like  (8 electrons).
+  Rydberg constant is = 109734.1464
+--------------------------------------------------------------------------------
+Configuration                 Term J   Energy Total  Levels Splitting  Lifetimes
+                                          (a.u.)      cm^-1   cm^-1        s
+--------------------------------------------------------------------------------
+
+2s(2).2p(4)3P2              3P     2 -99.105054240
+                                   1 -99.103513980    338.04   338.04 1.1518e+03
+                                   0 -99.102849050    483.97   483.97 5.9653e+03
+
+2s(2).2p(4)1D2              1D     2 -99.008796590  21125.50          1.9013e+01
+
+2s(2).2p(4)1S0              1S     0 -98.900250320  44947.97          2.1206e+00
+</PRE>
+
+<P>
+</LI>
+<LI>A.E.NIST Contains the concatenated spectra for desired range
+of atoms as found at the NIST web site. The data for each atom
+must be separated with the string "Z = nnn", where <I>nnn</I>
+is the atomic number of the spectrum below it.
+
+<P>
+<PRE>
+Z = 8
+
+
+-------------------------------------------------
+Configuration        | Term  |  J  | Level
+                     |       |     | (cm-1)
+---------------------|-------|-----|-------------
+2s2.2p4              | 3P    |  2  |       0.000
+                     |       |  1  |     158.265
+                     |       |  0  |     226.977
+                     |       |     |     
+2s2.2p4              | 1D    |  2  |   15867.862
+                     |       |     |     
+2s2.2p4              | 1S    |  0  |   33792.583
+
+Z = 9
+
+
+-------------------------------------------
+Configuration  | Term     | J  | Level   
+               |          |    | (cm-1)  
+---------------|----------|----|-----------
+2s2.2p4        | 3P       | 2  |      0.0
+               |          | 1  |    341.0
+               |          | 0  |    489.9
+               |          |    |
+2s2.2p4        | 1D       | 2  |  20873.4
+               |          |    |
+2s2.2p4        | 1S       | 0  |  44918.1
+</PRE>
+
+<P>
+</LI>
+<LI>LEVELS.ref A reference file which contains the
+strings that represent each state, term and J value in the
+NIST database and from the atsp2K calculation. This file is
+used to match the corresponding states between observed 
+energy reported by NIST and MCHF calculation.
+This file is very important and the success of the program 
+depends on careful preparation. Below is shown an example with the 
+format. Note that &quot&amp;" is used as a column separator. The first 
+column shows the MCHF representation of the configuration, next is
+the term. The program combines "configuration"  "_"  "term"
+and searches .lsj files to match this string. For example,
+<PRE>2s(2).2p(4)3P2  &amp; 3P
+</PRE> expect 
+the .lsj, .j and .lt files to contain: 
+<PRE>2s(2).2p(4)3P2_3P
+</PRE>
+For the same state the NIST representation is 
+<PRE>2s2.2p4
+</PRE> and the term is represented
+in their energy tables as <PRE>2P
+</PRE>.
+The next column shows the J value as it is represented in MCHF. Then
+the parity is shown as "e" for even and "o" for odd. Column 
+5 shows the representation of the state in the NIST format, 
+column 6 shows the term, column 7 the J value. All 5,6,7 are 
+from their tables. The user need to make sure their representation
+is consistent for all atoms, in some occasions, NIST omits the 
+parent term. In some other cases, the J values are given on the
+same line, separated by comas, therefore, some editing may be 
+required of the file A.E.NIST. Column 8 and 9 show the T<SMALL>E</SMALL>Xrepresentation of state, term and J-value for given level. 
+This is used to prepare  T<SMALL>E</SMALL>Xtables.
+
+<P>
+<PRE>
+% FORMAT
+
+MCHF::CONF        T    J    P   NIST::CONF  T      J      TEX::CONF  TEX::TERM 
+     TERM
+2s(2).2p(4)3P2  &amp; 3P &amp; 2   &amp; e &amp; 2s2.2p4 &amp;  3P   &amp;  2    &amp; $2p^4$  &amp; \Term 3 P {2}/
+2s(2).2p(4)3P2  &amp; 3P &amp; 1   &amp; e &amp; 2s2.2p4 &amp;  3P   &amp;  1    &amp; $2p^4$  &amp; \Term 3 P {1}/
+2s(2).2p(4)3P2  &amp; 3P &amp; 0   &amp; e &amp; 2s2.2p4 &amp;  3P   &amp;  0    &amp; $2p^4$  &amp; \Term 3 P {0}/
+2s(2).2p(4)1D2  &amp; 1D &amp; 2   &amp; e &amp; 2s2.2p4 &amp;  1D   &amp;  2    &amp; $2p^4$  &amp; \Term 1 D {2}/
+2s(2).2p(4)1S0  &amp; 1S &amp; 0   &amp; e &amp; 2s2.2p4 &amp;  1S   &amp;  0    &amp; $2p^4$  &amp; \Term 1 S {0}/
+.......
+.......
+</PRE> 
+
+<P>
+The second part of <TT>LEVELS.ref</TT> gives the representation 
+of the LS transitions. Note that the first column shows the 
+groups which are used to compute the LS uncertainties for 
+intercombination lines. The user may control this process by
+appropriate grouping of the configurations, in this case any
+intercombination line which is in group <TT>UA</TT> will use 
+the combined <TT>gf</TT> normalized uncertainty for all LS 
+transitions which include states from that group (<TT>UA</TT>). 
+Column 3 shows the parity, and columns 4 and 5 show the 
+T<SMALL>E</SMALL>Xrepresentation of the string. 
+
+<P>
+<PRE>
+...........
+...........
+LSTRENDS::CONF           TERM    P    TEX::CONF            TERM::CONF
+UA 2s(2).2p(4)3P2        &amp; 3P &amp;  e &amp;  $2p^4$             &amp; \Term 3 P {}/
+UA 2s(2).2p(4)1D2        &amp; 1D &amp;  e &amp;  $2p^4$             &amp; \Term 1 D {}/
+UA 2s(2).2p(4)1S0        &amp; 1S &amp;  e &amp;  $2p^4$             &amp; \Term 1 S {}/
+UB 2s.2p(5)              &amp; 3P &amp;  o &amp;  $2s2p^5$           &amp; \Termo 3 P {}/
+UB 2s.2p(5)              &amp; 1P &amp;  o &amp;  $2s2p^5$           &amp; \Termo 1 P {}/
+UC 2p(6)                 &amp; 1S0&amp;  e &amp;  $2p^6$             &amp; \Term 1 S {}/
+UD 2s(2).2p(3)4S3_4S.3s  &amp; 5S &amp;  o &amp;  $2p^3(^4\!S)3s$    &amp; \Termo 5 S {}/
+UD 2s(2).2p(3)4S3_4S.3s  &amp; 3S &amp;  o &amp;  $2p^3(^4\!S)3s$    &amp; \Termo 3 S {}/
+UD 2s(2).2p(3)2D3_2D.3s  &amp; 3D &amp;  o &amp;  $2p^3(^2\!D)3s$    &amp; \Termo 3 D {}/
+UD 2s(2).2p(3)2D3_2D.3s  &amp; 1D &amp;  o &amp;  $2p^3(^2\!D)3s$    &amp; \Termo 1 D {}/
+...........
+...........
+</PRE>
+
+<P>
+</LI>
+<LI>A.LS is obtained by concatenating all .ls files for
+all atoms and all transitions. Note that each LS transition contains
+<TT>n, and Z</TT>. 
+<PRE>
+  Transition between files:
+  I
+  F
+
+ Z =  10 n =  4
+   4 -126.43021002  2s(2).2p(4)1D2_1D
+   4 -124.91782770  2s(2).2p(3)2D3_2D.3s_1D
+  331920.45 CM-1       301.28 ANGS(VAC)       301.28 ANGS(AIR)
+ E1  length:   S =  5.57939D-01   GF =  5.62529D-01   AKI =  8.26771D+09
+    velocity:  S =  6.29443D-01   GF =  6.34621D-01   AKI =  9.32728D+09
+  Transition between files:
+  I
+  F
+
+ Z =  10 n =  5
+   4 -126.44256936  2s(2).2p(4)1D2_1D
+   4 -124.93014302  2s(2).2p(3)2D3_2D.3s_1D
+  331930.11 CM-1       301.27 ANGS(VAC)       301.27 ANGS(AIR)
+ E1  length:   S =  6.16498D-01   GF =  6.21587D-01   AKI =  9.13625D+09
+    velocity:  S =  6.37137D-01   GF =  6.42398D-01   AKI =  9.44213D+09
+</PRE>
+
+<P>
+</LI>
+<LI>A.LSJ.U is obtained by concatenating all .lsj files for
+all atoms and all transitions, unadjusted
+<PRE>
+ Transitions of Z = 10  Ne III : O-like  (8 electrons). 1029
+
+
+
+   4 -125.07174692  2s(2).2p(3)4S3_4S.3p_3P
+   4 -125.06526463  2s(2).2p(3)2D3_2D.3s_1D
+    1422.66 CM-1     70290.93 ANGS(VAC)     70283.66 ANGS(AIR)
+ E1  S =  1.53317e-04   GF =  6.62544e-07   AKI =  1.78891e-01
+          7.25277e-05         3.13422e-07          8.46258e-02
+
+
+   2 -125.07179831  2s(2).2p(3)4S3_4S.3p_3P
+   4 -125.06526463  2s(2).2p(3)2D3_2D.3s_1D
+    1433.94 CM-1     69738.04 ANGS(VAC)     69730.83 ANGS(AIR)
+ E1  S =  1.37332e-04   GF =  5.98173e-07   AKI =  1.64082e-01
+          8.58197e-05         3.73802e-07          1.02536e-01
+</PRE>
+
+<P>
+</LI>
+<LI>A.LSJ.A is obtained by concatenating all .lsj files for
+all atoms and all transitions, adjusted
+<PRE>
+ Transitions of Z = 10  Ne III : O-like  (8 electrons). 1012
+
+
+
+   6 -124.88276742  2s(2).2p(3)4S3_4S.3d_3D
+   4 -124.87914668  2s(2).2p(3)2D3_2D.3p_3P
+     794.64 CM-1    125843.38 ANGS(VAC)    125830.37 ANGS(AIR)
+ E1  S =  1.11727e+00   GF =  2.69681e-03   AKI =  2.27176e+02
+          1.40563e+02         3.39284e-01          2.85809e+04
+
+
+   4 -124.88282539  2s(2).2p(3)4S3_4S.3d_3D
+   4 -124.87914668  2s(2).2p(3)2D3_2D.3p_3P
+     807.36 CM-1    123860.37 ANGS(VAC)    123847.57 ANGS(AIR)
+ E1  S =  2.00592e-01   GF =  4.91933e-04   AKI =  4.27773e+01
+          2.41638e+01         5.92593e-02          5.15305e+03
+</PRE>
+
+<P>
+</LI>
+</UL>
+
+<P>
+The program tabulates a wide range of data in text format. In 
+addition, some  data is saved in tex format:
+
+<P>
+
+<UL>
+<LI>Energy difference = computed - NIST, <TT>_A_E_diff.tex</TT>
+</LI>
+<LI>Lifetimes, <TT>_A_lifetimes.tex</TT>
+</LI>
+<LI>Tables of ls transitions, <TT>_A_E_diff.tex</TT>
+</LI>
+<LI>Tables of uncertainties for energy adjusted atoms, 
+<TT>_A_tr.tex</TT>. 
+</LI>
+</UL>
+
+<P>
+The output file <TT>_A.log</TT> contains the following tables:
+
+<UL>
+<LI>Table LS accuracies. (gf-values on the second line)
+</LI>
+<LI>Table 2: Energy differences (Mchf-NIST)
+</LI>
+<LI>Table 3: MCHF energies
+</LI>
+<LI>Table 4: NIST energies
+</LI>
+<LI>Table 5: % Errors in computed vs. observed energies (Mchf-Nist)
+</LI>
+<LI>Table 6: Lifetimes 
+</LI>
+<LI>Table 8: Uncertainties
+</LI>
+<LI>Table 9: Line strength errors
+</LI>
+</UL>
+
+<P>
+The file <TT>_A.lsj.log</TT> and sorts all LSJ transitions for 
+all atoms.
+
+<P>
+For each atom, the program tabulates the LS trends in a file 
+<TT>_A.LS_Z_NN</TT>, where <TT>NN</TT> is the atomic number. The format
+of the file is:
+<PRE>
+--------------------------------------------------------------------------------
+ Z  n       EL            EU        SL(v)     SL(V)     gf(L)    gf(V)   Error
+--------------------------------------------------------------------------------
+
+2s(2).2p(4)3P2_3P             2s(2).2p(3)4S3_4S.3s_3S
+ 8 4 -74.98462945 -74.61714316 1.326e+00 2.490e+00 3.249e-01 6.101e-01 0.467
+ 8 5 -74.99510073 -74.64418231 1.767e+00 2.231e+00 4.135e-01 5.219e-01 0.208
+ 8 6 -74.99727166 -74.64656634 1.834e+00 2.026e+00 4.289e-01 4.737e-01 0.095
+ 8 7 -74.99794341 -74.64671241 1.842e+00 1.969e+00 4.313e-01 4.610e-01 0.064
+
+2s(2).2p(4)3P2_3P             2s(2).2p(3)4S3_4S.3d_3D
+ 8 4 -74.98462945 -74.54669516 4.380e-01 5.632e-01 1.279e-01 1.644e-01 0.222
+ 8 5 -74.99510073 -74.55436390 5.785e-01 6.086e-01 1.700e-01 1.788e-01 0.049
+ 8 6 -74.99727166 -74.55501892 5.885e-01 6.355e-01 1.735e-01 1.874e-01 0.074
+ 8 7 -74.99794341 -74.55505464 5.956e-01 6.338e-01 1.759e-01 1.871e-01 0.060
+</PRE>
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html674"
+  HREF="node33.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html670"
+  HREF="node29.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html666"
+  HREF="node31.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html672"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html675"
+  HREF="node33.html">The MCDHF/MCHF Data Collection</A>
+<B> Up:</B> <A NAME="tex2html671"
+  HREF="node29.html">Data analysis</A>
+<B> Previous:</B> <A NAME="tex2html667"
+  HREF="node31.html">Program description</A>
+ &nbsp <B>  <A NAME="tex2html673"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

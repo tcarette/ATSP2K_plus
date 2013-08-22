@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Introduction</TITLE>
+<META NAME="description" CONTENT="Introduction">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node57.html">
+<LINK REL="previous" HREF="node55.html">
+<LINK REL="up" HREF="node55.html">
+<LINK REL="next" HREF="node57.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html982"
+  HREF="node57.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html978"
+  HREF="node55.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html972"
+  HREF="node55.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html980"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html983"
+  HREF="node57.html">MPI I/O</A>
+<B> Up:</B> <A NAME="tex2html979"
+  HREF="node55.html">MPI version</A>
+<B> Previous:</B> <A NAME="tex2html973"
+  HREF="node55.html">MPI version</A>
+ &nbsp <B>  <A NAME="tex2html981"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00851000000000000000">
+Introduction</A>
+</H2>
+The MPI <TT>mchf</TT> implementation is based on the program 
+structure of the serial code with the most CPU 
+intensive operations modified for parallel execution.
+The program initialization is similar to the serial version:
+Node 0 in <TT>mpi_mchf_sun()</TT> processes the parameters
+provided by the user in interactive mode, and broadcast
+them to the other processors.  <TT>mpi_data()</TT> calls 
+<TT>wavefn()</TT>, which reads the input
+wave function estimate from <TT>wfn.inp</TT> if it is present in the
+working directory. Or, <TT>wavefn()</TT> creates hydrogenic estimates.
+All initial parameters are broadcast from node <TT>0</TT> to the
+rest of the nodes. Then, <TT>mpi_data()</TT> proceeds with
+calling <TT>mpi_spintgrl()</TT>, which allocates memory for
+each node (calling <TT>mpi_spalcsts()</TT>), and reads the
+the angular data files supplied from <TT>nonh_mpi</TT>.
+<TT>mpi_spalcsts()</TT>
+has sufficient information for the size of the arrays, and attempts
+to allocate heap memory for all arrays. If the
+calculation is too large, then the coefficient data from <TT>c.lst.nnn</TT>
+are read from disk on each <TT>scf()</TT> iteration. In this
+case, considerably smaller arrays are allocated and they are used
+to buffer the input data. The parameter <TT>LSDIM=30000</TT> 
+controls the size of the
+buffer, and its size can be adjusted for efficient I/O processing.
+This is important only in the case when coefficient data is on
+disk, since on each <TT>scf()</TT> iteration the entire list coefficients
+is processed. However, the user should avoid computing on
+disk and by increasing the number of processors, all coefficient
+and pointer data may be stored in memory.
+
+<P>
+The <TT>scf()</TT> iterations has
+exactly the same structure as described for the serial <TT>mchf</TT>.
+The first phase solves the
+differential equation for each radial function with the
+following sequence, Figure &nbsp;<A HREF="node51.html#fig:scf_de">6.14</A>. Then, during the second phase, 
+<TT>diag()</TT> solves the
+eigenvalue problem and updates the integral coefficients
+of the radial functions, Figure &nbsp;<A HREF="node52.html#fig:scf_diag">6.16</A>.
+
+<P>
+<TT>mchf</TT> performs
+complicated computational tasks, including parallel and
+serial I/O, complex arithmetic loops, and matrix algebra.
+The  efficiency of <TT>mchf</TT> is a function of the  number of 
+processors, it significantly drops below 0.6 when more than 
+16-24 processors are used. The time consuming operations are 
+coefficient updates and matrix diagonalization, and in the exchange
+procedure. The parallel version, <TT>mchf_mpi</TT>, is 
+structurally similar to the serial <TT>mchf</TT> program. However,
+it has only two level of memory allocation: Level1, all arrays
+are in memory, and Level 2, <TT>coeff, inptr</TT> are on disk
+and <TT>hmx, ih, ico</TT> are stored in memory. It is assumed that
+the number of processor can be increased as needed so that 
+all data is stored in memory. The speed of iteration may 
+show a considerable decrease when all of the data is on disk,
+as opposed to have all data in memory. 
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html982"
+  HREF="node57.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html978"
+  HREF="node55.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html972"
+  HREF="node55.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html980"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html983"
+  HREF="node57.html">MPI I/O</A>
+<B> Up:</B> <A NAME="tex2html979"
+  HREF="node55.html">MPI version</A>
+<B> Previous:</B> <A NAME="tex2html973"
+  HREF="node55.html">MPI version</A>
+ &nbsp <B>  <A NAME="tex2html981"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

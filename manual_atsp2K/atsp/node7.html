@@ -1,0 +1,1091 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>MCHF</TITLE>
+<META NAME="description" CONTENT="MCHF">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node8.html">
+<LINK REL="previous" HREF="node6.html">
+<LINK REL="up" HREF="atsp.html">
+<LINK REL="next" HREF="node8.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html276"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html272"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html266"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html274"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html277"
+  HREF="node8.html">BP_ANG</A>
+<B> Up:</B> <A NAME="tex2html273"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html267"
+  HREF="node6.html">NONH</A>
+ &nbsp <B>  <A NAME="tex2html275"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html278"
+  HREF="#SECTION00710000000000000000">Introduction</A>
+<LI><A NAME="tex2html279"
+  HREF="#SECTION00720000000000000000">Program Structure</A>
+<LI><A NAME="tex2html280"
+  HREF="#SECTION00730000000000000000">Dynamic memory management</A>
+<LI><A NAME="tex2html281"
+  HREF="#SECTION00740000000000000000">I/O files</A>
+<LI><A NAME="tex2html282"
+  HREF="#SECTION00750000000000000000">MPI version</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00700000000000000000"></A>
+<A NAME="chap:mchf"></A>
+<BR>
+MCHF
+</H1>
+
+<P>
+
+<H1><A NAME="SECTION00710000000000000000">
+Introduction</A>
+</H1>
+The state of many-electron system is described by a wave function
+<IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img48.png"
+ ALT="$\Psi$">, that is the solution of the Schr&#246;dinger equation:
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+({\cal H}-E)\psi=0
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="330" HEIGHT="28" BORDER="0"
+ SRC="img49.png"
+ ALT="\begin{displaymath}
+({\cal H}-E)\psi=0
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(3)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+
+<P>
+The approximate wave function 
+<IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img48.png"
+ ALT="$\Psi$"> of the state labeled <IMG
+ WIDTH="37" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img50.png"
+ ALT="$\gamma L S$"> is:
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\Psi ( \gamma L S) = \sum_j c_j \Phi (\gamma _j L S ),
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="371" HEIGHT="47" BORDER="0"
+ SRC="img51.png"
+ ALT="\begin{displaymath}
+\Psi ( \gamma L S) = \sum_j c_j \Phi (\gamma _j L S ),
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(4)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+where <IMG
+ WIDTH="15" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img52.png"
+ ALT="$\gamma$"> represents the dominant configuration, and  
+any additional quantum numbers required for uniquely specifying 
+the state being considered. The MCHF wave function <IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img48.png"
+ ALT="$\Psi$"> is
+expanded in terms of configuration state functions (CSF) <IMG
+ WIDTH="33" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img53.png"
+ ALT="$\{ \Phi \}$"> 
+having the same <IMG
+ WIDTH="28" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img54.png"
+ ALT="$LS$"> symmetry but arising from different electronic 
+configurations (<IMG
+ WIDTH="21" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img55.png"
+ ALT="$ \gamma _j $">).  
+The <TT>mchf</TT> procedure  consists of optimizing to self-consistency
+<I>both</I> the sets of radial functions <!-- MATH
+ $\{ P_{n_j l_j} (r) \}$
+ -->
+<IMG
+ WIDTH="77" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img56.png"
+ ALT="$\{ P_{n_j l_j} (r) \} $">
+and mixing coefficients <IMG
+ WIDTH="36" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img57.png"
+ ALT="$\{ c_j \}$">.  
+The CSF's are built from a basis of one-electron spin-orbital 
+functions and determine the radial functions:
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\phi _{nlm_lm_s} = \frac{1}{r} P_{nl} (r) Y_{lm_l} 
+(\theta, \varphi) \chi_{m_s}.
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="397" HEIGHT="38" BORDER="0"
+ SRC="img58.png"
+ ALT="\begin{displaymath}
+\phi _{nlm_lm_s} = \frac{1}{r} P_{nl} (r) Y_{lm_l}
+(\theta, \varphi) \chi_{m_s}.
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(5)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+With the wave function expansion is associated an energy functional 
+for <EM>one</EM> LS term and eigenvalue.
+
+<P>
+The traditional <TT>mchf</TT> program has been extended to 
+accomplish a simultaneous optimization of energy expressions derived from 
+several different terms or even several eigenvalues of the same term.
+Additionally, the energy energy functional is represented as a 
+weighted average of energy functionals for expansions of wave functions 
+for different LS terms or parity. This approach facilitates the
+Breit-Pauli calculations for complex atomic systems, while previously
+somewhat arbitrary methods have been applied (<I>cross-wise optimization</I>,
+&nbsp;<A HREF="#book"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/usr/share/latex2html/icons/crossref.png"></A>).
+
+<P>
+<TT>mchf</TT> was modified for systematic, large-scale methods using 
+dynamic memory allocation and sparse matrix methods. All orbitals 
+in a wave function expansion are assumed to be orthonormal.
+Configuration states are restricted to at most eight (8)
+subshells in addition to the closed shells common to all configuration
+states. The maximum size is limited by the available memory and disk
+space. The wave function expansions are obtained from orbital sets 
+of increasing size, allowing for the monitoring of convergence.
+The Davidson algorithm&nbsp;[#!dvdson!#] is applied for finding the 
+needed eigenvalues and eigenvectors. In this version of the code, 
+non-orthogonality is not supported. In the present <TT>atsp2K_MCHF</TT> package, it is not foreseen that optimization would be
+over different parities, only over different terms of the same parity,
+and we refer to this as "simultaneous optimization".
+Suppose <IMG
+ WIDTH="43" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img59.png"
+ ALT="${\cal E}(T_i)$"> represents and energy functional for term <IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img60.png"
+ ALT="$T$">
+and eigenvalue <IMG
+ WIDTH="12" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img61.png"
+ ALT="$i$">, assuming orbitals and also wave functions are
+normalized.  Then optimization was performed on the functional
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+{\cal E} = \sum_{T_i} w_{T_i} {\cal E}(T_i) /\sum_{T_i}w_{T_i}
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="369" HEIGHT="46" BORDER="0"
+ SRC="img62.png"
+ ALT="\begin{displaymath}{\cal E} = \sum_{T_i} w_{T_i} {\cal E}(T_i) /\sum_{T_i}w_{T_i}\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+where <IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img63.png"
+ ALT="$w_{T_i}$"> is the weight for <IMG
+ WIDTH="21" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img64.png"
+ ALT="${T_i}$">.
+
+<P>
+
+<H1><A NAME="SECTION00720000000000000000"></A> <A NAME="2629"></A>
+<BR>
+Program Structure
+</H1>
+The <TT>mchf</TT> program, Figure &nbsp;<A HREF="node7.html#fig:mchf_main">5.10</A>
+performs data initialization (using 
+<TT>inita() and initr()</TT>), <TT>data()</TT>,
+and applies the <TT>SCF</TT> procedure.
+Output data, including the wave function approximation are written 
+by (<TT>output(), summry(), wfn(), eig_out()</TT>).
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:mchf_main"></A><A NAME="2933"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5.10:</STRONG>
+ main() of the <TT>mchf</TT> program: data initialization, 
+<TT>scf()</TT> iterations, data output</CAPTION>
+<TR><TD><IMG
+ WIDTH="350" HEIGHT="220" BORDER="0"
+ SRC="img65.png"
+ ALT="\begin{figure}\centerline{ \psfig{file=tex/fig/mchf_main.epsi}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<H2><A NAME="SECTION00721000000000000000">
+Data initialization</A>
+</H2>
+<TT>mchf</TT> requires a number of input items for proper calculations,
+The first part of the program <TT>data()</TT> shown on 
+Figure &nbsp;<A HREF="node7.html#fig:mchf_data">5.11</A>,
+is designed to handle both, input processing and memory management. 
+
+<P>
+Estimates of the radial wave functions are taken from the file <TT>wfn.inp</TT>, if provided.  Otherwise, hydrogenic estimates are used.
+Upon completion (either a maximum of 200 iterations or a change in
+the weighted average energy of less that <IMG
+ WIDTH="39" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img66.png"
+ ALT="$10^{-8}$"> a.u., in default
+mode) an updated <TT>wfn.out</TT> file is produced.  During the course
+of the calculation an intermediate orbital results are written to the
+<TT>wfn.out</TT> file, for restart purposes in case of process termination
+for some reason. 
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:mchf_data"></A><A NAME="2935"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5.11:</STRONG>
+
+  Subroutine <TT>data()</TT>. After reading parameters from <TT>cfg.h</TT>, 
+  memory for <TT>cfgs</TT> and coefficients is allocated in <TT>alloc_mem</TT>.
+  <TT>wavefn()</TT> reads the input wave function form <TT>wfn.inp</TT>.
+  <TT>spintgrl()</TT> reads input files with the integral data and
+  calls <TT>alcsts()</TT>  for pointer initialization and memory management. 
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="304" HEIGHT="361" BORDER="0"
+ SRC="img67.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\epsfig{figure=tex/fig/mchf_data.epsi,height=8cm}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+Figure <A HREF="node7.html#fig:mchf_data_mat">5.12</A> shows the data structure of the
+interaction matrix (<TT>hmx</TT>) and the associated 
+pointers (<TT>ico</TT> and <TT>ih</TT>).  For each nonzero matrix 
+element <TT>ico</TT> accounts for the number of total angular
+coefficients as the matrix is traversed in the direction of the arrows.
+The row index of each non-zero element is stored in <TT>ih</TT>.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:mchf_data_mat"></A><A NAME="2674"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5.12:</STRONG>
+
+   Data Structure of the interaction matrix.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="370" HEIGHT="377" BORDER="0"
+ SRC="img68.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/mchf_data_mat.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+Each coefficient data structure consists of two quantities:
+<BR><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><TT>coeff</TT></TD>
+<TD ALIGN="LEFT">numerical coefficient (double precision)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>inptr</TT></TD>
+<TD ALIGN="LEFT">index pointer to an integral (integer)</TD>
+</TR>
+</TABLE> 
+
+<BR>
+Thus the position of each integral needs to be known in advance and
+this is achieved by generating all possible integrals from the orbital
+set once initially, before the start of the SCF iterations.
+
+<P>
+During the initial phase of data initialization, <TT>data()</TT> 
+allocates memory for the problem, the details are covered in 
+section &nbsp;<A HREF="node7.html#sec:mem">5.3</A>.  
+
+<P>
+
+<H2><A NAME="SECTION00722000000000000000">
+<TT>SCF</TT> procedure</A>
+</H2>
+
+<P>
+The <TT>scf()</TT> algorithm is the most CPU intensive part 
+of the <TT>mchf</TT> program. It is an iterative process with
+two sequential phases in each iteration: solving the
+differential equation, then, finding the eigenvalue problem
+&nbsp;<A HREF="node7.html#fig:mchf_main">5.10</A>.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:mchf_scf"></A><A NAME="2939"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5.13:</STRONG>
+ 
+Two phases of an <TT>scf()</TT> iteration: The eigenvalue
+phase constructs the matrix, finds eigenvalues and updates
+the coefficients. The differential equation phase updates
+radial functions on each node.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="525" HEIGHT="310" BORDER="0"
+ SRC="img69.png"
+ ALT="\begin{figure}\centerline{ \psfig{file=tex/fig/mchf_mpi.eps}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The first phase solves the differential equation for each 
+radial function and finds the sets of radial functions 
+<!-- MATH
+ $\{ P_{n_j l_j} (r) \}$
+ -->
+<IMG
+ WIDTH="77" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img56.png"
+ ALT="$\{ P_{n_j l_j} (r) \} $">, Figure &nbsp;<A HREF="node7.html#fig:scf_de">5.14</A>. 
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:scf_de"></A><A NAME="2697"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5.14:</STRONG>
+
+Steps in finding the radial functions.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="571" HEIGHT="139" BORDER="0"
+ SRC="img70.png"
+ ALT="\begin{figure}\centerline{ \psfig{file=tex/fig/scf_de.eps}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The routines applied to this phase are shown on Figure &nbsp;<A HREF="node7.html#fig:mchf_de">5.15</A>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:mchf_de"></A><A NAME="2942"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5.15:</STRONG>
+
+  <TT>de()</TT> procedure. On each iteration <TT>diag(), de(), orthog() and
+  grange()</TT> are called.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="527" HEIGHT="411" BORDER="0"
+ SRC="img71.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/mchf_de.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<P>
+
+<H2><A NAME="SECTION00723000000000000000">
+Diagonalization</A>
+</H2>
+
+<P>
+In the next phase the eigenvalue is solved, and the
+mixing coefficients <IMG
+ WIDTH="36" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img57.png"
+ ALT="$\{ c_j \}$"> are updated.
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:scf_diag"></A><A NAME="2712"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5.16:</STRONG>
+Steps in solving the eigenvalue problem.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="420" HEIGHT="139" BORDER="0"
+ SRC="img72.png"
+ ALT="\begin{figure}\centerline{ \psfig{file=tex/fig/scf_diag.eps}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+During this phase <TT>diag()</TT> performs the process referred 
+to as a "simultaneous optimization" in three distinctive steps.
+During the first step the matrix elements are assembled and 
+the matrix diagonalized. Diagonalization occurs in the 
+one of the routines <TT>diag_memory_all(),diag_disk_clst(),
+diag_disk_ico(),diag_disk_hmx()</TT>. The differ in the 
+storage methods which are used as function of available 
+memory. The main loop is over all coefficients, tt coeff, which are 
+contained in file <TT>c.lst</TT>. It is a complicated loop 
+with a number of logical statements and it includes
+single and double precision arithmetics, this reduces the 
+optimization of the Mflop performance to less than 30% of 
+theoretical possible for floating point calculations. 
+The fastest routine is <TT>diag_memory_all()</TT>, it does not
+include any disk IO. The main loop is shown below:
+
+<P>
+<PRE>
+      do ii = 1, n_cf;
+          n_count_tmp = ncoef+ii
+          if (ii.gt.ico(nijcurr+nz)) nijcurr = nijcurr + 1
+          hmx(nijcurr) = hmx(nijcurr) +
+     :            coeff(n_count_tmp)*value(inptr(n_count_tmp))
+          if (nijcurr.gt.jptr(jjh)) then
+            jjh = jjh + 1;
+            max_col = max_col+1
+          end if 
+        end do
+</PRE>
+
+<P>
+This fragment combines the matrix elements based on the information 
+about the column index <TT>ico</TT>, the column pointer <TT>jptr</TT>
+and the coefficient <TT>coeff</TT>.
+The rest of the <TT>diag_*()</TT> routines perform the 
+same task, however apply disk IO to a various degree, 
+with the worst case being <TT>diag_disk_hmx()</TT>,
+which reads each of the files <TT>c.lst, ih.nn.lst, ico.lst</TT>. 
+
+<P>
+The next step computes the selected eigenvalues using
+the Davidson algorithm. The eigenvectors for each requested eigenvalue
+are saved and applied for updating the coefficients. This
+steps proceeds consequently for each block, after
+the last step the weighted total energy is computed an 
+displayed during each iteration. 
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:diag_steps"></A><A NAME="2730"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5.17:</STRONG>
+
+Steps in solving the eigenvalue problem.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="338" HEIGHT="531" BORDER="0"
+ SRC="img73.png"
+ ALT="\begin{figure}\centerline{\psfig{file=tex/fig/diag_steps.eps}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The optimization is performed on the functional
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+{\cal E} = \sum_{T_i} w_{T_i} {\cal E}(T_i) /\sum_{T_i}w_{T_i}
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="369" HEIGHT="46" BORDER="0"
+ SRC="img62.png"
+ ALT="\begin{displaymath}{\cal E} = \sum_{T_i} w_{T_i} {\cal E}(T_i) /\sum_{T_i}w_{T_i}\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+where <IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img63.png"
+ ALT="$w_{T_i}$"> is the weight for <IMG
+ WIDTH="21" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img64.png"
+ ALT="${T_i}$">, where <IMG
+ WIDTH="43" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img59.png"
+ ALT="${\cal E}(T_i)$">
+represents an energy functional for term <IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img60.png"
+ ALT="$T$"> and eigenvalue <IMG
+ WIDTH="12" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img61.png"
+ ALT="$i$">
+Updating the coefficients proceeds similar to the calculation
+of the matrix elements. Depending on storage requirements and 
+availability one of the routines, <TT>UPDATC_memory_all(), 
+UPDATC_disk_ico(), UPDATC_disk_clst(), UPDATC_disk_ih()</TT>,
+is applied to update the coefficients of all integrals,
+ which contribute to the energy. This procedure is applied
+to all blocks, figure &nbsp;<A HREF="node7.html#fig:diag_steps">5.17</A>. 
+For all coefficients, the weighted contribution of the 
+mixin coefficient is in a complicated loop containing
+multiple logical constructs, floating and integral 
+calculations. Upon convergence, during the last iteration,
+the routine <TT>prprty()</TT> is called to compute a number of
+wave function properties, saved in file <TT>summry</TT>. 
+
+<P>
+The listing below shows the complexity of the coefficient 
+updating process.
+<PRE> 
+      if (iblock == 1) ncoef = 0;
+        do i = 1, cf_tot(iblock);
+            n_count_tmp = ncoef+i
+            if (i.gt.ico(nijcurr)) then
+                nijcurr = nijcurr + 1
+*               .. have we also changed column?
+                if (nijcurr.gt.jptr(max_col)) then
+                   jjh = jjh + 1;
+                   max_col = max_col+1
+                end if
+             end if
+             iih = ihh(nijcurr)
+             im1 = 0;
+             do j = 1,maxev
+               ioffw = (j-1)*ncfg
+               if (leigen(j,iblock)) then
+                 wcoef = eigst_weight(j,iblock)
+                 W = wcoef*wt(ioffw+iih)*wt(ioffw+jjh)
+                 T = W*coeff(n_count_tmp)
+                 IF (IIH .NE. JJH) T = T+T
+                 coef(inptr(n_count_tmp)) = coef(inptr(n_count_tmp)) + T
+                 if (last) then
+                   W0 = wt(ioffw+iih)*wt(ioffw+jjh);
+                   T0 = W0*coeff(n_count_tmp);
+                   IF (IIH .NE. JJH) T0 = T0 + T0;
+                   itmp_s = (inptr(n_count_tmp))+idim*im1;
+                   tmp_coef(itmp_s) = tmp_coef(itmp_s) + T0;
+                   im1 = im1 + 1;
+                 end if
+               end if
+             end do
+      end do
+</PRE>
+
+<P>
+Figure &nbsp;<A HREF="node7.html#fig:mchf_diag">5.18</A> shows the implementation and 
+the call sequence in <TT>diag()</TT>.
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:mchf_diag"></A><A NAME="2946"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5.18:</STRONG>
+
+  <TT>diag()</TT> computes the elements of the <TT>H</TT> matrix
+  and solves the eigenvalue problem. At the begining,
+  memory is allocated for the diagonalization procedure. Then, one
+  of the versions of <TT>diag_*()</TT> is called and the matrix elements
+  are computed and diagonalized. Further, the <TT>dvdson()</TT> routines
+  return the eigenvector(s). The memory used by <TT>dvdson()</TT> is
+  deallocated. Then, the <TT>coef</TT> are updated in one of the versions
+  of <TT>updatc_*()</TT>. <I>NOTE:</I> <TT>diag_*)</TT> and <TT>diag_*()</TT>
+  differ only with regards to memory and disk use.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="339" HEIGHT="697" BORDER="0"
+ SRC="img74.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/mchf_diag.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+There are special storage requirements for each step: 
+Arrays (<TT>hmx_diag</TT>), <TT>inptr</TT>, <TT>coeff</TT> and
+<TT>ico</TT> are accessed only once. In contrast, the iterative 
+solution of the eigenvalue problem (<TT>dvdson</TT>) requires
+multiple read access operations on the interaction matrix
+(only <TT>hmx</TT> and <TT>ih</TT> are used).  Therefore, higher priority
+for storing in memory was given to <TT>hmx</TT> and <TT>ih</TT>.
+After <TT>dvdson</TT> the memory used in <TT>diag_hmx</TT> and <TT>dvdson</TT> 
+is deallo cated and used in <TT>updatc</TT>.
+Finally, updating the coefficients requires a single access to <TT>ih</TT>, and
+<TT>ico</TT> suggesting higher priority for <TT>ico</TT> over <TT>coeff</TT>. 
+Table  &nbsp;<A HREF="node7.html#tab:mem">5.3</A>
+shows the multilevel storage scheduling derived from the frequency of
+data access. The storage scheduling will depend on the size of the problem
+and the system capacity and <TT>mchf</TT> is designed to select the best
+level with respect to computational efficiency.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="figure:diag_mchf"></A><A NAME="2948"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5.19:</STRONG>
+
+Storage access requirements in <TT>diag()</TT>.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="403" HEIGHT="353" BORDER="0"
+ SRC="img75.png"
+ ALT="\begin{figure}\centerline{\psfig{file=tex/fig/diag_storage.epsi}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<H1><A NAME="SECTION00730000000000000000"></A>
+<A NAME="sec:mem"></A>
+<BR>
+Dynamic memory management
+</H1>
+Memory management is an important factor for increasing the 
+limits of the <TT>mchf calculation</TT>, and it has been accomplished
+mainly in two directions. First, between the two phases of 
+an <TT>scf()</TT> iteration, arrays can share memory, and secondly
+the memory is allocated based on size and frequency of use in 
+CPU intensive processes.
+
+<P>
+The SCF process has two phases which are totally disjoint, 
+the array of contributions to the energy functional, and 
+the array of integral values may share the same memory.
+
+<OL>
+<LI>In the orbital update phase, the appropriate view of the
+energy functional is given by Eq. (3). To compute the potential and/or
+exchange function for a specified orbital, say <IMG
+ WIDTH="14" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img76.png"
+ ALT="$a$">, it is necessary to
+search the list for integrals involving orbital <IMG
+ WIDTH="14" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img76.png"
+ ALT="$a$">. When an integral is
+found, its contribution needs to be determined and multiplied by
+<IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img77.png"
+ ALT="$w_{ab}$"> or <IMG
+ WIDTH="50" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img78.png"
+ ALT="$v_{abcd;k}$">.  Thus in this phase the values of the
+integrals themselves are not needed, only the coefficient defining their
+contribution to the energy.                                                  
+Since these coefficients depend on
+eigenvectors, they need to be re-computed before the orbital update phase.
+In the present implementation, it occurs after the diagonalization process.
+</LI>
+<LI>In the matrix diagonalization phase, the matrix elements as defined by
+Eq (2) need to be assembled, in order,  as described earlier.  Now the value of
+the integrals are needed but not their total contribution to the energy
+functional. Thus, before the diagonalization phase, all integrals need
+to be re-evaluated.
+</LI>
+</OL>
+
+<P>
+To maximize the memory
+utilization, the storage of all arrays is allocated in a
+stepwise fashion. Upon memory allocation failure, the remaining
+arrays are stored on disk. Under this scheme the order in which arrays are
+allocated becomes important and the arrays used most frequently at each
+SCF iteration are allocated first.
+The angular coefficient data and the interaction matrix are the
+two major data structures which define the memory use for each
+scf iteration.  As the number of configurations grows the
+memory capacity may be exceeded thus requiring some or most of  the
+data to be stored on disk.
+Disk read/write operations are then performed on each SCF and DVDSON
+iteration. Disk read/write access is considerably slower compared to
+memory access.  In order to accomplish high computational
+efficiency it is essential to avoid
+disk I/O and keep all data in memory. Therefore,
+optimizing <TT>mchf</TT>  for large
+scale calculations requires management of the disk/memory data storage.
+In general, the angular coefficients, the interaction matrix elements and
+the associated pointers are stored in one dimensional arrays.
+The arrays of angular coefficients are considerably larger than the
+interaction matrix.
+
+<P>
+The memory allocation process (<TT>alcsts</TT>), starts with Level 4 and
+upon success on each level may proceed up to Level 1.
+At Level 4, if no memory is available for performing Dvdson
+iterations on disk (vector-matrix
+multiplication on disk) the program exits. (This will represent a very
+large case beyond practical limits for serial computing: in the order of
+millions of cfgs). If the program cannot proceed with allocating
+memory for the interaction matrix of the largest block, a similar, local
+scheme (in <TT>diag</TT>) is used to allocate memory for each  block. Blocks can
+vary significantly in size and in order to improve the performance <TT>mchf</TT>
+is designed to keep smaller blocks in memory if possible.
+
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="tab:mem"></A><A NAME="2805"></A>
+<TABLE>
+<CAPTION><STRONG>Table 5.2:</STRONG>
+
+Steps in allocating memory.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="573" HEIGHT="97" BORDER="0"
+ SRC="img79.png"
+ ALT="\begin{table}\begin{tabular*}{0.8\textwidth}
+{@{\extracolsep{\fill}} l l l}
+\...
+...{\tt hmx, ih, ico} for a single column \\
+\hline
+\\
+\end{tabular*}\end{table}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+As shown in table &nbsp;<A HREF="node7.html#tab:mem">5.3</A>,  
+levels 1, 2, and 3 <TT>ico</TT> has higher priority
+compared to <TT>coeff</TT> and <TT>inptr</TT> because <TT>ico</TT> is used in both
+<TT>diag</TT> and <TT>updatc</TT> routines. However, it is important to note that
+<TT>updatc</TT> proceeds almost always in memory since all of the memory
+used in <TT>diag_hmx</TT> and <TT>dvdson</TT> is deallocated and made available.
+
+<P>
+The memory allocation procedure relies on <TT>malloc()</TT> and <TT>free()</TT>,
+which are <TT>C</TT> routines normally used for dynamic memory management.
+<TT>malloc()</TT> allocates <EM>size</EM> bytes and returns a pointer to the
+allocated memory. If the request fails <TT>malloc()</TT> returns a
+<B><TT>NULL</TT></B> pointer. The atsp2K package includes the routines <TT>alloc()</TT>
+and <TT>dalloc()</TT> which use a similar approach, however upon failure
+<TT>alloc()</TT> aborts by calling <TT>EXIT()</TT>. <TT>mchf</TT> has
+several levels of memory allocation requiring the returned pointer to be
+monitored in order to adjust the subsequent memory requests. For this purpose
+two routines specific only to <TT>mchf</TT> have been introduced: <TT>diag_allocate() </TT> and <TT>diag_deallocate()</TT>. If the memory is not
+sufficient for loading the array under consideration in the
+memory, then, memory for the largest column of that array is allocated and the
+array is stored on disk.
+
+<P>
+
+<H1><A NAME="SECTION00740000000000000000">
+I/O files</A>
+</H1>
+The radial wave functions are stored in binary format in <TT>wfn.out</TT>.
+For each term, say LS, a file <TT>LS.l</TT> is 
+produced with the same format as a <TT>&lt;name&gt;.j</TT>, but with an extra line that contains the S parameter for the
+specific mass shift&nbsp;[#!book!#], <TT>Ssms</TT>.
+
+<P>
+The <TT>summry</TT> file also contains some additional information
+including
+
+<OL>
+<LI>The mean radius, the expectation of <IMG
+ WIDTH="43" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img80.png"
+ ALT="$\sum_i r_i$">.
+</LI>
+<LI>The mean square radius, the expectation of <IMG
+ WIDTH="46" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img81.png"
+ ALT="$\sum_i r_i^2$">.
+</LI>
+<LI>The dipole-dipole operator, the expectation of <!-- MATH
+ $(\sum_i r_i)^2$
+ -->
+<IMG
+ WIDTH="63" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img82.png"
+ ALT="$(\sum_i r_i)^2$">,
+</LI>
+<LI>The Isotope shift parameter, <!-- MATH
+ $S= - \sum_{i<j} \nabla_i\cdot \nabla_j$
+ -->
+<IMG
+ WIDTH="144" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img83.png"
+ ALT="$S= - \sum_{i&lt;j} \nabla_i\cdot \nabla_j$">.
+</LI>
+</OL>
+The mean radius gives an indication of the size of the atomic system,
+whereas the dipole-dipole operator (denoted as <TT>r.r</TT> in the <TT>summry</TT> 
+file) is relevant to long-range interactions&nbsp;[#!babb!#].
+
+<P>
+
+<OL>
+<LI> wfn.inp Contains initial estimates for the wave function
+</LI>
+<LI> wfn.out The output of the mchf calculation
+</LI>
+<LI> cfg.inp Configuration list
+</LI>
+<LI> cfg.h  File containing information for the memory allocation.
+</LI>
+<LI> summry Summary of wave function properties
+</LI>
+<LI> LSn.l Eigenvectors for a specific term, text file.
+</LI>
+<LI>yint.lst information about all expansions in <TT>cfg.inp</TT> 
+</LI>
+<LI>c.lst coefficient and integrals for deriving the energy 
+</LI>
+<LI>ih.nn.lst row indices of the matrix elements
+</LI>
+</OL>
+
+<P>
+
+<H1><A NAME="SECTION00750000000000000000">
+MPI version</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00751000000000000000">
+Introduction</A>
+</H2>
+The MPI <TT>mchf</TT> implementation is based on the program 
+structure of the serial code with the most CPU 
+intensive operations modified for parallel execution.
+The program initialization is similar to the serial version:
+Node 0 in <TT>mpi_mchf_sun()</TT> processes the parameters
+provided by the user in interactive mode, and broadcast
+them to the other processors.  <TT>mpi_data()</TT> calls 
+<TT>wavefn()</TT>, which reads the input
+wave function estimate from <TT>wfn.inp</TT> if it is present in the
+working directory. Or, <TT>wavefn()</TT> creates hydrogenic estimates.
+All initial parameters are broadcast from node <TT>0</TT> to the
+rest of the nodes. Then, <TT>mpi_data()</TT> proceeds with
+calling <TT>mpi_spintgrl()</TT>, which allocates memory for
+each node (calling <TT>mpi_spalcsts()</TT>), and reads the
+the angular data files supplied from <TT>nonh_mpi</TT>.
+<TT>mpi_spalcsts()</TT>
+has sufficient information for the size of the arrays, and attempts
+to allocate heap memory for all arrays. If the
+calculation is too large, then the coefficient data from <TT>c.lst.nnn</TT>
+are read from disk on each <TT>scf()</TT> iteration. In this
+case, considerably smaller arrays are allocated and they are used
+to buffer the input data. The parameter <TT>LSDIM=30000</TT> 
+controls the size of the
+buffer, and its size can be adjusted for efficient I/O processing.
+This is important only in the case when coefficient data is on
+disk, since on each <TT>scf()</TT> iteration the entire list coefficients
+is processed. However, the user should avoid computing on
+disk and by increasing the number of processors, all coefficient
+and pointer data may be stored in memory.
+
+<P>
+The <TT>scf()</TT> iterations has
+exactly the same structure as described for the serial <TT>mchf</TT>.
+The first phase solves the
+differential equation for each radial function with the
+following sequence, Figure &nbsp;<A HREF="node7.html#fig:scf_de">5.14</A>. Then, during the second phase, 
+<TT>diag()</TT> solves the
+eigenvalue problem and updates the integral coefficients
+of the radial functions, Figure &nbsp;<A HREF="node7.html#fig:scf_diag">5.16</A>.
+
+<P>
+<TT>mchf</TT> performs
+complicated computational tasks, including parallel and
+serial I/O, complex arithmetic loops, and matrix algebra.
+The  efficiency of <TT>mchf</TT> is a function of the  number of 
+processors, it significantly drops below 0.6 when more than 
+16-24 processors are used. The time consuming operations are 
+coefficient updates and matrix diagonalization, and in the exchange
+procedure. The parallel version, <TT>mchf_mpi</TT>, is 
+structurally similar to the serial <TT>mchf</TT> program. However,
+it has only two level of memory allocation: Level1, all arrays
+are in memory, and Level 2, <TT>coeff, inptr</TT> are on disk
+and <TT>hmx, ih, ico</TT> are stored in memory. It is assumed that
+the number of processor can be increased as needed so that 
+all data is stored in memory. The speed of iteration may 
+show a considerable decrease when all of the data is on disk,
+as opposed to have all data in memory. 
+
+<P>
+
+<H2><A NAME="SECTION00752000000000000000">
+MPI I/O </A>
+</H2>
+The <TT>mchf</TT> program implements parallel IO for the
+largest input data files, Figure &nbsp;<A HREF="node7.html#fig:mpi_io">5.20</A>.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:mpi_io"></A><A NAME="2951"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5.20:</STRONG>
+
+The angular data are stored in files, which are processed in
+parallel. Files with negligible IO requirements are read
+by node <TT>0</TT>, which broadcasts the data to other nodes.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="461" HEIGHT="596" BORDER="0"
+ SRC="img84.png"
+ ALT="\begin{figure}\centerline{ \psfig{file=tex/fig/mpi_io.eps}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The IO files used by <TT>mpi_mchf</TT> can be divided into two
+categories based on their use:
+
+<P>
+
+<OL>
+<LI>Small input data files (<TT>cfg.inp, cfg.h, wfn.inp</TT>.
+There is a single copy of each file. Each node process the 
+file and broadcasts the data to the other nodes. Those files
+are small and incurs only a negligible communication 
+overhead. In addition, the output files <TT>wfn.out, summry,
+LSn.l</TT> have a single copy, which is written by processor 0. 
+
+<P>
+
+<OL>
+<LI><TT>wfn.inp</TT> initial estimates for the wave function
+</LI>
+<LI> <TT>wfn.out</TT> computed radial functions. 
+</LI>
+<LI> <TT>cfg.inp</TT> configuration list
+</LI>
+<LI> <TT>cfg.h</TT>  file containing information for the memory allocation.
+</LI>
+<LI> <TT>summry</TT> summary of wave function properties
+</LI>
+<LI> <TT>LSn.l</TT> eigenvectors for each LS term. 
+</LI>
+</OL>
+
+<P>
+</LI>
+<LI>Node dependent large data files, with a copy per node They 
+contain the integral coefficient
+and pointer data. Depending on how extensive
+is the computational model, <TT>c.lst.nnn</TT> may exceed 1 GB, the 
+pointer data files <TT>ico.lst.nnn, ih.lst.nnn, yint.lst.nnn</TT>
+may reach hundreds of MB,  and
+they need to be processed in parallel. 
+Each file has a name comprised by a basename which is the same as the
+serial version. However, the filename appends the node ID. 
+Those files are needed only for the <TT>mchf</TT> calculation.
+They are Z independent and can be reused when the configuration
+lists have not changed. 
+
+<OL>
+<LI><TT>c.lst.000</TT> pointer and coefficient data for each 
+element of the Hamiltonian
+</LI>
+<LI><TT>ico.lst.000</TT> column indexes per element
+</LI>
+<LI><TT>ih.lst.000</TT>  row index
+</LI>
+<LI><TT>yint.lst.000</TT> integral data
+</LI>
+</OL>
+
+<P>
+Details about the format and each entry are given in chapter 
+&nbsp;<A HREF="node16.html#chap:io">13.16</A>.
+</LI>
+</OL>
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html276"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html272"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html266"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html274"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html277"
+  HREF="node8.html">BP_ANG</A>
+<B> Up:</B> <A NAME="tex2html273"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html267"
+  HREF="node6.html">NONH</A>
+ &nbsp <B>  <A NAME="tex2html275"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

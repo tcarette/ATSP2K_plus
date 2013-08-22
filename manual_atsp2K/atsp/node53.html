@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Dynamic memory management</TITLE>
+<META NAME="description" CONTENT="Dynamic memory management">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node54.html">
+<LINK REL="previous" HREF="node49.html">
+<LINK REL="up" HREF="node47.html">
+<LINK REL="next" HREF="node54.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html946"
+  HREF="node54.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html942"
+  HREF="node47.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html936"
+  HREF="node52.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html944"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html947"
+  HREF="node54.html">I/O files</A>
+<B> Up:</B> <A NAME="tex2html943"
+  HREF="node47.html">MCHF</A>
+<B> Previous:</B> <A NAME="tex2html937"
+  HREF="node52.html">Diagonalization</A>
+ &nbsp <B>  <A NAME="tex2html945"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00830000000000000000"></A>
+<A NAME="sec:mem"></A>
+<BR>
+Dynamic memory management
+</H1>
+Memory management is an important factor for increasing the 
+limits of the <TT>mchf calculation</TT>, and it has been accomplished
+mainly in two directions. First, between the two phases of 
+an <TT>scf()</TT> iteration, arrays can share memory, and secondly
+the memory is allocated based on size and frequency of use in 
+CPU intensive processes.
+
+<P>
+The SCF process has two phases which are totally disjoint, 
+the array of contributions to the energy functional, and 
+the array of integral values may share the same memory.
+
+<OL>
+<LI>In the orbital update phase, the appropriate view of the
+energy functional is given by Eq. (3). To compute the potential and/or
+exchange function for a specified orbital, say <IMG
+ WIDTH="14" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img81.png"
+ ALT="$a$">, it is necessary to
+search the list for integrals involving orbital <IMG
+ WIDTH="14" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img81.png"
+ ALT="$a$">. When an integral is
+found, its contribution needs to be determined and multiplied by
+<IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img82.png"
+ ALT="$w_{ab}$"> or <IMG
+ WIDTH="50" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img83.png"
+ ALT="$v_{abcd;k}$">.  Thus in this phase the values of the
+integrals themselves are not needed, only the coefficient defining their
+contribution to the energy.                                                  
+Since these coefficients depend on
+eigenvectors, they need to be re-computed before the orbital update phase.
+In the present implementation, it occurs after the diagonalization process.
+</LI>
+<LI>In the matrix diagonalization phase, the matrix elements as defined by
+Eq (2) need to be assembled, in order,  as described earlier.  Now the value of
+the integrals are needed but not their total contribution to the energy
+functional. Thus, before the diagonalization phase, all integrals need
+to be re-evaluated.
+</LI>
+</OL>
+
+<P>
+To maximize the memory
+utilization, the storage of all arrays is allocated in a
+stepwise fashion. Upon memory allocation failure, the remaining
+arrays are stored on disk. Under this scheme the order in which arrays are
+allocated becomes important and the arrays used most frequently at each
+SCF iteration are allocated first.
+The angular coefficient data and the interaction matrix are the
+two major data structures which define the memory use for each
+scf iteration.  As the number of configurations grows the
+memory capacity may be exceeded thus requiring some or most of  the
+data to be stored on disk.
+Disk read/write operations are then performed on each SCF and DVDSON
+iteration. Disk read/write access is considerably slower compared to
+memory access.  In order to accomplish high computational
+efficiency it is essential to avoid
+disk I/O and keep all data in memory. Therefore,
+optimizing <TT>mchf</TT>  for large
+scale calculations requires management of the disk/memory data storage.
+In general, the angular coefficients, the interaction matrix elements and
+the associated pointers are stored in one dimensional arrays.
+The arrays of angular coefficients are considerably larger than the
+interaction matrix.
+
+<P>
+The memory allocation process (<TT>alcsts</TT>), starts with Level 4 and
+upon success on each level may proceed up to Level 1.
+At Level 4, if no memory is available for performing Dvdson
+iterations on disk (vector-matrix
+multiplication on disk) the program exits. (This will represent a very
+large case beyond practical limits for serial computing: in the order of
+millions of cfgs). If the program cannot proceed with allocating
+memory for the interaction matrix of the largest block, a similar, local
+scheme (in <TT>diag</TT>) is used to allocate memory for each  block. Blocks can
+vary significantly in size and in order to improve the performance <TT>mchf</TT>
+is designed to keep smaller blocks in memory if possible.
+
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="tab:mem"></A><A NAME="3014"></A>
+<TABLE>
+<CAPTION><STRONG>Table 6.2:</STRONG>
+
+Steps in allocating memory.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="573" HEIGHT="97" BORDER="0"
+ SRC="img84.png"
+ ALT="\begin{table}\begin{tabular*}{0.8\textwidth}
+{@{\extracolsep{\fill}} l l l}
+\...
+...{\tt hmx, ih, ico} for a single column \\
+\hline
+\\
+\end{tabular*}\end{table}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+As shown in table &nbsp;<A HREF="node53.html#tab:mem">6.3</A>,  
+levels 1, 2, and 3 <TT>ico</TT> has higher priority
+compared to <TT>coeff</TT> and <TT>inptr</TT> because <TT>ico</TT> is used in both
+<TT>diag</TT> and <TT>updatc</TT> routines. However, it is important to note that
+<TT>updatc</TT> proceeds almost always in memory since all of the memory
+used in <TT>diag_hmx</TT> and <TT>dvdson</TT> is deallocated and made available.
+
+<P>
+The memory allocation procedure relies on <TT>malloc()</TT> and <TT>free()</TT>,
+which are <TT>C</TT> routines normally used for dynamic memory management.
+<TT>malloc()</TT> allocates <EM>size</EM> bytes and returns a pointer to the
+allocated memory. If the request fails <TT>malloc()</TT> returns a
+<B><TT>NULL</TT></B> pointer. The atsp2K package includes the routines <TT>alloc()</TT>
+and <TT>dalloc()</TT> which use a similar approach, however upon failure
+<TT>alloc()</TT> aborts by calling <TT>EXIT()</TT>. <TT>mchf</TT> has
+several levels of memory allocation requiring the returned pointer to be
+monitored in order to adjust the subsequent memory requests. For this purpose
+two routines specific only to <TT>mchf</TT> have been introduced: <TT>diag_allocate() </TT> and <TT>diag_deallocate()</TT>. If the memory is not
+sufficient for loading the array under consideration in the
+memory, then, memory for the largest column of that array is allocated and the
+array is stored on disk.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html946"
+  HREF="node54.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html942"
+  HREF="node47.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html936"
+  HREF="node52.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html944"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html947"
+  HREF="node54.html">I/O files</A>
+<B> Up:</B> <A NAME="tex2html943"
+  HREF="node47.html">MCHF</A>
+<B> Previous:</B> <A NAME="tex2html937"
+  HREF="node52.html">Diagonalization</A>
+ &nbsp <B>  <A NAME="tex2html945"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

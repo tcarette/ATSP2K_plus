@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Introduction</TITLE>
+<META NAME="description" CONTENT="Introduction">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node49.html">
+<LINK REL="previous" HREF="node47.html">
+<LINK REL="up" HREF="node47.html">
+<LINK REL="next" HREF="node49.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html885"
+  HREF="node49.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html881"
+  HREF="node47.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html875"
+  HREF="node47.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html883"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html886"
+  HREF="node49.html">Program Structure</A>
+<B> Up:</B> <A NAME="tex2html882"
+  HREF="node47.html">MCHF</A>
+<B> Previous:</B> <A NAME="tex2html876"
+  HREF="node47.html">MCHF</A>
+ &nbsp <B>  <A NAME="tex2html884"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00810000000000000000">
+Introduction</A>
+</H1>
+The state of many-electron system is described by a wave function
+<IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img53.png"
+ ALT="$\Psi$">, that is the solution of the Schr&#246;dinger equation:
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+({\cal H}-E)\psi=0
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="330" HEIGHT="28" BORDER="0"
+ SRC="img54.png"
+ ALT="\begin{displaymath}
+({\cal H}-E)\psi=0
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(6)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+
+<P>
+The approximate wave function 
+<IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img53.png"
+ ALT="$\Psi$"> of the state labeled <IMG
+ WIDTH="37" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img55.png"
+ ALT="$\gamma L S$"> is:
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\Psi ( \gamma L S) = \sum_j c_j \Phi (\gamma _j L S ),
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="371" HEIGHT="47" BORDER="0"
+ SRC="img56.png"
+ ALT="\begin{displaymath}
+\Psi ( \gamma L S) = \sum_j c_j \Phi (\gamma _j L S ),
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(7)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+where <IMG
+ WIDTH="15" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img57.png"
+ ALT="$\gamma$"> represents the dominant configuration, and  
+any additional quantum numbers required for uniquely specifying 
+the state being considered. The MCHF wave function <IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img53.png"
+ ALT="$\Psi$"> is
+expanded in terms of configuration state functions (CSF) <IMG
+ WIDTH="33" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img58.png"
+ ALT="$\{ \Phi \}$"> 
+having the same <IMG
+ WIDTH="28" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img59.png"
+ ALT="$LS$"> symmetry but arising from different electronic 
+configurations (<IMG
+ WIDTH="21" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img60.png"
+ ALT="$ \gamma _j $">).  
+The <TT>mchf</TT> procedure  consists of optimizing to self-consistency
+<I>both</I> the sets of radial functions <!-- MATH
+ $\{ P_{n_j l_j} (r) \}$
+ -->
+<IMG
+ WIDTH="77" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img61.png"
+ ALT="$\{ P_{n_j l_j} (r) \} $">
+and mixing coefficients <IMG
+ WIDTH="36" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img62.png"
+ ALT="$\{ c_j \}$">.  
+The CSF's are built from a basis of one-electron spin-orbital 
+functions and determine the radial functions:
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\phi _{nlm_lm_s} = \frac{1}{r} P_{nl} (r) Y_{lm_l} 
+(\theta, \varphi) \chi_{m_s}.
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="397" HEIGHT="38" BORDER="0"
+ SRC="img63.png"
+ ALT="\begin{displaymath}
+\phi _{nlm_lm_s} = \frac{1}{r} P_{nl} (r) Y_{lm_l}
+(\theta, \varphi) \chi_{m_s}.
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(8)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+With the wave function expansion is associated an energy functional 
+for <EM>one</EM> LS term and eigenvalue.
+
+<P>
+The traditional <TT>mchf</TT> program has been extended to 
+accomplish a simultaneous optimization of energy expressions derived from 
+several different terms or even several eigenvalues of the same term.
+Additionally, the energy energy functional is represented as a 
+weighted average of energy functionals for expansions of wave functions 
+for different LS terms or parity. This approach facilitates the
+Breit-Pauli calculations for complex atomic systems, while previously
+somewhat arbitrary methods have been applied (<I>cross-wise optimization</I>,
+&nbsp;<A HREF="#book"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="file:/usr/share/latex2html/icons/crossref.png"></A>).
+
+<P>
+<TT>mchf</TT> was modified for systematic, large-scale methods using 
+dynamic memory allocation and sparse matrix methods. All orbitals 
+in a wave function expansion are assumed to be orthonormal.
+Configuration states are restricted to at most eight (8)
+subshells in addition to the closed shells common to all configuration
+states. The maximum size is limited by the available memory and disk
+space. The wave function expansions are obtained from orbital sets 
+of increasing size, allowing for the monitoring of convergence.
+The Davidson algorithm&nbsp;[#!dvdson!#] is applied for finding the 
+needed eigenvalues and eigenvectors. In this version of the code, 
+non-orthogonality is not supported. In the present <TT>atsp2K_MCHF</TT> package, it is not foreseen that optimization would be
+over different parities, only over different terms of the same parity,
+and we refer to this as "simultaneous optimization".
+Suppose <IMG
+ WIDTH="43" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img64.png"
+ ALT="${\cal E}(T_i)$"> represents and energy functional for term <IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img65.png"
+ ALT="$T$">
+and eigenvalue <IMG
+ WIDTH="12" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img66.png"
+ ALT="$i$">, assuming orbitals and also wave functions are
+normalized.  Then optimization was performed on the functional
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+{\cal E} = \sum_{T_i} w_{T_i} {\cal E}(T_i) /\sum_{T_i}w_{T_i}
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="369" HEIGHT="46" BORDER="0"
+ SRC="img67.png"
+ ALT="\begin{displaymath}{\cal E} = \sum_{T_i} w_{T_i} {\cal E}(T_i) /\sum_{T_i}w_{T_i}\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+where <IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img68.png"
+ ALT="$w_{T_i}$"> is the weight for <IMG
+ WIDTH="21" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img69.png"
+ ALT="${T_i}$">.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html885"
+  HREF="node49.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html881"
+  HREF="node47.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html875"
+  HREF="node47.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html883"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html886"
+  HREF="node49.html">Program Structure</A>
+<B> Up:</B> <A NAME="tex2html882"
+  HREF="node47.html">MCHF</A>
+<B> Previous:</B> <A NAME="tex2html876"
+  HREF="node47.html">MCHF</A>
+ &nbsp <B>  <A NAME="tex2html884"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

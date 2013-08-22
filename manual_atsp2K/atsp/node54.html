@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>I/O files</TITLE>
+<META NAME="description" CONTENT="I/O files">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node55.html">
+<LINK REL="previous" HREF="node53.html">
+<LINK REL="up" HREF="node47.html">
+<LINK REL="next" HREF="node55.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html958"
+  HREF="node55.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html954"
+  HREF="node47.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html948"
+  HREF="node53.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html956"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html959"
+  HREF="node55.html">MPI version</A>
+<B> Up:</B> <A NAME="tex2html955"
+  HREF="node47.html">MCHF</A>
+<B> Previous:</B> <A NAME="tex2html949"
+  HREF="node53.html">Dynamic memory management</A>
+ &nbsp <B>  <A NAME="tex2html957"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00840000000000000000">
+I/O files</A>
+</H1>
+The radial wave functions are stored in binary format in <TT>wfn.out</TT>.
+For each term, say LS, a file <TT>LS.l</TT> is 
+produced with the same format as a <TT>&lt;name&gt;.j</TT>, but with an extra line that contains the S parameter for the
+specific mass shift&nbsp;[#!book!#], <TT>Ssms</TT>.
+
+<P>
+The <TT>summry</TT> file also contains some additional information
+including
+
+<OL>
+<LI>The mean radius, the expectation of <IMG
+ WIDTH="43" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img85.png"
+ ALT="$\sum_i r_i$">.
+</LI>
+<LI>The mean square radius, the expectation of <IMG
+ WIDTH="46" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img86.png"
+ ALT="$\sum_i r_i^2$">.
+</LI>
+<LI>The dipole-dipole operator, the expectation of <!-- MATH
+ $(\sum_i r_i)^2$
+ -->
+<IMG
+ WIDTH="63" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img87.png"
+ ALT="$(\sum_i r_i)^2$">,
+</LI>
+<LI>The Isotope shift parameter, <!-- MATH
+ $S= - \sum_{i<j} \nabla_i\cdot \nabla_j$
+ -->
+<IMG
+ WIDTH="144" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img88.png"
+ ALT="$S= - \sum_{i&lt;j} \nabla_i\cdot \nabla_j$">.
+</LI>
+</OL>
+The mean radius gives an indication of the size of the atomic system,
+whereas the dipole-dipole operator (denoted as <TT>r.r</TT> in the <TT>summry</TT> 
+file) is relevant to long-range interactions&nbsp;[#!babb!#].
+
+<P>
+
+<OL>
+<LI> wfn.inp Contains initial estimates for the wave function
+</LI>
+<LI> wfn.out The output of the mchf calculation
+</LI>
+<LI> cfg.inp Configuration list
+</LI>
+<LI> cfg.h  File containing information for the memory allocation.
+</LI>
+<LI> summry Summary of wave function properties
+</LI>
+<LI> LSn.l Eigenvectors for a specific term, text file.
+</LI>
+<LI>yint.lst information about all expansions in <TT>cfg.inp</TT> 
+</LI>
+<LI>c.lst coefficient and integrals for deriving the energy 
+</LI>
+<LI>ih.nn.lst row indices of the matrix elements
+</LI>
+</OL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html958"
+  HREF="node55.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html954"
+  HREF="node47.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html948"
+  HREF="node53.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html956"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html959"
+  HREF="node55.html">MPI version</A>
+<B> Up:</B> <A NAME="tex2html955"
+  HREF="node47.html">MCHF</A>
+<B> Previous:</B> <A NAME="tex2html949"
+  HREF="node53.html">Dynamic memory management</A>
+ &nbsp <B>  <A NAME="tex2html957"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

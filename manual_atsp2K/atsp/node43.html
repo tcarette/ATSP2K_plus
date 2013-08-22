@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Program Structure</TITLE>
+<META NAME="description" CONTENT="Program Structure">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node44.html">
+<LINK REL="previous" HREF="node42.html">
+<LINK REL="up" HREF="node41.html">
+<LINK REL="next" HREF="node44.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html817"
+  HREF="node44.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html813"
+  HREF="node41.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html807"
+  HREF="node42.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html815"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html818"
+  HREF="node44.html">MPI version</A>
+<B> Up:</B> <A NAME="tex2html814"
+  HREF="node41.html">NONH</A>
+<B> Previous:</B> <A NAME="tex2html808"
+  HREF="node42.html">Introduction</A>
+ &nbsp <B>  <A NAME="tex2html816"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00720000000000000000">
+Program Structure</A>
+</H1>
+
+<P>
+The main program <TT>nonh()</TT>, Fig. &nbsp;<A HREF="node43.html#nonh_main">5.6</A> starts with 
+<TT>inita()</TT>, a library routine which initializes some of the basic 
+constants of the program, including those which define the average energy 
+of a configuration.  
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="nonh_main"></A><A NAME="2577"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5.6:</STRONG>
+
+<TT>nonh()</TT> program structure. Program parameters are initialized in
+<TT>inita(), analy_blk(), orbitals(), genint(), cfgblk()</TT>. Then, a loop
+over configurations from the configuration file <TT>cfg.inp</TT>
+applying <TT>shellsjb(), angmomg()</TT>  computes the angular 
+data for the interaction matrix.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="267" HEIGHT="317" BORDER="0"
+ SRC="img47.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/nonh_main.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+Then, <TT>nonh</TT> determines the set of all
+orbitals, and generates a list of all possible integrals
+of both types (Slater and <IMG
+ WIDTH="49" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img45.png"
+ ALT="$I(a,b)$">).
+<TT>analy_blk</TT> reads the configuration list, <TT>cfg.inp</TT> and analyzes 
+the format of the configuration input data for the different blocks, determines
+the number of blocks, the size of each block, and consistent ordering 
+of the electrons. <TT>orbitals</TT> processes additionally the 
+configuration list and determines the parameters of common closed 
+shells, allocates memory for the list of orbitals. After allocating 
+memory for the pointer and coefficient data (<TT>cn, inptr, nijptr, 
+jan, jbn, ico</TT> are arrays  for buffering output data with size 
+<TT>genint</TT> first determines the number of integrals
+and then allocates memory for the integrals.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="nonh_cfgblk"></A><A NAME="2579"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5.7:</STRONG>
+
+<TT>cfgblk()</TT> and <TT>cfgtest()</TT> check the coupling and the consistency 
+of orbitals for each block.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="232" HEIGHT="125" BORDER="0"
+ SRC="img48.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/nonh_cfgblk.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+After initializing the main parameters <TT>nonh</TT> continues with
+the main loop for each block, and  computes and stores on disk 
+the data for the interaction matrix.
+For each block <TT>cfgblk</TT> initializes pointer data, 
+verifies the consistency of the configurations in the list, 
+(type of coupling, number of electrons for each shell).
+
+<P>
+Then, <TT>nonh</TT> proceeds with  each LS term in the  
+<TT>cfg.inp</TT> file. The output data consists of a one-dimensional
+list of coefficients, <IMG
+ WIDTH="31" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img49.png"
+ ALT="$w_{ab}^{ij}$"> or <!-- MATH
+ $v_{abcd;k}^{ij}$
+ -->
+<IMG
+ WIDTH="50" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img50.png"
+ ALT="$v_{abcd;k}^{ij}$"> 
+(denoted by <TT>cn(j)</TT> in <TT>nonh</TT>, and <TT>coeff</TT> in
+<TT>mchf</TT>) and with each such coefficient there is associated
+an integral.   The latter is specified by an integer, 
+<TT>inptr(j)</TT> that indicates the position of the integral within the 
+list of all possible integrals. 
+In the generation of a matrix element, we then need to
+know where the data for a matrix element terminates.  This is achieved
+by specifying the end position of a matrix element without the necessity
+of specifying the first, since it follows the last coefficient of the
+previous.  This is the role of the array <TT>ico(i)</TT> which indicates
+the last position of the i'th non-zero matrix elements.  Since only
+non-zero matrix elements are stored, another integer is needed to
+specify the value of the row index:  <TT>jan(i)</TT> (<TT>ih(i)</TT> in
+<TT>mchf</TT> is the array containing this information.  
+The data is collected and written to disk
+after <TT>LSDIM=30000</TT> have been collected to memory.  The last record
+for a given LS term will always contain less than <TT>LSDIM</TT> elements,
+possibly zero, if necessary.  The value of <TT>LSDIM</TT> can be
+changed by changing four parameter statements.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="nonh_main_2"></A><A NAME="2581"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5.8:</STRONG>
+
+The main loop of <TT>nonh()</TT> processes each block by columns. 
+The inner loop is over the list of configurations.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="456" HEIGHT="360" BORDER="0"
+ SRC="img51.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/nonh_main_2.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The main loop of the program consists from
+<TT>shellsjb, angmomg</TT> which process the configuration lists 
+by column. The interaction matrix is  symmetric and only the lower
+or upper part needs to be evaluated. Respectively, the data for 
+matrix elements are generated by column.
+Thus the computational process is:
+<PRE>
+ For column = 1 to ncfg
+    For row = column to ncfg
+        compute matrix element
+</PRE>
+
+<P>
+Only non-zero matrix elements are stored.  This particular
+structure for the information was determined by conditions desired
+for <TT>mchf</TT>.
+This "large-scale" version of <TT>nonh</TT> was designed to compute matrix 
+elements sequentially to facilitate sparse matrix representation of the 
+interaction matrix and the use of Davidson's algorithm based on repeated
+matrix-vector multiplies.
+
+<P>
+<TT>nonh</TT> can process a list of configurations comprised by
+up to 20 terms. By default the list of configurations is kept in
+the file <TT>cfg.inp</TT>.
+
+<P>
+<TT>nonh</TT> requires an input file <TT>cfg.inp</TT>, and on successful
+run, it creates the following files (the configuration
+list, <TT>cfg.inp</TT>i, in the example below contains 3 blocks, 
+<TT>2P, 2D, 4P</TT>, therefore the number of generated <I>ih.nn</I> files
+is 3, one per block):
+<PRE>
+-rw-r--r--    1 georgio  georgio       252 Sep 20 00:35 cfg.h
+-rw-r--r--    1 georgio  georgio    114019 Sep 20 00:34 cfg.inp
+-rw-r--r--    1 georgio  georgio   6619380 Sep 20 00:35 c.lst
+-rw-r--r--    1 georgio  georgio    863484 Sep 20 00:35 ico.lst
+-rw-r--r--    1 georgio  georgio    393736 Sep 20 00:35 ih.01.lst
+-rw-r--r--    1 georgio  georgio    425988 Sep 20 00:35 ih.02.lst
+-rw-r--r--    1 georgio  georgio     43760 Sep 20 00:35 ih.03.lst
+-rw-r--r--    1 georgio  georgio     16760 Sep 20 00:35 yint.lst
+</PRE>
+The format of each file is described in &nbsp;<A HREF="node107.html#chap:io">14.15</A>. In general, the files
+can grow very large depending on the type of the electronic system, 
+the number of configurations and type of angular data which is computed. 
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html817"
+  HREF="node44.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html813"
+  HREF="node41.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html807"
+  HREF="node42.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html815"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html818"
+  HREF="node44.html">MPI version</A>
+<B> Up:</B> <A NAME="tex2html814"
+  HREF="node41.html">NONH</A>
+<B> Previous:</B> <A NAME="tex2html808"
+  HREF="node42.html">Introduction</A>
+ &nbsp <B>  <A NAME="tex2html816"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

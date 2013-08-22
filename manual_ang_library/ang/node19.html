@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The subroutine RWLS</TITLE>
+<META NAME="description" CONTENT="The subroutine RWLS">
+<META NAME="keywords" CONTENT="ang">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ang.css">
+
+<LINK REL="next" HREF="node20.html">
+<LINK REL="previous" HREF="node18.html">
+<LINK REL="up" HREF="node8.html">
+<LINK REL="next" HREF="node20.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html280"
+  HREF="node20.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html278"
+  HREF="node8.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html272"
+  HREF="node18.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html281"
+  HREF="node20.html">The subroutine W1</A>
+<B> Up:</B> <A NAME="tex2html279"
+  HREF="node8.html">SAI_SQLS1</A>
+<B> Previous:</B> <A NAME="tex2html273"
+  HREF="node18.html">The subroutine SLS</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION000421100000000000000">
+The subroutine RWLS</A>
+</H3>
+
+<P>
+The routine determines the value of the reduced matrix element:
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+(\ l\ QLS\ |||\ [~a^{(qls)} \times a^{(qls)}~]^{(k_{1}k_{2}k_{3})}\ |||\ l\ Q'L'S'\ ).
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:sq-aa"></A><IMG
+ WIDTH="449" HEIGHT="28" BORDER="0"
+ SRC="img377.png"
+ ALT="\begin{displaymath}
+( l QLS \vert\vert\vert [&nbsp;a^{(qls)} \times a^{(qls)}&nbsp;]^{(k_{1}k_{2}k_{3})} \vert\vert\vert l Q'L'S' ).
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(35)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+The routine uses the tables of reduced matrix elements of the tensor
+operator <!-- MATH
+ $[a^{(qls)} \times a^{(qls)}]^{(k_{1}k_{2}k_{3})}$
+ -->
+<IMG
+ WIDTH="155" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img378.png"
+ ALT="$[a^{(qls)} \times a^{(qls)}]^{(k_{1}k_{2}k_{3})}$">
+for <TT>s</TT>-, <TT>p</TT> - and <TT>d</TT> - subshells (see &#352;pakauskas <I>et al</I> &nbsp;[<A
+ HREF="node42.html#SKR">13</A>]),
+and for the <TT>f</TT> - shell the expression (34) from paper P1&nbsp;[<A
+ HREF="node42.html#method1">3</A>] is used.
+The subroutine does not calculate the simple case 
+of <!-- MATH
+ $k_{1}=k_{2}=k_{3}=0$
+ -->
+<IMG
+ WIDTH="124" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img379.png"
+ ALT="$k_{1}=k_{2}=k_{3}=0$">,
+because then the operator is just
+<!-- MATH
+ $[~a^{(qls)} \times a^{(qls)}~]^{(000)}=-(2l+1)^{1/2}$
+ -->
+<IMG
+ WIDTH="252" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img380.png"
+ ALT="$[&nbsp;a^{(qls)} \times a^{(qls)}&nbsp;]^{(000)}=-(2l+1)^{1/2}$">
+(expression (15.54) in Rudzikas&nbsp;[<A
+ HREF="node42.html#R">14</A>]).
+The subroutine has the formal arguments:
+
+<P>
+
+<OL>
+<LI>K1 is the rank <IMG
+ WIDTH="22" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img381.png"
+ ALT="$k_{1}$">.
+</LI>
+<LI>K2 is the rank <IMG
+ WIDTH="22" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img382.png"
+ ALT="$k_{2}$">.
+</LI>
+<LI>K3 is the rank <IMG
+ WIDTH="22" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img383.png"
+ ALT="$k_{3}$">.
+</LI>
+<LI>L is the orbital quantum number <TT>l</TT>.
+</LI>
+<LI>J1 is the state number of the bra function (see Tables <A HREF="node9.html#ta-a">1</A>, <A HREF="node9.html#ta-b">2</A>).
+</LI>
+<LI>J2 is the state number of the ket function.
+</LI>
+<LI>W is the value of the reduced matrix element 
+(<A HREF="node19.html#eq:sq-aa">35</A>) which is returned by
+the subroutine.
+</LI>
+</OL>
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2001-12-07
+</ADDRESS>
+</BODY>
+</HTML>

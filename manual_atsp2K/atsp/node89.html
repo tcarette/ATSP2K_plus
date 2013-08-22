@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Input data</TITLE>
+<META NAME="description" CONTENT="Input data">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node90.html">
+<LINK REL="previous" HREF="node88.html">
+<LINK REL="up" HREF="node86.html">
+<LINK REL="next" HREF="node90.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1390"
+  HREF="node90.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1386"
+  HREF="node86.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1380"
+  HREF="node88.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1388"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1391"
+  HREF="node90.html">I/O File Formats</A>
+<B> Up:</B> <A NAME="tex2html1387"
+  HREF="node86.html">TRANS</A>
+<B> Previous:</B> <A NAME="tex2html1381"
+  HREF="node88.html">Program Structure</A>
+ &nbsp <B>  <A NAME="tex2html1389"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001530000000000000000">
+Input data</A>
+</H1>
+The user provides the following input data:
+
+<OL>
+<LI><I>Name of Initial State</I>
+<BR>
+This program requires that the name of the sate, denoted
+  here as <TT>&lt;name&gt;</TT>, to be specified. The program expects
+expects all data from <TT>&lt;name&gt;.c, &lt;name&gt;.w</TT> and either
+of <TT>&lt;name&gt;.l, or &lt;name&gt;.j</TT>.
+</LI>
+<LI><I>Name of Final State</I>
+<BR>
+<P>
+</LI>
+<LI><I>intermediate printing (y or n) ?</I>
+<BR>
+The user may request more detailed printouts.
+
+<P>
+</LI>
+<LI><I>Type</I>
+<BR>
+The following options are provided;
+
+<P>
+</LI>
+<LI><I>transitions only for E(initial) &lt; E(final) (y or n) </I>
+<BR>
+This option determines if the output should contain the transitions
+in the order Initial State - Final State
+
+<P>
+</LI>
+<LI><I>Default Rydberg constant (y/n)</I>
+<BR>
+If the answer is "y" the default value of 109729.7893 is used.
+
+<P>
+</LI>
+<LI><I>Relativistic calculation ? (y/n)</I> 
+<BR>
+The relativistic calculations expect <TT>&lt;name&gt;.j</TT> for the 
+expansion coefficients.
+
+<P>
+</LI>
+<LI><I>Type of transition ? (E1, E2, M1, M2, .. or *)</I> 
+<BR>
+<P>
+</LI>
+<LI><I>Use existing file for Angles ? (y/n)</I> 
+<BR>
+This option allows reuse of angular data if the user decides to 
+rerun the calculation.
+</LI>
+</OL>
+
+<P>
+An interactive session is shown below:
+
+<P>
+<PRE>
+#  ........An E2 transition between two odd parity states........
+  Name of Initial State
+E1
+  Name of Final State
+E1
+  intermediate printing (y or n) ?
+n
+  transitions only for E(initial) &lt; E(final) (y or n) ?
+y
+ Default Rydberg constant (y/n)
+y
+  Relativistic calculation ? (y/n)
+y
+  Type of transition ? (E1, E2, M1, M2, .. or *)
+E2
+  Use existing file for Angles ? (y/n)
+n
+------------------------------------------------------------------------
+</PRE>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1390"
+  HREF="node90.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1386"
+  HREF="node86.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1380"
+  HREF="node88.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1388"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1391"
+  HREF="node90.html">I/O File Formats</A>
+<B> Up:</B> <A NAME="tex2html1387"
+  HREF="node86.html">TRANS</A>
+<B> Previous:</B> <A NAME="tex2html1381"
+  HREF="node88.html">Program Structure</A>
+ &nbsp <B>  <A NAME="tex2html1389"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

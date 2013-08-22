@@ -1,0 +1,1303 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Utility programs</TITLE>
+<META NAME="description" CONTENT="Utility programs">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node16.html">
+<LINK REL="previous" HREF="node14.html">
+<LINK REL="up" HREF="atsp.html">
+<LINK REL="next" HREF="node16.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html403"
+  HREF="node16.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html399"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html393"
+  HREF="node14.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html401"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html404"
+  HREF="node16.html">I/O File Formats</A>
+<B> Up:</B> <A NAME="tex2html400"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html394"
+  HREF="node14.html">TRANS</A>
+ &nbsp <B>  <A NAME="tex2html402"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html405"
+  HREF="#SECTION001510000000000000000">Introduction</A>
+<LI><A NAME="tex2html406"
+  HREF="#SECTION001520000000000000000">comp</A>
+<LI><A NAME="tex2html407"
+  HREF="#SECTION001530000000000000000">condens</A>
+<LI><A NAME="tex2html408"
+  HREF="#SECTION001540000000000000000">hf</A>
+<LI><A NAME="tex2html409"
+  HREF="#SECTION001550000000000000000">levels</A>
+<LI><A NAME="tex2html410"
+  HREF="#SECTION001560000000000000000">lines</A>
+<LI><A NAME="tex2html411"
+  HREF="#SECTION001570000000000000000">lsgen and lsgenf</A>
+<LI><A NAME="tex2html412"
+  HREF="#SECTION001580000000000000000">lsreduce</A>
+<LI><A NAME="tex2html413"
+  HREF="#SECTION001590000000000000000">plotw</A>
+<LI><A NAME="tex2html414"
+  HREF="#SECTION0015100000000000000000">printw</A>
+<LI><A NAME="tex2html415"
+  HREF="#SECTION0015110000000000000000">relabel</A>
+<LI><A NAME="tex2html416"
+  HREF="#SECTION0015120000000000000000">gtables</A>
+<LI><A NAME="tex2html417"
+  HREF="#SECTION0015130000000000000000">w_format and w_unformat</A>
+<LI><A NAME="tex2html418"
+  HREF="#SECTION0015140000000000000000">tables</A>
+<LI><A NAME="tex2html419"
+  HREF="#SECTION0015150000000000000000">Data analysis</A>
+<LI><A NAME="tex2html420"
+  HREF="#SECTION0015160000000000000000">Useful scripts</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION001500000000000000000"></A><A NAME="chap:intro"></A>
+<BR>
+Utility programs
+</H1>
+
+<P>
+
+<H1><A NAME="SECTION001510000000000000000">
+Introduction</A>
+</H1>
+This section contains utility programs of various importance. 
+Some are essential to an <TT>atsp2K</TT> calculation, those include:
+<TT>lsgen</TT>. Other programs, <TT>hf, lsreduce, comp, condens</TT> 
+are optional, but may be used to improve the computational model. 
+The rest of the routines described here are useful for tabulating 
+and displaying data in the desired format.
+
+<P>
+
+<H1><A NAME="SECTION001520000000000000000">
+comp</A>
+</H1>
+<TT>comp</TT> provided printouts the dominant component of 
+wavefunction expansion, for expansion coefficients
+obtained either from a <TT>name.c</TT>, <TT>name.l</TT>, or <TT>name.j</TT> file.
+The user provides a cut-off point:
+
+<P>
+
+<H1><A NAME="SECTION001530000000000000000">
+condens</A>
+</H1>
+Read the  <TT>name.c</TT> and optionally also <TT>name.l</TT>
+or <TT>name.j</TT> file to create a new configuration list in  <TT>cfg.out</TT>
+containing only those configurations with a mixing coefficient 
+greater or equal to a
+specified tolerance. When input is from <TT>name.c</TT> the
+  output will retain the expansion coefficients of the input
+  file, but for input from <TT>name.l</TT> or <TT>name.j</TT>, where
+  the file may contain a number of eigenvectors, the tolerance
+  criterion is applied to the maximum absolute value of the
+  expansion coefficient for all eigenvectors in the file, and
+  the expansion coefficient in <TT>cfg.out</TT> is this maximum.
+
+<P>
+
+<H1><A NAME="SECTION001540000000000000000">
+hf</A>
+</H1>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><B>Input files: </B></TD>
+<TD ALIGN="LEFT"><TT>wfn.inp</TT>, optional</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><B>Output files: </B></TD>
+<TD ALIGN="LEFT"><TT>wfn.out</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><B>Reference: </B></TD>
+<TD ALIGN="LEFT">Froese Fischer C 1987 <I>Computer Phys. Commun.</I>
+<B>43</B> 355</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">Gaigalas G and Froese Fischer C 1996</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><I>Computer Phys.  Commun.</I> <B>98</B> 255</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+</TABLE>
+
+<P>
+This program has some built-in help features. By entering <TT>H</TT> (or <TT>h</TT>)
+a brief summary of possible responses is provided.
+<BR> 
+<BR>
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><TT>ATOM</TT></TD>
+<TD ALIGN="LEFT">1-6 character label for the calculation</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>TERM</TT></TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="28" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img54.png"
+ ALT="$LS$"> term value or "AV" or "av" (for average
+energy)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>Z</TT></TD>
+<TD ALIGN="LEFT">Atomic number, real;  non-integers are allowed.</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>S</TT></TD>
+<TD ALIGN="LEFT">screening parameter for the orbital</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>IND</TT></TD>
+<TD ALIGN="LEFT">&nbsp;&nbsp;0 - use screened hydrogenic functions as initial estimates</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;&nbsp;1 - leave radial function unchanged (already in memory)</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT"><IMG
+ WIDTH="26" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img144.png"
+ ALT="$-1$"> - search for function in <TT>wfn.inp</TT>;
+          otherwise same as 0</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>ACC</TT></TD>
+<TD ALIGN="LEFT">accelerating parameter (see HF-acc)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>NO</TT></TD>
+<TD ALIGN="LEFT">maximum number of points in the range of the function (<IMG
+ WIDTH="47" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img145.png"
+ ALT="$\le 220$">)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>STRONG</TT></TD>
+<TD ALIGN="LEFT">if true,  orthogonalize after each orbital update (see
+HF-strong.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">Enter <TT>t</TT> for true, <TT>f</TT> for false</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>PRINT</TT></TD>
+<TD ALIGN="LEFT">If <TT>t</TT>(true) radial functions are printed</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>SCFTOL</TT></TD>
+<TD ALIGN="LEFT">initial value of the self-consistency
+criterion</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>NSCF</TT></TD>
+<TD ALIGN="LEFT">the maximum number of SCF cycles.</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>IC</TT></TD>
+<TD ALIGN="LEFT">number of orbitals to be updated using the least
+self-consistent</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">criteria.</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>TRACE</TT></TD>
+<TD ALIGN="LEFT">If <TT>t</TT> (true), detailed  information about the
+SCF energy adjust-</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">ment process is printed</TD>
+</TR>
+</TABLE>
+
+<P>
+A feature of the <TT>HF</TT> program is that the occupation
+numbers need not be integer. In order to study the <IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img146.png"
+ ALT="$2s - 2p$">
+transition in Be, for example, orbitals could be computed for
+the configuration <TT>2s(1.5)2p(0.5)</TT> in which case average energy
+calculations will be performed for
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+(1/2) \left[ E_{av}(2s^2) + E_{av}(2s2p)\right]
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="380" HEIGHT="30" BORDER="0"
+ SRC="img147.png"
+ ALT="\begin{displaymath}(1/2) \left[ E_{av}(2s^2) + E_{av}(2s2p)\right]\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+
+<P>
+Also, various expectation values may be printed at the end of
+a calculation. A sample input data line is given for each case
+and, ideally, the input should  be aligned with the sample.
+However, the format for the
+input is also  provided.  Here it is helpful to know the
+following format rules for a line of input. 
+<BR><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><TT>nX</TT></TD>
+<TD ALIGN="LEFT">skip <TT>n</TT> positions on the line (i.e. enter n blanks)</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>An</TT></TD>
+<TD ALIGN="LEFT">the next <TT>n</TT> positions on the line will be
+interpreted as characters</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>In</TT></TD>
+<TD ALIGN="LEFT">the next <TT>n</TT> positions on the line will be
+interpreted as an integer</TD>
+</TR>
+</TABLE>
+<BR>
+More details can be found in any FORTRAN text.
+
+<P>
+It should also be remembered that <TT>HF</TT> is a program for
+simple cases: if there are two or more open shells, an <IMG
+ WIDTH="28" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img54.png"
+ ALT="$LS$">
+calculation may not be possible using <TT>HF</TT>.  Configurations of
+the form <IMG
+ WIDTH="52" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="img148.png"
+ ALT="$nl^w n's$"> generally are allowed, <IMG
+ WIDTH="40" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img149.png"
+ ALT="$l \le 3$">; configurations
+<IMG
+ WIDTH="53" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img150.png"
+ ALT="$np^w n'l$">, <IMG
+ WIDTH="40" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img151.png"
+ ALT="$l\le 2$"> may
+request information about the parent term for <IMG
+ WIDTH="34" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img152.png"
+ ALT="$np^w$">; CSFs
+of the form <IMG
+ WIDTH="53" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="img153.png"
+ ALT="$nd^w n'l$"> are not allowed except for <IMG
+ WIDTH="68" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="img154.png"
+ ALT="$n'l = n's$">;
+open <IMG
+ WIDTH="16" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img155.png"
+ ALT="$f$">-shells may have any occupation but, any other open
+shell may only be single <IMG
+ WIDTH="14" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img156.png"
+ ALT="$s$">-electron.  For more
+complex situations <TT>NONH</TT> and <TT>MCHF</TT> should be used,
+though these codes have not yet been extended to open
+<IMG
+ WIDTH="16" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img155.png"
+ ALT="$f$">-shells.
+
+<P>
+
+<H1><A NAME="SECTION001550000000000000000">
+levels</A>
+</H1>
+
+<P>
+Program to sort the energy levels in a <TT>name.l</TT>
+or <TT>name.j</TT> file and print energy levels in atomic units and
+cm<IMG
+ WIDTH="23" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img105.png"
+ ALT="$^{-1}$">, relative to the lowest.
+<PRE>
+#  ........Processing energy level data........
+&gt;levels
+ Enter name and type (.l or .j) of file
+&gt;A.j
+  Default Rydberg constant (y/n)
+&gt;y
+ ENERGY LEVELS
+ Z =   7       4 electrons
+ Rydberg Constant Used =    109733.01269
+----------------------------------------------------------------
+ Configuration         Term  J     Total Energy  Energy Level
+                                      (a.u.)        (cm-1)
+----------------------------------------------------------------
+ 1s(2).2s(2)_1S           0.0   -51.199917009       0.0000
+
+ 1s(2).2s_2S.2p_3P        0.0   -50.894176385   67099.6795
+                          1.0   -50.893898497   67160.6665
+                          2.0   -50.893259802   67300.8384
+
+ 1s(2).2s_2S.2p_1P        1.0   -50.595319927  132688.5185
+----------------------------------------------------------------
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION001560000000000000000">
+lines</A>
+</H1>
+
+<P>
+Print transition data in a <TT>tr.lsj</TT> file (produced
+  by the <TT>LSJTR</TT> program) in
+  sorted (increasing) order, according to a number of different
+  criteria.
+  A maximum of 1000 lines may be processed. The <TT>tr.lsj</TT>
+  files from a number of runs may be concatenated before
+  processing.
+<PRE>
+#  ........Processing line data........
+&gt;lines
+ Enter tolerance on line strength
+&gt;0
+ Name of .lsj file ?
+&gt;A.lsj
+ The file that will be searched is A.lsj
+ Number of transitions = 11
+ Select the line list order:
+ 1:  Energy (cm-1)
+ 2:  Wavelength (Angstroms) in Vacuum
+ 3:  Wavelength (Angstroms) in Air
+ 4:  Line Strength
+ 5:  gf Value
+ 6:  Transition Probability
+ Enter your selection:
+&gt;1
+
+ Line List for  ( Z =  7.) with  4 electrons
+
+--------------------------------------------------------------------------------
+
+ Transition Array
+   Multiplet  Line   Type   E(cm-1)     L(air)       S       gf       Aki
+--------------------------------------------------------------------------------
+
+1s(2).2s_2S.2p               1s(2).2s_2S.2p
+     3P  3P  0.0- 1.0  M1       61.0  1639524.9   2.0000   0.0000   4.079E-06
+             1.0- 2.0  M1      140.2   713336.2   2.5000   0.0000   3.714E-05
+         1P  2.0- 1.0  M1    65387.7     1529.3   0.0000   0.0000   1.611E-02
+             1.0- 1.0  M1    65527.9     1526.1   0.0000   0.0000   9.730E-03
+             0.0- 1.0  M1    65588.8     1524.7   0.0000   0.0000   1.301E-02
+--------------------------------------------------------------------------------
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION001570000000000000000">
+lsgen and lsgenf</A>
+</H1>
+
+<P>
+The new version of the <TT>genclf</TT> program has the same design as
+GENCL (see Froese Fischer and Liu &nbsp;[#!FL!#])
+but has been extended to arbitrarily-filled f-shells.
+The latter required some change in notation.
+The subroutines that changed a lot
+are the LVAL, SYMB and COUPLD. The rest of the subroutines are either unchanged
+or the changes are not substantial. The LVAL subroutine is extended with
+a possibility to convert the symbols
+O and Q into its corresponding quantum number and in SYMB to convert the quantum
+numbers 11 and 12 into its corresponding symbol. In the COUPLD subroutine the
+data blocks containing the term characteristics are enlarged.
+
+<P>
+Input and output data of the new version are the same as before.
+One needs only to take into account that the  classification of
+terms of the <IMG
+ WIDTH="16" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img155.png"
+ ALT="$f$"> subshell
+is more complicated than for <IMG
+ WIDTH="14" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img156.png"
+ ALT="$s$">, <IMG
+ WIDTH="14" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img157.png"
+ ALT="$p$">, <IMG
+ WIDTH="14" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img158.png"
+ ALT="$d$"> subshells.
+For the classification of <IMG
+ WIDTH="16" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img155.png"
+ ALT="$f$">-subshell terms the characteristics (2<IMG
+ WIDTH="17" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img159.png"
+ ALT="$S$">+1)
+(multiplicity), <IMG
+ WIDTH="17" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img160.png"
+ ALT="$L$"> (total orbital momentum), and <IMG
+ WIDTH="15" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img161.png"
+ ALT="$\nu$"> (seniority) are not
+sufficient.
+Here we use a notation <!-- MATH
+ $^{(2S+1)}L^{Nr}$
+ -->
+<IMG
+ WIDTH="77" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img162.png"
+ ALT="$^{(2S+1)}L^{Nr}$"> for the classification of
+an <IMG
+ WIDTH="16" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img155.png"
+ ALT="$f$">-subshell.
+The <IMG
+ WIDTH="28" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img163.png"
+ ALT="$Nr$"> is single character, which corresponds the group
+labels <IMG
+ WIDTH="45" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img164.png"
+ ALT="$\nu WU$">.  It is identical to Gaigalas
+and Froese Fischer&nbsp;[#!GFa!#] and P5&nbsp;[#!__4963__method5__4963__!#].
+The value <IMG
+ WIDTH="28" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img163.png"
+ ALT="$Nr$"> is found in Table&nbsp;1 of P5&nbsp;[#!__4964__method5__4964__!#]
+where all terms for <IMG
+ WIDTH="16" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img155.png"
+ ALT="$f$">-subshells are presented.  In most
+cases, <IMG
+ WIDTH="28" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img163.png"
+ ALT="$Nr$"> appears to be a digit, but since it is a single
+character, the single letter <IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img128.png"
+ ALT="$A$"> is used instead of the number 10.
+While in all the other cases the two-digit numbers n in <IMG
+ WIDTH="58" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img165.png"
+ ALT="$cfg.inp$"> file
+encode the following <IMG
+ WIDTH="16" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img166.png"
+ ALT="$n$"> = CHAR(n+ICHAR('0')) (see [#!FL!#]).
+For example, the values of the principal quantum number
+<IMG
+ WIDTH="16" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img166.png"
+ ALT="$n$"> or multiplicity <IMG
+ WIDTH="64" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img167.png"
+ ALT="$(2S+1)$"> may exceed 9. On most systems the list of
+integers, <!-- MATH
+ $\{10,11,12,13,14,15\}$
+ -->
+<IMG
+ WIDTH="153" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img168.png"
+ ALT="$\{10,11,12,13,14,15\}$"> map into the list of characters,
+<IMG
+ WIDTH="99" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img169.png"
+ ALT="$\{:,;,&lt;,=,&gt;\}$">.  The CSF list if output to the file <TT>cfg.inp</TT>.
+
+<P>
+When <IMG
+ WIDTH="16" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img155.png"
+ ALT="$f$">-shells are restricted to two electrons, the earlier
+LSGEN program may be used&nbsp;[#!lsgen!#].  This program
+has been extended to arbitrarily filled f-shells,  and is known as
+<TT>lsgenf</TT> but has not been documented.  Like LSGEN, the CSF list that
+is output is left in <TT>clist.out</TT>. For simple cases, <TT>gencl</TT> is
+easier to use interactively.  Unlike <TT>genclf</TT> where <IMG
+ WIDTH="33" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img170.png"
+ ALT="$^{10}D$"> on
+SUN systems must be entered as <IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img171.png"
+ ALT="$^:D$">, <TT>lsgenf</TT> allows the user to
+specify <IMG
+ WIDTH="36" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img172.png"
+ ALT="$10D$">, although the output file will adhere to the proper
+convention.
+
+<P>
+The program maintains an order for the orbitals, determined from the order
+in which an orbital is first encountered.  Thus, with a
+reference set of <TT>4s(2)3d(1)</TT> and an active set of
+<TT>3d,4s,4p</TT> the file <TT>cfg.inp</TT> will not have orbitals in a
+consistent ordering.  The ordering of orbitals in the reference 
+set, the active set, and the virtual set should always be the
+same in the sense that one orbital will always appear <I>before</I> or <I>after</I> another.  Sometimes this is referred to
+as the <I>after relation</I>.
+
+<P>
+
+<H1><A NAME="SECTION001580000000000000000">
+lsreduce</A>
+</H1>
+<TT>lsreduce</TT> may be used to reduce the number of the CFS in an 
+expansion, limit the maximum angular quantum number, or change the 
+expansion model. We know that core-valence
+is less important than valence correlation, so at some point the "add" option
+of <TT>lsgen</TT> maybe used to add to an expansion only CSF's that represent
+valence correlation.
+
+<P>
+
+<H1><A NAME="SECTION001590000000000000000">
+plotw</A>
+</H1>
+This program produces a file <TT>plot.dat</TT> which,
+for each radial function not deleted
+by entering <TT>d</TT> or <TT>D</TT> in response to the electron
+label, contains a header line followed by
+ pairs of numbers corresponding to <IMG
+ WIDTH="27" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img173.png"
+ ALT="$\sqrt{r}$"> and
+<IMG
+ WIDTH="60" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img174.png"
+ ALT="$P(nl;r)$">.  This file contains data suitable for plotting.
+By tabulating the radial function versus  <IMG
+ WIDTH="27" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img173.png"
+ ALT="$\sqrt{r}$">, more
+detail is provided near the origin and extended exponential
+tails are compressed.  The program can easily be changed.
+
+<P>
+
+<H1><A NAME="SECTION0015100000000000000000">
+printw</A>
+</H1>
+ This program selectively prints the data in <TT>wfn.inp</TT>:
+ the electron label is displayed and
+unless <TT>d</TT> or <TT>D</TT> is entered, the radial function is
+printed.
+
+<P>
+
+<H1><A NAME="SECTION0015110000000000000000">
+relabel</A>
+</H1>
+Because the electron labels must match exactly (UPPERCASE
+and lowercase as well as blank fields) it may be necessary to change
+the electron label.  
+This routine lists the labels of all electrons
+found in  <TT>wfn.inp</TT> and selectively allows the user to change the
+labels before the radial function is written to a file.
+After each label is printed, the user may respond in three ways:
+<BR><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><TT>d</TT></TD>
+<TD ALIGN="LEFT">Radial function is not copied (deleted)</TD>
+</TR>
+<TR><TD ALIGN="LEFT">(Blank)</TD>
+<TD ALIGN="LEFT">No change in the label, radial function copied to <TT>wfn.out</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>AAA</TT></TD>
+<TD ALIGN="LEFT">Change label to <TT>AAA</TT>, then copy
+to <TT>wfn.out</TT></TD>
+</TR>
+</TABLE>  
+<BR>
+This routine may also be used to eliminate some radial functions from
+the file.  All <TT>.w</TT> files can always be concatenated.
+
+<P>
+
+<H1><A NAME="SECTION0015120000000000000000">
+gtables</A>
+</H1>
+This program unifies <TT>levels and lines</TT> and tabulates:
+
+<UL>
+<LI>Breit Pauli energies, term splitting.
+</LI>
+<LI>Transition data sorted according to provided criteria.
+</LI>
+<LI>Lifetimes if provided with an <TT>.lsj</TT> transition file.
+</LI>
+</UL>
+
+<P>
+
+<H1><A NAME="SECTION0015130000000000000000">
+w_format and w_unformat</A>
+</H1>
+Provide conversion of the wavefunction files between 
+binary and text format. <TT>w_format</TT> converts to text,
+and <TT>w_unformat</TT> converts text formatted to an 
+unformatted (binary) file. Useful for transferring data between
+machines with different representation of the binary files 
+(big- or small-endian).
+
+<P>
+
+<H1><A NAME="SECTION0015140000000000000000">
+tables</A>
+</H1> This is another version of the original
+gtables program. In addition to tabulating data in the same
+fashion as the gtables, this version has the the following new
+features:
+
+<UL>
+<LI>nonphysical states are listed
+</LI>
+<LI>the .lsj file is cleaned from nonphysical transitions
+</LI>
+<LI>.lsj is sorted according to the criteria provided by the user
+</LI>
+<LI>concatenated .l files are accepted  and the program prints the 
+spectrum as computed from <TT>mchf</TT>. Good LS spectrum is 
+frequently an indicator for proper computational model.  
+</LI>
+<LI>the energy spectrum can be computed from .lsj files, the 
+only difference is that the Zeeman factors which are contained 
+in the .j files will not be displayed. 
+</LI>
+</UL>
+
+<P>
+Depending on provided input files, tables require the following input:
+
+<UL>
+<LI>.l files or .j files
+The program prints the spectrum and prompts the user to input the 
+levels to be erased:
+<PRE>
+.....
+--------------------------------------------------------------------------------
+     Configuration                 Term  J  Total Energy  Levels 
+--------------------------------------------------------------------------------
+  1. 2s(2).2p(3)4S3              4S   3/2 -54.554039298                     
+  2.                                  3/2 -54.554039298           
+
+  3. 2s(2).2p(3)2D3              2D   5/2 -54.466443168  19224.37           
+  4.                                  5/2 -54.466443168  19224.37 
+  5.                                  3/2 -54.466403464  19233.09     8.71  
+  6.                                  3/2 -54.466403464  19233.09 
+
+  7. 2s(2).2p(3)2P1              2P   1/2 -54.422633792  28839.04           
+  8.                                  1/2 -54.422633792  28839.04 
+  9.                                  3/2 -54.422633692  28839.07     0.02  
+ 10.                                  3/2 -54.422633692  28839.07 
+--------------------------------------------------------------------------------
+B.lsj not found ...
+
+The following duplicate states will be erased:
+
+  2   4   6   8  10 
+
+Select more nonphysical, use a "+" at the end for a cut-off point. Example:
+3 8 +, will additionally remove 3, 8 and higher.
+</PRE>
+
+<P>
+The program will automatically erase all states that are duplicated, or
+nonphysical (i.e. the same states but with high energy). 
+
+<P>
+</LI>
+<LI>.lsj files
+
+<P>
+If only .lsj files are present the user needs to enter the atomic
+number and the number of electrons, since this information 
+is not present in the .lsj files.
+
+<P>
+</LI>
+<LI>.lsj and .j files
+If both files are present the user may select the sorting 
+criterion from one of the following:
+<PRE>
+ 1. Transition energies.
+ 2. Lower-Upper.
+ 3. Upper-Lower.
+ 4. f value.
+ 5. Line strength.
+ 6. Wavelength(air).
+</PRE>
+</LI>
+</UL>
+
+<P>
+
+<H1><A NAME="SECTION0015150000000000000000">
+Data analysis</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION0015151000000000000000">
+Introduction</A>
+</H2>
+When the <TT>atsp</TT> is applied to  
+determine the properties of a given electronic sequence for a  
+range of atoms, and in addition, for each atom to include a portion of the 
+spectra, calculations may produce overwhelming amount of data. 
+<TT>sa</TT> performs most energy related analyses, including 
+energy accuracies and transition uncertainties caused by errors 
+of the computed vs.  observed energies. 
+
+<P>
+
+<H2><A NAME="SECTION0015152000000000000000">
+Program description</A>
+</H2>
+The program performs the following data analyses:
+
+<UL>
+<LI>Energy differences.
+Find the energy differences: computed-observed,
+and tabulate the data for the the entire sequence.
+</LI>
+<LI>LS accuracies.
+Compute the LS trends and the LS accuracies for all 
+transitions.
+</LI>
+<LI>LSJ uncertainties. For each LSJ transition, the uncertainty 
+is calculated from the combined error in transition energy and the
+error caused by LS discrepancy. 
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+U = (e + c) A^{adjusted}_{ki}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="351" HEIGHT="29" BORDER="0"
+ SRC="img175.png"
+ ALT="\begin{displaymath}
+U = (e + c) A^{adjusted}_{ki}
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(8)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+where <I>e </I> is error from the transition energy, and 
+<TT>c</TT> is the error from LS discrepancy.
+
+<P>
+With respect to computing the uncertainty from 
+LS discrepancy the allowed transitions and 
+intercombination lines are treated differently:
+  
+<UL>
+<LI>allowed For allowed transitions uncertainty
+from LS discrepancy is computed from the error in 
+the corresponding LS transition. 
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+c = \frac{\vert S_L - S_V \vert}{ max(S_L,S_V)}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="341" HEIGHT="44" BORDER="0"
+ SRC="img176.png"
+ ALT="\begin{displaymath}
+c = \frac{\vert S_L - S_V \vert}{ max(S_L,S_V)}
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(9)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+where <IMG
+ WIDTH="53" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img177.png"
+ ALT="$S_L, S_V$"> are length and velocity line strengths.
+</LI>
+<LI>intercombination lines 
+Intercombination lines may involve complex mixing of terms,
+therefore, the uncertainty of a given intercombination 
+transition need to reflect the mixing effects.
+Assuming that the uncertainty is independent of the direction
+of the transition, the program searches for all other  LS
+transitions of the <I>same RHS configuration</I> with the <I>same J</I>.
+Then the program finds all other LS of the <I>same LHS configuration</I>
+with the <I>same J</I>. The composite error is normalized with respect to 
+the <TT>gf values</TT>:
+
+<P>
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+c = \frac{\sum_{i}\sum_{j}c_{ij}gf_{ij}}{\sum_{i}\sum_{j}gf_{ij}}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="343" HEIGHT="50" BORDER="0"
+ SRC="img178.png"
+ ALT="\begin{displaymath}
+c = \frac{\sum_{i}\sum_{j}c_{ij}gf_{ij}}{\sum_{i}\sum_{j}gf_{ij}}
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(10)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P> 
+
+<P>
+where <TT>i, j</TT> represent respectively all LHS and RHS states.
+In addition, to the requirement to include only LS transitions for 
+the same configuration and the same J, the  LS transitions are 
+included only if <!-- MATH
+ ${(S+L \geq J \geq \mid L-S \mid)}$
+ -->
+<IMG
+ WIDTH="166" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img179.png"
+ ALT="${(S+L \geq J \geq \mid L-S \mid)}$"> is 
+satisfied. This algorithm treats the mixing effects with equal 
+weights which is a simplifying assumption since not all other
+LS transitions would involve terms with strong mixing with the 
+terms for which the uncertainty is computed.
+
+<P>
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION0015153000000000000000">
+IO Files</A>
+</H2>
+This program requires the following input files:
+
+<UL>
+<LI>A.E.MCHF Contains concatenated spectra for
+all computed atoms of a sequence. The user can prepare this file by 
+simply copying and pasting the computed levels from the 
+program <TT>tables</TT>, the files have extension .lt. Example:
+
+<P>
+<PRE>
+Z = 8  Energy levels and lifetimes for O I : O-like  (8 electrons).
+  Rydberg constant is = 109733.5522
+--------------------------------------------------------------------------------
+Configuration                 Term J   Energy Total  Levels Splitting  Lifetimes
+                                          (a.u.)      cm^-1   cm^-1        s
+--------------------------------------------------------------------------------
+
+2s(2).2p(4)3P2              3P     2 -75.047520230
+                                   1 -75.046809230    156.04   156.04 1.1710e+04
+                                   0 -75.046502660    223.32   223.32 6.0864e+04
+
+2s(2).2p(4)1D2              1D     2 -74.974059050  16122.31          1.1477e+02
+
+2s(2).2p(4)1S0              1S     0 -74.893309390  33844.21          1.2732e+01
+
+
+Z = 9  Energy levels and lifetimes for F II : O-like  (8 electrons).
+  Rydberg constant is = 109734.1464
+--------------------------------------------------------------------------------
+Configuration                 Term J   Energy Total  Levels Splitting  Lifetimes
+                                          (a.u.)      cm^-1   cm^-1        s
+--------------------------------------------------------------------------------
+
+2s(2).2p(4)3P2              3P     2 -99.105054240
+                                   1 -99.103513980    338.04   338.04 1.1518e+03
+                                   0 -99.102849050    483.97   483.97 5.9653e+03
+
+2s(2).2p(4)1D2              1D     2 -99.008796590  21125.50          1.9013e+01
+
+2s(2).2p(4)1S0              1S     0 -98.900250320  44947.97          2.1206e+00
+</PRE>
+
+<P>
+</LI>
+<LI>A.E.NIST Contains the concatenated spectra for desired range
+of atoms as found at the NIST web site. The data for each atom
+must be separated with the string "Z = nnn", where <I>nnn</I>
+is the atomic number of the spectrum below it.
+
+<P>
+<PRE>
+Z = 8
+
+
+-------------------------------------------------
+Configuration        | Term  |  J  | Level
+                     |       |     | (cm-1)
+---------------------|-------|-----|-------------
+2s2.2p4              | 3P    |  2  |       0.000
+                     |       |  1  |     158.265
+                     |       |  0  |     226.977
+                     |       |     |     
+2s2.2p4              | 1D    |  2  |   15867.862
+                     |       |     |     
+2s2.2p4              | 1S    |  0  |   33792.583
+
+Z = 9
+
+
+-------------------------------------------
+Configuration  | Term     | J  | Level   
+               |          |    | (cm-1)  
+---------------|----------|----|-----------
+2s2.2p4        | 3P       | 2  |      0.0
+               |          | 1  |    341.0
+               |          | 0  |    489.9
+               |          |    |
+2s2.2p4        | 1D       | 2  |  20873.4
+               |          |    |
+2s2.2p4        | 1S       | 0  |  44918.1
+</PRE>
+
+<P>
+</LI>
+<LI>LEVELS.ref A reference file which contains the
+strings that represent each state, term and J value in the
+NIST database and from the atsp2K calculation. This file is
+used to match the corresponding states between observed 
+energy reported by NIST and MCHF calculation.
+This file is very important and the success of the program 
+depends on careful preparation. Below is shown an example with the 
+format. Note that &quot&amp;" is used as a column separator. The first 
+column shows the MCHF representation of the configuration, next is
+the term. The program combines "configuration"  "_"  "term"
+and searches .lsj files to match this string. For example,
+<PRE>2s(2).2p(4)3P2  &amp; 3P
+</PRE> expect 
+the .lsj, .j and .lt files to contain: 
+<PRE>2s(2).2p(4)3P2_3P
+</PRE>
+For the same state the NIST representation is 
+<PRE>2s2.2p4
+</PRE> and the term is represented
+in their energy tables as <PRE>2P
+</PRE>.
+The next column shows the J value as it is represented in MCHF. Then
+the parity is shown as "e" for even and "o" for odd. Column 
+5 shows the representation of the state in the NIST format, 
+column 6 shows the term, column 7 the J value. All 5,6,7 are 
+from their tables. The user need to make sure their representation
+is consistent for all atoms, in some occasions, NIST omits the 
+parent term. In some other cases, the J values are given on the
+same line, separated by comas, therefore, some editing may be 
+required of the file A.E.NIST. Column 8 and 9 show the T<SMALL>E</SMALL>Xrepresentation of state, term and J-value for given level. 
+This is used to prepare  T<SMALL>E</SMALL>Xtables.
+
+<P>
+<PRE>
+% FORMAT
+
+MCHF::CONF        T    J    P   NIST::CONF  T      J      TEX::CONF  TEX::TERM 
+     TERM
+2s(2).2p(4)3P2  &amp; 3P &amp; 2   &amp; e &amp; 2s2.2p4 &amp;  3P   &amp;  2    &amp; $2p^4$  &amp; \Term 3 P {2}/
+2s(2).2p(4)3P2  &amp; 3P &amp; 1   &amp; e &amp; 2s2.2p4 &amp;  3P   &amp;  1    &amp; $2p^4$  &amp; \Term 3 P {1}/
+2s(2).2p(4)3P2  &amp; 3P &amp; 0   &amp; e &amp; 2s2.2p4 &amp;  3P   &amp;  0    &amp; $2p^4$  &amp; \Term 3 P {0}/
+2s(2).2p(4)1D2  &amp; 1D &amp; 2   &amp; e &amp; 2s2.2p4 &amp;  1D   &amp;  2    &amp; $2p^4$  &amp; \Term 1 D {2}/
+2s(2).2p(4)1S0  &amp; 1S &amp; 0   &amp; e &amp; 2s2.2p4 &amp;  1S   &amp;  0    &amp; $2p^4$  &amp; \Term 1 S {0}/
+.......
+.......
+</PRE> 
+
+<P>
+The second part of <TT>LEVELS.ref</TT> gives the representation 
+of the LS transitions. Note that the first column shows the 
+groups which are used to compute the LS uncertainties for 
+intercombination lines. The user may control this process by
+appropriate grouping of the configurations, in this case any
+intercombination line which is in group <TT>UA</TT> will use 
+the combined <TT>gf</TT> normalized uncertainty for all LS 
+transitions which include states from that group (<TT>UA</TT>). 
+Column 3 shows the parity, and columns 4 and 5 show the 
+T<SMALL>E</SMALL>Xrepresentation of the string. 
+
+<P>
+<PRE>
+...........
+...........
+LSTRENDS::CONF           TERM    P    TEX::CONF            TERM::CONF
+UA 2s(2).2p(4)3P2        &amp; 3P &amp;  e &amp;  $2p^4$             &amp; \Term 3 P {}/
+UA 2s(2).2p(4)1D2        &amp; 1D &amp;  e &amp;  $2p^4$             &amp; \Term 1 D {}/
+UA 2s(2).2p(4)1S0        &amp; 1S &amp;  e &amp;  $2p^4$             &amp; \Term 1 S {}/
+UB 2s.2p(5)              &amp; 3P &amp;  o &amp;  $2s2p^5$           &amp; \Termo 3 P {}/
+UB 2s.2p(5)              &amp; 1P &amp;  o &amp;  $2s2p^5$           &amp; \Termo 1 P {}/
+UC 2p(6)                 &amp; 1S0&amp;  e &amp;  $2p^6$             &amp; \Term 1 S {}/
+UD 2s(2).2p(3)4S3_4S.3s  &amp; 5S &amp;  o &amp;  $2p^3(^4\!S)3s$    &amp; \Termo 5 S {}/
+UD 2s(2).2p(3)4S3_4S.3s  &amp; 3S &amp;  o &amp;  $2p^3(^4\!S)3s$    &amp; \Termo 3 S {}/
+UD 2s(2).2p(3)2D3_2D.3s  &amp; 3D &amp;  o &amp;  $2p^3(^2\!D)3s$    &amp; \Termo 3 D {}/
+UD 2s(2).2p(3)2D3_2D.3s  &amp; 1D &amp;  o &amp;  $2p^3(^2\!D)3s$    &amp; \Termo 1 D {}/
+...........
+...........
+</PRE>
+
+<P>
+</LI>
+<LI>A.LS is obtained by concatenating all .ls files for
+all atoms and all transitions. Note that each LS transition contains
+<TT>n, and Z</TT>. 
+<PRE>
+  Transition between files:
+  I
+  F
+
+ Z =  10 n =  4
+   4 -126.43021002  2s(2).2p(4)1D2_1D
+   4 -124.91782770  2s(2).2p(3)2D3_2D.3s_1D
+  331920.45 CM-1       301.28 ANGS(VAC)       301.28 ANGS(AIR)
+ E1  length:   S =  5.57939D-01   GF =  5.62529D-01   AKI =  8.26771D+09
+    velocity:  S =  6.29443D-01   GF =  6.34621D-01   AKI =  9.32728D+09
+  Transition between files:
+  I
+  F
+
+ Z =  10 n =  5
+   4 -126.44256936  2s(2).2p(4)1D2_1D
+   4 -124.93014302  2s(2).2p(3)2D3_2D.3s_1D
+  331930.11 CM-1       301.27 ANGS(VAC)       301.27 ANGS(AIR)
+ E1  length:   S =  6.16498D-01   GF =  6.21587D-01   AKI =  9.13625D+09
+    velocity:  S =  6.37137D-01   GF =  6.42398D-01   AKI =  9.44213D+09
+</PRE>
+
+<P>
+</LI>
+<LI>A.LSJ.U is obtained by concatenating all .lsj files for
+all atoms and all transitions, unadjusted
+<PRE>
+ Transitions of Z = 10  Ne III : O-like  (8 electrons). 1029
+
+
+
+   4 -125.07174692  2s(2).2p(3)4S3_4S.3p_3P
+   4 -125.06526463  2s(2).2p(3)2D3_2D.3s_1D
+    1422.66 CM-1     70290.93 ANGS(VAC)     70283.66 ANGS(AIR)
+ E1  S =  1.53317e-04   GF =  6.62544e-07   AKI =  1.78891e-01
+          7.25277e-05         3.13422e-07          8.46258e-02
+
+
+   2 -125.07179831  2s(2).2p(3)4S3_4S.3p_3P
+   4 -125.06526463  2s(2).2p(3)2D3_2D.3s_1D
+    1433.94 CM-1     69738.04 ANGS(VAC)     69730.83 ANGS(AIR)
+ E1  S =  1.37332e-04   GF =  5.98173e-07   AKI =  1.64082e-01
+          8.58197e-05         3.73802e-07          1.02536e-01
+</PRE>
+
+<P>
+</LI>
+<LI>A.LSJ.A is obtained by concatenating all .lsj files for
+all atoms and all transitions, adjusted
+<PRE>
+ Transitions of Z = 10  Ne III : O-like  (8 electrons). 1012
+
+
+
+   6 -124.88276742  2s(2).2p(3)4S3_4S.3d_3D
+   4 -124.87914668  2s(2).2p(3)2D3_2D.3p_3P
+     794.64 CM-1    125843.38 ANGS(VAC)    125830.37 ANGS(AIR)
+ E1  S =  1.11727e+00   GF =  2.69681e-03   AKI =  2.27176e+02
+          1.40563e+02         3.39284e-01          2.85809e+04
+
+
+   4 -124.88282539  2s(2).2p(3)4S3_4S.3d_3D
+   4 -124.87914668  2s(2).2p(3)2D3_2D.3p_3P
+     807.36 CM-1    123860.37 ANGS(VAC)    123847.57 ANGS(AIR)
+ E1  S =  2.00592e-01   GF =  4.91933e-04   AKI =  4.27773e+01
+          2.41638e+01         5.92593e-02          5.15305e+03
+</PRE>
+
+<P>
+</LI>
+</UL>
+
+<P>
+The program tabulates a wide range of data in text format. In 
+addition, some  data is saved in tex format:
+
+<P>
+
+<UL>
+<LI>Energy difference = computed - NIST, <TT>_A_E_diff.tex</TT>
+</LI>
+<LI>Lifetimes, <TT>_A_lifetimes.tex</TT>
+</LI>
+<LI>Tables of ls transitions, <TT>_A_E_diff.tex</TT>
+</LI>
+<LI>Tables of uncertainties for energy adjusted atoms, 
+<TT>_A_tr.tex</TT>. 
+</LI>
+</UL>
+
+<P>
+The output file <TT>_A.log</TT> contains the following tables:
+
+<UL>
+<LI>Table LS accuracies. (gf-values on the second line)
+</LI>
+<LI>Table 2: Energy differences (Mchf-NIST)
+</LI>
+<LI>Table 3: MCHF energies
+</LI>
+<LI>Table 4: NIST energies
+</LI>
+<LI>Table 5: % Errors in computed vs. observed energies (Mchf-Nist)
+</LI>
+<LI>Table 6: Lifetimes 
+</LI>
+<LI>Table 8: Uncertainties
+</LI>
+<LI>Table 9: Line strength errors
+</LI>
+</UL>
+
+<P>
+The file <TT>_A.lsj.log</TT> and sorts all LSJ transitions for 
+all atoms.
+
+<P>
+For each atom, the program tabulates the LS trends in a file 
+<TT>_A.LS_Z_NN</TT>, where <TT>NN</TT> is the atomic number. The format
+of the file is:
+<PRE>
+--------------------------------------------------------------------------------
+ Z  n       EL            EU        SL(v)     SL(V)     gf(L)    gf(V)   Error
+--------------------------------------------------------------------------------
+
+2s(2).2p(4)3P2_3P             2s(2).2p(3)4S3_4S.3s_3S
+ 8 4 -74.98462945 -74.61714316 1.326e+00 2.490e+00 3.249e-01 6.101e-01 0.467
+ 8 5 -74.99510073 -74.64418231 1.767e+00 2.231e+00 4.135e-01 5.219e-01 0.208
+ 8 6 -74.99727166 -74.64656634 1.834e+00 2.026e+00 4.289e-01 4.737e-01 0.095
+ 8 7 -74.99794341 -74.64671241 1.842e+00 1.969e+00 4.313e-01 4.610e-01 0.064
+
+2s(2).2p(4)3P2_3P             2s(2).2p(3)4S3_4S.3d_3D
+ 8 4 -74.98462945 -74.54669516 4.380e-01 5.632e-01 1.279e-01 1.644e-01 0.222
+ 8 5 -74.99510073 -74.55436390 5.785e-01 6.086e-01 1.700e-01 1.788e-01 0.049
+ 8 6 -74.99727166 -74.55501892 5.885e-01 6.355e-01 1.735e-01 1.874e-01 0.074
+ 8 7 -74.99794341 -74.55505464 5.956e-01 6.338e-01 1.759e-01 1.871e-01 0.060
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION0015160000000000000000">
+Useful scripts</A>
+</H1>
+The following scripts were found useful for mass production:
+
+<UL>
+<LI><TT>sh_cat</TT> Given a concatenated list of configurations,
+<TT>sh_cat</TT> removes the intermediate blank lines, header files
+and asterisks. The file is used to transform a configuration
+list from the format what <TT>nonh and mchf</TT> use to the
+format which <TT>bp_ang, bp_mat, bp_eiv, biotr</TT> use.
+The script uses the <TT>sed</TT> program and it has been tested with
+<PRE>
+(georgio@gitm)131% sed -V
+GNU sed version 3.02
+</PRE>
+This script takes a single .c, or multiple *.c files as an argument
+and formats them saving the original files in *.c.old.
+Usage: "./sh_cat *.c" will transform all .c files in the
+directory.
+
+<P>
+</LI>
+<LI><TT>sh_format</TT>
+The script take as an argument *.w files and formats
+the wavefunctions. Formatted files are saved with .wfm
+extension. The script uses <TT>w_format</TT>. Usage:
+"./sh_format *.w" will create the formatted versions
+of all *.w in the directory.
+
+<P>
+</LI>
+<LI><TT>sh_unformat</TT>
+The script take as an argument *.wfm files and respectively
+unformat the wavefunctions. Unformatted files are saved with .w
+extension. The script uses  <TT>w_unformat</TT>.
+Usage: "./sh_unformat *.wfm" This will unfromat all .wfm
+files in the directory.
+</LI>
+</UL>
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html403"
+  HREF="node16.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html399"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html393"
+  HREF="node14.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html401"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html404"
+  HREF="node16.html">I/O File Formats</A>
+<B> Up:</B> <A NAME="tex2html400"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html394"
+  HREF="node14.html">TRANS</A>
+ &nbsp <B>  <A NAME="tex2html402"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

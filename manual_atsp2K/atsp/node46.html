@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Parallel routines</TITLE>
+<META NAME="description" CONTENT="Parallel routines">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="previous" HREF="node45.html">
+<LINK REL="up" HREF="node44.html">
+<LINK REL="next" HREF="node47.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html851"
+  HREF="node47.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html847"
+  HREF="node44.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html843"
+  HREF="node45.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html849"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html852"
+  HREF="node47.html">MCHF</A>
+<B> Up:</B> <A NAME="tex2html848"
+  HREF="node44.html">MPI version</A>
+<B> Previous:</B> <A NAME="tex2html844"
+  HREF="node45.html">I/O Files</A>
+ &nbsp <B>  <A NAME="tex2html850"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00732000000000000000">
+Parallel routines</A>
+</H2>
+<TT>nonh</TT> was modified to its parallel version, <TT>mpi_nonh</TT>
+by converting the main loop to parallel, and a section of the code 
+shows how this was accomplished: 
+goal:
+<PRE>
+         do jb = myid+1,ncfg,nprocs
+           if (mod(jb,1000) .eq. 0) write(0,*) '   jb =',jb
+
+           CALL SHELLSJB(jb)
+           CALL ANGMOMG(NEW,NZERO,IFIRST)
+
+           mycol = mycol + 1
+           jptr(mycol) = nij
+         end do
+</PRE>
+
+<P>
+The variable <TT>jb</TT> refers to the current column, and
+each node will process only the <TT>myid+1 + jb*nprocs</TT> column,
+where <TT>nprocs</TT> is the total number of processors, <TT>myid</TT> is 
+the processor id (<TT>0,1,2... to.. nprocs-1</TT>).
+
+<P>
+<TT>mpi_orbitals()</TT> is virtually the same, but with added 
+<TT>common /MPI/ myid, nprocs, ierr, istat(MPI_STATUS_SIZE)</TT>.
+Only the node with <TT>myid=0</TT> writes data to <TT>UNIT=25</TT>,
+(which is the file <TT>cfg.h</TT>) and the common was used to 
+convey the <TT>myid</TT> value.  <TT>mpi_angmom()</TT> has  
+been modified to allow for correct increments of the variables 
+<TT>lij, ja, jb, ntot</TT>.
+
+<P>
+The <TT>nonh</TT> program implements parallel output for the
+largest data files, Figure &nbsp;<A HREF="node57.html#fig:mpi_io">6.20</A>.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:mpi_io"></A><A NAME="2583"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 5.9:</STRONG>
+
+The angular data are stored in files, which are written in
+parallel. Files with negligible IO requirements are read/written
+by node <TT>0</TT>.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="476" HEIGHT="413" BORDER="0"
+ SRC="img52.png"
+ ALT="\begin{figure}\centerline{ \psfig{file=tex/fig/mpi_io_nonh.eps}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<BR><HR>
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

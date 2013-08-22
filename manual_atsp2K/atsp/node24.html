@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Computing Allowed Transitions</TITLE>
+<META NAME="description" CONTENT="Computing Allowed Transitions">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node25.html">
+<LINK REL="previous" HREF="node23.html">
+<LINK REL="up" HREF="node17.html">
+<LINK REL="next" HREF="node25.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html581"
+  HREF="node25.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html577"
+  HREF="node17.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html571"
+  HREF="node23.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html579"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html582"
+  HREF="node25.html">Computing Forbidden Transition</A>
+<B> Up:</B> <A NAME="tex2html578"
+  HREF="node17.html">Computing Atomic Transitions</A>
+<B> Previous:</B> <A NAME="tex2html572"
+  HREF="node23.html">Breit-Pauli calculations</A>
+ &nbsp <B>  <A NAME="tex2html580"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00470000000000000000">
+Computing Allowed Transitions</A>
+</H1>
+The <TT>LSJ</TT> transitions require a 
+complete set of *.c *.w and *.j files for both: the initial and 
+final state. The transitions between initial and final groups
+are computed by <TT>biotr</TT> and the transition are saved in a 
+ *.lsj file in the directory <TT>LSJ</TT>.
+
+<P>
+For transition probabilities the orbitals of the initial and final state 
+need not be orthogonal.  A biorthogonal transformation is used for 
+the evaluation of matrix elements.  For Breit-Pauli calculations, all 
+operators may be included, spin-orbit, spin-other orbit, spin-spin, 
+and orbit-orbit.  In addition to transition rates of all types,
+isotope shifts and hyperfine constants can
+be computed as well as <TT>g_J</TT> factors.
+
+<P>
+<PRE>
+set -x
+
+# compute the LSJ transitions using biotr.
+
+echo "computing *.j files"
+# set n to desired value (this script will work for up to n=7)
+n=4
+
+#copy the files for initial and final state
+cp E4.c I.c
+cp O4.c F.c
+
+# the script computes for Z=8,9 but provided that the wavefunctions and
+# .j have already been computed for other Z's the line below can be modified
+# to reflect different desired Z's
+for Z in 8 9 
+do
+   (echo
+
+   # copy the wave function files from ../E1 into I.w
+   cp ../E1/E1.${Z}_${n}.w I.w
+   
+   #copy the *.j file 
+   cp E1.${Z}.j I.j
+   
+   #copy the final wave function from O1 into F.w
+   cp ../O1/O1.${Z}_${n}.w F.w
+   cp O1.${Z}.j F.j
+   
+   # use input file in_biotr which is universal and it accepts as 
+   # file names for initial and final states as I (needs I.w, I.c I.j) 
+   # and final state F (needs F.w, F.c, F.j)
+${ATSP}/bin/biotr&lt;in_biotr
+   
+   # the LSJ transitions between groups E1 and O1 will be saved into 
+   # a file with a unique name, note  that since Breit-Pauli is 
+   # performed only for the most accurate calculation and $n does
+   # not need to be incorporated into the *.lsj file name.
+   mv I.F.lsj E1.O1.${Z}.lsj
+      
+   echo)
+done
+
+
+# remove not needed files
+rm ?.?  fort*
+</PRE>
+
+<P>
+After completion <TT>biotr</TT> will leave the following
+<TT>*.lsj</TT> files in the directory <TT>LSJ</TT>.
+<PRE>
+-rw-r--r--    1 georgio  georgio     11738 Aug 19 19:15 LSJ/E1.O1.8.lsj
+-rw-r--r--    1 georgio  georgio     11738 Aug 19 19:15 LSJ/E1.O1.9.lsj
+</PRE>
+
+<P>
+The script starts with copying the appropriate files and running
+<TT>biotr</TT>. The input file for biotr is shown below:
+
+<P>
+<PRE>
+E1         # initial state
+O1         # final state
+n          # do not give a full printout (only for debugging)
+y          # relativistic calculation
+E1         # transition
+</PRE>
+
+<P>
+The transitions between each two groups are saved in a .lsj file which 
+contains essential data per transition:
+<PRE>
+   1  -74.35652224  2s(2).2p(3)2P1_2P
+   1  -73.64006121  2s.2p(4)1S0_2S
+  157239.63 CM-1       635.97 ANGS(VAC)       635.97 ANGS(AIR)
+ E1  S =  4.87252D-01   GF =  2.32723D-01   AKI =  1.91900D+09
+          4.71411D-01         2.25157D-01          1.85662D+09
+</PRE>
+The first two lines are blank, the next line is the initial
+state including the <TT>J</TT> value, the energy and the label.
+The same information for the final state is shown on the next
+line. The first line for the transition data is computed in the length
+form, whereas the second is the velocity form.  The Breit-Pauli
+methods have not modified the transition operator for the lowest
+order relativistic corrections in the velocity form.  These
+are not important for the allowed transitions, but are important
+in spin-forbidden transitions.  Generally, the accuracy of a
+transition depends on the accuracy of the length and velocity
+form in the non-relativistic approximation, and the accuracy of the
+Breit-Pauli transition energy, with the normalized length form
+value preferred.  For intercombination transition, accuracy also
+depends on other factors, such as the accuracy of the separation
+of the two terms important for the transition.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html581"
+  HREF="node25.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html577"
+  HREF="node17.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html571"
+  HREF="node23.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html579"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html582"
+  HREF="node25.html">Computing Forbidden Transition</A>
+<B> Up:</B> <A NAME="tex2html578"
+  HREF="node17.html">Computing Atomic Transitions</A>
+<B> Previous:</B> <A NAME="tex2html572"
+  HREF="node23.html">Breit-Pauli calculations</A>
+ &nbsp <B>  <A NAME="tex2html580"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

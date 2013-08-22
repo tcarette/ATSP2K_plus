@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Case 3. Calculating the matrix elements of operator</TITLE>
+<META NAME="description" CONTENT="Case 3. Calculating the matrix elements of operator">
+<META NAME="keywords" CONTENT="ang">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ang.css">
+
+<LINK REL="previous" HREF="node35.html">
+<LINK REL="up" HREF="node33.html">
+<LINK REL="next" HREF="node37.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html448"
+  HREF="node37.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html446"
+  HREF="node33.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html442"
+  HREF="node35.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html449"
+  HREF="node37.html">Table 4. EXAMPLES RUN</A>
+<B> Up:</B> <A NAME="tex2html447"
+  HREF="node33.html">Examples</A>
+<B> Previous:</B> <A NAME="tex2html443"
+  HREF="node35.html">Case 2. Calculating the</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00053000000000000000">
+Case 3. Calculating the matrix elements of <IMG
+ WIDTH="27" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img476.png"
+ ALT="$V^{k}$"> operator</A>
+</H2>
+
+<P>
+In this section it is demonstrated how to calculate the reduced <IMG
+ WIDTH="32" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img477.png"
+ ALT="$V^{11}$">
+operator,
+using the subroutine RWLS (see in Section&nbsp;<A HREF="node8.html#sec-sls">3.2</A>), which calculates
+the reduced matrix elements (<A HREF="node19.html#eq:sq-aa">35</A>). For that purpose the relation
+(16.34) from Rudzikas [<A
+ HREF="node42.html#R">14</A>] is used. While using the <IMG
+ WIDTH="27" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img478.png"
+ ALT="$U^{k}$"> and <IMG
+ WIDTH="33" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img479.png"
+ ALT="$V^{k1}$">
+tables, one must pay attention to various phase conventions used in the
+literature.
+In addition, small differences in the definitions of <IMG
+ WIDTH="27" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img478.png"
+ ALT="$U^{k}$"> occur.
+Some authors, Karazija <I>et al</I>&nbsp;[<A
+ HREF="node42.html#KVRJ">20</A>] among them, tabulate the
+submatrix elements
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+(l^{N} \alpha SL || U^{k} || l^{N} \alpha ^{\prime}S^{\prime}L^{\prime}),
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:ex-a"></A><IMG
+ WIDTH="364" HEIGHT="28" BORDER="0"
+ SRC="img480.png"
+ ALT="\begin{displaymath}
+(l^{N} \alpha SL \vert\vert U^{k} \vert\vert l^{N} \alpha ^{\prime}S^{\prime}L^{\prime}),
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(47)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+others, like Nielson and Koster&nbsp;[<A
+ HREF="node42.html#NK">18</A>] or Cowan&nbsp;[<A
+ HREF="node42.html#Cowan">9</A>], tabulate
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+(l^{N} \alpha L || U^{k} || l^{N} \alpha ^{\prime}L^{\prime}),
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:ex-b"></A><IMG
+ WIDTH="351" HEIGHT="28" BORDER="0"
+ SRC="img481.png"
+ ALT="\begin{displaymath}
+(l^{N} \alpha L \vert\vert U^{k} \vert\vert l^{N} \alpha ^{\prime}L^{\prime}),
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(48)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+although they use the notation of (<A HREF="node36.html#eq:ex-a">47</A>). Meanwhile, the relation
+between these two coefficients is:
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+(l^{N} \alpha SL || U^{k} || l^{N} \alpha ^{\prime}S^{\prime}L^{\prime})=
+\delta(S,S ^{\prime}) \sqrt{(2S+1)}
+(l^{N} \alpha L || U^{k} || l^{N} \alpha ^{\prime}L^{\prime}).
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:ex-c"></A><IMG
+ WIDTH="506" HEIGHT="28" BORDER="0"
+ SRC="img482.png"
+ ALT="\begin{displaymath}
+(l^{N} \alpha SL \vert\vert U^{k} \vert\vert l^{N} \alpha ^{...
+...\vert\vert U^{k} \vert\vert l^{N} \alpha ^{\prime}L^{\prime}).
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(49)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+The submatrix elements are defined as (<A HREF="node36.html#eq:ex-a">47</A>) if we use the
+relations between matrix elements of
+<!-- MATH
+ $W^{(k_1k_2k_3)}$
+ -->
+<IMG
+ WIDTH="73" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img483.png"
+ ALT="$W^{(k_1k_2k_3)}$"> and <IMG
+ WIDTH="27" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img478.png"
+ ALT="$U^{k}$"> as presented in the
+Rudzikas monograph&nbsp;[<A
+ HREF="node42.html#R">14</A>].
+Reduced matrix elements of the operator <IMG
+ WIDTH="32" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img477.png"
+ ALT="$V^{11}$">
+<!-- MATH
+ $(f^{7}\ ^{6}P^{0} || V^{11} || f^{7}\ ^{4}S^{1})$
+ -->
+<IMG
+ WIDTH="158" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img484.png"
+ ALT="$(f^{7} ^{6}P^{0} \vert\vert V^{11} \vert\vert f^{7} ^{4}S^{1})$"> are calculated in the
+example.
+The numerical value of this reduced matrix element
+is taken from the Nielson and Koster [<A
+ HREF="node42.html#NK">18</A>] tables
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+(f^{7}\ ^{6}P^{0} || V^{11} || f^{7}\ ^{4}S^{1})~=  -\sqrt{\frac{2}{7}}
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="391" HEIGHT="45" BORDER="0"
+ SRC="img485.png"
+ ALT="\begin{displaymath}(f^{7} ^{6}P^{0} \vert\vert V^{11} \vert\vert f^{7} ^{4}S^{1})&nbsp;= -\sqrt{\frac{2}{7}}\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+and agree with our value.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html448"
+  HREF="node37.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html446"
+  HREF="node33.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html442"
+  HREF="node35.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html449"
+  HREF="node37.html">Table 4. EXAMPLES RUN</A>
+<B> Up:</B> <A NAME="tex2html447"
+  HREF="node33.html">Examples</A>
+<B> Previous:</B> <A NAME="tex2html443"
+  HREF="node35.html">Case 2. Calculating the</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-12-07
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>hfs Program Structure</TITLE>
+<META NAME="description" CONTENT="hfs Program Structure">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node80.html">
+<LINK REL="previous" HREF="node78.html">
+<LINK REL="up" HREF="node77.html">
+<LINK REL="next" HREF="node80.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1267"
+  HREF="node80.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1263"
+  HREF="node77.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1257"
+  HREF="node78.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1265"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1268"
+  HREF="node80.html">Input data</A>
+<B> Up:</B> <A NAME="tex2html1264"
+  HREF="node77.html">HFS</A>
+<B> Previous:</B> <A NAME="tex2html1258"
+  HREF="node78.html">Introduction</A>
+ &nbsp <B>  <A NAME="tex2html1266"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001320000000000000000">
+<TT>hfs</TT>  Program Structure</A>
+</H1>
+The program structure is shown on Figure &nbsp;<A HREF="node79.html#fig:hfs_main">7.37</A>.
+The configurations are analyzed for orthogonality (<TT>cfgn(), cfg01()</TT>).  
+<TT>factr()</TT> computes a table of logarithms of factorials.
+<TT>readwt()</TT> reads the weight from <TT>.l or .j</TT> file. A number of
+<!-- MATH
+ $L_{j}, S_{j}, L_{k}, S_{k}$
+ -->
+<IMG
+ WIDTH="98" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img128.png"
+ ALT="$L_{j}, S_{j}, L_{k}, S_{k}$"> and <IMG
+ WIDTH="16" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img129.png"
+ ALT="$J$"> dependent factors are determined
+in <TT>lsjfact()</TT>. The wave functions are read in <TT>readwfn()</TT>.
+The one-electron active radial integrals are determined in <TT>radial1()
+and radial2()</TT>. <TT>multwt()</TT> multiplies the weights of configuration 
+<IMG
+ WIDTH="14" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img130.png"
+ ALT="$j$"> and <IMG
+ WIDTH="15" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img131.png"
+ ALT="$k$">. <TT>setup()</TT> transforms the occupation and coupling 
+for a configuration pair in a format suitable for use by <TT>tensor()</TT>, 
+which evaluates the reduced matrix element between arbitrarily LS 
+coupled configurations.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:hfs_main"></A><A NAME="4695"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7.37:</STRONG>
+
+  <TT>hfs</TT>  program structure. 
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="432" HEIGHT="783" BORDER="0"
+ SRC="img132.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/hfs_main.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,296 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Library for Integration Over Spin-Angular variables in Atomic Theory
+</TITLE>
+<META NAME="description" CONTENT="The Library for Integration Over Spin-Angular variables in Atomic Theory
+">
+<META NAME="keywords" CONTENT="ang">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ang.css">
+
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html5"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev_g.png">   
+<BR>
+<B> Next:</B> <A NAME="tex2html6"
+  HREF="node1.html">Introduction</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+
+<P>
+<H1 ALIGN="CENTER">The Library for Integration Over Spin-Angular 
+variables in Atomic Theory
+<BR></H1>
+<P ALIGN="CENTER"><STRONG>Gediminas Gaigalas
+<BR>        <EM>Institute of Theoretical Physics and Astronomy,</EM>
+<BR>        <EM>A. Go&#353;tauto 12, Vilnius 2600, LITHUANIA</EM>
+<BR>         
+<BR>
+Charlotte Froese Fischer 
+<BR>        <EM>Department of Computer Science, Box 1679 B,</EM>
+<BR>        <EM>Vanderbilt University, Nashville, TN 37235, USA</EM></STRONG></P>
+
+<P>
+
+<DIV>
+In this paper a library for spin-angular integration in 
+<TT>LS</TT> -coupling is presented.
+The software is an implementation of a methodology based on the second
+quantization in coupled tensorial form, the angular momentum theory in
+3 spaces (orbital, spin and quasispin), and the graphical technique of
+angular momentum. This implementation
+extends applications in atomic theory capabilities to partially filled <TT>f</TT> - shells
+and has lead to faster execution of angular integration codes.
+The possibility of using some library routines for solving
+various angular momentum problems in atomic physics, is also discussed.
+</DIV>
+<P>
+
+Theoretical determination of atomic energy levels, orbitals and radiative
+transition data requires the calculation of
+matrix elements of physical operators ( see
+the multiconfiguration Hartree-Fock method&nbsp;[1], for example). 
+The matrix elements of arbitrary operator can generally
+be expressed as
+</FONT>
+<P>
+<FONT SIZE="-1"><!-- MATH
+ $\sum_{i,j}~coef(i,j)~<\gamma_{i}L_{i}S_{i}||T^{k_l k_s}||\gamma_{j}L_{j}S_{j}>$
+ -->
+<IMG
+ WIDTH="301" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.png"
+ ALT="$\sum_{i,j}&nbsp;coef(i,j)&nbsp;&lt;\gamma_{i}L_{i}S_{i}\vert\vert T^{k_l k_s}\vert\vert\gamma_{j}L_{j}S_{j}&gt;$">
+where <IMG
+ WIDTH="43" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img7.png"
+ ALT="$T^{k_l k_s}$"> is a tensor operator of ranks <IMG
+ WIDTH="19" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$k_l$">, <IMG
+ WIDTH="21" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$k_s$">.
+The program calculates the spin-angular part for
+matrix elements <!-- MATH
+ $<\gamma_{i}L_{i}S_{i}||T^{k_l k_s}||\gamma_{j}L_{j}S_{j}>$
+ -->
+<IMG
+ WIDTH="188" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img10.png"
+ ALT="$&lt;\gamma_{i}L_{i}S_{i}\vert\vert T^{k_l k_s}\vert\vert\gamma_{j}L_{j}S_{j}&gt;$"> of
+one- and/or two-particle operator <IMG
+ WIDTH="43" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img7.png"
+ ALT="$T^{k_l k_s}$">.
+<BR>
+<BR><EM>Method of solution</EM> 
+<BR>
+This program is created involving the
+angular methodology of [2-5]. It
+has been extended to include partially filled <TT>f</TT> - subshells
+in wavefunction expansions.
+The classification of terms is  identical to that described in [5].
+<BR>
+<BR><EM>Restrictions on the complexity of the problem</EM>
+<BR>
+The restrictions are similar to those described in [6] except that
+non-orthogonal orbitals are not supported.
+The initial and final state must constitute one orthonormal set for
+MLTPOL, LSTR and LSJTR.
+<BR>
+<BR><EM>Unusual features of the program </EM>
+<BR>
+Some of the subroutines described in the libraries may be used separately,
+as electronic tables of standard quantities.
+<BR>
+<BR><EM>References</EM>
+</FONT>
+<P>
+<FONT SIZE="-1">C. Froese Fischer, T. Brage and P. J&#246;nsson,
+   <I>Computational Atomic Structure. An MCHF Approach</I>
+   (Institute of Physics Publishing, Bristol/Philadelphia, 1997).
+</FONT>
+<P>
+<FONT SIZE="-1">G. Gaigalas and Z. Rudzikas,
+J. Phys. B: At. Mol. Phys. 29 (1996) 3303.
+</FONT>
+<P>
+<FONT SIZE="-1">G. Gaigalas, Z. Rudzikas and C. Froese Fischer,
+J. Phys. B: At. Mol. Phys. 30 (1997) 3747.
+</FONT>
+<P>
+<FONT SIZE="-1">G. Gaigalas, A. Bernotas, Z. Rudzikas and C. Froese Fischer,
+Physica Scripta 57 (1998) 207.
+</FONT>
+<P>
+<FONT SIZE="-1">G. Gaigalas, Z. Rudzikas and C. Froese Fischer,
+Atomic Data and Nuclear Data Tables 70 (1998) 1.
+</FONT>
+<P>
+<FONT SIZE="-1">C. Froese Fischer and B. Liu, Comput. Phys. Commun. 64 (1991) 406.</FONT>
+<P>
+
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"></A>
+
+<UL>
+<LI><A NAME="tex2html8"
+  HREF="node2.html">Introduction</A>
+<LI><A NAME="tex2html9"
+  HREF="node3.html">Notations and Methodology of Angular Integrations</A>
+<UL>
+<LI><A NAME="tex2html10"
+  HREF="node4.html">Matrix Elements Between Complex Configurations</A>
+<LI><A NAME="tex2html11"
+  HREF="node5.html">The Electrostatic Electron Interaction,
+Spin-Spin and Spin-Other-Orbit Operators</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html12"
+  HREF="node6.html">Description of the Libraries</A>
+<UL>
+<LI><A NAME="tex2html13"
+  HREF="node7.html">SAI_RECLS</A>
+<LI><A NAME="tex2html14"
+  HREF="node8.html">SAI_SQLS1</A>
+<UL>
+<LI><A NAME="tex2html15"
+  HREF="node9.html">Common Blocks</A>
+<LI><A NAME="tex2html16"
+  HREF="node10.html">Subroutines</A>
+<LI><A NAME="tex2html17"
+  HREF="node11.html">The subroutine NUMTER</A>
+<LI><A NAME="tex2html18"
+  HREF="node12.html">The subroutine RUMT</A>
+<LI><A NAME="tex2html19"
+  HREF="node13.html">The subroutine C0T5S</A>
+<LI><A NAME="tex2html20"
+  HREF="node14.html">The subroutine C1E0SM</A>
+<LI><A NAME="tex2html21"
+  HREF="node15.html">The subroutine C1E1SM</A>
+<LI><A NAME="tex2html22"
+  HREF="node16.html">The subroutine SIXJ</A>
+<LI><A NAME="tex2html23"
+  HREF="node17.html">The subroutine NINE</A>
+<LI><A NAME="tex2html24"
+  HREF="node18.html">The subroutine SLS</A>
+<LI><A NAME="tex2html25"
+  HREF="node19.html">The subroutine RWLS</A>
+<LI><A NAME="tex2html26"
+  HREF="node20.html">The subroutine W1</A>
+<LI><A NAME="tex2html27"
+  HREF="node21.html">The subroutine AWP1LS</A>
+<LI><A NAME="tex2html28"
+  HREF="node22.html">The subroutine WAP1LS</A>
+<LI><A NAME="tex2html29"
+  HREF="node23.html">The subroutine WWLS1</A>
+<LI><A NAME="tex2html30"
+  HREF="node24.html">The subroutine WWPLS1</A>
+</UL>
+<LI><A NAME="tex2html31"
+  HREF="node25.html">SAI_SQLS2</A>
+<UL>
+<LI><A NAME="tex2html32"
+  HREF="node26.html">The subroutine NUMTERF</A>
+<LI><A NAME="tex2html33"
+  HREF="node27.html">The subroutine RUMT67</A>
+</UL>
+<LI><A NAME="tex2html34"
+  HREF="node28.html">SAI_NORE</A>
+<LI><A NAME="tex2html35"
+  HREF="node29.html">SAI_DUDU</A>
+<UL>
+<LI><A NAME="tex2html36"
+  HREF="node30.html">Spin-orbit interaction</A>
+<LI><A NAME="tex2html37"
+  HREF="node31.html">Spin-spin interaction</A>
+<LI><A NAME="tex2html38"
+  HREF="node32.html">Spin-other-orbit interaction</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html39"
+  HREF="node33.html">Examples</A>
+<UL>
+<LI><A NAME="tex2html40"
+  HREF="node34.html">Case 1. Finding the RCFP</A>
+<LI><A NAME="tex2html41"
+  HREF="node35.html">Case 2. Calculating the CFP</A>
+<LI><A NAME="tex2html42"
+  HREF="node36.html">Case 3. Calculating the matrix elements of <IMG
+ WIDTH="27" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img476.png"
+ ALT="$V^{k}$"> operator</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html43"
+  HREF="node37.html">Table 4. EXAMPLES RUN OUTPUT</A>
+<UL>
+<LI><A NAME="tex2html44"
+  HREF="node38.html">Case 1. Finding a reduced coefficient of fractional parentage</A>
+<LI><A NAME="tex2html45"
+  HREF="node39.html">Case 2. Calculation of the coefficient of fractional parentage</A>
+<LI><A NAME="tex2html46"
+  HREF="node40.html">Case 3. Calculation of the matrix elements of operator <IMG
+ WIDTH="27" HEIGHT="21" ALIGN="BOTTOM" BORDER="0"
+ SRC="img476.png"
+ ALT="$V^{k}$"></A>
+</UL>
+<BR>
+<LI><A NAME="tex2html47"
+  HREF="node41.html">Acknowledgements</A>
+<LI><A NAME="tex2html48"
+  HREF="node42.html">Bibliography</A>
+<LI><A NAME="tex2html49"
+  HREF="node43.html">About this document ...</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html5"
+  HREF="node2.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev_g.png">   
+<BR>
+<B> Next:</B> <A NAME="tex2html6"
+  HREF="node2.html">Introduction</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-12-07
+</ADDRESS>
+</BODY>
+</HTML>

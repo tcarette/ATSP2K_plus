@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Program Structure</TITLE>
+<META NAME="description" CONTENT="Program Structure">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node61.html">
+<LINK REL="previous" HREF="node59.html">
+<LINK REL="up" HREF="node58.html">
+<LINK REL="next" HREF="node61.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1032"
+  HREF="node61.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1028"
+  HREF="node58.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1022"
+  HREF="node59.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1030"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1033"
+  HREF="node61.html">File IO</A>
+<B> Up:</B> <A NAME="tex2html1029"
+  HREF="node58.html">BP_ANG</A>
+<B> Previous:</B> <A NAME="tex2html1023"
+  HREF="node59.html">Introduction</A>
+ &nbsp <B>  <A NAME="tex2html1031"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00920000000000000000">
+Program Structure</A>
+</H1>
+<TT>bp_ang</TT> performs computing and saving angular data in files
+for consquent use by <TT>bp_mat</TT>.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:bp_ang_main"></A><A NAME="3801"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7.21:</STRONG>
+
+  bp_ang() program structure.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="327" HEIGHT="130" BORDER="0"
+ SRC="img94.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/bp_ang_main.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The initial data, which the user interactively enters is processed
+by <TT>inp_atom(), brevala()</TT>, the user have the choice to select 
+options about the calculation:
+
+<OL>
+<LI>Relativistic or nonrelativistic calculation
+</LI>
+<LI>Gradient or Slater integral form
+</LI>
+<LI>Selection of operators, SO, SOO, SS, OO. 
+</LI>
+<LI>Default Rydberg constant
+</LI>
+<LI>All interactions. This option can be used upon discretion 
+of the user to select relativistic calculation only for desired
+range of the configuration list.
+</LI>
+</OL>
+
+<P>
+All angular data is generated in <TT>brevala()</TT>, which first requests
+from the user data about the  operators to be included, and
+sets <TT>ISPORB,ISOORB,ISPSPN,IORBORB,ICOLOM</TT> to true if the 
+corresponding operators if requested. 
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:brevala"></A><A NAME="3803"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7.22:</STRONG>
+
+  <TT>brevala()</TT> processes the list of configurations in 
+<TT>breitgg()</TT> after collecting from the user more
+information about the type of calculation which includes
+type of operators and interactions to be considered.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="315" HEIGHT="321" BORDER="0"
+ SRC="img95.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/bp_ang_brevala.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+Then, initial data about the type and the number of integrals is 
+generated in <TT>genintbr()</TT>:
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:genintbr"></A><A NAME="3805"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7.23:</STRONG>
+
+  <TT>genitbr()</TT> computes integrals.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="491" HEIGHT="265" BORDER="0"
+ SRC="img96.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/bp_ang_genintbr.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+<TT>genitbr()</TT> is an interface to <TT>comp_genitbr()</TT>, 
+which performs the calculation of the integrals. <TT>comp_genitbr()</TT>
+is called twice, the first time, it only sweeps over all
+possible integrals without computing them, and the total 
+number of integrals are determined. The total number of integrals is 
+then used to allocate memory for <TT>intptr, value</TT>, which are 
+correspondingly the arrays containing the integral and pointer 
+data.  In the next phase <TT>comp_genitbr()</TT> computes the 
+integral data for all orbitals.
+
+<P>
+The main loop is over the entire configuration list and 
+the data for matrix elements are generated by column.
+The interaction matrix is  symmetric and only the lower
+or upper part needs to be evaluated. <TT>breitgg()</TT>
+generates the nonrelativistic hamiltonian assuming orthogonal
+orbitals.  
+Thus the computational sequence is:
+<PRE>
+ For column = 1 to ncfg
+    For row = column to ncfg
+</PRE>
+
+<P>
+For each column, data is written to a set of files, described in 
+&nbsp;<A HREF="node107.html#chap:io">14.15</A>, and further below:
+<PRE>
+      DO jb = 1, ncfg
+         if(mod(jb,100).eq.0) write(ISCW,'(A,I5)') '   jb = ',jb
+         if(jb == ncfg) write(ISCW,'(A,I5)') '   jb = ',jb
+         CALL SHELLSJB(JB)
+         call BreitGG(NEW,NZERO,IFIRST,idg,skip,nze)
+         write(11) nih, (jan(i),i=1,nih);
+         write(12) nih, (ico(i),i=1,nih);
+         mycol = mycol + 1
+         jptr(mycol) = nij
+      end do
+</PRE>
+
+<P>
+Figure &nbsp;<A HREF="node60.html#fig:breitgg">7.24</A> shows the steps of processing each
+configuration. All routines are from the angular library <TT>libang.a</TT>.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:breitgg"></A><A NAME="3807"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 7.24:</STRONG>
+
+  Subroutines <TT>breitgg()</TT>. 
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="382" HEIGHT="679" BORDER="0"
+ SRC="img97.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/bp_ang_breitgg.epsi,height=15cm}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1032"
+  HREF="node61.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1028"
+  HREF="node58.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1022"
+  HREF="node59.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1030"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1033"
+  HREF="node61.html">File IO</A>
+<B> Up:</B> <A NAME="tex2html1029"
+  HREF="node58.html">BP_ANG</A>
+<B> Previous:</B> <A NAME="tex2html1023"
+  HREF="node59.html">Introduction</A>
+ &nbsp <B>  <A NAME="tex2html1031"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

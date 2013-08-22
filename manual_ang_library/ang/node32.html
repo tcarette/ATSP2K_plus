@@ -1,0 +1,363 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Spin-other-orbit interaction</TITLE>
+<META NAME="description" CONTENT="Spin-other-orbit interaction">
+<META NAME="keywords" CONTENT="ang">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ang.css">
+
+<LINK REL="previous" HREF="node31.html">
+<LINK REL="up" HREF="node29.html">
+<LINK REL="next" HREF="node33.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html407"
+  HREF="node33.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html405"
+  HREF="node29.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html401"
+  HREF="node31.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html408"
+  HREF="node33.html">Examples</A>
+<B> Up:</B> <A NAME="tex2html406"
+  HREF="node29.html">SAI_DUDU</A>
+<B> Previous:</B> <A NAME="tex2html402"
+  HREF="node31.html">Spin-spin interaction</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00045300000000000000">
+Spin-other-orbit interaction</A>
+</H3>
+
+<P>
+The subroutine <B>SOOC</B> investigates the spin-other-orbit operator,
+which according to (16) of P3&nbsp;[<A
+ HREF="node42.html#method3">5</A>] has the tensorial form:
+<BR>
+<DIV ALIGN="CENTER"><A NAME="eq:m-b"></A>
+<!-- MATH
+ \begin{eqnarray}
+H_{12}^{soo} & \equiv &  \nonumber \\
+& \equiv & \displaystyle {\sum_k}\left\{
+H_{soo}^{\left( k-1k1,101\right) } +H_{soo}^{\left( k-1k1,011\right)
+}+H_{soo}^{\left( kk1,101\right) } \right.  \nonumber \\
+& + & \left.
+H_{soo}^{\left( kk1,011\right) }+H_{soo}^{\left( k+1k1,101\right)
+}+H_{soo}^{\left( k+1k1,011\right) }\right\}. \nonumber
+\end{eqnarray}
+ -->
+<TABLE ALIGN="CENTER" CELLPADDING="0" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="40" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img462.png"
+ ALT="$\displaystyle H_{12}^{soo}$"></TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img463.png"
+ ALT="$\textstyle \equiv$"></TD>
+<TD>&nbsp;</TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img463.png"
+ ALT="$\textstyle \equiv$"></TD>
+<TD ALIGN="LEFT" NOWRAP><IMG
+ WIDTH="321" HEIGHT="52" ALIGN="MIDDLE" BORDER="0"
+ SRC="img464.png"
+ ALT="$\displaystyle \displaystyle {\sum_k}\left\{
+H_{soo}^{\left( k-1k1,101\right) } +H_{soo}^{\left( k-1k1,011\right)
+}+H_{soo}^{\left( kk1,101\right) } \right.$"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img465.png"
+ ALT="$\textstyle +$"></TD>
+<TD ALIGN="LEFT" NOWRAP><IMG
+ WIDTH="302" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
+ SRC="img466.png"
+ ALT="$\displaystyle \left.
+H_{soo}^{\left( kk1,011\right) }+H_{soo}^{\left( k+1k1,101\right)
+}+H_{soo}^{\left( k+1k1,011\right) }\right\}.$"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+This subroutine is used for all distributions except
+<!-- MATH
+ $\alpha\alpha\alpha\alpha$
+ -->
+<IMG
+ WIDTH="47" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img406.png"
+ ALT="$\alpha\alpha\alpha\alpha$">, <!-- MATH
+ $\alpha\beta\alpha\beta$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img407.png"
+ ALT="$\alpha\beta\alpha\beta$">,
+<!-- MATH
+ $\beta\alpha\beta\alpha$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img408.png"
+ ALT="$\beta\alpha\beta\alpha$">, <!-- MATH
+ $\alpha\beta\beta\alpha$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img409.png"
+ ALT="$\alpha\beta\beta\alpha$">,
+<!-- MATH
+ $\beta\alpha\alpha\beta$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img410.png"
+ ALT="$\beta\alpha\alpha\beta$"> and <!-- MATH
+ $\alpha\alpha\beta\beta$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img411.png"
+ ALT="$\alpha\alpha\beta\beta$">.
+For distributions
+<!-- MATH
+ $\alpha\alpha\alpha\alpha$
+ -->
+<IMG
+ WIDTH="47" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img406.png"
+ ALT="$\alpha\alpha\alpha\alpha$">, <!-- MATH
+ $\alpha\beta\alpha\beta$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img407.png"
+ ALT="$\alpha\beta\alpha\beta$"> and
+<!-- MATH
+ $\beta\alpha\beta\alpha$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img408.png"
+ ALT="$\beta\alpha\beta\alpha$">,
+according to (34), (39) and (40) of P3&nbsp;[<A
+ HREF="node42.html#method3">5</A>], the tensorial form
+<BR>
+<DIV ALIGN="CENTER"><A NAME="eq:m-bb"></A>
+<!-- MATH
+ \begin{eqnarray}
+H_{12}^{soo} & \equiv &  \nonumber \\
+& \equiv & \displaystyle {\sum_k}\left\{
+H_{soo}^{\left( k-1k1,101\right) } +H_{soo}^{\left( k-1k1,011\right)
+} \right.  \nonumber \\
+& + & \left.
+H_{soo}^{\left( k+1k1,101\right)
+}+H_{soo}^{\left( k+1k1,011\right) }\right\} \nonumber
+\end{eqnarray}
+ -->
+<TABLE ALIGN="CENTER" CELLPADDING="0" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT"><IMG
+ WIDTH="40" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img462.png"
+ ALT="$\displaystyle H_{12}^{soo}$"></TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img463.png"
+ ALT="$\textstyle \equiv$"></TD>
+<TD>&nbsp;</TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img463.png"
+ ALT="$\textstyle \equiv$"></TD>
+<TD ALIGN="LEFT" NOWRAP><IMG
+ WIDTH="233" HEIGHT="52" ALIGN="MIDDLE" BORDER="0"
+ SRC="img467.png"
+ ALT="$\displaystyle \displaystyle {\sum_k}\left\{
+H_{soo}^{\left( k-1k1,101\right) } +H_{soo}^{\left( k-1k1,011\right)
+} \right.$"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="18" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img465.png"
+ ALT="$\textstyle +$"></TD>
+<TD ALIGN="LEFT" NOWRAP><IMG
+ WIDTH="207" HEIGHT="47" ALIGN="MIDDLE" BORDER="0"
+ SRC="img468.png"
+ ALT="$\displaystyle \left.
+H_{soo}^{\left( k+1k1,101\right)
+}+H_{soo}^{\left( k+1k1,011\right) }\right\}$"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+is valid. Therefore instead of subroutine
+<B>SSC</B> the subroutines <B>SOO1111</B>, <B>SOO1212</B>, <B>SOO1212</B>
+respectively are used. The distribution
+<!-- MATH
+ $\alpha\beta\beta\alpha$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img409.png"
+ ALT="$\alpha\beta\beta\alpha$">, <!-- MATH
+ $\beta\alpha\alpha\beta$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img410.png"
+ ALT="$\beta\alpha\alpha\beta$"> and
+<!-- MATH
+ $\alpha\alpha\beta\beta$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img411.png"
+ ALT="$\alpha\alpha\beta\beta$">
+are also calculated according to separate expressions. These are treated by the
+subroutines
+<B>SOO1221P</B>, <B>SOO1221P</B> and <B>SOO1122P</B>.
+
+<P>
+The subroutines <B>SOOA</B> and <B>SOOB</B> investigate the
+submatrix elements of the spin-other-orbit interaction operator
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+\left( n_i\lambda _in_j\lambda _j||H_{ss}^{\left( k-1 k 1,101 \right)
+}||n_i^{\prime }\lambda _i^{\prime }n_j^{\prime }\lambda _j^{\prime }\right),
+~~~~~
+\left( n_i\lambda _in_j\lambda _j||H_{ss}^{\left( k-1 k 1,011 \right)
+}||n_i^{\prime }\lambda _i^{\prime }n_j^{\prime }\lambda _j^{\prime }\right),
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="549" HEIGHT="34" BORDER="0"
+ SRC="img469.png"
+ ALT="\begin{displaymath}\left( n_i\lambda _in_j\lambda _j\vert\vert H_{ss}^{\left( k-...
+... }\lambda _i^{\prime }n_j^{\prime }\lambda _j^{\prime }\right),\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+\left( n_i\lambda _in_j\lambda _j||H_{ss}^{\left( k k 1,101 \right)
+}||n_i^{\prime }\lambda _i^{\prime }n_j^{\prime }\lambda _j^{\prime }\right),
+~~~~~
+\left( n_i\lambda _in_j\lambda _j||H_{ss}^{\left( k k 1,011 \right)
+}||n_i^{\prime }\lambda _i^{\prime }n_j^{\prime }\lambda _j^{\prime }\right),
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="532" HEIGHT="34" BORDER="0"
+ SRC="img470.png"
+ ALT="\begin{displaymath}\left( n_i\lambda _in_j\lambda _j\vert\vert H_{ss}^{\left( k ...
+... }\lambda _i^{\prime }n_j^{\prime }\lambda _j^{\prime }\right),\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+\left( n_i\lambda _in_j\lambda _j||H_{ss}^{\left( k+1 k 1,101 \right)
+}||n_i^{\prime }\lambda _i^{\prime }n_j^{\prime }\lambda _j^{\prime }\right),
+~~~~~
+\left( n_i\lambda _in_j\lambda _j||H_{ss}^{\left( k+1 k 1,011 \right)
+}||n_i^{\prime }\lambda _i^{\prime }n_j^{\prime }\lambda _j^{\prime }\right)
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="543" HEIGHT="34" BORDER="0"
+ SRC="img471.png"
+ ALT="\begin{displaymath}\left( n_i\lambda _in_j\lambda _j\vert\vert H_{ss}^{\left( k+...
+...e }\lambda _i^{\prime }n_j^{\prime }\lambda _j^{\prime }\right)\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+according to the formulas (26), (27) and (28) of P3&nbsp;[<A
+ HREF="node42.html#method3">5</A>] respectively.
+These subroutines are used for all distributions except
+<!-- MATH
+ $\alpha\alpha\alpha\alpha$
+ -->
+<IMG
+ WIDTH="47" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img406.png"
+ ALT="$\alpha\alpha\alpha\alpha$">. In the latter case instead of subroutines
+<B>SOOA</B> and <B>SOOB</B> the subroutine <B>SOO1</B> is used.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html407"
+  HREF="node33.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html405"
+  HREF="node29.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html401"
+  HREF="node31.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html408"
+  HREF="node33.html">Examples</A>
+<B> Up:</B> <A NAME="tex2html406"
+  HREF="node29.html">SAI_DUDU</A>
+<B> Previous:</B> <A NAME="tex2html402"
+  HREF="node31.html">Spin-spin interaction</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-12-07
+</ADDRESS>
+</BODY>
+</HTML>

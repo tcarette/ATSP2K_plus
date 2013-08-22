@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>tables</TITLE>
+<META NAME="description" CONTENT="tables">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node106.html">
+<LINK REL="previous" HREF="node104.html">
+<LINK REL="up" HREF="node91.html">
+<LINK REL="next" HREF="node106.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1595"
+  HREF="node106.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1591"
+  HREF="node91.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1585"
+  HREF="node104.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1593"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1596"
+  HREF="node106.html">Useful scripts</A>
+<B> Up:</B> <A NAME="tex2html1592"
+  HREF="node91.html">Utility programs</A>
+<B> Previous:</B> <A NAME="tex2html1586"
+  HREF="node104.html">w_format and w_unformat</A>
+ &nbsp <B>  <A NAME="tex2html1594"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION0016140000000000000000">
+tables</A>
+</H1> This is another version of the original
+gtables program. In addition to tabulating data in the same
+fashion as the gtables, this version has the the following new
+features:
+
+<UL>
+<LI>nonphysical states are listed
+</LI>
+<LI>the .lsj file is cleaned from nonphysical transitions
+</LI>
+<LI>.lsj is sorted according to the criteria provided by the user
+</LI>
+<LI>concatenated .l files are accepted  and the program prints the 
+spectrum as computed from <TT>mchf</TT>. Good LS spectrum is 
+frequently an indicator for proper computational model.  
+</LI>
+<LI>the energy spectrum can be computed from .lsj files, the 
+only difference is that the Zeeman factors which are contained 
+in the .j files will not be displayed. 
+</LI>
+</UL>
+
+<P>
+Depending on provided input files, tables require the following input:
+
+<UL>
+<LI>.l files or .j files
+The program prints the spectrum and prompts the user to input the 
+levels to be erased:
+<PRE>
+.....
+--------------------------------------------------------------------------------
+     Configuration                 Term  J  Total Energy  Levels 
+--------------------------------------------------------------------------------
+  1. 2s(2).2p(3)4S3              4S   3/2 -54.554039298                     
+  2.                                  3/2 -54.554039298           
+
+  3. 2s(2).2p(3)2D3              2D   5/2 -54.466443168  19224.37           
+  4.                                  5/2 -54.466443168  19224.37 
+  5.                                  3/2 -54.466403464  19233.09     8.71  
+  6.                                  3/2 -54.466403464  19233.09 
+
+  7. 2s(2).2p(3)2P1              2P   1/2 -54.422633792  28839.04           
+  8.                                  1/2 -54.422633792  28839.04 
+  9.                                  3/2 -54.422633692  28839.07     0.02  
+ 10.                                  3/2 -54.422633692  28839.07 
+--------------------------------------------------------------------------------
+B.lsj not found ...
+
+The following duplicate states will be erased:
+
+  2   4   6   8  10 
+
+Select more nonphysical, use a "+" at the end for a cut-off point. Example:
+3 8 +, will additionally remove 3, 8 and higher.
+</PRE>
+
+<P>
+The program will automatically erase all states that are duplicated, or
+nonphysical (i.e. the same states but with high energy). 
+
+<P>
+</LI>
+<LI>.lsj files
+
+<P>
+If only .lsj files are present the user needs to enter the atomic
+number and the number of electrons, since this information 
+is not present in the .lsj files.
+
+<P>
+</LI>
+<LI>.lsj and .j files
+If both files are present the user may select the sorting 
+criterion from one of the following:
+<PRE>
+ 1. Transition energies.
+ 2. Lower-Upper.
+ 3. Upper-Lower.
+ 4. f value.
+ 5. Line strength.
+ 6. Wavelength(air).
+</PRE>
+</LI>
+</UL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1595"
+  HREF="node106.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1591"
+  HREF="node91.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1585"
+  HREF="node104.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1593"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1596"
+  HREF="node106.html">Useful scripts</A>
+<B> Up:</B> <A NAME="tex2html1592"
+  HREF="node91.html">Utility programs</A>
+<B> Previous:</B> <A NAME="tex2html1586"
+  HREF="node104.html">w_format and w_unformat</A>
+ &nbsp <B>  <A NAME="tex2html1594"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

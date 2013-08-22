@@ -1,0 +1,327 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Diagonalization</TITLE>
+<META NAME="description" CONTENT="Diagonalization">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="previous" HREF="node51.html">
+<LINK REL="up" HREF="node49.html">
+<LINK REL="next" HREF="node53.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html934"
+  HREF="node53.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html930"
+  HREF="node49.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html926"
+  HREF="node51.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html932"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html935"
+  HREF="node53.html">Dynamic memory management</A>
+<B> Up:</B> <A NAME="tex2html931"
+  HREF="node49.html">Program Structure</A>
+<B> Previous:</B> <A NAME="tex2html927"
+  HREF="node51.html">SCF procedure</A>
+ &nbsp <B>  <A NAME="tex2html933"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00823000000000000000">
+Diagonalization</A>
+</H2>
+
+<P>
+In the next phase the eigenvalue is solved, and the
+mixing coefficients <IMG
+ WIDTH="36" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img62.png"
+ ALT="$\{ c_j \}$"> are updated.
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:scf_diag"></A><A NAME="2921"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.16:</STRONG>
+Steps in solving the eigenvalue problem.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="420" HEIGHT="139" BORDER="0"
+ SRC="img77.png"
+ ALT="\begin{figure}\centerline{ \psfig{file=tex/fig/scf_diag.eps}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+During this phase <TT>diag()</TT> performs the process referred 
+to as a "simultaneous optimization" in three distinctive steps.
+During the first step the matrix elements are assembled and 
+the matrix diagonalized. Diagonalization occurs in the 
+one of the routines <TT>diag_memory_all(),diag_disk_clst(),
+diag_disk_ico(),diag_disk_hmx()</TT>. The differ in the 
+storage methods which are used as function of available 
+memory. The main loop is over all coefficients, tt coeff, which are 
+contained in file <TT>c.lst</TT>. It is a complicated loop 
+with a number of logical statements and it includes
+single and double precision arithmetics, this reduces the 
+optimization of the Mflop performance to less than 30% of 
+theoretical possible for floating point calculations. 
+The fastest routine is <TT>diag_memory_all()</TT>, it does not
+include any disk IO. The main loop is shown below:
+
+<P>
+<PRE>
+      do ii = 1, n_cf;
+          n_count_tmp = ncoef+ii
+          if (ii.gt.ico(nijcurr+nz)) nijcurr = nijcurr + 1
+          hmx(nijcurr) = hmx(nijcurr) +
+     :            coeff(n_count_tmp)*value(inptr(n_count_tmp))
+          if (nijcurr.gt.jptr(jjh)) then
+            jjh = jjh + 1;
+            max_col = max_col+1
+          end if 
+        end do
+</PRE>
+
+<P>
+This fragment combines the matrix elements based on the information 
+about the column index <TT>ico</TT>, the column pointer <TT>jptr</TT>
+and the coefficient <TT>coeff</TT>.
+The rest of the <TT>diag_*()</TT> routines perform the 
+same task, however apply disk IO to a various degree, 
+with the worst case being <TT>diag_disk_hmx()</TT>,
+which reads each of the files <TT>c.lst, ih.nn.lst, ico.lst</TT>. 
+
+<P>
+The next step computes the selected eigenvalues using
+the Davidson algorithm. The eigenvectors for each requested eigenvalue
+are saved and applied for updating the coefficients. This
+steps proceeds consequently for each block, after
+the last step the weighted total energy is computed an 
+displayed during each iteration. 
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:diag_steps"></A><A NAME="2939"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.17:</STRONG>
+
+Steps in solving the eigenvalue problem.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="338" HEIGHT="531" BORDER="0"
+ SRC="img78.png"
+ ALT="\begin{figure}\centerline{\psfig{file=tex/fig/diag_steps.eps}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The optimization is performed on the functional
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+{\cal E} = \sum_{T_i} w_{T_i} {\cal E}(T_i) /\sum_{T_i}w_{T_i}
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="369" HEIGHT="46" BORDER="0"
+ SRC="img67.png"
+ ALT="\begin{displaymath}{\cal E} = \sum_{T_i} w_{T_i} {\cal E}(T_i) /\sum_{T_i}w_{T_i}\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+where <IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img68.png"
+ ALT="$w_{T_i}$"> is the weight for <IMG
+ WIDTH="21" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img69.png"
+ ALT="${T_i}$">, where <IMG
+ WIDTH="43" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img64.png"
+ ALT="${\cal E}(T_i)$">
+represents an energy functional for term <IMG
+ WIDTH="18" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img65.png"
+ ALT="$T$"> and eigenvalue <IMG
+ WIDTH="12" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img66.png"
+ ALT="$i$">
+Updating the coefficients proceeds similar to the calculation
+of the matrix elements. Depending on storage requirements and 
+availability one of the routines, <TT>UPDATC_memory_all(), 
+UPDATC_disk_ico(), UPDATC_disk_clst(), UPDATC_disk_ih()</TT>,
+is applied to update the coefficients of all integrals,
+ which contribute to the energy. This procedure is applied
+to all blocks, figure &nbsp;<A HREF="node52.html#fig:diag_steps">6.17</A>. 
+For all coefficients, the weighted contribution of the 
+mixin coefficient is in a complicated loop containing
+multiple logical constructs, floating and integral 
+calculations. Upon convergence, during the last iteration,
+the routine <TT>prprty()</TT> is called to compute a number of
+wave function properties, saved in file <TT>summry</TT>. 
+
+<P>
+The listing below shows the complexity of the coefficient 
+updating process.
+<PRE> 
+      if (iblock == 1) ncoef = 0;
+        do i = 1, cf_tot(iblock);
+            n_count_tmp = ncoef+i
+            if (i.gt.ico(nijcurr)) then
+                nijcurr = nijcurr + 1
+*               .. have we also changed column?
+                if (nijcurr.gt.jptr(max_col)) then
+                   jjh = jjh + 1;
+                   max_col = max_col+1
+                end if
+             end if
+             iih = ihh(nijcurr)
+             im1 = 0;
+             do j = 1,maxev
+               ioffw = (j-1)*ncfg
+               if (leigen(j,iblock)) then
+                 wcoef = eigst_weight(j,iblock)
+                 W = wcoef*wt(ioffw+iih)*wt(ioffw+jjh)
+                 T = W*coeff(n_count_tmp)
+                 IF (IIH .NE. JJH) T = T+T
+                 coef(inptr(n_count_tmp)) = coef(inptr(n_count_tmp)) + T
+                 if (last) then
+                   W0 = wt(ioffw+iih)*wt(ioffw+jjh);
+                   T0 = W0*coeff(n_count_tmp);
+                   IF (IIH .NE. JJH) T0 = T0 + T0;
+                   itmp_s = (inptr(n_count_tmp))+idim*im1;
+                   tmp_coef(itmp_s) = tmp_coef(itmp_s) + T0;
+                   im1 = im1 + 1;
+                 end if
+               end if
+             end do
+      end do
+</PRE>
+
+<P>
+Figure &nbsp;<A HREF="node52.html#fig:mchf_diag">6.18</A> shows the implementation and 
+the call sequence in <TT>diag()</TT>.
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:mchf_diag"></A><A NAME="3155"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.18:</STRONG>
+
+  <TT>diag()</TT> computes the elements of the <TT>H</TT> matrix
+  and solves the eigenvalue problem. At the begining,
+  memory is allocated for the diagonalization procedure. Then, one
+  of the versions of <TT>diag_*()</TT> is called and the matrix elements
+  are computed and diagonalized. Further, the <TT>dvdson()</TT> routines
+  return the eigenvector(s). The memory used by <TT>dvdson()</TT> is
+  deallocated. Then, the <TT>coef</TT> are updated in one of the versions
+  of <TT>updatc_*()</TT>. <I>NOTE:</I> <TT>diag_*)</TT> and <TT>diag_*()</TT>
+  differ only with regards to memory and disk use.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="339" HEIGHT="697" BORDER="0"
+ SRC="img79.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/mchf_diag.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+There are special storage requirements for each step: 
+Arrays (<TT>hmx_diag</TT>), <TT>inptr</TT>, <TT>coeff</TT> and
+<TT>ico</TT> are accessed only once. In contrast, the iterative 
+solution of the eigenvalue problem (<TT>dvdson</TT>) requires
+multiple read access operations on the interaction matrix
+(only <TT>hmx</TT> and <TT>ih</TT> are used).  Therefore, higher priority
+for storing in memory was given to <TT>hmx</TT> and <TT>ih</TT>.
+After <TT>dvdson</TT> the memory used in <TT>diag_hmx</TT> and <TT>dvdson</TT> 
+is deallo cated and used in <TT>updatc</TT>.
+Finally, updating the coefficients requires a single access to <TT>ih</TT>, and
+<TT>ico</TT> suggesting higher priority for <TT>ico</TT> over <TT>coeff</TT>. 
+Table  &nbsp;<A HREF="node53.html#tab:mem">6.3</A>
+shows the multilevel storage scheduling derived from the frequency of
+data access. The storage scheduling will depend on the size of the problem
+and the system capacity and <TT>mchf</TT> is designed to select the best
+level with respect to computational efficiency.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="figure:diag_mchf"></A><A NAME="3157"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.19:</STRONG>
+
+Storage access requirements in <TT>diag()</TT>.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="403" HEIGHT="353" BORDER="0"
+ SRC="img80.png"
+ ALT="\begin{figure}\centerline{\psfig{file=tex/fig/diag_storage.epsi}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html934"
+  HREF="node53.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html930"
+  HREF="node49.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html926"
+  HREF="node51.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html932"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html935"
+  HREF="node53.html">Dynamic memory management</A>
+<B> Up:</B> <A NAME="tex2html931"
+  HREF="node49.html">Program Structure</A>
+<B> Previous:</B> <A NAME="tex2html927"
+  HREF="node51.html">SCF procedure</A>
+ &nbsp <B>  <A NAME="tex2html933"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

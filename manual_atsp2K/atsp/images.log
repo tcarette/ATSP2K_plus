@@ -1,0 +1,307 @@
+This is TeX, Version 3.14159 (Web2C 7.3.1) (format=latex 2001.3.27)  11 OCT 2001 03:50
+**./images.tex
+(./images.tex
+LaTeX2e <1999/12/01> patch level 1
+Babel <v3.6Z> and hyphenation patterns for american, french, german, ngerman, i
+talian, portuges, russian, spanish, nohyphenation, loaded.
+
+(/usr/share/texmf/tex/latex/base/latex209.def
+File: latex209.def 1998/05/13 v0.52 Standard LaTeX file
+
+          Entering LaTeX 2.09 COMPATIBILITY MODE
+ *************************************************************
+    !!WARNING!!    !!WARNING!!    !!WARNING!!    !!WARNING!!   
+ 
+ This mode attempts to provide an emulation of the LaTeX 2.09
+ author environment so that OLD documents can be successfully
+ processed. It should NOT be used for NEW documents!
+ 
+ New documents should use Standard LaTeX conventions and start
+ with the \documentclass command.
+ 
+ Compatibility mode is UNLIKELY TO WORK with LaTeX 2.09 style
+ files that change any internal macros, especially not with
+ those that change the FONT SELECTION or OUTPUT ROUTINES.
+ 
+ Therefore such style files MUST BE UPDATED to use
+          Current Standard LaTeX: LaTeX2e.
+ If you suspect that you may be using such a style file, which
+ is probably very, very old by now, then you should attempt to
+ get it updated by sending a copy of this error message to the
+ author of that file.
+ *************************************************************
+
+\footheight=\dimen102
+\@maxsep=\dimen103
+\@dblmaxsep=\dimen104
+\@cla=\count79
+\@clb=\count80
+\mscount=\count81
+(/usr/share/texmf/tex/latex/base/tracefnt.sty
+Package: tracefnt 1997/05/29 v3.0j Standard LaTeX package (font tracing)
+\tracingfonts=\count82
+LaTeX Info: Redefining \selectfont on input line 96.
+)
+\symbold=\mathgroup4
+\symsans=\mathgroup5
+\symtypewriter=\mathgroup6
+\symitalic=\mathgroup7
+\symsmallcaps=\mathgroup8
+\symslanted=\mathgroup9
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 288.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 289.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 290.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 296.
+LaTeX Info: Redefining \em on input line 306.
+(/usr/share/texmf/tex/latex/base/latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup10
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 42.
+)
+LaTeX Font Info:    Redeclaring math delimiter \lgroup on input line 370.
+LaTeX Font Info:    Redeclaring math delimiter \rgroup on input line 372.
+LaTeX Font Info:    Redeclaring math delimiter \bracevert on input line 374.
+(/usr/share/texmf/tex/latex/config/latex209.cfg) (/usr/share/texmf/tex/latex/to
+ols/rawfonts.sty
+Package: rawfonts 1994/05/08 Low-level LaTeX 2.09 font compatibility
+(/usr/share/texmf/tex/latex/tools/somedefs.sty
+Package: somedefs 1994/06/01 Toolkit for optional definitions
+)
+LaTeX Font Info:    Try loading font information for U+lasy on input line 44.
+(/usr/share/texmf/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2eLaTeX symbol font definitions
+)))
+Compatibility mode: loading iopbk.sty rather than iopbk.cls.
+(/usr/share/texmf/tex/latex/misc/iopbk.sty
+Document Style `Iopbk'. IOP book style file, Released 13 October 1992
+\bdifam=\mathgroup11
+\bsyfam=\mathgroup12
+\bssfam=\mathgroup13
+(/usr/share/texmf/tex/latex/misc/iopbk10.sty)
+\descriptionmargin=\dimen105
+\c@part=\count83
+\c@chapter=\count84
+\c@section=\count85
+\c@subsection=\count86
+\c@subsubsection=\count87
+\c@paragraph=\count88
+\c@subparagraph=\count89
+\c@figure=\count90
+\c@table=\count91
+\tablebox=\box26
+) (/usr/share/texmf/tex/latex/graphics/epsfig.sty
+Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
+(/usr/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+(/usr/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+) (/usr/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 1999/02/16 v1.0l Standard LaTeX Graphics (DPC,SPQR)
+(/usr/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+) (/usr/share/texmf/tex/latex/config/graphics.cfg)
+Package graphics Info: Driver file: dvips.def on input line 80.
+(/usr/share/texmf/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen106
+\Gin@req@width=\dimen107
+)
+\epsfxsize=\dimen108
+\epsfysize=\dimen109
+) (/usr/share/texmf/tex/latex/misc/fullpage.sty
+Style Option FULLPAGE Version 2 as of 15 Dec 1988
+) (/usr/share/texmf/tex/latex/base/ifthen.sty
+Package: ifthen 1999/09/10 v1.1b Standard LaTeX ifthen package (DPC)
+)
+
+! LaTeX Error: LaTeX2e command \usepackage in LaTeX 2.09 document.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.26 \usepackage
+                [latin1]{inputenc}
+This is a LaTeX 2.09 document, but it contains \usepackage.
+If you want to use the new features of LaTeX2e, your document
+should begin with \documentclass rather than \documentstyle
+
+
+! LaTeX Error: \usepackage before \documentclass.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.26 \usepackage[latin1]{
+                         inputenc}
+\usepackage may only appear in the document preamble, i.e.,
+between \documentclass and \begin{document}.
+
+\sizebox=\box27
+\lthtmlwrite=\write3
+
+! LaTeX Error: Command \selectlanguage already defined.
+               Or name \end... illegal, see p.192 of the manual.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.117 \providecommand{\selectlanguage}[1]{}
+                                           %
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+(images.aux (/home/georgio/Atom/Web/mchf_collection/man/man/tex/t_inst.aux) (/h
+ome/georgio/Atom/Web/mchf_collection/man/man/tex/t_run.aux) (/home/georgio/Atom
+/Web/mchf_collection/man/man/tex/t_sa.aux) (/home/georgio/Atom/Web/mchf_collect
+ion/man/man/tex/t_web.aux) (/home/georgio/Atom/Web/mchf_collection/man/man/tex/
+t_nonh.aux) (/home/georgio/Atom/Web/mchf_collection/man/man/tex/t_mchf.aux
+
+LaTeX Warning: Label `fig:mpi_io' multiply defined.
+
+) (/home/georgio/Atom/Web/mchf_collection/man/man/tex/t_bp_ang.aux) (/home/geor
+gio/Atom/Web/mchf_collection/man/man/tex/t_bp_mat.aux) (/home/georgio/Atom/Web/
+mchf_collection/man/man/tex/t_bp_eiv.aux
+
+LaTeX Warning: Label `chap:bp_mat' multiply defined.
+
+
+LaTeX Warning: Label `fig:bp_mat_brevalr' multiply defined.
+
+) (/home/georgio/Atom/Web/mchf_collection/man/man/tex/t_biotr.aux) (/home/georg
+io/Atom/Web/mchf_collection/man/man/tex/t_hfs.aux
+
+LaTeX Warning: Label `chap:intro' multiply defined.
+
+) (/home/georgio/Atom/Web/mchf_collection/man/man/tex/t_iso.aux
+
+LaTeX Warning: Label `chap:intro' multiply defined.
+
+) (/home/georgio/Atom/Web/mchf_collection/man/man/tex/t_trans.aux
+
+LaTeX Warning: Label `chap:intro' multiply defined.
+
+) (/home/georgio/Atom/Web/mchf_collection/man/man/tex/t_util.aux
+
+LaTeX Warning: Label `chap:intro' multiply defined.
+
+) (/home/georgio/Atom/Web/mchf_collection/man/man/tex/t_io.aux))
+\openout1 = `images.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+
+latex2htmlLength hsize=349.0pt
+
+latex2htmlLength vsize=668.49748pt
+
+latex2htmlLength hoffset=0.0pt
+
+latex2htmlLength voffset=0.0pt
+
+latex2htmlLength topmargin=0.0pt
+
+latex2htmlLength topskip=0.00003pt
+
+latex2htmlLength headheight=0.0pt
+
+latex2htmlLength headsep=0.0pt
+
+latex2htmlLength parskip=0.0pt plus 1.0pt
+
+latex2htmlLength oddsidemargin=0.0pt
+
+latex2htmlLength evensidemargin=0.0pt
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 148.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 148.
+l2hSize :tex2html_wrap_inline537:6.45831pt::0.0pt::8.27783pt.
+[1
+
+
+
+]
+File: tex/fig/atsp_general.epsi Graphic file (type eps)
+<tex/fig/atsp_general.epsi>
+l2hSize :figure990:169.54375pt::0.0pt::349.0pt.
+[2
+
+
+]
+l2hSize :tex2html_wrap_inline1441:6.45831pt::0.0pt::24.83562pt.
+[3
+
+
+]
+l2hSize :tex2html_wrap_inline1443:6.45831pt::0.0pt::24.83562pt.
+[4
+
+
+]
+l2hSize :tex2html_wrap_inline1445:8.14003pt::0.0pt::14.67368pt.
+[5
+
+
+]
+l2hSize :tex2html_wrap_inline1447:8.64003pt::8.64003pt::174.7257pt.
+[6
+
+
+]
+l2hSize :tex2html_wrap_inline1449:8.64003pt::8.64003pt::87.99313pt.
+[7
+
+
+]
+l2hSize :tex2html_wrap_inline1451:8.64003pt::8.64003pt::179.29059pt.
+[8
+
+
+]
+l2hSize :tex2html_wrap_inline1453:6.45831pt::0.0pt::24.83562pt.
+[9
+
+
+]
+l2hSize :tex2html_wrap_inline1455:8.64003pt::8.64003pt::179.29059pt.
+[10
+
+
+]
+l2hSize :tex2html_wrap_inline1457:6.45831pt::0.0pt::24.83562pt.
+[11
+
+
+] (images.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 1208 strings out of 20863
+ 13049 string characters out of 196073
+ 61641 words of memory out of 350001
+ 4107 multiletter control sequences out of 10000+15000
+ 23405 words of font info for 87 fonts, out of 400000 for 1000
+ 26 hyphenation exceptions out of 10000
+ 34i,4n,22p,709b,361s stack positions out of 3000i,100n,1500p,50000b,4000s
+
+Output written on images.dvi (11 pages, 2032 bytes).

@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Introduction</TITLE>
+<META NAME="description" CONTENT="Introduction">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node75.html">
+<LINK REL="previous" HREF="node73.html">
+<LINK REL="up" HREF="node73.html">
+<LINK REL="next" HREF="node75.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1205"
+  HREF="node75.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1201"
+  HREF="node73.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1195"
+  HREF="node73.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1203"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1206"
+  HREF="node75.html">Program Structure</A>
+<B> Up:</B> <A NAME="tex2html1202"
+  HREF="node73.html">BIOTR</A>
+<B> Previous:</B> <A NAME="tex2html1196"
+  HREF="node73.html">BIOTR</A>
+ &nbsp <B>  <A NAME="tex2html1204"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001210000000000000000">
+Introduction</A>
+</H1>
+
+<P>
+Given the two sets of configuration lists, wave functions and
+eigenvectors, <TT>biotr</TT> evaluates the transition data between
+the two CI expansions, <!-- MATH
+ ${\Psi_1\mid \sum_{i} \hat{O}(i) \mid \Psi_2}$
+ -->
+<IMG
+ WIDTH="127" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img113.png"
+ ALT="${\Psi_1\mid \sum_{i} \hat{O}(i) \mid \Psi_2}$">,
+with <IMG
+ WIDTH="37" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img114.png"
+ ALT="${\hat{O}(i)}$"> representing a magnetic or electric 
+transition probability operator of any order.
+
+<P>
+The calculation is non-relativistic when the eigenvectors were obtained
+using the <TT>mchf</TT> method. In this case the program expects 
+to find the eigenvectors in a file with a <TT>.l</TT> suffix. 
+If the user had applied the relativistic corrections 
+using the Breit-Pauli method, the transitions determined by 
+<TT>biotr</TT> will include the relativistic effects as well. In this case the 
+program expects to read the eigenvectors from a file with <TT>.j</TT>  
+suffix. In biotr, the initial and final states, which may not be orthogonal,
+are transformed in such a way that the orbitals are orthogonal 
+<EM>between</EM> states so that orthogonal methods may be used to 
+evaluate the transition matrix elements&nbsp;[#!mrg-bio!#]. 
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

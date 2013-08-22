@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>MPI Implementation</TITLE>
+<META NAME="description" CONTENT="MPI Implementation">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="previous" HREF="node71.html">
+<LINK REL="up" HREF="node68.html">
+<LINK REL="next" HREF="node73.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1178"
+  HREF="node73.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1174"
+  HREF="node68.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1170"
+  HREF="node71.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1176"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1179"
+  HREF="node73.html">BIOTR</A>
+<B> Up:</B> <A NAME="tex2html1175"
+  HREF="node68.html">BP_EIV</A>
+<B> Previous:</B> <A NAME="tex2html1171"
+  HREF="node71.html">Energy corrections</A>
+ &nbsp <B>  <A NAME="tex2html1177"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001140000000000000000">
+MPI Implementation</A>
+</H1>
+Unlike <TT>bp_ang and bp_mat</TT>, which do not have communication 
+overhead other than initializing a finalizing the MPI calculation,
+this program performs a number of <TT>MPI_Allreduce()</TT> steps,
+in which the quantities computed by each processor are summed at 
+<TT>node = 0</TT>.  The elements of the interaction matrix are 
+calculated by columns in <TT>hmx_lsj()</TT>, additionally, the 
+the diagonals are adjusted if the user provided desired energy.
+corrections. Each node assembles only columns which are
+multiples on <TT>myid + 1</TT>. After processing all <TT>ncfg</TT> 
+columns, the information is exchanged between 
+the nodes using a global summation over all nodes. 
+
+<P>
+<PRE>
+         do j = myid+1,ncfg,nprocs
+           call hmx_lsj(ncfg,j,nze,ind_jj,nij,istart,shift,
+     :                  mycol,pflsj,njv)
+         end do
+*       ..gather all diagonals from processors.
+        call mpi_allr_dp(hii,ncfg) !gdsummpi(hii,ncfg,tm)
+      end if
+</PRE>
+
+<P>
+<TT>node 0</TT> reads the configuration list
+and the wave function, and broadcasts the data to the other nodes.
+Each node of <TT>bp_eiv</TT> reads the corresponding data files,
+<TT>hnr.lst.nnnn, hzeta.lst.nnnn, hspin.lst.nnnn</TT>,
+ Figure &nbsp;<A HREF="node72.html#fig:io_eiv_mpi">9.34</A> 
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:io_eiv_mpi"></A><A NAME="4247"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 9.34:</STRONG>
+ 
+  IO files for the MPI version.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="510" HEIGHT="484" BORDER="0"
+ SRC="img112.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/mpi_io_bp_eiv.eps}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<BR><HR>
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

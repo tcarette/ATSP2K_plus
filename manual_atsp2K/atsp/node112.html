@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>biotr</TITLE>
+<META NAME="description" CONTENT="biotr">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="previous" HREF="node111.html">
+<LINK REL="up" HREF="node107.html">
+<LINK REL="next" HREF="node113.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1680"
+  HREF="node113.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1676"
+  HREF="node107.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1672"
+  HREF="node111.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1678"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1681"
+  HREF="node113.html">About this document ...</A>
+<B> Up:</B> <A NAME="tex2html1677"
+  HREF="node107.html">I/O File Formats</A>
+<B> Previous:</B> <A NAME="tex2html1673"
+  HREF="node111.html">Parallel mpi_nonh, mpi_mchf.</A>
+ &nbsp <B>  <A NAME="tex2html1679"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001750000000000000000">
+<TT>biotr</TT></A>
+</H1>
+
+<P>
+<TT>biotr</TT> computes <TT>LS and LSJ</TT> transitions. 
+
+<P>
+
+<OL>
+<LI><TT>LS</TT> transitions:
+First line shows the file with initial transition, the second
+line the file used for the final transition:
+<PRE>
+#####
+  . label
+  . initial state
+  . final state
+  . Atomic weight, principal quantum number '(/A5,I3,A5,I2)'
+  . Energy initial, label of dominant transition
+  . Energy final, label of dominant transition
+  . LS transition energy, wavelength in vacuum, wavelength in air
+  . Type of transition, line strength, gf value, transition rate - velocity form
+  . line strength, gf value, transition rate - length form
+
+#####
+  Transition between files: 
+  E                       
+  O                       
+
+ Z =   9 n =  7
+   3  -97.50578137  2s(2).2p(3)2P1_2P                                 
+   3  -96.52277315  2s.2p(4)3P2_2P                                    
+  215739.13 CM-1       463.52 ANGS(VAC)       463.52 ANGS(AIR)
+ E1  length:   S =  7.81694D-01   GF =  5.12259D-01   AKI =  2.65057D+09
+    velocity:  S =  8.22227D-01   GF =  5.38822D-01   AKI =  2.78801D+09
+.....
+</PRE>
+
+<P>
+</LI>
+<LI><TT>LSJ</TT> transitions:
+
+<P>
+The format is the same as the format for LS transitions,
+First line shows the file with initial transition, the second
+line the file used for the final transition:
+<PRE>
+  . blank line
+  . blank line
+  . Energy initial, label of dominant transition
+  . Energy final, label of dominant transition
+  . LS transition energy, wavelength in vacuum, wavelength in air
+  . Type of transition, line strength, gf value, transition rate - velocity form
+  . line strength, gf value, transition rate - length form
+
+#####
+
+
+   1  -74.36649804  2s(2).2p(3)2P1_2P                                 
+   1  -73.65565658  2s.2p(4)1S0_2S                                    
+  156006.31 CM-1       641.00 ANGS(VAC)       641.00 ANGS(AIR)
+ E1  S =  4.69243D-01   GF =  2.22364D-01   AKI =  1.80493D+09
+          4.68123D-01         2.21833D-01          1.80062D+09
+.....
+</PRE>
+
+<P>
+</LI>
+</OL>
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

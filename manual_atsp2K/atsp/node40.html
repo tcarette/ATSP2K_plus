@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Hartree-Fock Program</TITLE>
+<META NAME="description" CONTENT="Hartree-Fock Program">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="previous" HREF="node39.html">
+<LINK REL="up" HREF="node33.html">
+<LINK REL="next" HREF="node41.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html776"
+  HREF="node41.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html772"
+  HREF="node33.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html768"
+  HREF="node39.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html774"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html777"
+  HREF="node41.html">NONH</A>
+<B> Up:</B> <A NAME="tex2html773"
+  HREF="node33.html">The MCDHF/MCHF Data Collection</A>
+<B> Previous:</B> <A NAME="tex2html769"
+  HREF="node39.html">Computational Methods</A>
+ &nbsp <B>  <A NAME="tex2html775"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00640000000000000000">
+Hartree-Fock Program</A>
+</H1> A web interfaced interactive 
+version of the Hartree-Fock program can be accessed by clicking
+on the link HF Program. 
+Additionally, the user can read the theory behind the <TT>hf</TT> program.
+The Hartree-Fock program is a Java interfaced FORTRAN program
+which is installed on hf5.
+
+<P>
+Note to the system administrator of hf5:
+If problem occurs with the <TT>hf</TT> program on the Web,
+<TT>hf5</TT> should be checked for the following:
+
+<UL>
+<LI>Apache Web Server. The following command shows that
+Apache runs properly;
+<PRE>
+(georgio@hf5)103% ps -ef | grep apache
+apache    9933   826  0 Oct07 ?        00:00:00 /usr/sbin/httpd -DHAVE_PROXY -DH
+apache    9934   826  0 Oct07 ?        00:00:00 /usr/sbin/httpd -DHAVE_PROXY -DH
+apache    9935   826  0 Oct07 ?        00:00:00 /usr/sbin/httpd -DHAVE_PROXY -DH
+apache    9936   826  0 Oct07 ?        00:00:00 /usr/sbin/httpd -DHAVE_PROXY -DH
+apache    9937   826  0 Oct07 ?        00:00:00 /usr/sbin/httpd -DHAVE_PROXY -DH
+apache    9938   826  0 Oct07 ?        00:00:00 /usr/sbin/httpd -DHAVE_PROXY -DH
+apache   16238   826  0 04:40 ?        00:00:00 /usr/sbin/httpd -DHAVE_PROXY -DH
+georgio  17442 17403  0 18:41 pts/7    00:00:00 grep apache
+</PRE>
+</LI>
+<LI><TT>hf</TT> Java Server The interface between the <TT>hf</TT> program 
+and the Web is accomplished by a server written in Java. Thus the 
+command below shows that the Java server is OK, it has a number of
+listening server threads.
+<PRE>
+(georgio@hf5)101% ps -ef | grep java
+root       950     1  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root       986   950  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root       987   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root       988   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root       989   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root       990   986  0 Oct05 ?        00:00:01 /opt/java/j2sdk1.4.0/bin/i386/na
+root       991   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root       992   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root       993   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root       996   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root      1269   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+root      1270   986  0 Oct05 ?        00:00:00 /opt/java/j2sdk1.4.0/bin/i386/na
+georgio  17438 17403  0 18:40 pts/7    00:00:00 grep java
+</PRE>
+
+<P>
+If the Java server was not running the output would have been:
+<PRE>
+(georgio@hf5)101% ps -ef | grep java
+georgio  17438 17403  0 18:40 pts/7    00:00:00 grep java
+</PRE>
+
+<P>
+</LI>
+</UL>
+
+<P>
+Both, the Apache server and the <TT>hf</TT> Java server are configured to 
+automatically start upon rebooting of the node hf5. While the 
+scripts for the Apache server are default in the RedHat 7.1 installation 
+and have not been modified, the <TT>hf</TT> Java server startup script
+is executed in <TT>/etc/rc.local</TT> (this script starts the local services).
+<TT>/etc/rc.local</TT> starts the <TT>hf</TT> Java server by executing the 
+script <TT>/var/www/html/sh_start_HFapplet_server</TT>. Note that 
+in order to start the <TT>hf</TT> Java server it is sufficient to 
+execute as a root:
+<PRE>
+#cd /var/www/html/
+#./_start_HFapplet_server
+</PRE>
+
+<P>
+The file <TT>/var/www/html/log.hf_applet</TT> keeps information about
+all IP's which had accessed the <TT>hf</TT> program and performed 
+runs (The output below shows  a portion of this file and IP's from all
+over the world for the last 2 months &gt; 1000 accesses):
+<PRE>
+(georgio@hf5)128% tail /var/www/html/log.hf_applet 
+Server: Connection to 139.91.195.54/139.91.195.54 established
+Server: Connection to elena.iesl.forth.gr/139.91.195.54 established
+Server: Connection to 195.54.103.39/195.54.103.39 established
+Server: Connection to kublai.djingis.m.se/195.54.103.39 established
+Server: Connection to alain.m36sci.nrc.ca/132.246.22.169 established
+Server: Connection to pcphy117.physik.uni-kl.de/131.246.11.210 established
+Server: Connection to atm.nist.gov/129.6.84.160 established
+Server: Connection to useraa87.uk.uudial.com/62.188.130.87 established
+Server: Connection to natpool1-1.bsu.unibel.by/195.50.4.44 established
+Server: Connection to d80h103.public.uconn.edu/137.99.80.103 established
+Server: Connection to duchamp.phy.nist.gov/129.6.169.31 established
+Server: Connection to capsule.neep.wisc.edu/128.104.185.245 established
+Server: Connection to cfppp2-17.harvard.edu/131.142.14.117 established
+Server: Connection to P-1.251.EUnet.yu/213.240.1.251 established
+Server: Connection to mdm3428.chem.utah.edu/128.110.196.147 established
+Server: Connection to wigner.physik.uni-kassel.de/141.51.196.23 established
+Server: Connection to mdm3428.chem.utah.edu/128.110.196.147 established
+Server: Connection to naglfar.sljus.lu.se/130.235.91.187 established
+Server: Connection to mach.ulb.ac.be/164.15.128.3 established
+Server: Connection to berry.phys.nd.edu/129.74.75.176 established
+Server: Connection to hgberry.phys.nd.edu/129.74.76.3 established
+Server: Connection to coral-56-96.pompano.net/24.26.56.96 established
+Server: Connection to elettra.arcetri.astro.it/193.206.155.27 established
+Server: Connection to 1Cust29.tnt9.tco2.da.uu.net/63.15.231.29 established
+Server: Connection to coral-56-96.pompano.net/24.26.56.96 established
+Server: Connection to hgberry.phys.nd.edu/129.74.76.3 established
+Server: Connection to 129.74.76.24/129.74.76.24 established
+Server: Connection to hal4.usm.uni-muenchen.de/129.187.204.12 established
+Server: Connection to lavender.phys.put.poznan.pl/150.254.132.5 established
+Server: Connection to ykkim.phy.nist.gov/129.6.169.2 established
+Server: Connection to m133-48.bgsu.edu/129.1.133.48 established
+Server: Connection to ljclap.physics.utoledo.edu/131.183.161.100 established
+Server: Connection to meltemi.physics.uoc.gr/147.52.180.194 established
+Server: Connection to bethe.fy.chalmers.se/129.16.113.136 established
+</PRE>
+
+<P>
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html776"
+  HREF="node41.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html772"
+  HREF="node33.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html768"
+  HREF="node39.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html774"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html777"
+  HREF="node41.html">NONH</A>
+<B> Up:</B> <A NAME="tex2html773"
+  HREF="node33.html">The MCDHF/MCHF Data Collection</A>
+<B> Previous:</B> <A NAME="tex2html769"
+  HREF="node39.html">Computational Methods</A>
+ &nbsp <B>  <A NAME="tex2html775"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

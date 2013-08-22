@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Case 1. Finding the RCFP</TITLE>
+<META NAME="description" CONTENT="Case 1. Finding the RCFP">
+<META NAME="keywords" CONTENT="ang">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ang.css">
+
+<LINK REL="next" HREF="node35.html">
+<LINK REL="previous" HREF="node33.html">
+<LINK REL="up" HREF="node33.html">
+<LINK REL="next" HREF="node35.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html430"
+  HREF="node35.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html428"
+  HREF="node33.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html422"
+  HREF="node33.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html431"
+  HREF="node35.html">Case 2. Calculating the</A>
+<B> Up:</B> <A NAME="tex2html429"
+  HREF="node33.html">Examples</A>
+<B> Previous:</B> <A NAME="tex2html423"
+  HREF="node33.html">Examples</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00051000000000000000">
+Case 1. Finding the RCFP</A>
+</H2>
+
+<P>
+In this case the subroutine finds the value of a RCFP
+<!-- MATH
+ $(\ f\ ^{8}S^{0}\ |||\ a^{(qls)}\ |||\ f\ ^{7}F^{0}\ )$
+ -->
+<IMG
+ WIDTH="194" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img472.png"
+ ALT="$( f ^{8}S^{0} \vert\vert\vert a^{(qls)} \vert\vert\vert f ^{7}F^{0} )$">.
+&gt;From Table IV of P4&nbsp;[<A
+ HREF="node42.html#method5">6</A>] we see that the value of this coefficient is
+equal to
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+(\ f\ ^{8}S^{0}\ |||\ a^{(qls)}\ |||\ f\ ^{7}F^{0}\ )=-1,4001=-4 \sqrt{7}.
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="449" HEIGHT="28" BORDER="0"
+ SRC="img473.png"
+ ALT="\begin{displaymath}( f ^{8}S^{0} \vert\vert\vert a^{(qls)} \vert\vert\vert f ^{7}F^{0} )=-1,4001=-4 \sqrt{7}.\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+This is in accordance with the result obtained with <TT>SLS</TT> subroutine
+(see in Section&nbsp;<A HREF="node8.html#sec-sls">3.2</A>).
+
+<P>
+It is necessary to mention that in the calls to this and some other subroutine,
+the input of a term number and term characteristics is needed. In this case the
+user indicates only the term characteristics, and finds the term number by using
+the subroutine NUMTER (see in Section&nbsp;<A HREF="node8.html#sec-sls">3.2</A>) or NUMTERF
+(see in Section&nbsp;<A HREF="node25.html#sec-sls2">3.3</A>). In other examples we will present a way,
+showing how to call subroutines of analogous type, by defining just the
+term number by the user.
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2001-12-07
+</ADDRESS>
+</BODY>
+</HTML>

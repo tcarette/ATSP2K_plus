@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Spin-spin interaction</TITLE>
+<META NAME="description" CONTENT="Spin-spin interaction">
+<META NAME="keywords" CONTENT="ang">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="ang.css">
+
+<LINK REL="next" HREF="node32.html">
+<LINK REL="previous" HREF="node30.html">
+<LINK REL="up" HREF="node29.html">
+<LINK REL="next" HREF="node32.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html399"
+  HREF="node32.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html397"
+  HREF="node29.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html391"
+  HREF="node30.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html400"
+  HREF="node32.html">Spin-other-orbit interaction</A>
+<B> Up:</B> <A NAME="tex2html398"
+  HREF="node29.html">SAI_DUDU</A>
+<B> Previous:</B> <A NAME="tex2html392"
+  HREF="node30.html">Spin-orbit interaction</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00045200000000000000">
+Spin-spin interaction</A>
+</H3>
+
+<P>
+The subroutine <B>SSC</B> investigates the spin-spin operator, which
+has the tensorial form:
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+H^{ss} \equiv \displaystyle {\sum_{ k }}
+\left\{ H_{ss}^{(k+1 k-1 2, 1 1 2)} + H_{ss}^{(k-1 k+1 2, 1 1 2)} \right\},
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="443" HEIGHT="45" BORDER="0"
+ SRC="img459.png"
+ ALT="\begin{displaymath}H^{ss} \equiv \displaystyle {\sum_{ k }}
+\left\{ H_{ss}^{(k+1 k-1 2, 1 1 2)} + H_{ss}^{(k-1 k+1 2, 1 1 2)} \right\},\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+and finds the submatrix element of this operator between functions
+with any number of open shells.
+This subroutine is used for all distributions except
+<!-- MATH
+ $\alpha\alpha\alpha\alpha$
+ -->
+<IMG
+ WIDTH="47" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img406.png"
+ ALT="$\alpha\alpha\alpha\alpha$">, <!-- MATH
+ $\alpha\beta\alpha\beta$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img407.png"
+ ALT="$\alpha\beta\alpha\beta$">,
+<!-- MATH
+ $\beta\alpha\beta\alpha$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img408.png"
+ ALT="$\beta\alpha\beta\alpha$">, <!-- MATH
+ $\alpha\beta\beta\alpha$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img409.png"
+ ALT="$\alpha\beta\beta\alpha$">,
+<!-- MATH
+ $\beta\alpha\alpha\beta$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img410.png"
+ ALT="$\beta\alpha\alpha\beta$"> and <!-- MATH
+ $\alpha\alpha\beta\beta$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img411.png"
+ ALT="$\alpha\alpha\beta\beta$">.
+In the latter cases, instead of subroutine <B>SSC</B> the subroutines
+<B>SS1111</B>, <B>SS1212</B>, <B>SS1212</B>, <B>SS1221</B>,
+<B>SS1221</B> and <B>SS1122</B> are used.
+
+<P>
+The subroutine <B>SSA</B> investigates the
+submatrix elements of the spin-spin interaction operator
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+\left( n_i\lambda _in_j\lambda _j||H_{ss}^{\left( k+1 k-12,112 \right)
+}||n_i^{\prime }\lambda _i^{\prime }n_j^{\prime }\lambda _j^{\prime }\right)
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="409" HEIGHT="34" BORDER="0"
+ SRC="img460.png"
+ ALT="\begin{displaymath}\left( n_i\lambda _in_j\lambda _j\vert\vert H_{ss}^{\left( k+...
+...e }\lambda _i^{\prime }n_j^{\prime }\lambda _j^{\prime }\right)\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+and
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{displaymath}
+\left( n_i\lambda _in_j\lambda _j||H_{ss}^{\left( k-1 k+12,112 \right)
+}||n_i^{\prime }\lambda _i^{\prime }n_j^{\prime }\lambda _j^{\prime }\right)
+\end{displaymath}
+ -->
+
+<IMG
+ WIDTH="409" HEIGHT="34" BORDER="0"
+ SRC="img461.png"
+ ALT="\begin{displaymath}\left( n_i\lambda _in_j\lambda _j\vert\vert H_{ss}^{\left( k-...
+...e }\lambda _i^{\prime }n_j^{\prime }\lambda _j^{\prime }\right)\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+respectively.
+This subroutine is used for all distributions except
+<!-- MATH
+ $\alpha\alpha\alpha\alpha$
+ -->
+<IMG
+ WIDTH="47" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img406.png"
+ ALT="$\alpha\alpha\alpha\alpha$">, <!-- MATH
+ $\alpha\beta\alpha\beta$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img407.png"
+ ALT="$\alpha\beta\alpha\beta$">,
+and <!-- MATH
+ $\beta\alpha\beta\alpha$
+ -->
+<IMG
+ WIDTH="46" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img408.png"
+ ALT="$\beta\alpha\beta\alpha$">.
+In the latter cases, instead of subroutine
+<B>SSA</B> the subroutine <B>SS1</B> is used.
+
+<P>
+<BR><HR>
+<ADDRESS>
+
+2001-12-07
+</ADDRESS>
+</BODY>
+</HTML>

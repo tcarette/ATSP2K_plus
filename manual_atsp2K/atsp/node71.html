@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Energy corrections</TITLE>
+<META NAME="description" CONTENT="Energy corrections">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node72.html">
+<LINK REL="previous" HREF="node70.html">
+<LINK REL="up" HREF="node68.html">
+<LINK REL="next" HREF="node72.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1168"
+  HREF="node72.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1164"
+  HREF="node68.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1158"
+  HREF="node70.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1166"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1169"
+  HREF="node72.html">MPI Implementation</A>
+<B> Up:</B> <A NAME="tex2html1165"
+  HREF="node68.html">BP_EIV</A>
+<B> Previous:</B> <A NAME="tex2html1159"
+  HREF="node70.html">Program Structure</A>
+ &nbsp <B>  <A NAME="tex2html1167"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001130000000000000000">
+Energy corrections</A>
+</H1>
+<TT>bp_mat</TT> can adjust the final energies of a given LS term,
+by shifting the diagonal matrix elements by an amount specified
+by the user.  For each term, the program asks the 
+users for shifts (in cm<IMG
+ WIDTH="23" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img110.png"
+ ALT="$^{-1}$">) which <EM>lower</EM> the level relative
+to the lowest by the specified amount. The results are now written to a
+file called <TT>&lt;name&gt;.new</TT>.  Usually, this program is run first
+without considering adjustments. The <TT>tables </TT> 
+program may then be used to find the spectrum from the energies 
+in a <TT>&lt;name&gt;.j</TT> file (this file may be a concatenated file 
+from separate <TT>bp_eiv</TT> runs).  By comparing with observation, 
+a shift can be determined, it is usually equal to the 
+difference <TT>computed - observed</TT> in cm<IMG
+ WIDTH="23" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img110.png"
+ ALT="$^{-1}$">.  When 
+interactions are not strong, this 
+procedure needs to be applied only once to
+bring energy levels into agreement with observation,  but for strong
+mixing, several iterations may be needed. This adjustment process has
+not been automated.
+
+<P>
+Each state is labeled according to the term of the largest component in
+the eigenvector.  This scheme will not produce unique labels when three
+or more CSFs interact strongly.  In such cases, the user will need to
+edit the file and determine a suitable, unique sets of labels.  
+Also included for each state, 
+the <TT>g_J</TT> parameter for the Breit-Pauli expansion&nbsp;[#!PJ-gj!#],
+and the <TT>g_J</TT> for an LS approximation.
+This file is formatted. Expansion coefficients
+are presented to 8 decimal places.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:bp_mat_brevalr"></A><A NAME="4227"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 9.33:</STRONG>
+ 
+  IO files for the serial version.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="139" HEIGHT="276" BORDER="0"
+ SRC="img111.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/io_bp_eiv.eps}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1168"
+  HREF="node72.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1164"
+  HREF="node68.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1158"
+  HREF="node70.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1166"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1169"
+  HREF="node72.html">MPI Implementation</A>
+<B> Up:</B> <A NAME="tex2html1165"
+  HREF="node68.html">BP_EIV</A>
+<B> Previous:</B> <A NAME="tex2html1159"
+  HREF="node70.html">Program Structure</A>
+ &nbsp <B>  <A NAME="tex2html1167"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

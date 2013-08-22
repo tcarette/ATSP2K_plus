@@ -1,0 +1,210 @@
+\documentclass{amsart}
+\usepackage{epsfig}
+
+%sample command
+
+%\begin{figure}
+%\centerline{\epsfig{file=fig1.eps,height=3cm}}
+%\end{figure}
+
+\newcommand{\coh}{cohomology}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\id}{\operatorname{id}}
+%\newcommand{\Ker}{\operatorname{Ker}}
+%\newcommand{\Mc}{\overline{\mathcal{M}}}
+%\newcommand{\gtmb}{\gtm^\bullet}
+%\newcommand{\mgnb}[1]{\overline{\mathcal{M}}_{#1,n}}
+%\newcommand{\mgn}[1]{\mathcal{M}_{#1,n}}
+%\newcommand{\qis}{quasi-isomorphic}
+%\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\Vect}{\operatorname{Vect}}
+
+\newcommand{\nc}{\mathbb{C}}
+\newcommand{\gtg}{\mathfrak{g}}
+%\newcommand{\nq}{\mathbb{Q}}
+\newcommand{\nr}{\mathbb{R}}
+%\newcommand{\nz}{\mathbb{Z}}
+\newcommand{\OO}{\mathcal{O}}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lm}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+%\newtheorem*{cor}{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{df}[thm]{Definition}
+\newtheorem{ex}[thm]{Example}
+\newtheorem{xca}{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+%\newtheorem*{ack}{Acknowledgment}
+
+\numberwithin{equation}{section}
+
+%    Absolute value notation
+\newcommand{\abs}[1]{\lvert#1\rvert}
+
+\begin{document}
+
+\title[Lecture 3]{Lecture 3: Topological Quantum Field Theory and Frobenius Algebras}
+\author{Alexander A. Voronov}
+%\address{Department of Mathematics\\ M.I.T.,
+%2-246\\ 77 Massachusetts Ave.\\ Cambridge, MA 02139-4307}
+%\curraddr{}
+%\email{voronov@math.mit.edu}
+%\urladdr{http://www-math.mit.edu/~voronov/}
+%\thanks{Research supported in part by an AMS Centennial Fellowship.}
+
+%\subjclass{Primary 14H10; Secondary 32G15, 55P62}
+\date{September 22, 1997}
+
+\maketitle
+
+\section{Topological quantum field theory and Frobenius algebras}
+
+We saw in Lecture 2 that given a modular functor, the vector space
+$V_\Sigma$ associated to a Riemann surface depends, up to a scalar,
+only on the diffeomorphism class of the Riemann surface $\Sigma$. This
+defines what is called a topological quantum field theory. We will be
+mostly interested in the situation when the central charge $c = 0$ and
+there is a specific operator $|\Sigma\rangle$ (as opposed to a vector
+space of such operators) corresponding at least continuously to a
+surface $\Sigma$. This all translates as follows into our language.
+
+\begin{df}
+A \emph{Topological Quantum Field Theory $($TQFT$)$} is a
+correspondence of the same type as a Conformal Field Theory, see
+Lecture 1, except that the conformal invariance axiom is replaced with
+diffeomorphism invariance: the operator $|\Sigma\rangle$ must be
+invariant under diffeomorphisms of the surface $\Sigma$ taking holes
+to the corresponding holes and preserving the holomorphic coordinates
+there. The normalization axiom is convenient to change so as the
+operator corresponding to a cylinder (a sphere with two holes) is
+equal to identity.
+\end{df}
+
+\begin{thm}[Folklore]
+The structure of a TQFT based on vector space $V$ is equivalent to the
+structure of a finite-dimensional Frobenius algebra on it. A
+\emph{Frobenius algebra} structure on a vector space $V$ means the
+structure of a commutative associative algebra with a unit and a
+nondegenerate symmetric bilinear form $\langle,\rangle: V \otimes V
+\to \nc$ which is invariant with respect to the multiplication: $\langle
+ab, c\rangle = \langle a, bc \rangle$.
+\end{thm}
+
+\begin{proof}
+Let $V$ be the state space of a TQFT. We would like to construct the
+structure of a Frobenius algebra on $V$. Consider the following
+Riemann surfaces and the corresponding operators, which we denote
+$ab$, $\langle a ,b \rangle$, \emph{etc}.
+\[
+\begin{array}{ccll}
+\parbox{2in}{\centerline{\epsfig{width=1.5in,height=.7in,file=pants.eps}}} &
+ \quad \longmapsto \quad & V \otimes V \to V, & a \otimes b \mapsto ab
+\smallskip\\
+\parbox{2in}{\centerline{\epsfig{width=.9in,height=.7in,file=bublik.eps}}} &
+ \quad \longmapsto \quad & V \otimes V \to \nc, & a \otimes b \mapsto
+\langle a,b \rangle
+\medskip\\
+\parbox{2in}{\centerline{\epsfig{width=.9in,height=.7in,file=bublik.eps,angle=180}}} &
+ \quad \longmapsto \quad & \psi: \nc \to V \otimes V
+\medskip\\
+\parbox{1.5in}{\centerline{\epsfig{width=1.2in,height=.3in,file=normal.eps}}} &
+ \quad \longmapsto \quad & \id: V \to V
+\medskip\\
+\parbox{1.5in}{\centerline{\epsfig{width=.8in,height=.4in,file=cap1.eps}}} &
+ \quad \longmapsto \quad & \tr: V \to \nc
+\smallskip\\
+\parbox{1.5in}{\centerline{\epsfig{width=.7in,height=.4in,file=cap2.eps}}} &
+ \quad \longmapsto \quad & \nc \to V, & 1 \mapsto e
+\end{array}
+\]
+
+We claim that these operators define the structure of a Frobenius
+algebra on $V$. Indeed, the multiplication is commutative, because if
+we interchange labels at the legs of a pair of pants we will get a
+diffeomorphic Riemann surface. Therefore, the corresponding operator
+$a \otimes b \mapsto ba$ will be equal to $ab$. Similarly, the
+associativity $(ab)c = a(bc)$ of multiplication is based on the fact
+that the following two surfaces are diffeomorphic:
+\begin{equation}
+\label{coherence}
+\parbox{7cm}{\centerline{\parbox{3.6cm}{\epsfig{file=assoc1.eps,width=3.5cm}}
+$\cong$
+\ \ \
+\parbox{3.5cm}{\epsfig{file=assoc2.eps,width=3.5cm}}}}
+\end{equation}
+The property $ae = ea = a$ of the unit element comes from the
+diffeomorphism
+\medskip
+
+\centerline{\parbox{3cm}{\epsfig{file=unit.eps,width=2.5cm}} $\cong$
+\ \ \ \ \ \ 
+\parbox{3.5cm}{\epsfig{file=normal.eps,width=1.8cm}}}
+\smallskip
+
+Thus, we see that $V$ is a commutative associative unital
+algebra. Now, the following diffeomorphism
+\medskip
+
+\centerline{\parbox{3cm}{\epsfig{file=bublik.eps,
+width=1.5cm}} $\cong$
+\ \ \ \ \ \ 
+\parbox{3.5cm}{\epsfig{file=form.eps,width=1.8cm}}}
+\medskip
+
+\noindent
+proves the identity $\langle a , b \rangle = \tr (ab)$, which, along
+with the associativity, implies $\langle ab,c \rangle = \langle a,bc
+\rangle$. The fact that the inner product $\langle \, , \, \rangle$ is
+nondegenerate follows from the diffeomorphism
+\bigskip
+
+\centerline{\parbox{3cm}{\epsfig{file=nondeg.eps,
+width=2cm}} $\cong$
+\ \ \ \ \ \ 
+\parbox{2.5cm}{\epsfig{file=normal.eps,width=1.8cm}},}
+\medskip
+
+\noindent
+which implies that the composite mapping
+\[
+\begin{array}{ccccc}
+V & \xrightarrow{\id\otimes \psi(1)} & V \otimes V \otimes V &
+\xrightarrow{\langle,\rangle \otimes \id} &V,\\
+v & \longmapsto & \sum_{i=1}^n v \otimes u_i \otimes v_i & \longmapsto &
+\sum_{i=1}^n \langle v, u_i
+\rangle v_i
+\end{array}
+\]
+is equal to $\id : V \to V$. This also implies that $\dim V < \infty$,
+because the $v_i$'s, $i = 1, \dots, n$, must span $V$. This completes
+the construction of the structure of a Frobenius algebra on the state
+space $V$ of a TQFT.
+
+Conversely, if we have a finite-dimensional Frobenius algebra $V$, we
+can define the structure of a TQFT on the vector space $V$ by (1)
+cutting a Riemann surface down into pairs of pants, cylinders, and
+caps; (2) defining the operators corresponding to those basic objects
+using the multiplication (or its linear dual), the identity map, and
+the unit element $e \in V$ (or the dual of the map $\nc \to V $, $ 1
+\mapsto e$, as the trace functional), respectively; and (3) using the
+sewing axiom. The fact that the composite operator is independent of
+the way we cut down the surface follows from \eqref{coherence} and the
+associativity of multiplication.
+\end{proof}
+
+\begin{xca}
+Find a more elegant way (not using any elements of $V$) to show that
+$\dim V < \infty$.
+\end{xca}
+%\bibliographystyle{/usr/local/lib/texmf/tex/latex/packages/amslatex/classes/amsplain}
+
+%\bibliographystyle{amsalpha}
+
+%\bibliography{operads}
+
+\end{document}

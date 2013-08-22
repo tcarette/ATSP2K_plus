@@ -1,0 +1,450 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>BP_ANG</TITLE>
+<META NAME="description" CONTENT="BP_ANG">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node9.html">
+<LINK REL="previous" HREF="node7.html">
+<LINK REL="up" HREF="atsp.html">
+<LINK REL="next" HREF="node9.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html293"
+  HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html289"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html283"
+  HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html291"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html294"
+  HREF="node9.html">BP_MAT</A>
+<B> Up:</B> <A NAME="tex2html290"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html284"
+  HREF="node7.html">MCHF</A>
+ &nbsp <B>  <A NAME="tex2html292"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html295"
+  HREF="#SECTION00810000000000000000">Introduction</A>
+<LI><A NAME="tex2html296"
+  HREF="#SECTION00820000000000000000">Program Structure</A>
+<LI><A NAME="tex2html297"
+  HREF="#SECTION00830000000000000000">File IO</A>
+<LI><A NAME="tex2html298"
+  HREF="#SECTION00840000000000000000">MPI implementation bp_ang_mpi</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00800000000000000000"></A>
+<A NAME="chap:bp_ang"></A>
+<BR>
+BP_ANG
+</H1>
+
+<P>
+
+<H1><A NAME="SECTION00810000000000000000">
+Introduction</A>
+</H1>
+
+<P>
+Once radial functions have been determined that simultaneously represent
+several LS terms, providing a basis for a Breit-Pauli  expansion of LSJ
+wave functions, a configuration interaction calculation may be performed
+for determining selected eigenvalues and wave functions expansions or
+eigenvectors. In the present design the Breit-Pauli Hamiltonian is 
+represented as a sum of the non-relativistic Hamiltonian, <IMG
+ WIDTH="41" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img85.png"
+ ALT="$H_{NR}$">, and 
+the relativistic contribution, <IMG
+ WIDTH="30" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img86.png"
+ ALT="${H_R}$">:
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+H = H_{NR} + H_R
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="338" HEIGHT="27" BORDER="0"
+ SRC="img87.png"
+ ALT="\begin{displaymath}
+H = H_{NR} + H_R
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(6)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+
+<P>
+The relativistic part, <IMG
+ WIDTH="30" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img86.png"
+ ALT="${H_R}$"> is a sum of the contributions of:
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+H_R = H_{mass} + H_{Darwin} + H_{ssc} + H_{oo} + 
++ H_{so} + H_{ss} + H_{soo}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="491" HEIGHT="27" BORDER="0"
+ SRC="img88.png"
+ ALT="\begin{displaymath}
+H_R = H_{mass} + H_{Darwin} + H_{ssc} + H_{oo} +
++ H_{so} + H_{ss} + H_{soo}
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(7)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+
+<P>
+where the first four terms, <I>mass, Darwin, spin-spin contact, 
+and orbit-orbit</I>, give a <TT>non-fine structure</TT> contributions, 
+which are not <TT>J</TT> dependent. The last three, <TT>spin-orbit, 
+spin-spin, and spin-other orbit</TT> define <TT>fine structure splitting</TT>.  
+
+<P>
+
+<H1><A NAME="SECTION00820000000000000000">
+Program Structure</A>
+</H1>
+<TT>bp_ang</TT> performs computing and saving angular data in files
+for consquent use by <TT>bp_mat</TT>.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:bp_ang_main"></A><A NAME="3592"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.21:</STRONG>
+
+  bp_ang() program structure.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="327" HEIGHT="130" BORDER="0"
+ SRC="img89.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/bp_ang_main.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The initial data, which the user interactively enters is processed
+by <TT>inp_atom(), brevala()</TT>, the user have the choice to select 
+options about the calculation:
+
+<OL>
+<LI>Relativistic or nonrelativistic calculation
+</LI>
+<LI>Gradient or Slater integral form
+</LI>
+<LI>Selection of operators, SO, SOO, SS, OO. 
+</LI>
+<LI>Default Rydberg constant
+</LI>
+<LI>All interactions. This option can be used upon discretion 
+of the user to select relativistic calculation only for desired
+range of the configuration list.
+</LI>
+</OL>
+
+<P>
+All angular data is generated in <TT>brevala()</TT>, which first requests
+from the user data about the  operators to be included, and
+sets <TT>ISPORB,ISOORB,ISPSPN,IORBORB,ICOLOM</TT> to true if the 
+corresponding operators if requested. 
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:brevala"></A><A NAME="3594"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.22:</STRONG>
+
+  <TT>brevala()</TT> processes the list of configurations in 
+<TT>breitgg()</TT> after collecting from the user more
+information about the type of calculation which includes
+type of operators and interactions to be considered.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="315" HEIGHT="321" BORDER="0"
+ SRC="img90.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/bp_ang_brevala.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+Then, initial data about the type and the number of integrals is 
+generated in <TT>genintbr()</TT>:
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:genintbr"></A><A NAME="3596"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.23:</STRONG>
+
+  <TT>genitbr()</TT> computes integrals.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="491" HEIGHT="265" BORDER="0"
+ SRC="img91.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/bp_ang_genintbr.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+<TT>genitbr()</TT> is an interface to <TT>comp_genitbr()</TT>, 
+which performs the calculation of the integrals. <TT>comp_genitbr()</TT>
+is called twice, the first time, it only sweeps over all
+possible integrals without computing them, and the total 
+number of integrals are determined. The total number of integrals is 
+then used to allocate memory for <TT>intptr, value</TT>, which are 
+correspondingly the arrays containing the integral and pointer 
+data.  In the next phase <TT>comp_genitbr()</TT> computes the 
+integral data for all orbitals.
+
+<P>
+The main loop is over the entire configuration list and 
+the data for matrix elements are generated by column.
+The interaction matrix is  symmetric and only the lower
+or upper part needs to be evaluated. <TT>breitgg()</TT>
+generates the nonrelativistic hamiltonian assuming orthogonal
+orbitals.  
+Thus the computational sequence is:
+<PRE>
+ For column = 1 to ncfg
+    For row = column to ncfg
+</PRE>
+
+<P>
+For each column, data is written to a set of files, described in 
+&nbsp;<A HREF="node16.html#chap:io">13.16</A>, and further below:
+<PRE>
+      DO jb = 1, ncfg
+         if(mod(jb,100).eq.0) write(ISCW,'(A,I5)') '   jb = ',jb
+         if(jb == ncfg) write(ISCW,'(A,I5)') '   jb = ',jb
+         CALL SHELLSJB(JB)
+         call BreitGG(NEW,NZERO,IFIRST,idg,skip,nze)
+         write(11) nih, (jan(i),i=1,nih);
+         write(12) nih, (ico(i),i=1,nih);
+         mycol = mycol + 1
+         jptr(mycol) = nij
+      end do
+</PRE>
+
+<P>
+Figure &nbsp;<A HREF="node8.html#fig:breitgg">6.24</A> shows the steps of processing each
+configuration. All routines are from the angular library <TT>libang.a</TT>.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:breitgg"></A><A NAME="3598"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.24:</STRONG>
+
+  Subroutines <TT>breitgg()</TT>. 
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="382" HEIGHT="679" BORDER="0"
+ SRC="img92.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/bp_ang_breitgg.epsi,height=15cm}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<H1><A NAME="SECTION00830000000000000000">
+File IO</A>
+</H1>  
+Provided with the list of configurations, <TT>bp_ang</TT>  generates
+lists with angular data, including selected or all relativistic
+effects.  The angular data is <TT>Z</TT> independent and need to
+be generated only ones for a given configuration list, or a sequence.
+The data files are consequently used by  <TT>bp_mat</TT> to
+generate the potential contributions to the interaction matrix,
+Figure &nbsp;<A HREF="node8.html#fig:bp_ang_io">6.25</A>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:bp_ang_io"></A><A NAME="3559"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.25:</STRONG>
+
+Serial version. The angular data are stored in files.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="180" HEIGHT="367" BORDER="0"
+ SRC="img93.png"
+ ALT="\begin{figure}\centerline{\psfig{file=tex/fig/bp_ang_io.eps}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The only input file required is the configuration list, which needs
+to have a <TT>.c</TT> suffix. This file has the configurations
+for all terms that mix in the BP calculation. The list is obtained by
+concatenating the relevant configuration lists of each term.
+<TT>bp_ang</TT> reads <TT>cfg.inp</TT> until the first occurrences of an .
+Since each configuration list contains two header lines and an 
+asterisk at the end, after concatenating the files, all header 
+lines and asterisks in intermediate position need to be erased. 
+
+<P>
+After a <TT>bp_ang</TT> calucaltion the user will find
+four binary files which contain the angular data and
+general information relevant to the number and 
+type of orbitals, number of configurations:
+
+<OL>
+<LI>cint.lst.s This file is created by <TT>bp_ang</TT> and it
+contains general information: the number of closed shells,
+and other orbitals, the highest orbital, the number of
+configuration's the buffer size, <TT>lsdim</TT>, number include
+are also column pointer data, number of terms and electron
+parameters.
+</LI>
+<LI>c.lst.s coefficients and integrals
+required for deriving the energy expression.
+</LI>
+<LI>ih.lst.s
+Row indices of the matrix elements.
+</LI>
+<LI>ico.lst.s
+Column pointers, each pointer defines the end of a matrix element.
+</LI>
+</OL>
+
+<P>
+
+<H1><A NAME="SECTION00840000000000000000">
+MPI implementation bp_ang_mpi</A>
+</H1>
+The most CPU intensive task is generating the angular data which 
+occurs in the <TT>brevala()</TT>. Each column is processed independently 
+of the other columns. Therefore, each column can be processed 
+by a separate process, which can be assigned to a free processor.
+Thus, the main loop assigns to each node each configuration,
+with order, which is multiple of <TT>myid + nprocs</TT>, 
+where <TT>myid</TT> is the id number of the node, and <TT>nprocs</TT>
+ is the total number available node:
+
+<P>
+<PRE>
+      DO jb = myid + 1, ncfg, nprocs
+         if(mod(jb,1000).eq.0) write(ISCW,'(A,I5)') '   jb = ',jb
+         if(jb == ncfg) write(ISCW,'(A,I5)') '   jb = ',jb
+         CALL SHELLSJB(JB)
+         call BreitGG(NEW,NZERO,IFIRST,idg,skip,nze)
+         write(11) nih, (jan(i),i=1,nih);
+         write(12) nih, (ico(i),i=1,nih);
+         mycol = mycol + 1
+         jptr(mycol) = nij
+      end do
+</PRE>
+
+<P>
+Each node records the angular data in a separate file, and this is 
+an important factor for accomplishing high efficiency 
+of the parallel program. <I>add data</I>  
+Note, that the each file has 4 digits for the processor ID, while
+<TT>nonh</TT> uses three digits.
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:mpi_io_bp_ang"></A><A NAME="3586"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 6.26:</STRONG>
+
+MPI files. Each node processes the input configuration list and writes
+the angular files.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="476" HEIGHT="330" BORDER="0"
+ SRC="img94.png"
+ ALT="\begin{figure}\centerline{\psfig{file=tex/fig/mpi_io_bp_ang.eps}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html293"
+  HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html289"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html283"
+  HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html291"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html294"
+  HREF="node9.html">BP_MAT</A>
+<B> Up:</B> <A NAME="tex2html290"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html284"
+  HREF="node7.html">MCHF</A>
+ &nbsp <B>  <A NAME="tex2html292"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,357 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>BP_EIV</TITLE>
+<META NAME="description" CONTENT="BP_EIV">
+<META NAME="keywords" CONTENT="atsp">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="atsp.css">
+
+<LINK REL="next" HREF="node11.html">
+<LINK REL="previous" HREF="node9.html">
+<LINK REL="up" HREF="atsp.html">
+<LINK REL="next" HREF="node11.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html325"
+  HREF="node11.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html321"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html315"
+  HREF="node9.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html323"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html326"
+  HREF="node11.html">BIOTR</A>
+<B> Up:</B> <A NAME="tex2html322"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html316"
+  HREF="node9.html">BP_MAT</A>
+ &nbsp <B>  <A NAME="tex2html324"
+  HREF="node2.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html327"
+  HREF="#SECTION001010000000000000000">Introduction</A>
+<LI><A NAME="tex2html328"
+  HREF="#SECTION001020000000000000000">Program Structure</A>
+<LI><A NAME="tex2html329"
+  HREF="#SECTION001030000000000000000">Energy corrections</A>
+<LI><A NAME="tex2html330"
+  HREF="#SECTION001040000000000000000">MPI Implementation</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION001000000000000000000"></A>
+<A NAME="chap:bp_mat"></A>
+<BR>
+BP_EIV
+</H1>
+
+<P>
+
+<H1><A NAME="SECTION001010000000000000000">
+Introduction</A>
+</H1>
+
+<P>
+<TT>bp_eiv</TT> computes a set of eigenvalues using the matrix data,
+which is supplied by <TT>bp_mat</TT> in the form of three files: 
+
+<OL>
+<LI><TT>hnr.lst</TT> the non-relativistic, J-independent contributions.
+</LI>
+<LI><TT>hzeta.lst</TT> the spin-orbit and spin-other-orbit contributions
+that need to be multiplied by
+<!-- MATH
+ $(-1)^{L+S^\prime-J}W(L^\prime S^\prime LS; J1)$
+ -->
+<IMG
+ WIDTH="196" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img100.png"
+ ALT="$(-1)^{L+S^\prime-J}W(L^\prime S^\prime LS; J1)$">.
+</LI>
+<LI><TT>hspin.lst</TT> the spin-spin contributions that need to be
+multiplied by 
+<!-- MATH
+ $(-1)^{L+S^\prime-J}W(L^\prime S^\prime LS; J2)$
+ -->
+<IMG
+ WIDTH="196" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img101.png"
+ ALT="$(-1)^{L+S^\prime-J}W(L^\prime S^\prime LS; J2)$">.
+</LI>
+</OL>
+where, <!-- MATH
+ $W(L^\prime S^\prime LS; Jk)$
+ -->
+<IMG
+ WIDTH="114" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img102.png"
+ ALT="$W(L^\prime S^\prime LS; Jk)$"> is a Racah coefficient.
+
+<P>
+Selected set of J values and eigenvalues can be requested, and 
+for each term the program can apply energy corrections.
+For each specified eigenvalues, the output file 
+contains the dominant configuration and its energy, the eigenvector, 
+and information identifying the case, such as J value, number 
+of electrons, the  atomic number and the Zeeman factor. 
+&nbsp;<A HREF="node16.html#chap:io">13.16</A>
+
+<P>
+
+<H1><A NAME="SECTION001020000000000000000">
+Program Structure</A>
+</H1>
+The program starts with initializing basic constants in <TT>inita(), 
+initr()</TT>.  <TT>inp_case()</TT> prompts the user to supply the name of the 
+case, type of calculation, relativistic or non-relativistic, and 
+if the mass correction will be included. Then, 
+the maximum and minimum eigenvalue to be computed need to be specified
+as a 2*J number, followed by a request for indices to be computed 
+within each J. This data must be entered using the following format.
+
+<P>
+<PRE>
+&gt;Enter ATOM, relativistic (Y/N) with mass correction (Y/N)
+A,y,y
+&gt;Gradient or Slater form? (G/S):
+g
+&gt; Enter Maximum and minimum values of 2*J
+4,2
+&gt;Enter eigenvalues: one line per term, eigenvalues separated by commas
+2*J =  4
+2,3,4
+2*J =  2
+1,2
+.......
+</PRE>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="bp_eiv_main"></A><A NAME="4044"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 8.31:</STRONG>
+
+  <TT>bp_eiv</TT> program structure.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="232" HEIGHT="275" BORDER="0"
+ SRC="img103.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/bp_eiv_main.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+To compute the number of matrix elements, and respectively to 
+allocate memory, <TT>alcmat() and alctab()</TT> rely on a call to 
+<TT>jmem()</TT>, which in effect reads 
+<TT>hnr.lst, hzeta.lst, hspin.lst</TT> and computes
+the number of nonzero elements in the interaction matrix. 
+If the requested memory is larger than the what is available, the
+program continues the calculation, by allocating memory for the 
+largest column. In this case the <TT>dvdson()</TT> performs 
+<EM>matrix-vector</EM> multiplication (in <TT>dssbmv</TT>),
+keeping in memory only a single column.  
+
+<P>
+The matrix elements are assembled in (<TT>hmx_lsj()</TT>), then the
+interaction matrix is diagonalized (<TT>lsjmat()</TT>). Next, 
+<TT>dvdson()</TT> finds the requested eigenvalues. Finally,
+<TT>brci_zeeman()</TT>, computes the Zeman factor. The requested
+eigenvectors are saved in a <TT>&lt;name&gt;.j</TT> file.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:lsjm"></A><A NAME="4046"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 8.32:</STRONG>
+
+  Subroutine <TT>lsjmat()</TT>. 
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="611" HEIGHT="558" BORDER="0"
+ SRC="img104.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/bp_eiv_lsjmat.epsi}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<H1><A NAME="SECTION001030000000000000000">
+Energy corrections</A>
+</H1>
+<TT>bp_mat</TT> can adjust the final energies of a given LS term,
+by shifting the diagonal matrix elements by an amount specified
+by the user.  For each term, the program asks the 
+users for shifts (in cm<IMG
+ WIDTH="23" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img105.png"
+ ALT="$^{-1}$">) which <EM>lower</EM> the level relative
+to the lowest by the specified amount. The results are now written to a
+file called <TT>&lt;name&gt;.new</TT>.  Usually, this program is run first
+without considering adjustments. The <TT>tables </TT> 
+program may then be used to find the spectrum from the energies 
+in a <TT>&lt;name&gt;.j</TT> file (this file may be a concatenated file 
+from separate <TT>bp_eiv</TT> runs).  By comparing with observation, 
+a shift can be determined, it is usually equal to the 
+difference <TT>computed - observed</TT> in cm<IMG
+ WIDTH="23" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img105.png"
+ ALT="$^{-1}$">.  When 
+interactions are not strong, this 
+procedure needs to be applied only once to
+bring energy levels into agreement with observation,  but for strong
+mixing, several iterations may be needed. This adjustment process has
+not been automated.
+
+<P>
+Each state is labeled according to the term of the largest component in
+the eigenvector.  This scheme will not produce unique labels when three
+or more CSFs interact strongly.  In such cases, the user will need to
+edit the file and determine a suitable, unique sets of labels.  
+Also included for each state, 
+the <TT>g_J</TT> parameter for the Breit-Pauli expansion&nbsp;[#!PJ-gj!#],
+and the <TT>g_J</TT> for an LS approximation.
+This file is formatted. Expansion coefficients
+are presented to 8 decimal places.
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:bp_mat_brevalr"></A><A NAME="4018"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 8.33:</STRONG>
+ 
+  IO files for the serial version.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="139" HEIGHT="276" BORDER="0"
+ SRC="img106.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/io_bp_eiv.eps}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<H1><A NAME="SECTION001040000000000000000">
+MPI Implementation</A>
+</H1>
+Unlike <TT>bp_ang and bp_mat</TT>, which do not have communication 
+overhead other than initializing a finalizing the MPI calculation,
+this program performs a number of <TT>MPI_Allreduce()</TT> steps,
+in which the quantities computed by each processor are summed at 
+<TT>node = 0</TT>.  The elements of the interaction matrix are 
+calculated by columns in <TT>hmx_lsj()</TT>, additionally, the 
+the diagonals are adjusted if the user provided desired energy.
+corrections. Each node assembles only columns which are
+multiples on <TT>myid + 1</TT>. After processing all <TT>ncfg</TT> 
+columns, the information is exchanged between 
+the nodes using a global summation over all nodes. 
+
+<P>
+<PRE>
+         do j = myid+1,ncfg,nprocs
+           call hmx_lsj(ncfg,j,nze,ind_jj,nij,istart,shift,
+     :                  mycol,pflsj,njv)
+         end do
+*       ..gather all diagonals from processors.
+        call mpi_allr_dp(hii,ncfg) !gdsummpi(hii,ncfg,tm)
+      end if
+</PRE>
+
+<P>
+<TT>node 0</TT> reads the configuration list
+and the wave function, and broadcasts the data to the other nodes.
+Each node of <TT>bp_eiv</TT> reads the corresponding data files,
+<TT>hnr.lst.nnnn, hzeta.lst.nnnn, hspin.lst.nnnn</TT>,
+ Figure &nbsp;<A HREF="node10.html#fig:io_eiv_mpi">8.34</A> 
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:io_eiv_mpi"></A><A NAME="4038"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 8.34:</STRONG>
+ 
+  IO files for the MPI version.
+</CAPTION>
+<TR><TD><IMG
+ WIDTH="510" HEIGHT="484" BORDER="0"
+ SRC="img107.png"
+ ALT="\begin{figure}\begin{center}
+\centerline{\psfig{figure=tex/fig/mpi_io_bp_eiv.eps}}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html325"
+  HREF="node11.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html321"
+  HREF="atsp.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html315"
+  HREF="node9.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html323"
+  HREF="node2.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html326"
+  HREF="node11.html">BIOTR</A>
+<B> Up:</B> <A NAME="tex2html322"
+  HREF="atsp.html">ATSP2K manual</A>
+<B> Previous:</B> <A NAME="tex2html316"
+  HREF="node9.html">BP_MAT</A>
+ &nbsp <B>  <A NAME="tex2html324"
+  HREF="node2.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2001-10-11
+</ADDRESS>
+</BODY>
+</HTML>
