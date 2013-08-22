@@ -13,7 +13,8 @@ case $(uname -n) in
 ##############################################
 atomlx*)
 
-export ATSP=/scratch/$(who am i | cut -f1 -d" ")/bin
+#export ATSP=/scratch/$(who am i | cut -f1 -d" ")/bin
+export ATSP=$(pwd)
 export FC_MALLOC="LINUX"                     
 
 export FC=ifort
@@ -26,7 +27,7 @@ then
     exit
 fi
 
-export FC_FLAGS="-save" 
+export FC_FLAGS="-save -O3 -warn noalign" 
 export FC_F90="-save -O3"
 export FC_LD="-Bstatic"
 
@@ -41,8 +42,9 @@ export CPP="gcc"                           # C++ compiler
 export CPP_FLAGS="-O3"             # C++ compiler flags
 export CPP_LD="-static"            # C++ linker
 
-export LAPACK_DIR="/opt/intel/Compiler/11.1/046/mkl/lib/em64t"
-export LAPACK_LIB="-lmkl_lapack95_lp64 -lmkl_blas95_lp64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lpthread"
+#export LAPACK_DIR="/opt/intel/Compiler/11.1/046/mkl/lib/em64t"
+#export LAPACK_LIB="-lmkl_lapack95_lp64 -lmkl_blas95_lp64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lpthread"
+export LAPACK_LIB="-lpthread"
 
 ;;
 ##############################################
