@@ -1,6 +1,3 @@
-export ATSP=$(pwd)
-
-export FC_MALLOC="LINUX"                     
 
 #export LD_LIBRARY_PATH="/usr/local/lib64;/usr/local/products/pgi/linux86-64/6.1/lib"
 #export PATH=/usr/pgi/linux86-64/6.1/bin:$PATH
@@ -8,40 +5,137 @@ export FC_MALLOC="LINUX"
 #export LD_LIBRARY_PATH="/usr/local/lib;/usr/local/products/pgi/linux86/6.1/lib"
 #export PATH=/usr/pgi/linux86/6.1/bin:$PATH
 
-#########################################################################
+case $(uname -n) in
+##############################################
+#
+# ifort or gfortran, atomlx09 
+#
+##############################################
+atomlx*)
+
+export ATSP=/scratch/$(who am i | cut -f1 -d" ")/bin
+export FC_MALLOC="LINUX"                     
+
+export FC=ifort
+
+if [ $(hash ${FC}) ]
+then
+    echo "${COMPILER} not found"
+    echo "login on another machine or use another compiler"
+    echo "in which case the flags have to be defined"
+    exit
+fi
+
+export FC_FLAGS="-save" 
+export FC_F90="-save -O3"
+export FC_LD="-Bstatic"
+
+export FC_MPI="ifort"                     # MPI compiler
+export FC_MPIFLAGS="-save -O3"
+export FC_MPILD=""                         # Parallel linker flags
+MPICH_F90="ifort"
+MPICH_F90LINKER="ifort"
+export MPI_TMP="/work/$( whoami )"
+
+export CPP="gcc"                           # C++ compiler
+export CPP_FLAGS="-O3"             # C++ compiler flags
+export CPP_LD="-static"            # C++ linker
+
+export LAPACK_DIR="/opt/intel/Compiler/11.1/046/mkl/lib/em64t"
+export LAPACK_LIB="-lmkl_lapack95_lp64 -lmkl_blas95_lp64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lpthread"
+
+;;
+##############################################
+#
+# gfotran, macbook (Thomas)   !!!!!!!!!!! mchf segfault  !!!!!!!!!!!!!!!
+#
+##############################################
+cpm*|dhcp*|Thomas*)
+
+export ATSP=$(pwd)
+export FC_MALLOC="LINUX"                     
 
 export ARCH="-arch i386"                    # Flags giving the architecture
 export FC="gfortran"
+
+export FC_FLAGS="-fcray-pointer -std=legacy ${ARCH}" # for gfortran (-fno-automatic ~ -Msave)
+export FC_F90="-fno-automatic -O3 ${ARCH}" # for gfortran (-fno-automatic ~ -Msave)
+export FC_LD="-Bstatic ${ARCH}"             # Serial linker flags
+
+export FC_MPI="mpif90"                     # MPI compiler
+export FC_MPIFLAGS="-fno-automatic -O3"
+export FC_MPILD=""                         # Parallel linker flags
+MPICH_F90="gfortran"
+MPICH_F90LINKER="gfortran"
+export MPI_TMP="/work/$( whoami )"
+
+export CPP="gcc"                           # C++ compiler
+export CPP_FLAGS="-O3 ${ARCH}"             # C++ compiler flags
+export CPP_LD="-static ${ARCH}"            # C++ linker
+
+export LAPACK_LIB="-lpthread -framework vecLib"
+
+;;
+##############################################
+#
+# pgf95, HYDRA (ULB)
+#
+##############################################
+nic*)
+
+module load pgi
+
+export ATSP=$(pwd)
+export FC_MALLOC="LINUX"                     
+
+export FC="pgf90"                          # Fortran compiler
+export FC_FLAGS="-mcmodel=medium -Msave -O3 -fastsse"
+export FC_LD="-Bstatic"                    # Serial linker flags
+
+export FC_MPI="/opt/hpmpi/bin/mpif90"
+export FC_MPIFLAGS="-mcmodel=medium -Msave -O3 -fastsse"       # Parallel code compiler flags
+
+export FC_MPILD=""                         # Parallel linker flags
+export MPICH_F90="pgf90"                   # mpi compiler
+export MPICH_F90LINKER="pgf90"             # mpi linker
+export MPI_TMP="/work/$( whoami )"
+
+export CPP="g++"                           # C++ compiler
+export CPP_FLAGS="-O3"                     # C++ compiler flags
+export CPP_LD="-static"                    # C++ linker
+
+export LAPACK_DIR=/bfucc/PRD_PGI/linux86-64/7.0-7/lib
+export LAPACK_LIB="-lpthread -lacml"
+
+;;
+##############################################
+*)
+echo "Unknown machine"
+echo "Please modify INSTALL for installing"
+exit
+esac
+##############################################
+
+
+#########################################################################
+
 #export FC="pgf90"                          # Fortran compiler
 #export FC="pgf90 -C"                          # Fortran compiler + debug op.
 #export FC_FLAGS="-O2 -byteswapio"          # Serial code compiler flags
 #export FC_FLAGS="-Msave -byteswapio -Minform=inform -tp k8-64 -v -s -fast"
 #export FC_FLAGS="-mcmodel=medium -Msave -O3 -fastsse"
-export FC_FLAGS="-fcray-pointer -std=legacy ${ARCH}" # for gfortran (-fno-automatic ~ -Msave)
-export FC_F90="-fno-automatic -O3 ${ARCH}" # for gfortran (-fno-automatic ~ -Msave)
-export FC_LD="-Bstatic ${ARCH}"             # Serial linker flags
 
 #########################################################################
 
-export FC_MPI="mpif90"                     # MPI compiler
 #export FC_MPIFLAGS="-O2 -byteswapio"       # Parallel code compiler flags
 #export FC_MPI="/opt/hpmpi/bin/mpif90"
 #export FC_MPIFLAGS="-mcmodel=medium -Msave -O3 -fastsse"       # Parallel code compiler flags
-export FC_MPIFLAGS="-fno-automatic -O3"
 #export FC_MPIFLAGS="-Msave -byteswapio -Minform=inform -tp k8-64 -v -s -fast"
 #export FC_MPILD="-Bstatic"                # Parallel linker flags
-export FC_MPILD=""                         # Parallel linker flags
 #export MPICH_F90="pgf90"                   # mpi compiler
 #export MPICH_F90LINKER="pgf90"             # mpi linker
-MPICH_F90="gfortran"
-MPICH_F90LINKER="gfortran"
-export MPI_TMP="/work/$( whoami )"
 
 #########################################################################
-
-export CPP="gcc"                           # C++ compiler
-export CPP_FLAGS="-O3 ${ARCH}"             # C++ compiler flags
-export CPP_LD="-static ${ARCH}"            # C++ linker
 
 #########################################################################
 
@@ -52,7 +146,6 @@ export CPP_LD="-static ${ARCH}"            # C++ linker
 #export LAPACK_LIB="-llapack -lblas -lmtmpi -lpthread -lacml"
 #gd export LAPACK_LIB="-lmtmpi -lpthread -lacml"
 #export LAPACK_LIB="-lpthread -lacml"
-export LAPACK_LIB="-lpthread -framework vecLib"
 #export  LAPACK_LIB="-llapack -lblas"
 
 #########################################################################
