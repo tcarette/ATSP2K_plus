@@ -28,14 +28,11 @@ then
 fi
 
 export FC_FLAGS="-save -O3 -warn noalign" 
-export FC_F90="-save -O3"
 export FC_LD="-Bstatic"
 
 export FC_MPI="ifort"                     # MPI compiler
 export FC_MPIFLAGS="-save -O3"
 export FC_MPILD=""                         # Parallel linker flags
-MPICH_F90="ifort"
-MPICH_F90LINKER="ifort"
 export MPI_TMP="/work/$( whoami )"
 
 export CPP="gcc"                           # C++ compiler
@@ -49,7 +46,7 @@ export LAPACK_LIB="-lpthread"
 ;;
 ##############################################
 #
-# gfotran, macbook (Thomas)   !!!!!!!!!!! mchf segfault  !!!!!!!!!!!!!!!
+# gfotran 4.8, macbook (Thomas)
 #
 ##############################################
 cpm*|dhcp*|Thomas*)
@@ -60,15 +57,12 @@ export FC_MALLOC="LINUX"
 export ARCH="-arch i386"                    # Flags giving the architecture
 export FC="gfortran"
 
-export FC_FLAGS="-fcray-pointer -std=legacy ${ARCH}" # for gfortran (-fno-automatic ~ -Msave)
-export FC_F90="-fno-automatic -O3 ${ARCH}" # for gfortran (-fno-automatic ~ -Msave)
+export FC_FLAGS="-O2 -fno-automatic -fcray-pointer -fno-align-commons  -std=legacy ${ARCH}" # for gfortran (-fno-automatic ~ -Msave)
 export FC_LD="-Bstatic ${ARCH}"             # Serial linker flags
 
 export FC_MPI="mpif90"                     # MPI compiler
-export FC_MPIFLAGS="-fno-automatic -O3"
+export FC_MPIFLAGS="-fno-automatic -O2"
 export FC_MPILD=""                         # Parallel linker flags
-MPICH_F90="gfortran"
-MPICH_F90LINKER="gfortran"
 export MPI_TMP="/work/$( whoami )"
 
 export CPP="gcc"                           # C++ compiler
@@ -98,8 +92,6 @@ export FC_MPI="/opt/hpmpi/bin/mpif90"
 export FC_MPIFLAGS="-mcmodel=medium -Msave -O3 -fastsse"       # Parallel code compiler flags
 
 export FC_MPILD=""                         # Parallel linker flags
-export MPICH_F90="pgf90"                   # mpi compiler
-export MPICH_F90LINKER="pgf90"             # mpi linker
 export MPI_TMP="/work/$( whoami )"
 
 export CPP="g++"                           # C++ compiler
