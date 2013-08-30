@@ -183,3 +183,14 @@ esac
 cd ${ATSP}/src
 make $* 2>&1 | tee ${ATSP}/make.err 
 grep "severe" ../make.err
+
+if [[ ! ${PATH} =~ ${ATSP}/bin ]]
+then
+	echo "*********************************************"
+	echo "*********************************************"
+	echo "***** Don't forget to update your PATH! *****"
+	echo "*********************************************"
+	echo "*********************************************"
+	echo "executable directory is :"
+	echo "${ATSP}/bin"
+fi
