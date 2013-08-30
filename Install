@@ -103,6 +103,42 @@ export LAPACK_LIB="-lpthread -lacml"
 
 ;;
 ##############################################
+#
+# ifort or gfortran, blackmamba (Linux, Madrid)
+#
+##############################################
+blackmamba*)
+
+export ATSP=$(pwd)
+export FC_MALLOC="LINUX"                     
+
+export FC=ifort
+
+if [ $(hash ${FC}) ]
+then
+    echo "${COMPILER} not found"
+    echo "login on another machine or use another compiler"
+    echo "in which case the flags have to be defined"
+    exit
+fi
+
+export FC_FLAGS="-save -O3 -warn noalign" 
+export FC_LD="-Bstatic"
+
+export FC_MPI="ifort"              # MPI compiler
+export FC_MPIFLAGS="-save -O3"
+export FC_MPILD=""                        # Parallel linker flags
+export MPI_TMP="${ATSP}/tmp"
+
+export CPP="gcc"                   # C++ compiler
+export CPP_FLAGS="-O3"             # C++ compiler flags
+export CPP_LD="-static"            # C++ linker
+
+export LAPACK_DIR="-I/opt/intel/composerxe/mkl/lib/intel64"
+export LAPACK_LIB="-mkl -lmkl_lapack95_lp64 -lmkl_blas95_lp64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lpthread"
+
+;;
+##############################################
 *)
 echo "Unknown machine"
 echo "Please modify INSTALL for installing"
