@@ -288,11 +288,11 @@ Cww      OPEN(UNIT=ISC(1), FILE=NAME(5),STATUS='UNKNOWN')
 
       INCFG=NCFG
       DO 70 JI=1,NCFG
-	 JA=JI
+         JA=JI
          IF(MOD(JI,10).EQ.0) WRITE(*,*) '   ja =',JI
          IF (IMCHF.LT.3.OR.IDIAG.EQ.1) INCFG=JI
          DO 80 JF=1,INCFG
-	    JB=JF
+            JB=JF
             ID=0
             IF ((IMCHF.LT.3.OR.IDIAG.EQ.1).AND.(JI.NE.JF)) ID=1
             NOVLPS=0
@@ -305,6 +305,28 @@ Cww      OPEN(UNIT=ISC(1), FILE=NAME(5),STATUS='UNKNOWN')
      :        ' This version of the program assumes orthogonal orbitals' 
                STOP
             ENDIF
+
+ctc b The lines below have moved (see l349) - 12.01.2011
+
+            IF (IMCHF.EQ.3) THEN
+               CALL LSJ(QNOC,QJ1,JI,LL1,SS1,JJ1MAX,JJ1MIN)
+               CALL LSJ(QNOC,QJ1,JF,LL2,SS2,JJ2MAX,JJ2MIN)
+               IF (LL1.EQ.LL.AND.LL2.EQ.LL.AND.SS1.EQ.SS.AND.SS2.EQ.SS) 
+     :         THEN
+                  DO 90 K=1,NJQ
+                     ORBF(K)=ORBF1(K)
+                     DIPF(K)=DIPF1(K)
+                     CONTF(K)=CONTF1(K)
+                     VOLF(K)=VOLF1(K)
+                     QUADF(K)=QUADF1(K)
+90                CONTINUE
+               ELSE
+                  CALL LSJFACT(JI,JF,NJQ,IDIAG,ndens)
+               ENDIF
+            ENDIF
+
+
+ctc e
 Cww Change 10.6 96
             CALL MULTWT(JI,JF,IMCHF,IDIAG,WTJIJF)
             LSKIP = 0 
@@ -323,22 +345,7 @@ Cww
 *  If BREIT cfglist there is no need for recalc. when configurationpair
 *  has the same LS terms as the main cfg.
 
-            IF (IMCHF.EQ.3) THEN
-               CALL LSJ(QNOC,QJ1,JI,LL1,SS1,JJ1MAX,JJ1MIN)
-               CALL LSJ(QNOC,QJ1,JF,LL2,SS2,JJ2MAX,JJ2MIN)
-               IF (LL1.EQ.LL.AND.LL2.EQ.LL.AND.SS1.EQ.SS.AND.SS2.EQ.SS) 
-     :         THEN
-                  DO 90 K=1,NJQ
-                     ORBF(K)=ORBF1(K)
-                     DIPF(K)=DIPF1(K)
-                     CONTF(K)=CONTF1(K)
-                     VOLF(K)=VOLF1(K)
-                     QUADF(K)=QUADF1(K)
-90                CONTINUE
-               ELSE
-                  CALL LSJFACT(JI,JF,NJQ,IDIAG,ndens)
-               ENDIF
-            ENDIF
+ctc   They were here - 12.01.2011
 
 *           Multiply WT(JI,K1) and WT(JF,K2) and save it in a vector
 *           WTJIJF(K)
