@@ -54,11 +54,11 @@ cpm*|dhcp*|Thomas*)
 export ATSP=$(pwd)
 export FC_MALLOC="LINUX"                     
 
-export ARCH="-arch i386"                    # Flags giving the architecture
+export ARCH=""                    # Flags giving the architecture
 export FC="gfortran"
 
 export FC_FLAGS="-O2 -fno-automatic -fcray-pointer -fno-align-commons  -std=legacy ${ARCH}" # for gfortran (-fno-automatic ~ -Msave)
-export FC_LD="-Bstatic ${ARCH}"             # Serial linker flags
+export FC_LD="${ARCH}"             # Serial linker flags
 
 export FC_MPI="mpif90"                     # MPI compiler
 export FC_MPIFLAGS="-fno-automatic -O2"
