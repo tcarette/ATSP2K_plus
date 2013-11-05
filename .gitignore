@@ -1,0 +1,6 @@
+/bin/
+/lib/
+*.err
+.*.swp
+*.o
+*.mod
