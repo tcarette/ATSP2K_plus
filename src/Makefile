@@ -3,7 +3,7 @@
 TARGETS= install 
 #SUBDIRS= lib appl util
 #SUBDIRS= appl util
-SUBDIRS= lib appl util
+SUBDIRS= lib appl # util
 #SUBDIRS= util
 #SUBDIRS= appl
 MKDIR = ${ATSP} ${ATSP}/bin ${ATSP}/lib

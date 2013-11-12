@@ -61,7 +61,7 @@ OBJ = ${SYSO} bp_eiv.o brci_eig.o  advance.o alcmat.o \
 install : $(EXE)
 $(EXE): $(OBJ)
 	$(FC) -o $(EXE) $(FC_LD)  \
-                $(OBJ) -L$(LIBDIR) $(LIB) -L ${LAPACK_DIR} ${LAPACK_LIB}
+                $(OBJ) -L$(LIBDIR) $(LIB) ${LAPACK_DIR} ${LAPACK_LIB}
 backup:
 	tar -cvf $(TAR) *.f Makefile
 	mv $(TAR) ../../backup

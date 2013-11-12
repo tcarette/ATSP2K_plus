@@ -78,11 +78,11 @@ install: $(EXE) ${HDSK}
 
 $(EXE) : $(OBRCA)
 	$(FC) -o $(EXE) $(FC_LD) -L$(LIBDIR) $(OBRCA)   \
-	$(LIB_ANG_COM) -L ${LAPACK_DIR} ${LAPACK_LIB}
+	$(LIB_ANG_COM) ${LAPACK_DIR} ${LAPACK_LIB}
 
 $(HDSK) : $(OBRCA_d)
 	$(FC) -o $(HDSK) $(FC_LD)  -L$(LIBDIR) $(OBRCA_d)   \
-	$(LIB_ANG_COM) -L ${LAPACK_DIR} ${LAPACK_LIB}
+	$(LIB_ANG_COM) ${LAPACK_DIR} ${LAPACK_LIB}
 
 #$(LIBDIR)/libang.a $(LIBDIR)/libcom.a
 backup: 
