@@ -5,7 +5,7 @@ LIBOBJ = $(COMOBJ) $(DYNOBJ) $(SCIOBJ) $(BLASOBJ) $(LINPACK)
 # object files for library 'com'
 
 COMOBJ = \
-  func.o acurat.o bwint.o ca.o cb.o eptr.o factrl.o fk.o gk.o \
+  acurat.o bwint.o ca.o cb.o eptr.o factrl.o fk.o gk.o \
   gracah.o hnorm.o hwf.o inita.o initr.o intact.o lineqn.o \
   lval.o pack.o qsort.o reform.o rme.o sn.o symmeq.o \
   uk.o vk.o zcb.o dfill.o ifill.o
