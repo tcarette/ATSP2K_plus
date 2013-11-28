@@ -24,7 +24,7 @@ install : $(EXE)
 
 $(EXE): $(OBJ)
 	$(FC_MPI) -o $(EXE) $(FC_MPILD)   \
-                $(OBJ) -L$(LIBDIR) $(LIB) -L ${LAPACK_DIR} ${LAPACK_LIB}
+                $(OBJ) -L$(LIBDIR) $(LIB) ${LAPACK_DIR} ${LAPACK_LIB}
 
 archive:
 	tar -cvf $(TAR) *.f Makefile

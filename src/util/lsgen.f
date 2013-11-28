@@ -2024,7 +2024,7 @@ C     write(*,*) 'cf =',cf
       logical function Block(rank,pos,nr,maskal,ny,lika)
       integer noofco
 Ctc   parameter (noofco=200000)
-      parameter (noofco=1000000)
+      parameter (noofco=2100000)
       integer rank(0:noofco,0:10,15),pos(0:noofco),maskal
       integer i,j,ytter,nasta,denna,ant
       logical ny,lika(8)
@@ -2063,7 +2063,7 @@ C     endif
       subroutine Bubbla(rank,pos,antal,maskal,nmax,lmax,opt)
       integer    noofco
 Ctc   parameter (noofco=200000)
-      parameter (noofco=1000000)
+      parameter (noofco=2100000)
       integer    rank(0:noofco,0:10,15),antal,pos(0:noofco),maskal,
      :           nmax,lmax
       logical    opt
@@ -2125,7 +2125,7 @@ Ctc   parameter (noofco=200000)
       logical function Change(rank,pos,nr,maskal,nmax,lmax,opt)
       integer noofco
 Ctc   parameter (noofco=200000)
-      parameter (noofco=1000000)
+      parameter (noofco=2100000)
       integer rank(0:noofco,0:10,15),antal,pos(0:noofco),maskal,nmax
       integer lmax
       logical opt
@@ -2927,7 +2927,7 @@ Ctc   parameter (noofco=200000)
       subroutine Koda(rad1,rad2,rank,antal,maskal,nmax,lmax,opt)
       integer    noofco
 Ctc   parameter (noofco=200000)
-      parameter (noofco=1000000)
+      parameter (noofco=2100000)
       character  rad1(0:noofco)*64,rad2(0:noofco)*60,L(0:20),orb(0:10)
       integer    rank(0:noofco,0:10,15),antal,maskal,nmax,lmax
       logical    opt
@@ -3026,7 +3026,7 @@ Ctc   parameter (noofco=200000)
       logical function Kolla(rank,nr,maskal)
       integer noofco
 Ctc   parameter (noofco=200000)
-      parameter (noofco=1000000)
+      parameter (noofco=2100000)
       integer rank(0:noofco,0:10,15),maskal
       integer i,j,nr
 
@@ -3085,7 +3085,7 @@ Ctc   parameter (noofco=200000)
       subroutine Lasa(rad1,rad2,antal)
       integer noofco
 Ctc   parameter (noofco=200000)
-      parameter (noofco=1000000)
+      parameter (noofco=2100000)
       character rad1(0:noofco)*64,rad2(0:noofco)*60
       integer antal
 
@@ -4447,7 +4447,7 @@ Ctc   parameter (noofco=200000)
       subroutine Skifta(pos,nr)
       integer    noofco
 Ctc   parameter (noofco=200000)
-      parameter (noofco=1000000)
+      parameter (noofco=2100000)
       integer    pos(0:noofco),nr,temp
 
       temp       = pos(nr)
@@ -4460,7 +4460,7 @@ Ctc   parameter (noofco=200000)
       subroutine Skriva(rad1,rad2,rank,pos,antal,maskal,opt)
       integer    noofco
 Ctc   parameter (noofco=200000)
-      parameter (noofco=1000000)
+      parameter (noofco=2100000)
       character  rad1(0:noofco)*64,rad2(0:noofco)*60,ref*64,
      f           reffa(noofco)*64
       integer    rank(0:noofco,4,15),antal,pos(0:noofco),i,j,k,no,
@@ -4609,7 +4609,7 @@ Ctc   parameter (noofco=200000)
       subroutine Sort(opt)
       integer    noofco
 Ctc   parameter (noofco=200000)
-      parameter (noofco=1000000)
+      parameter (noofco=2100000)
       logical opt
       character  rad1(0:noofco)*64,rad2(0:noofco)*60
       integer    rank(0:noofco,0:10,15),antal,pos(0:noofco),maskal,

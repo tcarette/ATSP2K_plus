@@ -23,7 +23,7 @@ c      INTEGER PTR                 ! DEC and CRAY require ?
       pointer (PTR,ptrdummy)
       INTEGER NMLOCS, LENGTH
       INTEGER*8 NBYTES
-      INTEGER*8 MALLOC,MMM
+      INTEGER*8 MALLOC
 c
 *
 *   Compute the size of the memory region in bytes; this is retained for
@@ -56,9 +56,7 @@ cgd   NBYTES = NMLOCS*LENGTH
 
 ! Choose one from above
 
-cgd      PTR = MALLOC (NBYTES)                ! SUN & DEC
-cgd      print *,'alloc ',nbytes
-         PTR = MMM (NBYTES)                ! SUN & DEC
+         PTR = MALLOC (NBYTES)                ! SUN & DEC
          IF (PTR .EQ. 0) THEN
 
 !~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

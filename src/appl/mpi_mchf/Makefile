@@ -30,7 +30,7 @@ install: de.o $(MSM)
 
 $(MSM):  $(USPOBJ) 
 	$(FC_MPI) -o $(MSM) ${FC_MPILD}  \
-                  -L$(LIBDIR) $(USPOBJ) $(RAD_COM) -L ${LAPACK_DIR} ${LAPACK_LIB}
+                  -L$(LIBDIR) $(USPOBJ) $(RAD_COM) ${LAPACK_DIR} ${LAPACK_LIB}
 
 
 clean:

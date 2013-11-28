@@ -23,9 +23,9 @@ TARGETS= install
 SUBDIRS= nonh mchf lsreduce hfs
 #SUBDIRS= bpci
 #SUBDIRS= bp_eiv bp_ang bp_mat mpi_bp_ang mpi_bp_eiv mpi_bp_mat
-#SUBDIRS= bp_eiv bp_ang bp_mat bpci hfs iso lsreduce mchf nonh trans biotr \
-#         mpi_bp_ang mpi_bp_eiv mpi_bp_mat mpi_mchf \
-#         mpi_nonh mchf_iso
+SUBDIRS= bp_eiv bp_ang bp_mat bpci hfs iso lsreduce mchf nonh trans biotr \
+         mpi_bp_ang mpi_bp_eiv mpi_bp_mat mpi_mchf \
+         mpi_nonh mchf_iso
 
 
 $(TARGETS): $(SUBDIRS)
