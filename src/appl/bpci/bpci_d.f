@@ -263,8 +263,12 @@
 	if (idisk .eq. 1) iouhm = iouhn
       else
 	iLS = 0
-	if (idisk .eq. 1)
-     :         open(iouhm,status='scratch',form='unformatted')
+*  Not enough space on tmp disk of hydra@ulb 23/08/2010
+*       if (idisk .eq. 1)
+*     :         open(iouhm,status='scratch',form='unformatted')
+        if (idisk .eq. 1)
+     :         open(iouhm,STATUS='unknown',form='unformatted')
+*
       end if
       ij = 1
       do 100 j = maxj, minj,-2
