@@ -5,7 +5,7 @@
 *
       SUBROUTINE PRPRTY(ieigval,iblock,coef_tmp,size,SS)
       IMPLICIT double precision (A-H,O-Z)
-      PARAMETER (NWD=70,NWC=20,NOD=220,NOFFD=800)
+      PARAMETER (NWD=94,NWC=20,NOD=220,NOFFD=800)
       parameter(MEIG=20,MTERM=20)
       COMMON/PARAM/  H,H1,H3,CH,EH,RHO,Z,TOL,NO,ND,NWF,MASS,
      :                NCFG,IB,IC,ID,

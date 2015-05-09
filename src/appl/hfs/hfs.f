@@ -28,13 +28,13 @@
 *=======================================================================    
 *
 *     The current limits are:
-*     max nwd=70 different orbitals
+*     max nwd=94 different orbitals
 
       PROGRAM HFS 
 
       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
       EXTERNAL INITT
-      PARAMETER (EPSILO=1.D-9,NWD=70)
+      PARAMETER (EPSILO=1.D-9,NWD=94)
       CHARACTER*24 NAME(6)
       CHARACTER ANS*1,IEM(4)*2
       INTEGER SS,SS1,SS2
@@ -249,6 +249,7 @@ Cww      OPEN(UNIT=ISC(1), FILE=NAME(5),STATUS='UNKNOWN')
       CALL LSJ(QNOC,QJ1,NR,LL1,SS1,JJ1MAX,JJ1MIN)
       CALL LSJ(QNOC,QJ1,NR,LL2,SS2,JJ2MAX,JJ2MIN)
       CALL LSJFACT(NR,NR,NJQ,IDIAG,ndens)
+
       DO 60 K=1,NJQ
          ORBF1(K)=ORBF(K)
          DIPF1(K)=DIPF(K)
@@ -288,11 +289,11 @@ Cww      OPEN(UNIT=ISC(1), FILE=NAME(5),STATUS='UNKNOWN')
 
       INCFG=NCFG
       DO 70 JI=1,NCFG
-         JA=JI
+	 JA=JI
          IF(MOD(JI,10).EQ.0) WRITE(*,*) '   ja =',JI
          IF (IMCHF.LT.3.OR.IDIAG.EQ.1) INCFG=JI
          DO 80 JF=1,INCFG
-            JB=JF
+	    JB=JF
             ID=0
             IF ((IMCHF.LT.3.OR.IDIAG.EQ.1).AND.(JI.NE.JF)) ID=1
             NOVLPS=0
@@ -310,7 +311,9 @@ ctc b The lines below have moved (see l349) - 12.01.2011
 
             IF (IMCHF.EQ.3) THEN
                CALL LSJ(QNOC,QJ1,JI,LL1,SS1,JJ1MAX,JJ1MIN)
+ctc d            write(*,*) JI, LL1, SS1, JJ1MAX, JJ1MIN
                CALL LSJ(QNOC,QJ1,JF,LL2,SS2,JJ2MAX,JJ2MIN)
+ctc d            write(*,*) JI, LL2, SS2, JJ2MAX, JJ2MIN
                IF (LL1.EQ.LL.AND.LL2.EQ.LL.AND.SS1.EQ.SS.AND.SS2.EQ.SS) 
      :         THEN
                   DO 90 K=1,NJQ
@@ -324,8 +327,6 @@ ctc b The lines below have moved (see l349) - 12.01.2011
                   CALL LSJFACT(JI,JF,NJQ,IDIAG,ndens)
                ENDIF
             ENDIF
-
-
 ctc e
 Cww Change 10.6 96
             CALL MULTWT(JI,JF,IMCHF,IDIAG,WTJIJF)

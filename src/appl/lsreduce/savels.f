@@ -48,7 +48,7 @@ ctc      PARAMETER (LSDIM=30000)
          END IF
 ctc  NWD limited to 63
 ctc         IPACK = (K*64 + II2)*64 + II4
-         IPACK = (K*71 + II2)*71 + II4
+         IPACK = (K*95 + II2)*95 + II4
 ctc
          CN(n) = C
          INPTR(n) = isearch(icase,ipack,qpackn,qlused,qintptr,lmax)
@@ -97,7 +97,7 @@ c@
 
 ctc  NWD limited to 63
 ctc50       IPACK = (((K*64+II1)*64+II2)*64+II3)*64+II4
-50       IPACK = (((K*71+II1)*71+II2)*71+II3)*71+II4
+50       IPACK = (((K*95+II1)*95+II2)*95+II3)*95+II4
 ctc
          CN(n) = C
          INPTR(n) = isearch(icase,ipack,qpackn,qlused,qintptr,lmax)

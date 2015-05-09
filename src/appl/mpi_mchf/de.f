@@ -26,7 +26,7 @@
       SUBROUTINE DE(I1,ivar)
         IMPLICIT DOUBLE PRECISION(A-H,O-Z)
 *
-        PARAMETER (NWD=70,NOD=220,NOFFD=800,NODD=100)
+        PARAMETER (NWD=94,NOD=220,NOFFD=800,NODD=100)
         INTEGER ivar(NWD)
 *
 Ctc 19/03/2008 : crash of large calculations on several nodes of hydra@ulb

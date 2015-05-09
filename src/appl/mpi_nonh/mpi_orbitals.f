@@ -10,7 +10,7 @@
 *
       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
 *     IMPLICIT INTEGER (Q)
-      PARAMETER (NWD=70,NWCD=20,LSDIM=30000)
+      PARAMETER (NWD=94,NWCD=20,LSDIM=30000)
         INCLUDE 'mpif.h'
         parameter (MAXPROC=100)
         common /MPI/ myid, nprocs, ierr, istat(MPI_STATUS_SIZE)

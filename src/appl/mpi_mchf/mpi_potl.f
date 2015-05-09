@@ -10,7 +10,7 @@ C                   j,k   ijk
 C
         SUBROUTINE POTL(I)
         IMPLICIT DOUBLE PRECISION(A-H,O-Z)
-        PARAMETER (NWD=70,NOD=220,NOFFD=1600)
+        PARAMETER (NWD=94,NOD=220,NOFFD=1600)
 *
 *     MPI stuff ***********************************************
 *

@@ -110,7 +110,7 @@
                 n = n+1
 ctc  NWD limited to 63
 ctc                ipackn(n) = (k*64 + i2)*64 + i4
-                ipackn(n) = (k*71 + i2)*71 + i4
+                ipackn(n) = (k*95 + i2)*95 + i4
 ctc
               end if
             end do
@@ -129,7 +129,7 @@ ctc
                 n = n+1
 ctc  NWD limited to 63
 ctc                ipackn(n) = (k*64 + i2)*64 + i4
-                ipackn(n) = (k*71 + i2)*71 + i4
+                ipackn(n) = (k*95 + i2)*95 + i4
 ctc
               end if
             end do
@@ -156,7 +156,7 @@ ctc
                       n = n+1
 ctc  NWD limited to 63
 ctc                      ipackn(n) = (((k*64+i1)*64+i2)*64+i3)*64+i4
-                      ipackn(n) = (((k*71+i1)*71+i2)*71+i3)*71+i4
+                      ipackn(n) = (((k*95+i1)*95+i2)*95+i3)*95+i4
 ctc
                     end if
                   end do
@@ -177,7 +177,7 @@ ctc
               n = n+1
 ctc  NWD limited to 63
 ctc              ipackn(n) = i2*64 + i4
-              ipackn(n) = i2*71 + i4
+              ipackn(n) = i2*95 + i4
 ctc
             end if
           end do

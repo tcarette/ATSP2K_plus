@@ -14,7 +14,7 @@
       parameter (MAXPROC=100)
       common /MPI/ myid, nprocs, ierr, istat(MPI_STATUS_SIZE)
 *
-      PARAMETER (NWD=70,NWC=20,NOD=220,NOFFD=800,MTERM=20,MEIG=20)
+      PARAMETER (NWD=94,NWC=20,NOD=220,NOFFD=800,MTERM=20,MEIG=20)
       DIMENSION IVAR(NWD)
 *
       CHARACTER     EL*3,ATOM*6,TERM*6, couple(15)*3

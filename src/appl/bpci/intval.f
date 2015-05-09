@@ -16,15 +16,16 @@
 *    :          icase,i1,i2,i3,i4,k
         klocal = k
 *       .. pack the data
+ctc  NWD limited to 63 > 94 (root 64 -> 95)
         if (icase.le.2) then
-          int = (klocal*64 + i2)*64 + i4
+          int = (klocal*95 + i2)*95 + i4
         else if (icase.eq.4 .or. icase.eq.5) then
-          int = i2*64 + i4
+          int = i2*95 + i4
         else
 CGG          if (icase .eq. 6 .or. icase .eq. 8) klocal = klocal+1
           if (icase .eq. 6 .or. icase .eq. 8 .or. icase .eq. 9) 
      :      klocal = klocal+1
-          int = (((klocal*64+I1)*64+I2)*64+I3)*64+I4
+          int = (((klocal*95+I1)*95+I2)*95+I3)*95+I4
         endif
 	n = isearch(icase,int,qpackn,qintptr,lmax)
 	intval = value(n)

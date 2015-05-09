@@ -5,7 +5,7 @@
 *
       SUBROUTINE ANGMOMG(NEW,NZERO,IFIRST)
       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
-      PARAMETER (NWD=70, NWCD=20)
+      PARAMETER (NWD=94, NWCD=20)
       PARAMETER (LSDIM=30000)
 *
       POINTER (qcn,cn(1)),(qinptr,inptr(lsdim)),(qpackn,ipackn(1)),

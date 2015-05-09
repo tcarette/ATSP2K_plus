@@ -5,7 +5,7 @@
 *
       SUBROUTINE CFGN1(NCLOSD)
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      PARAMETER (NWD=70,NWCD=20)
+      PARAMETER (NWD=94,NWCD=20)
 *
 *       Read the configurations for a state and determine the
 *       non-orthogonal orbitals

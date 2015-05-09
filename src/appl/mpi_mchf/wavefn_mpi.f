@@ -19,7 +19,7 @@
       SUBROUTINE WAVEFN
         IMPLICIT DOUBLE PRECISION(A-H,O-Z)
 *
-        PARAMETER (NWD=70,NOD=220,NOFFD=800, MTERM=20,MEIG=20)
+        PARAMETER (NWD=94,NOD=220,NOFFD=800, MTERM=20,MEIG=20)
 *
 *     MPI stuff ***********************************************
 *

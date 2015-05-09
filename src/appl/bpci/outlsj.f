@@ -76,20 +76,34 @@
 *          Unpack electron data
 *
            K = IPACK(IPT(J))
-           I4 = MOD(K,64)
-           K = K/64
+ctc  NWD limited to 63 > 94
+ctc           I4 = MOD(K,64)
+ctc           K = K/64
+           I4 = MOD(K,95)
+           K = K/95
+ctc
+ctc  NWD limited to 63 > 94
            IF (ICASE.LE.2 .OR. ICASE.EQ.4 .OR. ICASE.EQ.5) THEN
-             I2 = MOD(K,64)
-             K = K/64
+ctc             I2 = MOD(K,64)
+ctc             K = K/64
+             I2 = MOD(K,95)
+             K = K/95
            ELSE
-              I3 = MOD(K,64)
-              K = K/64
-              I2 = MOD(K,64)
-              K = K/64
-              I1 = MOD(K,64)
-              K = K/64
+ctc              I3 = MOD(K,64)
+ctc              K = K/64
+ctc              I2 = MOD(K,64)
+ctc              K = K/64
+ctc              I1 = MOD(K,64)
+ctc              K = K/64
+              I3 = MOD(K,95)
+              K = K/95
+              I2 = MOD(K,95)
+              K = K/95
+              I1 = MOD(K,95)
+              K = K/95
               IF (ICASE .GT. 5) K = K - 1
            END IF
+ctc
 *
 *           Find  last item in the list with this integral
 *

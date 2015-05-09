@@ -8,7 +8,7 @@
       subroutine eig_out(iblock,wt,e,z,isom_shift)
       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
 *
-        PARAMETER (NWD=70,NOD=220,NOFFD=800)
+        PARAMETER (NWD=94,NOD=220,NOFFD=800)
         parameter (MTERM=20, MEIG=20)
 *
       character string*64

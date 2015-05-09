@@ -1,7 +1,7 @@
         SUBROUTINE UPDATE(tmp)
         IMPLICIT DOUBLE PRECISION(A-H,O-Z)
 *
-        PARAMETER (NWD=70,NOD=220,NOFFD=800)
+        PARAMETER (NWD=94,NOD=220,NOFFD=800)
 *
         INCLUDE 'mpif.h'
         parameter (MAXPROC=100)

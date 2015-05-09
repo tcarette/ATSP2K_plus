@@ -15,7 +15,7 @@
      :                  onlydvd,jhere,lhere,iounew,leigen)
 *	WITH RESTARTING
       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
-      PARAMETER(NOD=220,NTERMD=31,NWD=60)
+      PARAMETER(NOD=220,NTERMD=31,NWD=94)
       LOGICAL  SKIP
       logical onlydvd,jhere,lhere
       logical leigen(ntermd)

@@ -26,9 +26,15 @@
       end if
       k = int
       if (jcase.le.2 .or. jcase.eq.4 .or. jcase.eq.5) then
-        k = k/64/64
+ctc  NWD limited to 63 > 94
+ctc        k = k/64/64
+        k = k/95/95
+ctc
       else if (jcase .eq. 3 .or. jcase .gt. 5) then
-        k = k/64/64/64/64
+ctc  NWD limited to 63 > 94
+ctc        k = k/64/64/64/64
+        k = k/95/95/95/95
+ctc
       end if
 
 *     Find range of integral to search

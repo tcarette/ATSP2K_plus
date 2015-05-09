@@ -38,7 +38,7 @@ Ctc 19/03/2008 : crash of large calculations on several nodes of hydra@ulb
         common /MPI/ myid, nprocs, ierr, istat(MPI_STATUS_SIZE)
 Ctc
 *
-        PARAMETER (NWD=70,NOD=220,NOFFD=800)
+        PARAMETER (NWD=94,NOD=220,NOFFD=800)
 *
         CHARACTER EL*3,ATOM*6,TERM*6
         INTEGER       IN,OUT,PRI,OUC,OUF,OUH,OUD

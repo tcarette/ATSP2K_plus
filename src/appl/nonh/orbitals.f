@@ -9,7 +9,7 @@
 *       Process the lists of closed shells, orbitals and set parameters
 *
       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
-      PARAMETER (NWD=70,NWCD=20,LSDIM=30000)
+      PARAMETER (NWD=94,NWCD=20,LSDIM=30000)
       POINTER(QIAJCMP,IAJCMP(1)),(QLJCOMP,LJCOMP(1)),
      :       (QNJCOMP,NJCOMP(1)),(QIAJCLD,IAJCLD(1)),
      :       (QLJCLSD,LJCLSD(1))

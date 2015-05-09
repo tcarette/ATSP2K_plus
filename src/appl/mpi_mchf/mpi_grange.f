@@ -21,7 +21,7 @@
       SUBROUTINE GRANGE(ivar)
         IMPLICIT DOUBLE PRECISION(A-H,O-Z)
 *
-        PARAMETER (NWD=70,NOD=220,NOFFD=1600,NODD=100)
+        PARAMETER (NWD=94,NOD=220,NOFFD=1600,NODD=100)
         INTEGER ivar(NWD)
 *
 *     MPI stuff ***********************************************

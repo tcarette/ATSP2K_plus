@@ -31,8 +31,18 @@ Cper     IF (JJ.EQ.0) GO TO 10
                K1=(JJMAX-JJ)/2+1
             ENDIF
             WTJIJF(NJQ)=WT(K1,JI)*WT(K1,JF)
+ctc i d
+*            write(*,*) K1, JJ, JJMAX, JI, JF
+*            write(*,*) JJ1MAX, JJ1MIN, JJ2MAX, JJ2MIN
+*            write(*,*) WT(K1,JI), WT(K1,JF), WTJIJF(NJQ)
+ctc f d
          ELSE
             WTJIJF(NJQ)=0.D0
+ctc i d
+*            write(*,*) K1, JJ, JI, JF
+*            write(*,*) JJ1MAX, JJ1MIN, JJ2MAX, JJ2MIN
+*            write(*,*) 'hellow'
+ctc f d
          ENDIF
 
 *        J'=J-1

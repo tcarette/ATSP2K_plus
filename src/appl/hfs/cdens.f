@@ -7,7 +7,7 @@
 
       SUBROUTINE cdens(ireadw,corden)
       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
-      PARAMETER (NOD=220,NWD=70)
+      PARAMETER (NOD=220,NWD=94)
       CHARACTER EL(NWD)*3,ATOM*6,TERM*6
       dimension az(nwd),p(nod,nwd),n(nwd),l(nwd)
 

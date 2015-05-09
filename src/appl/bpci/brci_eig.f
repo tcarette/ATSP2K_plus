@@ -8,7 +8,7 @@
       subroutine brci_eig(ncfg,iblock,nume,leigen,wt,Ssms,g_J,g_JLS,
      :                     eigval,EC,shift,iouv,iuc)
       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
-      PARAMETER (NWD=60,NOD=220,NOFFD=800)
+      PARAMETER (NWD=94,NOD=220,NOFFD=800)
       parameter (MTERM=31, MEIG=31)
       character string*64
       CHARACTER EL*3,ATOM*6,TERMs(MTERM)*6

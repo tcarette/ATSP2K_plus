@@ -10,7 +10,7 @@
       parameter (MAXPROC=100)
       common /MPI/ myid, nprocs, ierr, istat(MPI_STATUS_SIZE)
 *
-        PARAMETER (NWD=70,NOD=220,NOFFD=800)
+        PARAMETER (NWD=94,NOD=220,NOFFD=800)
         PARAMETER(MEIG=20,MTERM=20)
 *
         CHARACTER EL*3,ATOM*6,TERM*6

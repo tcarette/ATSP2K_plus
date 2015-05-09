@@ -6,7 +6,7 @@
       SUBROUTINE READW(rel,ec,nnel,skip,onlydvd,iounew)
 *	WITH RESTARTING
       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
-      PARAMETER(NWD=60,NOD=220)
+      PARAMETER(NWD=80,NOD=220)
 	logical onlydvd
 *     .. breit commons
       POINTER(QIAJCMP,IAJCMP(1)),(QLJCOMP,LJCOMP(1)),

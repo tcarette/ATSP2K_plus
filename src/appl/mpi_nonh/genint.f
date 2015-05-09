@@ -110,7 +110,10 @@ C                    omit = (i3-i1)+(i4-i2) .eq. 0
               l4 = l(i4)
               if (ltriang(k,l2,l2) .and. ltriang(k,l4,l4)) then
                 n = n+1
-                ipackn(n) = (k*64 + i2)*64 + i4
+ctc  NWD limited to 63 > 94
+ctc                ipackn(n) = (k*64 + i2)*64 + i4
+                ipackn(n) = (k*95 + i2)*95 + i4
+ctc
 C                write (*,*) 'ipack',ipackn(n)
               end if
             end do
@@ -128,7 +131,10 @@ C          write (*,*) k,intptr(k,1)
               l4 = l(i4)
               if (ltriang(k,l2,l4) ) then
                 n = n+1
-                ipackn(n) = (k*64 + i2)*64 + i4
+ctc  NWD limited to 63 > 94
+ctc                ipackn(n) = (k*64 + i2)*64 + i4
+                ipackn(n) = (k*95 + i2)*95 + i4
+ctc
 C                write (*,*) 'ipack',ipackn(n)
               end if
             end do
@@ -155,7 +161,10 @@ C                    omit = (i3-i1)+(i4-i2) .eq. 0
      :                     (i1.eq.i3.and.i2.eq.i4)
                     if ( .not. omit .and. ltriang(k,l2,l4) ) then
                       n = n+1
-                      ipackn(n) = (((k*64+i1)*64+i2)*64+i3)*64+i4
+ctc  NWD limited to 63 > 94
+ctc                      ipackn(n) = (((k*64+i1)*64+i2)*64+i3)*64+i4
+                      ipackn(n) = (((k*95+i1)*95+i2)*95+i3)*95+i4
+ctc
 C                       write (*,*) 'ipack',ipackn(n)
                     end if
                   end do
@@ -175,7 +184,10 @@ C          write (*,*) k,intptr(k,3)
             l4 = l(i4)
             if (l2 .eq. l4) then
               n = n+1
-              ipackn(n) = i2*64 + i4
+ctc  NWD limited to 63 > 94
+ctc              ipackn(n) = i2*64 + i4
+              ipackn(n) = i2*95 + i4
+ctc
 C                write (*,*) 'ipack',ipackn(n)
             end if
           end do

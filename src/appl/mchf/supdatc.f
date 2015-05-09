@@ -9,7 +9,7 @@
       SUBROUTINE UPDATC_memory_all(iblock,wt,ncfg,maxev,jptr,ihh,ico,
      :           eigst_weight,max_col,nijcurr,cf_tot,last,isom_shift)
       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
-      PARAMETER (NWD=70,NWC=20,NOD=220,NOFFD=800)
+      PARAMETER (NWD=94,NWC=20,NOD=220,NOFFD=800)
       parameter(MEIG=20,MTERM=20)
       POINTER (pkval,kval(1)),(pcoef,coef(1)),(pih,ih(1)),(pjh,jh(1)),
      :     (pcoeff,coeff(1)),(pnijptr,nijptr(1)),(pinptr,inptr(1))
@@ -142,7 +142,7 @@ ctc
      :        eigst_weight,max_col,nijcurr,last,isom_shift)
 cgd  :        eigst_weight,max_col,nijcurr,cf_tot,last,isom_shift)
       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
-      PARAMETER (NWD=70,NWC=20,NOD=220,NOFFD=800)
+      PARAMETER (NWD=94,NWC=20,NOD=220,NOFFD=800)
       parameter(MEIG=20,MTERM=20)
       POINTER (pkval,kval(1)),(pcoef,coef(1)),(pih,ih(1)),(pjh,jh(1)),
      :  (pcoeff,coeff(1)),(pnijptr,nijptr(1)),(pinptr,inptr(1))
@@ -266,7 +266,7 @@ cgd   integer ico(nze_max(iblock))
       SUBROUTINE UPDATC_disk_clst(iblock,wt,ncfg,maxev,jptr,ihh,ico,
      :          eigst_weight,max_col,nijcurr,cf_tot,last,isom_shift)
       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
-      PARAMETER (NWD=70,NWC=20,NOD=220,NOFFD=800)
+      PARAMETER (NWD=94,NWC=20,NOD=220,NOFFD=800)
       parameter(MEIG=20,MTERM=20)
       POINTER (pkval,kval(1)),(pcoef,coef(1)),(pih,ih(1)),(pjh,jh(1)),
      :   (pcoeff,coeff(1)),(pnijptr,nijptr(1)),(pinptr,inptr(1))
@@ -381,7 +381,7 @@ cgd   integer ico(nze_max(iblock))
       SUBROUTINE UPDATC_disk_ih(iblock,wt,ncfg,maxev,jptr,ihh,
      :          eigst_weight,max_col,nijcurr,last,isom_shift)
       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
-      PARAMETER (NWD=70,NWC=20,NOD=220,NOFFD=800)
+      PARAMETER (NWD=94,NWC=20,NOD=220,NOFFD=800)
       parameter(MEIG=20,MTERM=20)
       POINTER (pkval,kval(1)),(pcoef,coef(1)),(pih,ih(1)),(pjh,jh(1)),
      :  (pcoeff,coeff(1)),(pnijptr,nijptr(1)),(pinptr,inptr(1))

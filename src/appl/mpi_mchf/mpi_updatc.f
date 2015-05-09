@@ -9,7 +9,7 @@
       SUBROUTINE UPDATC_memory(iblock,wt,ncfg,maxev,jptr,ihh,ico,
      :    eigst_weight,tmp,max_col,nijcurr,cf_tot,last,isom_shift)
       IMPLICIT  double precision(A-H,O-Z)
-      PARAMETER (NWD=70,NWC=20,NOD=220,NOFFD=800)
+      PARAMETER (NWD=94,NWC=20,NOD=220,NOFFD=800)
       parameter(MEIG=20,MTERM=20)
 *
 *     MPI stuff ***********************************************
@@ -173,7 +173,7 @@
      :         eigst_weight,tmp,max_col,nijcurr,last,isom_shift)
 
       IMPLICIT  double precision(A-H,O-Z)
-      PARAMETER (NWD=70,NWC=20,NOD=220,NOFFD=800)
+      PARAMETER (NWD=94,NWC=20,NOD=220,NOFFD=800)
       parameter(MEIG=20,MTERM=20)
 *
 *     MPI stuff ***********************************************

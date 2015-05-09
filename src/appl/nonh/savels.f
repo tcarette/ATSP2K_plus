@@ -39,7 +39,10 @@
             II2 = I2
             II4 = I4
          END IF
-         IPACK = (K*64 + II2)*64 + II4
+ctc  NWD limited to 63
+ctc         IPACK = (K*64 + II2)*64 + II4
+         IPACK = (K*95 + II2)*95 + II4
+ctc
          CN(n) = C
          INPTR(n) = isearch(icase,ipack,qpackn,qlused,qintptr,lmax)
          nijptr(n) = nij + 1
@@ -84,8 +87,10 @@ c@
          II2 = I3
          II3 = I2
          II4 = I1
-
-50       IPACK = (((K*64+II1)*64+II2)*64+II3)*64+II4
+ctc  NWD limited to 63
+ctc50       IPACK = (((K*64+II1)*64+II2)*64+II3)*64+II4
+50       IPACK = (((K*95+II1)*95+II2)*95+II3)*95+II4
+ctc
          CN(n) = C
          INPTR(n) = isearch(icase,ipack,qpackn,qlused,qintptr,lmax)
          NIJPTR(n) = nij + 1

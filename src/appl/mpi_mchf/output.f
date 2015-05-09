@@ -10,7 +10,7 @@
 *
       SUBROUTINE OUTPUT(PRINT)
         IMPLICIT DOUBLE PRECISION(A-H,O-Z)
-        PARAMETER (NWD=70,NOD=220,NOFFD=800)
+        PARAMETER (NWD=94,NOD=220,NOFFD=800)
 *
 Ctc 19/03/2008 : crash of large calculations on several nodes of hydra@ulb
         include 'mpif.h'

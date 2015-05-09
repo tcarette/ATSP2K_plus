@@ -36,7 +36,10 @@ C >>>>  The hlc routine requires an array of electron labels
               if (ltriang(k,l2,l2) .and. ltriang(k,l4,l4)) then
                 n = n+1
 		if (gen) then
-                  ipackn(n) = (k*64 + i2)*64 + i4
+ctc  NWD limited to 63 > 94
+ctc                  ipackn(n) = (k*64 + i2)*64 + i4
+                  ipackn(n) = (k*95 + i2)*95 + i4
+ctc
 		  j2 = i2+nclosd
 		  j4 = i4+nclosd
 CGG		  value(n) = fk(j2,j4,k,rel)
@@ -63,7 +66,10 @@ C           write (*,*) k,intptr(k,1)
               if (ltriang(k,l2,l4) ) then
                 n = n+1
 		if (gen) then
-                  ipackn(n) = (k*64 + i2)*64 + i4
+ctc  NWD limited to 63 > 94
+ctc                  ipackn(n) = (k*64 + i2)*64 + i4
+                  ipackn(n) = (k*95 + i2)*95 + i4
+ctc
 		  j2 = i2+nclosd
 		  j4 = i4+nclosd
 C		  value(n) = gk(j2,j4,k,rel)
@@ -98,7 +104,10 @@ C           write (*,*) k,intptr(k,2)
                     if ( .not. omit .and. ltriang(k,l2,l4) ) then
                       n = n+1
 		      if (gen) then
-                        ipackn(n) = (((k*64+i1)*64+i2)*64+i3)*64+i4
+ctc  NWD limited to 63 > 94
+ctc                        ipackn(n) = (((k*64+i1)*64+i2)*64+i3)*64+i4
+                        ipackn(n) = (((k*95+i1)*95+i2)*95+i3)*95+i4
+ctc
 			j1 = i1+nclosd
 			j2 = i2+nclosd
 			j3 = i3+nclosd
@@ -128,7 +137,10 @@ C           write (*,*) k,intptr(k,3)
             if (l2 .eq. l4) then
               n = n+1
 	      if (gen) then
-                ipackn(n) = i2*64 + i4
+ctc  NWD limited to 63 > 94
+ctc                ipackn(n) = i2*64 + i4
+                ipackn(n) = i2*95 + i4
+ctc
                 j1 = i2 + nclosd
                 j2 = i4 + nclosd
 		value(n) = hlc(el,j1,j2,rel)
@@ -156,7 +168,10 @@ C         write (*,*) 0,intptr(0,4)
             if (l2 .eq. l4 .and. l2 .gt. 0) then
               n = n+1
 	      if (gen) then
-                ipackn(n) = i2*64 + i4
+ctc  NWD limited to 63 > 94
+ctc                ipackn(n) = i2*64 + i4
+                ipackn(n) = i2*95 + i4
+ctc
 		j2 = i2+nclosd
 		j4 = i4+nclosd
 		value(n) = zeta(j2,j4)
@@ -197,7 +212,10 @@ C         write (*,*) 0,intptr(0,5)
                     if (ltriang(kk,l2,l4) .or.ltriang(kk+2,l2,l4)) then
                       n = n+1
 		      if (gen) then
-                        ipackn(n) = (((k*64+i1)*64+i2)*64+i3)*64+i4
+ctc  NWD limited to 63 > 94
+ctc                        ipackn(n) = (((k*64+i1)*64+i2)*64+i3)*64+i4
+                        ipackn(n) = (((k*95+i1)*95+i2)*95+i3)*95+i4
+ctc
 			j1 = i1+nclosd
 			j2 = i2+nclosd
 			j3 = i3+nclosd
@@ -234,7 +252,10 @@ C           write (*,*) k,intptr(k,6)
                     if ( ltriang(kp,l2,l4) ) then
                       n = n+1
 		      if (gen) then
-                        ipackn(n) = (((k*64+i1)*64+i2)*64+i3)*64+i4
+ctc  NWD limited to 63 > 94
+ctc                        ipackn(n) = (((k*64+i1)*64+i2)*64+i3)*64+i4
+                       ipackn(n) = (((k*95+i1)*95+i2)*95+i3)*95+i4
+ctc
 			j1 = i1+nclosd
 			j2 = i2+nclosd
 			j3 = i3+nclosd

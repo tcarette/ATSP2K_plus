@@ -32,7 +32,7 @@
       common /MPI/ myid, nprocs, ierr, istat(MPI_STATUS_SIZE)
 
 *
-        PARAMETER (NWD=70,NOD=220,NOFFD=800,meig=20,mterm=20)
+        PARAMETER (NWD=94,NOD=220,NOFFD=800,meig=20,mterm=20)
         DIMENSION IVAR(NWD)
 *
         CHARACTER EL*3,ATOM*6,TERM*6

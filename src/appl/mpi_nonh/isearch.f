@@ -15,9 +15,15 @@
 *     Find k
       k = int
       if (icase.le.2 .or. icase.eq.4 .or. icase.eq.5) then
-        k = k/64/64
+ctc  NWD limited to 63 > 94
+ctc        k = k/64/64
+        k = k/95/95
+ctc
       else if (icase .eq. 3 .or. icase .gt. 5) then
-        k = k/64/64/64/64
+ctc  NWD limited to 63 > 94
+ctc        k = k/64/64/64/64
+        k = k/95/95/95/95
+ctc
       end if
 *     Find range of integral to search
       if (k .eq. 0) then

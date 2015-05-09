@@ -24,7 +24,7 @@
 *
       PROGRAM snonh
       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
-      PARAMETER (NWCD=20,NBD=20,LSDIM=30000,NWD=70)
+      PARAMETER (NWCD=20,NBD=20,LSDIM=30000,NWD=94)
 
 *
 *     MPI stuff ***********************************************

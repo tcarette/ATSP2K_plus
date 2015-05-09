@@ -16,7 +16,7 @@
 *        Maxorb         - number of orther orbitals
 *        List(1:maxorb) - list of orbitals 
 *
-      PARAMETER (NWD=70, NBD=20)
+      PARAMETER (NWD=94, NBD=20)
       CHARACTER LIST(NWD)*3, LINE*72, OF(NWD)*3, EL(8)*3, LINEP*72
       INTEGER NBSIZE(NBD)
       POINTER(QAFTER,AFTER((NWD),1))
